@@ -1,2 +1,2 @@
-# TheTuringLab_mainProject_pathwayiq
+# TheTuringLab_mainProject_PathwayIQ
 pathwayiq_team28- Main_project
