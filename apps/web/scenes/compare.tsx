@@ -16,8 +16,8 @@ export default function CompareScene({
   const selectedCareers = selectedCareerIds.map((careerId) => CAREER_PROFILES[careerId]);
 
   return (
-    <section className="relative h-screen w-screen shrink-0 snap-start px-6 pb-36 pt-28">
-      <div className="mx-auto grid h-full max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+    <section className="relative h-screen w-screen shrink-0 snap-start overflow-y-auto px-6 pb-36 pt-28">
+      <div className="mx-auto grid min-h-full max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.3em] text-[#7dd3fc]">
             Scene 04
@@ -68,10 +68,15 @@ export default function CompareScene({
 
           <div className="grid gap-4 lg:grid-cols-2">
             {selectedCareers.map((career) => (
-              <div key={career.id} className="rounded-[28px] border border-white/10 bg-white/[0.07] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.2)]">
+              <div
+                key={career.id}
+                className="rounded-[28px] border border-white/10 bg-white/[0.07] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.2)]"
+              >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="text-sm uppercase tracking-[0.24em] text-[#7dd3fc]">{career.badge}</div>
+                    <div className="text-sm uppercase tracking-[0.24em] text-[#7dd3fc]">
+                      {career.badge}
+                    </div>
                     <div className="mt-2 text-2xl font-semibold text-white">
                       {career.icon} {career.title}
                     </div>
@@ -86,9 +91,15 @@ export default function CompareScene({
                 </div>
                 <div className="mt-4 text-3xl font-semibold text-[#8dd2ff]">{career.salary}</div>
                 <div className="mt-4 space-y-3 text-sm text-slate-300">
-                  <div>{career.stats[1].lbl}: {career.stats[1].val}</div>
-                  <div>{career.stats[2].lbl}: {career.stats[2].val}</div>
-                  <div>{career.stats[3].lbl}: {career.stats[3].val}</div>
+                  <div>
+                    {career.stats[1].lbl}: {career.stats[1].val}
+                  </div>
+                  <div>
+                    {career.stats[2].lbl}: {career.stats[2].val}
+                  </div>
+                  <div>
+                    {career.stats[3].lbl}: {career.stats[3].val}
+                  </div>
                 </div>
               </div>
             ))}

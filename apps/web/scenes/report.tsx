@@ -16,8 +16,8 @@ export default function ReportScene({
   const career = CAREER_PROFILES[careerId];
 
   return (
-    <section className="relative h-screen w-screen shrink-0 snap-start px-6 pb-36 pt-28">
-      <div className="mx-auto grid h-full max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+    <section className="relative h-screen w-screen shrink-0 snap-start overflow-y-auto px-6 pb-36 pt-28">
+      <div className="mx-auto grid min-h-full max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.3em] text-[#a5b4fc]">
             Scene 05

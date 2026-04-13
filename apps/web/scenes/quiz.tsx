@@ -12,8 +12,8 @@ export default function QuizScene({
   onExplore,
 }: QuizSceneProps) {
   return (
-    <section className="relative h-screen w-screen shrink-0 snap-start px-6 pb-36 pt-28">
-      <div className="mx-auto grid h-full max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+    <section className="relative h-screen w-screen shrink-0 snap-start overflow-y-auto px-6 pb-36 pt-28">
+      <div className="mx-auto grid min-h-full max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00c46a]">
             Scene 02

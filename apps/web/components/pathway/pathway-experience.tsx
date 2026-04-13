@@ -32,11 +32,10 @@ const SCENE_GLOWS = [
 
 const WALKER_VARIANTS: PathwayWalkerVariant[] = [
   {
-    src: "/undraw-learning.svg",
-    width: 394,
-    height: 800,
-    className: "h-[136px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.28)]",
-    mirroredByDefault: true,
+    src: "/undraw-scooter.svg",
+    width: 800,
+    height: 758,
+    className: "h-[130px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
   },
   {
     src: "/undraw-hiking.svg",
@@ -57,20 +56,18 @@ const WALKER_VARIANTS: PathwayWalkerVariant[] = [
     className: "h-[134px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
   },
   {
-    src: "/undraw-scooter.svg",
-    width: 800,
-    height: 758,
-    className: "h-[130px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
+    src: "/undraw-learning.svg",
+    width: 394,
+    height: 800,
+    className: "h-[136px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.28)]",
+    mirroredByDefault: true,
   },
 ] as const;
 
 const WALKER_START_X = 80;
-const WALKER_SPEED = 6;
 const WALKER_JUMP_VEL = 18;
 const WALKER_GRAVITY = 1.2;
 const WALKER_GROUND_Y = 0;
-const SCENE_EDGE_THRESHOLD = 90;
-const WHEEL_NAV_COOLDOWN = 460;
 
 const INTERACTIVE_TAGS = new Set(["INPUT", "TEXTAREA", "SELECT", "BUTTON"]);
 
@@ -112,7 +109,7 @@ export function PathwayExperience() {
   const activeIdxRef = useRef(0);
   const gameLoopRef = useRef<number | null>(null);
   const navTweenRef = useRef<number | null>(null);
-  const wheelLockUntilRef = useRef(0);
+  const directionLatchRef = useRef({ left: false, right: false });
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [homeHeroVersion, setHomeHeroVersion] = useState(0);
@@ -160,9 +157,8 @@ export function PathwayExperience() {
     const state = walkerStateRef.current;
     const viewWidth = container.clientWidth || window.innerWidth;
     const clampedX = Math.max(56, Math.min(viewWidth - 56, state.x));
-    const anyMovementInput = Object.values(state.keys).some(Boolean);
 
-    if (!state.isMoving && !state.isJumping && !anyMovementInput) {
+    if (!state.isMoving && !state.isJumping && state.x === WALKER_START_X) {
       const dockedPosition = getDockedWalkerPosition();
       if (dockedPosition) {
         walker.style.left = `${dockedPosition.left}px`;
@@ -196,52 +192,44 @@ export function PathwayExperience() {
       return false;
     }
 
-    const sceneWidth = getSceneWidth();
     const currentIdx = activeIdxRef.current;
     const movingRight = state.keys.ArrowRight || state.keys.KeyD;
     const movingLeft = state.keys.ArrowLeft || state.keys.KeyA;
 
-    if (currentIdx === 0) {
-      if (movingRight) {
-        scrollToScene(1, {
-          nextWalkerX: WALKER_START_X,
-          faceRight: true,
-        });
-        return true;
+    if (!movingRight) {
+      directionLatchRef.current.right = false;
+    }
+
+    if (!movingLeft) {
+      directionLatchRef.current.left = false;
+    }
+
+    if (movingRight) {
+      if (directionLatchRef.current.right) {
+        return false;
       }
 
-      return false;
-    }
-
-    if (
-      movingRight &&
-      currentIdx < SCENE_LABELS.length - 1 &&
-      state.x >= sceneWidth - SCENE_EDGE_THRESHOLD
-    ) {
-      scrollToScene(currentIdx + 1, {
+      directionLatchRef.current.right = true;
+      const nextIdx = currentIdx === SCENE_LABELS.length - 1 ? 0 : currentIdx + 1;
+      if (currentIdx === SCENE_LABELS.length - 1) {
+        setReportFocusId(null);
+        setHomePanelOpen(false);
+      }
+      scrollToScene(nextIdx, {
         nextWalkerX: WALKER_START_X,
         faceRight: true,
       });
       return true;
     }
 
-    if (
-      movingRight &&
-      currentIdx === SCENE_LABELS.length - 1 &&
-      state.x >= sceneWidth - SCENE_EDGE_THRESHOLD
-    ) {
-      setReportFocusId(null);
-      setHomePanelOpen(false);
-      scrollToScene(0, {
-        nextWalkerX: WALKER_START_X,
-        faceRight: true,
-      });
-      return true;
-    }
+    if (movingLeft && currentIdx > 0) {
+      if (directionLatchRef.current.left) {
+        return false;
+      }
 
-    if (movingLeft && currentIdx > 0 && state.x <= SCENE_EDGE_THRESHOLD) {
+      directionLatchRef.current.left = true;
       scrollToScene(currentIdx - 1, {
-        nextWalkerX: Math.max(sceneWidth - WALKER_START_X, sceneWidth - 96),
+        nextWalkerX: WALKER_START_X,
         faceRight: false,
       });
       return true;
@@ -303,46 +291,6 @@ export function PathwayExperience() {
     container.scrollTo({ left: activeIdxRef.current * getSceneWidth(), behavior: "auto" });
     renderWalker();
 
-    const handleWheel = (event: WheelEvent) => {
-      if (selectedCareerId) {
-        event.preventDefault();
-        return;
-      }
-
-      const dominantDelta =
-        Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
-      if (dominantDelta === 0) {
-        return;
-      }
-
-      event.preventDefault();
-      const now = performance.now();
-      if (now < wheelLockUntilRef.current) {
-        return;
-      }
-
-      const currentIdx = activeIdxRef.current;
-      const direction = dominantDelta > 0 ? 1 : -1;
-      const nextIdx =
-        currentIdx === SCENE_LABELS.length - 1 && direction > 0
-          ? 0
-          : Math.max(0, Math.min(SCENE_LABELS.length - 1, currentIdx + direction));
-
-      if (nextIdx === currentIdx) {
-        return;
-      }
-
-      wheelLockUntilRef.current = now + WHEEL_NAV_COOLDOWN;
-      scrollToScene(nextIdx, {
-        nextWalkerX:
-          direction > 0
-            ? WALKER_START_X
-            : Math.max(getSceneWidth() - WALKER_START_X, getSceneWidth() - 96),
-        faceRight: direction > 0,
-      });
-      setShowHint(false);
-    };
-
     const movementCodes = new Set([
       "ArrowLeft",
       "ArrowRight",
@@ -385,25 +333,9 @@ export function PathwayExperience() {
 
     const tick = () => {
       let moving = false;
-      const maxX = Math.max(56, getSceneWidth() - 56);
-      const isHomeScene = activeIdxRef.current === 0;
 
       if (navTweenRef.current === null && !selectedCareerId) {
-        if (isHomeScene) {
-          state.x = WALKER_START_X;
-        } else {
-          if (state.keys.ArrowRight || state.keys.KeyD) {
-            state.x = Math.min(maxX, state.x + WALKER_SPEED);
-            state.facingRight = true;
-            moving = true;
-          }
-
-          if (state.keys.ArrowLeft || state.keys.KeyA) {
-            state.x = Math.max(56, state.x - WALKER_SPEED);
-            state.facingRight = false;
-            moving = true;
-          }
-        }
+        state.x = WALKER_START_X;
 
         if ((state.keys.ArrowUp || state.keys.Space || state.keys.KeyW) && !state.isJumping) {
           state.velY = WALKER_JUMP_VEL;
@@ -439,13 +371,11 @@ export function PathwayExperience() {
       gameLoopRef.current = requestAnimationFrame(tick);
     };
 
-    container.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
     gameLoopRef.current = requestAnimationFrame(tick);
 
     return () => {
-      container.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
 
@@ -522,7 +452,7 @@ export function PathwayExperience() {
       <div
         ref={scrollRef}
         className="no-scrollbar relative flex h-screen overflow-hidden"
-        style={{ touchAction: "none" }}
+        style={{ touchAction: "pan-y" }}
       >
         <HomeScene
           heroVersion={homeHeroVersion}
@@ -542,6 +472,8 @@ export function PathwayExperience() {
           careers={filteredCareers}
           searchQuery={searchQuery}
           activeInterest={activeInterest}
+          onSearchChange={setSearchQuery}
+          onSelectInterest={setActiveInterest}
           onOpenCareer={openCareer}
           onCompare={() => scrollToScene(3)}
           onClearFilters={clearFilters}
