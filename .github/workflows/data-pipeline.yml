@@ -1,0 +1,41 @@
+name: Data Pipeline
+
+on:
+  schedule:
+    - cron: "0 2 1 * *"   # 1st of every month at 02:00 UTC
+  workflow_dispatch:        # allow manual trigger from GitHub UI
+
+jobs:
+  refresh:
+    name: Refresh processed data and upload to R2
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: data/requirements.txt
+
+      - name: Install Python deps
+        run: pip install -r data/requirements.txt
+
+      - name: Run cleaning scripts
+        run: |
+          python data/scripts/clean_jsa.py
+          python data/scripts/score_ai_risk.py
+          python data/scripts/merge_careers.py
+        env:
+          # Raw files must be pre-seeded in the runner or fetched here
+          # For now, scripts read from data/raw/ which is gitignored
+          PYTHONPATH: .
+
+      - name: Upload processed files to R2
+        run: python data/scripts/upload_r2.py
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY:  ${{ secrets.R2_ACCESS_KEY }}
+          R2_SECRET_KEY:  ${{ secrets.R2_SECRET_KEY }}
+          R2_BUCKET:      ${{ secrets.R2_BUCKET_NAME }}
