@@ -1,0 +1,155 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.shell{padding:16px 0 24px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.leg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary)}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.tree{display:flex;flex-direction:column;gap:2px}
+.row{display:flex;align-items:stretch;cursor:pointer;border-radius:8px;transition:background .15s}
+.row:hover{background:var(--color-background-secondary)}
+.row.active{background:var(--color-background-secondary)}
+.indent{display:flex;align-items:center;flex-shrink:0}
+.pipe{width:20px;height:100%;display:flex;align-items:center;justify-content:center;color:var(--color-border-secondary);font-size:11px;font-family:var(--font-mono)}
+.icon{width:18px;height:18px;border-radius:4px;flex-shrink:0;margin:6px 8px 6px 0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border:1px solid transparent}
+.fe-icon{background:#E6F1FB;color:#0C447C;border-color:#B5D4F4}
+.be-icon{background:#E1F5EE;color:#085041;border-color:#9FE1CB}
+.da-icon{background:#FAEEDA;color:#633806;border-color:#FAC775}
+.ci-icon{background:#EAF3DE;color:#27500A;border-color:#C0DD97}
+.sh-icon{background:#F1EFE8;color:#444441;border-color:#D3D1C7}
+.name{font-family:var(--font-mono);font-size:12.5px;font-weight:500;color:var(--color-text-primary);padding:6px 0;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;margin-left:8px;flex-shrink:0;white-space:nowrap}
+.fe-badge{background:#E6F1FB;color:#0C447C}
+.be-badge{background:#E1F5EE;color:#085041}
+.da-badge{background:#FAEEDA;color:#633806}
+.ci-badge{background:#EAF3DE;color:#27500A}
+.sh-badge{background:#F1EFE8;color:#444441}
+.detail{overflow:hidden;transition:max-height .25s ease,opacity .25s ease;max-height:0;opacity:0}
+.detail.open{max-height:400px;opacity:1}
+.detail-inner{margin:0 0 8px 46px;padding:10px 14px;border-radius:8px;background:var(--color-background-secondary);border-left:3px solid var(--color-border-secondary);font-size:12.5px;line-height:1.7;color:var(--color-text-secondary)}
+.detail-inner strong{color:var(--color-text-primary);font-weight:500}
+.detail-inner code{font-family:var(--font-mono);font-size:11.5px;background:var(--color-background-tertiary);padding:1px 5px;border-radius:4px;color:var(--color-text-primary)}
+.who{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-bottom:6px}
+.who-fe{background:#E6F1FB;color:#0C447C}
+.who-be{background:#E1F5EE;color:#085041}
+.who-da{background:#FAEEDA;color:#633806}
+.who-sh{background:#F1EFE8;color:#444441}
+.who-all{background:#EEEDFE;color:#3C3489}
+@media(prefers-color-scheme:dark){
+.fe-icon{background:#0C447C;color:#B5D4F4;border-color:#185FA5}
+.be-icon{background:#085041;color:#9FE1CB;border-color:#0F6E56}
+.da-icon{background:#633806;color:#FAC775;border-color:#854F0B}
+.ci-icon{background:#27500A;color:#C0DD97;border-color:#3B6D11}
+.sh-icon{background:#444441;color:#D3D1C7;border-color:#5F5E5A}
+.fe-badge{background:#0C447C;color:#B5D4F4}
+.be-badge{background:#085041;color:#9FE1CB}
+.da-badge{background:#633806;color:#FAC775}
+.ci-badge{background:#27500A;color:#C0DD97}
+.sh-badge{background:#444441;color:#D3D1C7}
+.who-fe{background:#0C447C;color:#B5D4F4}
+.who-be{background:#085041;color:#9FE1CB}
+.who-da{background:#633806;color:#FAC775}
+.who-sh{background:#444441;color:#D3D1C7}
+.who-all{background:#3C3489;color:#CECBF6}
+}
+</style>
+
+<div class="shell">
+<div class="legend">
+  <div class="leg"><div class="leg-dot fe-icon" style="width:10px;height:10px;border-radius:3px"></div>前端 — Steve / Nora</div>
+  <div class="leg"><div class="leg-dot be-icon" style="width:10px;height:10px;border-radius:3px"></div>后端 — Bill</div>
+  <div class="leg"><div class="leg-dot da-icon" style="width:10px;height:10px;border-radius:3px"></div>数据 — Sela</div>
+  <div class="leg"><div class="leg-dot ci-icon" style="width:10px;height:10px;border-radius:3px"></div>CI/CD — 全团队</div>
+  <div class="leg"><div class="leg-dot sh-icon" style="width:10px;height:10px;border-radius:3px"></div>共享配置</div>
+</div>
+
+<div class="tree" id="tree"></div>
+</div>
+
+<script>
+const nodes = [
+  {id:'root', depth:0, icon:'sh', name:'pathwayiq/', label:'monorepo 根目录', badge:'sh', detail:`<span class="who who-sh">全团队</span><br><strong>整个项目的顶层容器。</strong>用 npm workspaces 把前端和后端两个子项目连在一起，<code>package.json</code> 里写了统一的运行命令，<code>.gitignore</code> 告诉 Git 哪些文件不要上传（比如 node_modules、.env、raw 数据文件）。`},
+
+  {id:'github', depth:1, icon:'ci', name:'.github/workflows/', label:'自动部署配置', badge:'ci', detail:`<span class="who who-all">全团队</span><br><strong>GitHub Actions 的三个自动化任务。</strong>你每次 push 代码，GitHub 会自动跑这里的脚本。<br><br><code>frontend-ci.yml</code> — PR 时自动检查前端代码有没有类型错误、能不能正常打包<br><code>backend-deploy.yml</code> — merge 到 main 时自动把 Lambda 部署到 AWS<br><code>data-pipeline.yml</code> — 每个月 1 号自动跑数据清洗脚本，把最新数据上传到 R2`},
+
+  {id:'apps', depth:1, icon:'sh', name:'apps/', label:'前端 + 后端代码', badge:'sh', detail:`<span class="who who-sh">Steve · Bill</span><br><strong>所有可运行的应用代码都在这里。</strong>分成 <code>web/</code>（前端）和 <code>api/</code>（后端）两个子文件夹，各自有独立的 package.json 和依赖，互不干扰。`},
+
+  {id:'web', depth:2, icon:'fe', name:'apps/web/', label:'Next.js 前端 → Cloudflare Pages', badge:'fe', detail:`<span class="who who-fe">Steve · Nora</span><br><strong>学生看到的所有页面都在这里。</strong>用 Next.js 16 写的，部署到 Cloudflare Pages（全球 CDN，永久免费，无限带宽）。学生打开网站，浏览器下载的就是这里的代码。`},
+
+  {id:'app', depth:3, icon:'fe', name:'apps/web/app/', label:'页面路由入口', badge:'fe', detail:`<span class="who who-fe">Steve · Nora</span><br><strong>Next.js App Router 的核心目录。</strong><br><br><code>layout.tsx</code> — 所有页面共用的外壳（HTML 结构、字体加载）<br><code>page.tsx</code> — 主入口，用 <code>activeIdx</code> 状态控制显示哪个 scene<br><code>globals.css</code> — 全局样式和 Tailwind 基础引入`},
+
+  {id:'components', depth:3, icon:'fe', name:'apps/web/components/ui/', label:'可复用 UI 组件', badge:'fe', detail:`<span class="who who-fe">Steve · Nora</span><br><strong>所有 UI 组件放在这里，任何 scene 都可以直接用。</strong><br><br><code>animated-shader-hero.tsx</code> — 首页的 WebGL 动态背景，鼠标移动会影响光影<br><code>liquid-metal-button.tsx</code> — 液态金属效果的导航按钮（用了 @paper-design/shaders）<br><code>bottom-nav.tsx</code> — 底部导航栏，包含 5 个 LiquidMetalButton<br><br>这里的文件遵循 shadcn 规范 — 你可以直接读、改、复制每一行代码，没有黑盒。`},
+
+  {id:'scenes', depth:3, icon:'fe', name:'apps/web/scenes/', label:'5 个页面场景', badge:'fe', detail:`<span class="who who-fe">Steve · Nora</span><br><strong>每个 scene 对应一个页面，由 page.tsx 根据 activeIdx 决定显示哪个。</strong><br><br><code>home.tsx</code> — 首页，Shader Hero + 搜索框 + 兴趣标签<br><code>quiz.tsx</code> — 问卷，4 个问题 → 兴趣标签输出<br><code>explore.tsx</code> — 职业卡片网格，支持搜索和筛选<br><code>compare.tsx</code> — 两个职业并排对比<br><code>report.tsx</code> — 个性化报告 + PDF 下载<br><br>这样拆分的好处：每个人可以独立开发一个 scene，互不冲突。`},
+
+  {id:'hooks', depth:3, icon:'fe', name:'apps/web/hooks/', label:'React 自定义 Hooks', badge:'fe', detail:`<span class="who who-fe">Steve · Nora</span><br><strong>把数据请求逻辑从组件里抽出来，组件只负责显示，Hook 负责拿数据。</strong><br><br><code>useCareerSearch.ts</code> — 搜索职业的逻辑，输入关键词返回匹配结果<br><code>useQuizState.ts</code> — 问卷状态管理，记录用户选了哪些答案，支持回退<br><br>这样写的好处：测试容易，逻辑复用，组件代码干净。`},
+
+  {id:'apiclient', depth:3, icon:'fe', name:'apps/web/lib/api-client.ts', label:'后端调用统一入口', badge:'fe', detail:`<span class="who who-fe">Nora · Steve</span><br><strong>所有调用后端 API 的代码都写在这一个文件里。</strong>这样如果 API 地址变了，或者要切换开发/生产环境，只改这里就够了，不用到处找。<br><br>本地开发时指向 <code>http://localhost:3000</code>，生产环境指向 AWS API Gateway 的真实 URL，通过环境变量 <code>NEXT_PUBLIC_API_BASE_URL</code> 切换。`},
+
+  {id:'api', depth:2, icon:'be', name:'apps/api/', label:'Lambda 后端 → AWS', badge:'be', detail:`<span class="who who-be">Bill</span><br><strong>所有后端逻辑都在这里，部署到 AWS Lambda。</strong>学生在前端的每一个数据请求（搜索职业、提交问卷、下载报告）最终都会触发这里的某一个 Lambda 函数。永久免费，每月 100 万次请求以内不花钱。`},
+
+  {id:'serverless', depth:3, icon:'be', name:'apps/api/serverless.yml', label:'Lambda 部署配置', badge:'be', detail:`<span class="who who-be">Bill</span><br><strong>Serverless Framework 的核心配置文件，告诉 AWS 怎么部署。</strong><br><br>定义了 5 个 Lambda 函数对应的 API 路由：<br><code>POST /quiz</code> → quiz.ts<br><code>GET /careers</code> → search.ts<br><code>GET /careers/:id</code> → career.ts<br><code>GET /report/:id</code> → report.ts<br><code>GET /compare</code> → compare.ts<br><br>运行 <code>sls deploy</code> 就会把这 5 个函数全部部署到 AWS，同时自动创建 API Gateway 路由。`},
+
+  {id:'functions', depth:3, icon:'be', name:'apps/api/src/functions/', label:'5 个 Lambda 入口函数', badge:'be', detail:`<span class="who who-be">Bill</span><br><strong>每个文件 = 一个独立的 Lambda 函数 = 一个 API 端点。</strong><br><br><code>quiz.ts</code> — 接收问卷答案，调用 matcher.ts 算分，返回匹配职业<br><code>search.ts</code> — 关键词搜索 + 多维度筛选（AI 风险、职业类型）<br><code>career.ts</code> — 返回单个职业的完整数据<br><code>report.ts</code> — 汇总所有数据，生成报告 JSON（Epic 7 后加 PDF）<br><code>compare.ts</code> — 两个职业并排对比的数据<br><br>每个函数只做一件事，互相独立，方便单独测试。`},
+
+  {id:'services', depth:3, icon:'be', name:'apps/api/src/services/', label:'核心业务逻辑', badge:'be', detail:`<span class="who who-be">Bill · Sela</span><br><strong>真正的算法和数据处理逻辑在这里，和 Lambda 框架解耦，可以单独测试。</strong><br><br><code>matcher.ts</code> — 问卷打分算法：把答案转成兴趣标签，与职业标签匹配算加权分<br><code>labeller.ts</code> — 生成"↑ 紧缺"、"AI 风险低"这样的标签<br><code>data-client.ts</code> — 统一的 R2 读取层，Lambda 用这里的函数读 JSON 数据<br><br>关键设计：<code>data-client.ts</code> 用的是 S3 兼容 API，把 endpoint URL 改一行就能从 R2 切回 S3。`},
+
+  {id:'aiservice', depth:3, icon:'be', name:'apps/api/src/ai-service/', label:'AI 扩展预留槽 (Iteration 3)', badge:'be', detail:`<span class="who who-be">Bill</span><br><strong>现在是空的占位文件夹，Iteration 3 时在这里加 AWS Bedrock 调用。</strong><br><br>设计上：<code>matcher.ts</code> 里已经有 feature flag：<br><code>FEATURE_AI_MATCHING=false</code> → 用现有规则算法（快、可解释）<br><code>FEATURE_AI_MATCHING=true</code> → 调用这里的 Bedrock Claude Haiku<br><br>切换时前端不需要任何改动，API Gateway 路由不变，只是 Lambda 内部升级。`},
+
+  {id:'types', depth:3, icon:'be', name:'apps/api/src/types/career.ts', label:'TypeScript 类型定义', badge:'be', detail:`<span class="who who-be">Bill · Nora</span><br><strong>定义了整个项目的数据结构，前后端共用同一套类型。</strong><br><br>包含：<code>Career</code>（职业对象）、<code>Pathway</code>（学习路径）、<code>QuizResponse</code>（问卷答案）、<code>CareerMatch</code>（匹配结果，带分数）<br><br>TypeScript 会在编译时检查前后端传的数据格式是否一致，避免"前端以为有这个字段，但后端没返回"这类 bug。`},
+
+  {id:'data', depth:1, icon:'da', name:'data/', label:'数据清洗 Pipeline → Cloudflare R2', badge:'da', detail:`<span class="who who-da">Sela</span><br><strong>所有数据处理代码在这里，用 Python 写。</strong>从政府数据源（JSA、ABS、DESE 等）下载的原始 CSV，经过清洗、打分、合并，变成 Lambda 可以直接读的 JSON 文件，然后上传到 Cloudflare R2。`},
+
+  {id:'raw', depth:2, icon:'da', name:'data/raw/', label:'原始数据（gitignored）', badge:'da', detail:`<span class="who who-da">Sela</span><br><strong>这个文件夹不会上传到 GitHub。</strong><code>.gitignore</code> 里明确排除了它，因为：原始政府数据文件可能很大，每次更新都不一样，而且不需要版本控制。<br><br>Sela 手动下载后放到这里，再运行脚本处理。文件命名约定见 <code>docs/data-sources.md</code>。`},
+
+  {id:'processed', depth:2, icon:'da', name:'data/processed/', label:'已处理数据 → 上传 R2', badge:'da', detail:`<span class="who who-da">Sela</span><br><strong>脚本输出的 JSON 文件，会上传到 Cloudflare R2，Lambda 运行时从这里读。</strong><br><br><code>careers.json</code> — 所有职业的完整信息（500+ 条）<br><code>ai_risk_scores.json</code> — 每个 ANZSCO 职业代码对应的 AI 风险分（0–1）<br><code>shortage_labels.json</code> — 每个职业是否紧缺、是否消失<br><code>education_pathways.json</code> — Uni/TAFE/学徒制路径数据`},
+
+  {id:'scripts', depth:2, icon:'da', name:'data/scripts/', label:'4 个数据处理脚本', badge:'da', detail:`<span class="who who-da">Sela</span><br><strong>按顺序跑这 4 个脚本，就能把原始数据变成上线可用的格式。</strong><br><br><code>clean_jsa.py</code> — 清洗 JSA 职业短缺列表 → shortage_labels.json<br><code>score_ai_risk.py</code> — Oxford 概率 × ABS 指数，合成 AI 风险分 → ai_risk_scores.json<br><code>merge_careers.py</code> — 把以上所有数据合并成 careers.json<br><code>upload_r2.py</code> — 把 processed/ 里的文件上传到 Cloudflare R2（用 boto3，S3 兼容 API）`},
+
+  {id:'infrastructure', depth:1, icon:'sh', name:'infrastructure/', label:'部署文档', badge:'sh', detail:`<span class="who who-sh">Bill · Nora</span><br><strong>不是代码，是给团队看的部署说明文档。</strong><br><br><code>env-variables.md</code> — 列出所有环境变量，哪些要加到 GitHub Secrets，哪些在 Cloudflare 配置<br><code>r2-structure.md</code> — R2 bucket 的建立步骤和文件布局<br><br>新队友来了看这两个文件，就知道怎么配置环境。`},
+
+  {id:'docs', depth:1, icon:'sh', name:'docs/', label:'项目文档 (对外)', badge:'sh', detail:`<span class="who who-all">Nora</span><br><strong>给 stakeholder、mentor、助教看的技术文档。</strong><br><br><code>api-reference.md</code> — 每个 API 端点的完整请求/响应格式，前端开发时对着这个写代码<br><code>data-sources.md</code> — 6 个数据来源、许可证、更新频率，对应 Epic 8.2 数据透明度要求`},
+];
+
+const iconMap = {fe:'FE', be:'BE', da:'DA', ci:'CI', sh:'·'};
+
+function render(){
+  const tree = document.getElementById('tree');
+  tree.innerHTML = '';
+  const open = new Set();
+
+  nodes.forEach((n,i)=>{
+    const indent = n.depth * 20;
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.style.paddingLeft = indent + 'px';
+    row.innerHTML = `
+      <div class="icon ${n.icon}-icon">${iconMap[n.icon]}</div>
+      <div class="name">${n.name}</div>
+      <span class="badge ${n.icon}-badge">${n.label}</span>
+    `;
+    const detail = document.createElement('div');
+    detail.className = 'detail';
+    detail.innerHTML = `<div class="detail-inner">${n.detail}</div>`;
+    detail.style.paddingLeft = (indent+20) + 'px';
+
+    row.addEventListener('click', ()=>{
+      if(open.has(i)){
+        open.delete(i);
+        detail.classList.remove('open');
+        row.classList.remove('active');
+      } else {
+        open.add(i);
+        detail.classList.add('open');
+        row.classList.add('active');
+      }
+    });
+
+    tree.appendChild(row);
+    tree.appendChild(detail);
+  });
+}
+
+render();
+</script>

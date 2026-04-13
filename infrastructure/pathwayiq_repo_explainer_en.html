@@ -1,0 +1,136 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.shell{padding:16px 0 24px;font-family:var(--font-sans)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.leg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary)}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.tree{display:flex;flex-direction:column;gap:2px}
+.row{display:flex;align-items:center;cursor:pointer;border-radius:8px;padding:3px 8px 3px 0;transition:background .15s;min-height:36px}
+.row:hover{background:var(--color-background-secondary)}
+.row.active{background:var(--color-background-secondary)}
+.icon{width:20px;height:20px;border-radius:4px;flex-shrink:0;margin:0 8px 0 0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;border:1px solid transparent;letter-spacing:0}
+.fe{background:#E6F1FB;color:#0C447C;border-color:#B5D4F4}
+.be{background:#E1F5EE;color:#085041;border-color:#9FE1CB}
+.da{background:#FAEEDA;color:#633806;border-color:#FAC775}
+.ci{background:#EAF3DE;color:#27500A;border-color:#C0DD97}
+.sh{background:#F1EFE8;color:#444441;border-color:#D3D1C7}
+.name{font-family:var(--font-mono);font-size:12.5px;font-weight:500;color:var(--color-text-primary);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{font-size:10px;font-weight:600;padding:1px 8px;border-radius:10px;margin-left:8px;flex-shrink:0;white-space:nowrap}
+.fe-b{background:#E6F1FB;color:#0C447C}
+.be-b{background:#E1F5EE;color:#085041}
+.da-b{background:#FAEEDA;color:#633806}
+.ci-b{background:#EAF3DE;color:#27500A}
+.sh-b{background:#F1EFE8;color:#444441}
+.detail{overflow:hidden;transition:max-height .25s ease,opacity .2s ease;max-height:0;opacity:0}
+.detail.open{max-height:500px;opacity:1}
+.detail-inner{margin:2px 0 8px 0;padding:12px 14px;border-radius:8px;background:var(--color-background-secondary);border-left:3px solid var(--color-border-secondary);font-size:12.5px;line-height:1.75;color:var(--color-text-secondary)}
+.detail-inner strong{color:var(--color-text-primary);font-weight:500}
+.detail-inner code{font-family:var(--font-mono);font-size:11.5px;background:var(--color-background-tertiary);padding:1px 5px;border-radius:4px;color:var(--color-text-primary)}
+.layer-tag{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-bottom:7px}
+.lt-fe{background:#E6F1FB;color:#0C447C}
+.lt-be{background:#E1F5EE;color:#085041}
+.lt-da{background:#FAEEDA;color:#633806}
+.lt-sh{background:#F1EFE8;color:#444441}
+.lt-ci{background:#EAF3DE;color:#27500A}
+@media(prefers-color-scheme:dark){
+.fe{background:#0C447C;color:#B5D4F4;border-color:#185FA5}
+.be{background:#085041;color:#9FE1CB;border-color:#0F6E56}
+.da{background:#633806;color:#FAC775;border-color:#854F0B}
+.ci{background:#27500A;color:#C0DD97;border-color:#3B6D11}
+.sh{background:#444441;color:#D3D1C7;border-color:#5F5E5A}
+.fe-b{background:#0C447C;color:#B5D4F4}
+.be-b{background:#085041;color:#9FE1CB}
+.da-b{background:#633806;color:#FAC775}
+.ci-b{background:#27500A;color:#C0DD97}
+.sh-b{background:#444441;color:#D3D1C7}
+.lt-fe{background:#0C447C;color:#B5D4F4}
+.lt-be{background:#085041;color:#9FE1CB}
+.lt-da{background:#633806;color:#FAC775}
+.lt-sh{background:#444441;color:#D3D1C7}
+.lt-ci{background:#27500A;color:#C0DD97}
+}
+</style>
+
+<div class="shell">
+<div class="legend">
+  <div class="leg"><div class="leg-dot fe"></div>Frontend — Cloudflare Pages</div>
+  <div class="leg"><div class="leg-dot be"></div>Backend — AWS Lambda</div>
+  <div class="leg"><div class="leg-dot da"></div>Data pipeline — Cloudflare R2</div>
+  <div class="leg"><div class="leg-dot ci"></div>CI / CD — GitHub Actions</div>
+  <div class="leg"><div class="leg-dot sh"></div>Shared config &amp; docs</div>
+</div>
+<div class="tree" id="tree"></div>
+</div>
+
+<script>
+const N=[
+{d:0,t:'sh',n:'pathwayiq/',b:'Monorepo root',x:`<span class="layer-tag lt-sh">Shared</span><br><strong>The top-level container for the entire project.</strong> Uses npm workspaces to link the frontend and backend into one repository. <code>package.json</code> defines unified run commands. <code>.gitignore</code> excludes files that should never be committed — <code>node_modules</code>, <code>.env</code> files, and raw data CSVs.`},
+
+{d:1,t:'ci',n:'.github/workflows/',b:'Automation',x:`<span class="layer-tag lt-ci">CI / CD</span><br><strong>Three automated GitHub Actions pipelines.</strong> These run automatically when code is pushed — no manual steps needed.<br><br><code>frontend-ci.yml</code> — on every pull request, type-checks and builds the frontend to catch errors before merge<br><code>backend-deploy.yml</code> — on every merge to <code>main</code>, automatically deploys all Lambda functions to AWS<br><code>data-pipeline.yml</code> — runs on the 1st of every month, refreshes processed data and uploads to Cloudflare R2`},
+
+{d:1,t:'sh',n:'apps/',b:'All runnable code',x:`<span class="layer-tag lt-sh">Shared</span><br><strong>Contains both the frontend and backend applications.</strong> Split into <code>web/</code> and <code>api/</code> — each has its own <code>package.json</code> and dependencies, so they stay independent and can be deployed separately.`},
+
+{d:2,t:'fe',n:'apps/web/',b:'Frontend → Cloudflare Pages',x:`<span class="layer-tag lt-fe">Frontend</span><br><strong>Everything the student sees in the browser lives here.</strong> Built with Next.js 16, deployed to Cloudflare Pages (global CDN, unlimited bandwidth, free forever). When a student opens the site, their browser downloads and runs this code.`},
+
+{d:3,t:'fe',n:'apps/web/app/',b:'Page routing entry',x:`<span class="layer-tag lt-fe">Frontend</span><br><strong>The core Next.js App Router directory.</strong><br><br><code>layout.tsx</code> — the shared HTML shell used by every page (font loading, metadata)<br><code>page.tsx</code> — the main entry point; uses an <code>activeIdx</code> state to control which scene is shown<br><code>globals.css</code> — global styles and Tailwind base imports`},
+
+{d:3,t:'fe',n:'apps/web/components/ui/',b:'Reusable UI components',x:`<span class="layer-tag lt-fe">Frontend</span><br><strong>All reusable UI components, available to any scene.</strong> Follows the shadcn pattern — every file is fully owned by the project, no black-box library imports.<br><br><code>animated-shader-hero.tsx</code> — WebGL full-screen animated background on the home scene; mouse movement distorts the shader in real time<br><code>liquid-metal-button.tsx</code> — iridescent nav button using <code>@paper-design/shaders</code><br><code>bottom-nav.tsx</code> — fixed bottom navigation bar with five LiquidMetalButton instances`},
+
+{d:3,t:'fe',n:'apps/web/scenes/',b:'5 page scenes',x:`<span class="layer-tag lt-fe">Frontend</span><br><strong>One file per page. <code>page.tsx</code> renders whichever scene matches the current <code>activeIdx</code>.</strong><br><br><code>home.tsx</code> — Shader hero, career search bar, interest tag shortcuts<br><code>quiz.tsx</code> — 4-question interest quiz → outputs matched career tags<br><code>explore.tsx</code> — career card grid with search and filters (AI risk, pathway type)<br><code>compare.tsx</code> — side-by-side career comparison (salary, AI risk, pathways)<br><code>report.tsx</code> — personalised career report with PDF download<br><br>Each scene is self-contained, so different team members can build them in parallel without conflicts.`},
+
+{d:3,t:'fe',n:'apps/web/hooks/',b:'Custom React hooks',x:`<span class="layer-tag lt-fe">Frontend</span><br><strong>Data-fetching logic extracted out of components.</strong> Components handle display; hooks handle data.<br><br><code>useCareerSearch.ts</code> — sends search queries to the API and returns matching career cards<br><code>useQuizState.ts</code> — manages quiz answer state across all 4 questions, supports back-navigation without losing answers`},
+
+{d:3,t:'fe',n:'apps/web/lib/api-client.ts',b:'Single backend gateway',x:`<span class="layer-tag lt-fe">Frontend</span><br><strong>Every call to the backend goes through this one file.</strong> If the API URL changes, or the environment switches from local to production, only this file needs updating.<br><br>Points to <code>http://localhost:3000</code> in local dev and the AWS API Gateway URL in production — controlled by the <code>NEXT_PUBLIC_API_BASE_URL</code> environment variable.`},
+
+{d:2,t:'be',n:'apps/api/',b:'Backend → AWS Lambda',x:`<span class="layer-tag lt-be">Backend</span><br><strong>All server-side logic lives here, deployed as AWS Lambda functions.</strong> Every data request from the frontend — searching careers, submitting the quiz, downloading a report — triggers one of these functions. AWS Lambda's permanent free tier covers 1 million requests per month.`},
+
+{d:3,t:'be',n:'apps/api/serverless.yml',b:'Lambda deployment config',x:`<span class="layer-tag lt-be">Backend</span><br><strong>The Serverless Framework config — tells AWS what to deploy and how.</strong> Defines the 5 Lambda functions and their API Gateway routes:<br><br><code>POST /quiz</code> → <code>quiz.ts</code><br><code>GET /careers</code> → <code>search.ts</code><br><code>GET /careers/:id</code> → <code>career.ts</code><br><code>GET /report/:id</code> → <code>report.ts</code><br><code>GET /compare</code> → <code>compare.ts</code><br><br>Running <code>sls deploy</code> reads this file and provisions everything on AWS in one command — no manual console clicking required.`},
+
+{d:3,t:'be',n:'apps/api/src/functions/',b:'5 Lambda entry points',x:`<span class="layer-tag lt-be">Backend</span><br><strong>One file = one Lambda function = one API endpoint.</strong> Each function receives an HTTP request, delegates to the relevant service, and returns a JSON response.<br><br><code>quiz.ts</code> — receives 4 quiz answers, calls matcher.ts, returns ranked careers<br><code>search.ts</code> — keyword search + multi-filter (AI risk, pathway type, industry)<br><code>career.ts</code> — returns a single career's complete data<br><code>report.ts</code> — assembles all data for the report (PDF generation added in Iteration 2)<br><code>compare.ts</code> — returns two careers formatted for side-by-side display`},
+
+{d:3,t:'be',n:'apps/api/src/services/',b:'Core business logic',x:`<span class="layer-tag lt-be">Backend</span><br><strong>The actual algorithms and data logic — decoupled from AWS, so they can be tested independently.</strong><br><br><code>matcher.ts</code> — converts quiz answers to interest tags, scores each career against those tags, returns ranked results; has a feature flag to swap in Bedrock AI in Iteration 3<br><code>labeller.ts</code> — generates "↑ In demand" and "Low AI risk" labels for each career<br><code>data-client.ts</code> — the single point of contact for reading JSON from Cloudflare R2; uses the S3-compatible API so one line change swaps it back to S3 if needed`},
+
+{d:3,t:'be',n:'apps/api/src/ai-service/',b:'AI slot — Iteration 3 only',x:`<span class="layer-tag lt-be">Backend</span><br><strong>Reserved folder — currently a placeholder. Bedrock integration goes here in Iteration 3.</strong><br><br><code>matcher.ts</code> already contains the feature flag:<br><code>FEATURE_AI_MATCHING=false</code> → uses the current rule-based scoring (fast, explainable)<br><code>FEATURE_AI_MATCHING=true</code> → calls AWS Bedrock Claude Haiku from this folder<br><br>The switch is invisible to the frontend — same API routes, same response shape, just a smarter engine underneath.`},
+
+{d:3,t:'be',n:'apps/api/src/types/career.ts',b:'Shared TypeScript types',x:`<span class="layer-tag lt-be">Backend</span><br><strong>Defines the data shape used by both frontend and backend.</strong> TypeScript checks at compile time that both sides agree on what a career object looks like — catches mismatches before they become runtime bugs.<br><br>Contains: <code>Career</code>, <code>Pathway</code>, <code>QuizResponse</code>, <code>CareerMatch</code> (with match score), <code>AIRiskLevel</code>`},
+
+{d:1,t:'da',n:'data/',b:'Data pipeline → Cloudflare R2',x:`<span class="layer-tag lt-da">Data</span><br><strong>All data processing scripts live here, written in Python 3.11.</strong> Raw CSV files from government data sources (JSA, ABS, DESE, NCVER, VTAC) are cleaned, scored, merged, and uploaded to Cloudflare R2 as JSON. Lambda reads these JSON files at runtime.`},
+
+{d:2,t:'da',n:'data/raw/',b:'Source files — gitignored',x:`<span class="layer-tag lt-da">Data</span><br><strong>This folder is excluded from GitHub.</strong> Raw government CSV files can be large, change with every quarterly release, and don't need version history. Place downloaded source files here before running the pipeline scripts. Naming conventions are documented in <code>docs/data-sources.md</code>.`},
+
+{d:2,t:'da',n:'data/processed/',b:'Output JSON → uploaded to R2',x:`<span class="layer-tag lt-da">Data</span><br><strong>The pipeline's output — these files are uploaded to Cloudflare R2 and read by Lambda at runtime.</strong><br><br><code>careers.json</code> — master career dictionary with salary, demand, pathways (500+ occupations)<br><code>ai_risk_scores.json</code> — ANZSCO code → composite risk score (0–1); Oxford × ABS weighted<br><code>shortage_labels.json</code> — ANZSCO code → shortage / disappearing flags from JSA<br><code>education_pathways.json</code> — Uni / TAFE / Apprenticeship options per occupation from NCVER + VTAC`},
+
+{d:2,t:'da',n:'data/scripts/',b:'4 pipeline scripts',x:`<span class="layer-tag lt-da">Data</span><br><strong>Run these four scripts in order to go from raw CSVs to production-ready JSON.</strong><br><br><code>clean_jsa.py</code> — normalises the JSA shortage list → <code>shortage_labels.json</code><br><code>score_ai_risk.py</code> — computes composite AI risk: 0.6 × Oxford probability + 0.4 × ABS automation index → <code>ai_risk_scores.json</code><br><code>merge_careers.py</code> — joins all sources into the master <code>careers.json</code><br><code>upload_r2.py</code> — uploads all processed files to Cloudflare R2 using the S3-compatible boto3 API`},
+
+{d:1,t:'sh',n:'infrastructure/',b:'Deployment documentation',x:`<span class="layer-tag lt-sh">Shared</span><br><strong>Not code — deployment reference docs for the team.</strong><br><br><code>env-variables.md</code> — lists every environment variable, where to set it (GitHub Secrets vs Cloudflare dashboard), and which team member owns it<br><code>r2-structure.md</code> — step-by-step R2 bucket setup and the object layout inside it<br><br>A new team member can read these two files and know exactly how to configure their environment.`},
+
+{d:1,t:'sh',n:'docs/',b:'Project documentation',x:`<span class="layer-tag lt-sh">Shared</span><br><strong>Technical documentation for stakeholders, mentors, and assessors.</strong><br><br><code>api-reference.md</code> — complete request / response format for every API endpoint; the frontend team uses this as the contract when writing <code>api-client.ts</code><br><code>data-sources.md</code> — all 6 data sources, their licences, update cadence, and which Epics they power; satisfies the Epic 8.2 data transparency requirement`},
+];
+
+const icons={fe:'FE',be:'BE',da:'DA',ci:'CI',sh:'·'};
+
+function render(){
+  const tree=document.getElementById('tree');
+  tree.innerHTML='';
+  const open=new Set();
+  N.forEach((n,i)=>{
+    const pad=n.d*22;
+    const row=document.createElement('div');
+    row.className='row';
+    row.style.paddingLeft=pad+'px';
+    row.innerHTML=`<div class="icon ${n.t}">${icons[n.t]}</div><div class="name">${n.n}</div><span class="badge ${n.t}-b">${n.b}</span>`;
+    const det=document.createElement('div');
+    det.className='detail';
+    det.style.paddingLeft=(pad+28)+'px';
+    det.innerHTML=`<div class="detail-inner">${n.x}</div>`;
+    row.addEventListener('click',()=>{
+      if(open.has(i)){open.delete(i);det.classList.remove('open');row.classList.remove('active');}
+      else{open.add(i);det.classList.add('open');row.classList.add('active');}
+    });
+    tree.appendChild(row);
+    tree.appendChild(det);
+  });
+}
+render();
+</script>

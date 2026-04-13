@@ -1,0 +1,37 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:    ["apps/api/**"]
+
+jobs:
+  deploy:
+    name: Deploy Lambda to AWS
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/api/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy via Serverless Framework
+        run: npx serverless deploy --stage prod --verbose
+        env:
+          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID:         ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY:         ${{ secrets.R2_ACCESS_KEY }}
+          R2_SECRET_KEY:         ${{ secrets.R2_SECRET_KEY }}
+          R2_BUCKET_NAME:        ${{ secrets.R2_BUCKET_NAME }}
+          FEATURE_AI_MATCHING:   "false"

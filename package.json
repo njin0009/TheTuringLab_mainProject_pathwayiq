@@ -1,0 +1,19 @@
+{
+  "name": "pathwayiq",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
+  "scripts": {
+    "dev":        "npm run dev --workspace=apps/web",
+    "build":      "npm run build --workspace=apps/web",
+    "deploy:api": "npm run deploy --workspace=apps/api",
+    "lint":       "npm run lint --workspace=apps/web"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm":  ">=9.0.0"
+  }
+}

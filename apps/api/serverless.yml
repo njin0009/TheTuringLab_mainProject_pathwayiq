@@ -1,0 +1,71 @@
+service: pathwayiq-api
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-southeast-2
+  stage: ${opt:stage, 'dev'}
+  environment:
+    R2_BUCKET_NAME: ${env:R2_BUCKET_NAME}
+    R2_ACCOUNT_ID:  ${env:R2_ACCOUNT_ID}
+    R2_ACCESS_KEY:  ${env:R2_ACCESS_KEY}
+    R2_SECRET_KEY:  ${env:R2_SECRET_KEY}
+    FEATURE_AI_MATCHING: ${env:FEATURE_AI_MATCHING, 'false'}
+  httpApi:
+    cors:
+      allowedOrigins:
+        - https://pathwayiq.pages.dev
+        - http://localhost:3000
+      allowedHeaders:
+        - Content-Type
+      allowedMethods:
+        - GET
+        - POST
+
+functions:
+  quiz:
+    handler: src/functions/quiz.handler
+    description: "POST /quiz — score quiz answers, return ranked career matches"
+    events:
+      - httpApi:
+          path: /quiz
+          method: POST
+
+  search:
+    handler: src/functions/search.handler
+    description: "GET /careers — keyword search + autocomplete"
+    events:
+      - httpApi:
+          path: /careers
+          method: GET
+
+  careerDetail:
+    handler: src/functions/career.handler
+    description: "GET /careers/{id} — single career detail"
+    events:
+      - httpApi:
+          path: /careers/{id}
+          method: GET
+
+  report:
+    handler: src/functions/report.handler
+    description: "GET /report/{careerId} — full career report payload + PDF"
+    memorySize: 512
+    timeout: 15
+    events:
+      - httpApi:
+          path: /report/{careerId}
+          method: GET
+
+  compare:
+    handler: src/functions/compare.handler
+    description: "GET /compare?a={id}&b={id} — side-by-side career comparison"
+    events:
+      - httpApi:
+          path: /compare
+          method: GET
+
+plugins:
+  - serverless-offline

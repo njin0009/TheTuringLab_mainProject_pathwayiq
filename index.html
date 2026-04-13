@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PathwayIQ — Interactive Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green:    #00C46A;
+  --green-d:  #007A42;
+  --green-l:  #E6FAF2;
+  --navy:     #0A1628;
+  --navy-mid: #162240;
+  --cream:    #F8F6F1;
+  --amber:    #F5A623;
+  --coral:    #E85D4A;
+  --text:     #0A1628;
+  --muted:    #6B7280;
+  font-size: 1vh;
+}
+*, *::before, *::after { margin: 0; box-sizing: border-box; }
+
+html {
+  overflow: hidden;
+  touch-action: pan-x pan-y;
+}
+body {
+  background: #0A1628;
+  overflow-y: hidden;
+  font-family: 'DM Sans', sans-serif;
+  cursor: none;
+  transition: background-color .8s ease;
+}
+
+/* ── SCROLL CONTAINER ── */
+#piq-scroll {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+#piq-scroll::-webkit-scrollbar { display: none; }
+
+/* ── HORIZONTAL STAGE ── */
+.piq-body {
+  display: flex;
+  height: 100vh;
+  /* 5 scenes × 100vw + extra for character travel */
+  width: calc(5 * 100vw + 60vw);
+  position: relative;
+}
+
+/* ── NAV BAR (fixed) ── */
+.piq-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 5.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3.2rem;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(10,22,40,.9) 0%, transparent 100%);
+}
+.piq-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -.02em;
+}
+.piq-logo span { color: #fff; }
+
+/* ── BOTTOM NAV BAR ── */
+.piq-bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 7rem;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  background: rgba(4,8,18,.97);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 0 2rem;
+}
+
+/* ── LIQUID METAL NAV BUTTON ── */
+.nav-item {
+  position: relative;
+  width: 11rem;
+  height: 4rem;
+  border: none;
+  background: none;
+  cursor: none;
+  padding: 0;
+  flex-shrink: 0;
+  outline: none;
+}
+/* canvas fills the button */
+.nav-item canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10rem;
+  display: block;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+/* dark pill base — always visible */
+.nav-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 10rem;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+  border: 1px solid rgba(255,255,255,.06);
+  transition: border-color .3s;
+}
+.nav-item.active .nav-pill  { border-color: rgba(255,255,255,.14); }
+.nav-item:hover  .nav-pill  { border-color: rgba(255,255,255,.1); }
+
+/* label */
+.nav-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: .03em;
+  color: rgba(255,255,255,.28);
+  transition: color .3s;
+  pointer-events: none;
+  z-index: 2;
+  text-shadow: 0 1px 3px rgba(0,0,0,.7);
+}
+.nav-dot {
+  width: .55rem;
+  height: .55rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .5;
+  flex-shrink: 0;
+  transition: opacity .3s, transform .3s;
+}
+.nav-item:hover  .nav-label { color: rgba(255,255,255,.7); }
+.nav-item:hover  .nav-dot   { opacity: .8; }
+.nav-item.active .nav-label { color: rgba(255,255,255,.92); }
+.nav-item.active .nav-dot   { opacity: 1; transform: scale(1.35); }
+/* show shader on hover + active */
+.nav-item:hover  canvas,
+.nav-item.active canvas { opacity: 1; }
+
+/* ── CURSOR FOLLOWER (background-boxes inspired) ── */
+#cursor-glow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 42rem;
+  height: 42rem;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(0,196,106,.065) 0%, transparent 68%);
+  will-change: transform;
+  transition: opacity .5s;
+}
+#cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 1rem; height: 1rem;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  background: var(--green);
+  opacity: .9;
+  will-change: transform;
+  transition: width .15s, height .15s;
+}
+#cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 3.2rem; height: 3.2rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,196,106,.45);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  will-change: transform;
+  transition: width .2s, height .2s, border-color .2s;
+}
+.cursor-hover #cursor-dot  { width: 1.6rem; height: 1.6rem; }
+.cursor-hover #cursor-ring { width: 4.8rem; height: 4.8rem; border-color: rgba(0,196,106,.85); }
+
+/* ── SCROLL HINT (fixed) ── */
+.scroll-hint {
+  position: fixed;
+  bottom: 3rem;
+  right: 3.2rem;
+  color: rgba(255,255,255,.5);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  z-index: 100;
+  transition: opacity .5s;
+}
+.scroll-hint.hidden { opacity: 0; }
+.scroll-arrow {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1.5px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: nudge 2s ease-in-out infinite;
+}
+@keyframes nudge {
+  0%,100% { transform: translateX(0); }
+  50%      { transform: translateX(4px); }
+}
+
+/* ── SCENE CONTAINERS ── */
+.piq-scene {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* scene backgrounds */
+/* Scene backgrounds now driven by JS ambient colour system */
+#s-home    { background: transparent; }
+#s-quiz    { background: transparent; }
+#s-explore { background: transparent; }
+#s-compare { background: transparent; }
+#s-report  { background: transparent; }
+
+/* scene grid lines (atmosphere) */
+.piq-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,196,106,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,196,106,.04) 1px, transparent 1px);
+  background-size: 8rem 8rem;
+  pointer-events: none;
+}
+
+/* ── SCENE CONTENT AREAS ── */
+.scene-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 6rem 6rem;
+  z-index: 10;
+}
+
+.scene-tag {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1.6rem;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: all .6s ease;
+}
+.scene-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 5.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  margin-bottom: 2rem;
+  max-width: 55rem;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: all .6s ease .1s;
+}
+.scene-title em {
+  font-style: normal;
+  color: var(--green);
+}
+.scene-body {
+  font-size: 1.9rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.6;
+  max-width: 48rem;
+  margin-bottom: 3.2rem;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: all .6s ease .2s;
+}
+.scene-cta {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: all .6s ease .3s;
+}
+
+/* animated in state */
+.piq-scene.in-view .scene-tag,
+.piq-scene.in-view .scene-title,
+.piq-scene.in-view .scene-body,
+.piq-scene.in-view .scene-cta { opacity: 1; transform: translateY(0); }
+
+/* ── BUTTONS ── */
+.btn-primary {
+  background: var(--green);
+  color: var(--navy);
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 1.4rem 3rem;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: none;
+  transition: background .2s, transform .15s;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: #00e077; transform: translateY(-2px); }
+
+.btn-ghost {
+  background: transparent;
+  color: rgba(255,255,255,.8);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding: 1.4rem 2.4rem;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 0.8rem;
+  cursor: none;
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+/* ── INTEREST TAGS (scene 1) ── */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.8rem;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: all .6s ease .25s;
+}
+.piq-scene.in-view .tag-row { opacity: 1; transform: translateY(0); }
+
+.interest-tag {
+  padding: .7rem 1.6rem;
+  border-radius: 10rem;
+  border: 1px solid rgba(0,196,106,.3);
+  background: rgba(0,196,106,.08);
+  color: rgba(255,255,255,.8);
+  font-size: 1.4rem;
+  cursor: none;
+  transition: all .2s;
+}
+.interest-tag:hover {
+  background: rgba(0,196,106,.2);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* ── SEARCH BOX (scene 1) ── */
+.search-box {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: all .6s ease .15s;
+  max-width: 52rem;
+}
+.piq-scene.in-view .search-box { opacity: 1; transform: translateY(0); }
+
+.search-input {
+  flex: 1;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: .8rem;
+  padding: 1.4rem 2rem;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.6rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.search-input::placeholder { color: rgba(255,255,255,.35); }
+.search-input:focus { border-color: var(--green); }
+
+/* ── QUIZ CARDS (scene 2) ── */
+.quiz-area {
+  position: absolute;
+  right: 5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42rem;
+  opacity: 0;
+  transition: opacity .6s ease .3s;
+}
+.piq-scene.in-view .quiz-area { opacity: 1; }
+
+.quiz-question {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1.6rem;
+  padding: 2.8rem;
+}
+.quiz-q-label {
+  font-size: 1.1rem;
+  color: var(--green);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-family: 'Syne', sans-serif;
+  margin-bottom: 1.4rem;
+}
+.quiz-q-text {
+  font-size: 2rem;
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 2rem;
+}
+.quiz-options { display: flex; flex-direction: column; gap: .8rem; }
+.quiz-opt {
+  padding: 1.2rem 1.8rem;
+  border-radius: .8rem;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.8);
+  font-size: 1.5rem;
+  cursor: none;
+  transition: all .2s;
+  text-align: left;
+}
+.quiz-opt:hover   { border-color: var(--green); background: rgba(0,196,106,.1); color: #fff; }
+.quiz-opt.selected { border-color: var(--green); background: rgba(0,196,106,.18); color: #fff; }
+
+/* ── CAREER CARDS (scene 3) ── */
+.cards-area {
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  width: 38rem;
+  opacity: 0;
+  transition: opacity .6s ease .3s;
+}
+.piq-scene.in-view .cards-area { opacity: 1; }
+
+.career-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1.2rem;
+  padding: 1.8rem 2rem;
+  cursor: none;
+  transition: all .25s;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+.career-card:hover {
+  border-color: var(--green);
+  background: rgba(0,196,106,.08);
+  transform: translateX(-4px);
+}
+.card-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: .8rem;
+  background: rgba(0,196,106,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+.card-info { flex: 1; }
+.card-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; }
+.card-meta  { font-size: 1.2rem; color: rgba(255,255,255,.5); margin-top: .2rem; }
+.card-tag   {
+  font-size: 1.1rem;
+  padding: .3rem .8rem;
+  border-radius: 10rem;
+  background: rgba(0,196,106,.15);
+  color: var(--green);
+  white-space: nowrap;
+}
+
+/* ── COMPARE BLOCKS (scene 4) ── */
+.compare-area {
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44rem;
+  opacity: 0;
+  transition: opacity .6s ease .3s;
+}
+.piq-scene.in-view .compare-area { opacity: 1; }
+
+.compare-row {
+  display: flex;
+  gap: 1.4rem;
+}
+.compare-col {
+  flex: 1;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1.4rem;
+  padding: 2.2rem;
+  cursor: none;
+  transition: all .25s;
+}
+.compare-col:hover { border-color: var(--green); background: rgba(0,196,106,.08); }
+.compare-col.selected { border-color: var(--green); background: rgba(0,196,106,.12); }
+.compare-job { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 700; color: #fff; margin-bottom: .6rem; }
+.compare-sal { font-size: 2.2rem; font-weight: 700; color: var(--green); margin-bottom: .4rem; }
+.compare-lbl { font-size: 1.2rem; color: rgba(255,255,255,.45); }
+.compare-vs {
+  text-align: center;
+  color: rgba(255,255,255,.3);
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  margin: 1.4rem 0;
+}
+
+/* ── REPORT PREVIEW (scene 5) ── */
+.report-area {
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42rem;
+  opacity: 0;
+  transition: opacity .6s ease .3s;
+}
+.piq-scene.in-view .report-area { opacity: 1; }
+
+.report-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 1.6rem;
+  padding: 2.8rem;
+}
+.report-header {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.report-icon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1rem;
+  background: rgba(0,196,106,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+}
+.report-job  { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: #fff; }
+.report-sub  { font-size: 1.3rem; color: var(--green); margin-top: .2rem; }
+.report-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+  margin-bottom: 2rem;
+}
+.stat-block { }
+.stat-val { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 700; color: #fff; }
+.stat-lbl { font-size: 1.2rem; color: rgba(255,255,255,.4); margin-top: .2rem; }
+.timeline-bar {
+  height: .6rem;
+  background: rgba(255,255,255,.08);
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.timeline-fill {
+  height: 100%;
+  width: 65%;
+  background: linear-gradient(90deg, var(--green-d), var(--green));
+  border-radius: 1rem;
+}
+
+/* ── CHARACTER (sticky walker) ── */
+.piq-character {
+  position: fixed;
+  bottom: 7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 150;
+  pointer-events: none;
+  transition: left .05s linear;
+}
+.char-body {
+  width: 22rem;
+  height: auto;
+  display: block;
+}
+.char-body svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* Scooter bob animation when idle */
+@keyframes scooter-idle {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+/* Scooter zoom animation when scrolling */
+@keyframes scooter-roll {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  25%      { transform: translateY(-6px) rotate(-1deg); }
+  75%      { transform: translateY(-2px) rotate(1deg); }
+}
+.char-idle   .char-body { animation: scooter-idle 2s ease-in-out infinite; }
+.char-walking .char-body { animation: scooter-roll .4s ease-in-out infinite; }
+
+/* ── OVERLAY (popup panel) ── */
+.piq-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,22,40,.85);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+.piq-overlay.open { display: flex; }
+.overlay-panel {
+  background: #0F1E38;
+  border: 1px solid rgba(0,196,106,.2);
+  border-radius: 2rem;
+  padding: 4rem;
+  max-width: 56rem;
+  width: 90vw;
+  position: relative;
+  animation: popIn .3s ease;
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(.94) translateY(1rem); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.overlay-close {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.6rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  border: none;
+  color: rgba(255,255,255,.6);
+  font-size: 1.8rem;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+.overlay-close:hover { background: rgba(255,255,255,.15); }
+.ov-badge {
+  display: inline-block;
+  padding: .4rem 1.2rem;
+  background: rgba(0,196,106,.15);
+  color: var(--green);
+  border-radius: 10rem;
+  font-size: 1.2rem;
+  font-family: 'Syne', sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+}
+.ov-title  { font-family: 'Syne', sans-serif; font-size: 3.2rem; font-weight: 800; color: #fff; margin-bottom: .6rem; }
+.ov-salary { font-size: 2.8rem; font-weight: 700; color: var(--green); margin-bottom: 2rem; }
+.ov-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-bottom: 2.4rem; }
+.ov-cell   { background: rgba(255,255,255,.05); border-radius: .8rem; padding: 1.4rem; }
+.ov-lbl    { font-size: 1.1rem; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .4rem; }
+.ov-val    { font-size: 1.6rem; color: #fff; font-weight: 500; }
+.ov-actions { display: flex; gap: 1.2rem; }
+</style>
+</head>
+<body>
+
+<!-- AMBIENT BACKGROUND (colour shifts with scroll progress) -->
+<div id="ambient-bg" style="
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  transition:opacity 1s ease;
+  background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(0,196,106,.08) 0%, transparent 70%),
+              radial-gradient(ellipse 60% 40% at 80% 20%, rgba(10,22,40,.6) 0%, transparent 60%);
+"></div>
+
+<!-- NAV -->
+<nav class="piq-nav">
+  <div class="piq-logo">Pathway<span>IQ</span></div>
+  <div style="font-size:1.3rem;color:rgba(255,255,255,.4);font-family:'DM Sans'">Scroll to explore →</div>
+</nav>
+
+<!-- CURSOR EFFECTS -->
+<div id="cursor-glow"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="piq-bottom-nav" id="bottomNav">
+  <button class="nav-item active" id="nav-0" onclick="navTo(0)">
+    <div class="nav-pill"></div>
+    <canvas class="nav-canvas" data-idx="0"></canvas>
+    <div class="nav-label"><span class="nav-dot"></span>Home</div>
+  </button>
+  <button class="nav-item" id="nav-1" onclick="navTo(1)">
+    <div class="nav-pill"></div>
+    <canvas class="nav-canvas" data-idx="1"></canvas>
+    <div class="nav-label"><span class="nav-dot"></span>Quiz</div>
+  </button>
+  <button class="nav-item" id="nav-2" onclick="navTo(2)">
+    <div class="nav-pill"></div>
+    <canvas class="nav-canvas" data-idx="2"></canvas>
+    <div class="nav-label"><span class="nav-dot"></span>Explore</div>
+  </button>
+  <button class="nav-item" id="nav-3" onclick="navTo(3)">
+    <div class="nav-pill"></div>
+    <canvas class="nav-canvas" data-idx="3"></canvas>
+    <div class="nav-label"><span class="nav-dot"></span>Compare</div>
+  </button>
+  <button class="nav-item" id="nav-4" onclick="navTo(4)">
+    <div class="nav-pill"></div>
+    <canvas class="nav-canvas" data-idx="4"></canvas>
+    <div class="nav-label"><span class="nav-dot"></span>Report</div>
+  </button>
+</nav>
+
+<!-- SCROLL HINT -->
+<div class="scroll-hint" id="scrollHint">
+  Scroll to begin
+  <div class="scroll-arrow">→</div>
+</div>
+
+<!-- CHARACTER -->
+<div class="piq-character char-idle" id="piqChar">
+  <div class="char-body">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800.035 758.396" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="translate(-548.495 -171)"><path d="M152.495,756.795H952.53C504.688,637.349,217.986,743.716,152.495,756.795Z" transform="translate(396 172.601)" fill="rgba(0,196,106,0.15)"/><path d="M785.073,642.99a2.355,2.355,0,0,0,2.122-3.882l-.094-.655a6.326,6.326,0,0,1,11.676,1.109c2.1,6.787,4.986,13.888,2.451,20.857,14.415-23.776,13.654-55.3-1.549-78.515a19.3,19.3,0,0,1-8.4-13.87c2.3,1.058,5.479-.572,3.948-3.272-.677-1.042-1.362-2.077-2.039-3.118,10.071-8.7,19.283,7.593,7.946,19.577a75.492,75.492,0,0,1,7.054,14.073,31.744,31.744,0,0,1,3.418-14.467c2.259-4.164,6.024-7.475,9.4-10.927a6.516,6.516,0,0,1,11.21,4.557c-3.456.749-4.395,5.53-.642,6.59A32.5,32.5,0,0,1,811.09,604.7a75.791,75.791,0,0,1,.825,31.938c3.023-12.3,16.733-13.925,26.613-17.905a3.666,3.666,0,0,1,5.175,4.275,21.166,21.166,0,0,0-3.9,1.562,3.2,3.2,0,0,0,.871,5.966c-5.94,11.185-18.959,17.752-31.484,16.4a77.915,77.915,0,0,1-6.795,14.653l-18.6-1.944c-.045-.214-.083-.433-.121-.646a21.243,21.243,0,0,0,5.178.231c-3.99-5.868-7.225-8.987-3.787-16.238Z" transform="translate(400.704 233.756)" fill="rgba(0,196,106,0.2)"/><circle cx="49.493" cy="49.493" r="49.493" transform="translate(1125.827 171)" fill="#00C46A"/><path d="M913.829,173.913c-2.854-9.583-10.936-15.848-20.7-17.22a2,2,0,0,0-.334,0,2.626,2.626,0,0,0-.408-.093c-16.571-2.15-35,3.077-47.4,14.458l-.136.125a25.1,25.1,0,0,1-23.774,5.758,22.039,22.039,0,0,0-6.971-.767A24.437,24.437,0,0,0,792.232,193.8a2.83,2.83,0,0,0,1.279,3.133,12.37,12.37,0,0,0,5.171,2.632c4.1.871,8.23,1.668,12.364,2.391q12.123,2.113,24.375,3.429,8.091.862,16.219,1.372c11.2.7,22.447.871,33.661.519,5.561-.185,10.9-.371,15.978-2.818a23.722,23.722,0,0,0,9.175-7.989,26.966,26.966,0,0,0,3.374-22.558Z" transform="translate(372.259 23.144)" fill="rgba(255,255,255,0.15)"/><path d="M822.009,239.6a25.3,25.3,0,0,0-1.038-6.117c-2.873-9.583-10.955-15.848-20.723-17.22a1.787,1.787,0,0,0-.315,0,3.509,3.509,0,0,0-.427-.093,61.528,61.528,0,0,0-27.229,2.8,56.2,56.2,0,0,0-20.291,11.772,25.091,25.091,0,0,1-23.775,5.769,22.107,22.107,0,0,0-6.981-.767,24.437,24.437,0,0,0-21.873,17.628,2.883,2.883,0,0,0,1.279,3.133,12.48,12.48,0,0,0,5.172,2.632c4.115.871,8.23,1.668,12.382,2.391q12.122,2.113,24.356,3.429a361.755,361.755,0,0,0,49.9,1.891c5.542-.185,10.9-.371,15.978-2.817a23.669,23.669,0,0,0,9.157-7.989A26.441,26.441,0,0,0,822.009,239.6Z" transform="translate(362.261 29.559)" fill="rgba(255,255,255,0.1)"/><g transform="matrix(0.996, -0.087, 0.087, 0.996, 652.763, 290.953)"><path d="M299.658,0h-43.2a8.307,8.307,0,0,0-8.307,8.307v5.736a8.307,8.307,0,0,0,8.307,8.307h16.513L267,79.162a8.289,8.289,0,0,0-3.857,6l-5.485,42.849a8.305,8.305,0,0,0,3.389,7.8l-18.33,174.448L216.5,348.137H3.323a3.323,3.323,0,0,0,0,6.646H19.93a22.011,22.011,0,1,0,26.385,0H218.245a3.323,3.323,0,0,0,2.732-1.432l21.637-31.261v28.526a22.011,22.011,0,1,0,6.646.043V311.623l18.328-174.429a8.3,8.3,0,0,0,6.554-7.074l5.485-42.849a8.3,8.3,0,0,0-5.848-9l5.875-55.919h20a8.307,8.307,0,0,0,8.308-8.307V8.307A8.307,8.307,0,0,0,299.658,0Z" transform="translate(0 212.286)" fill="#0A1628"/><path d="M30.542,19.316s-3.593,15.269,0,26.047l-16.17,2.245L0,40.423V30.988S6.737,16.616,4.94,0Z" transform="translate(136.588 46.261) rotate(9)" fill="#ffb9b9"/><path d="M0,44.543l19.672,9.786L43.033,11.1,22.792,0Z" transform="translate(18.541 484.182)" fill="#ffb7b7"/><path d="M.006,50.032h18.91L23.346,0H0Z" transform="translate(153.822 495.332)" fill="#ffb7b7"/><path d="M10.058,1.349s-8.686-6.655-8.686,9.6L0,64.667l15.315,50.746L24.23,98.955,20.572,63.3Z" transform="translate(83.096 135.914)" fill="#00C46A"/><path d="M158.81,18.623s10.072,49.053-2.69,89.31l-7.051,154.781L123.217,260.7l-9.059-114.824L105.429,88.8,87.3,140.836,27.532,250.962,0,229.475s30.509-83.247,53.049-100.725L64.354,0Z" transform="translate(27.26 265.567)" fill="#0A1628"/><ellipse cx="29.478" cy="29.478" rx="29.478" ry="29.478" transform="translate(115.421 53.931) rotate(-61.337)" fill="#ffb7b7"/><path d="M29.363,48.454c3.534.46,6.2-3.156,7.435-6.5s2.178-7.233,5.25-9.039c4.2-2.466,9.568.5,14.368-.314,5.42-.919,8.945-6.664,9.223-12.154S63.73,9.677,61.586,4.614l-.748,6.292A12.477,12.477,0,0,0,55.385,0l.961,9.232A9.8,9.8,0,0,0,45.074,1.124l.152,5.5C38.964,5.881,32.649,5.135,26.37,5.7s-12.6,2.554-17.361,6.69C1.89,18.578-.71,28.763.162,38.154s4.749,18.213,8.79,26.734c1.016,2.144,2.422,4.563,4.78,4.836,2.114.245,4.056-1.525,4.714-3.555a12.873,12.873,0,0,0-.058-6.326c-.6-3.166-1.345-6.4-.787-9.572s2.842-6.306,6.039-6.694,6.469,3.266,4.932,6.1Z" transform="translate(123.977)" fill="#0A1628"/><path d="M98.4,37.032,0,30.683,7.406,0,97.339,20.1Z" transform="translate(89.497 260.276)" fill="rgba(255,255,255,0.2)"/><path d="M52.116,8.569,58.288,0s6.9,2.344,25.373,11.54l1.306,8.028,32.068,197.239-58.289-2.514-15.873-.338-5.195-11.644-6.405,11.4-15.5-.33L0,204.235l15.544-47.546,5.029-43.431L12.8,72.342S3.021,34.769,40.687,14.505Z" transform="translate(75.097 73.833)" fill="#00C46A"/><path d="M47.115,30.651a10.074,10.074,0,0,1-12.529-9.037L0,12.352,13.911,0,44.622,10.694a10.129,10.129,0,0,1,2.493,19.961Z" transform="translate(211.477 201.064)" fill="#ffb7b7"/><path d="M122.921,122.718a5.9,5.9,0,0,1-4.791.384L61.242,101.511a60.744,60.744,0,0,1-32.7-27.558L4.823,31.634A18.989,18.989,0,1,1,33.156,6.344L74.217,71.427l51.675,30.3a5.913,5.913,0,0,1,2.515,6.289l-2.57,10.889a5.9,5.9,0,0,1-1.793,3.026,5.84,5.84,0,0,1-1.123.8Z" transform="translate(120.183 103.767)" fill="#00C46A"/><path d="M26.973,0l21.7,11.1s33.953,8.094,11.847,14.82-32.058,1.945-32.058,1.945S-.46,29.37.006,21.3,6.035,1.888,6.035,1.888,25.389,6.945,26.973,0Z" transform="translate(146.059 540.929)" fill="#0A1628"/><path d="M28.643,0,48.669,10.114s33.953,8.094,11.847,14.82S28.458,26.88,28.458,26.88-.46,28.383.006,20.315,6.035.9,6.035.9,27.058,6.945,28.643,0Z" transform="matrix(0.961, 0.276, -0.276, 0.961, 15.019, 522.795)" fill="#0A1628"/></g><path d="M822.009,239.6a25.3,25.3,0,0,0-1.038-6.117c-2.873-9.583-10.955-15.848-20.723-17.22a1.787,1.787,0,0,0-.315,0,3.509,3.509,0,0,0-.427-.093,61.528,61.528,0,0,0-27.229,2.8,56.2,56.2,0,0,0-20.291,11.772,25.091,25.091,0,0,1-23.775,5.769,22.107,22.107,0,0,0-6.981-.767,24.437,24.437,0,0,0-21.873,17.628,2.883,2.883,0,0,0,1.279,3.133,12.48,12.48,0,0,0,5.172,2.632c4.115.871,8.23,1.668,12.382,2.391q12.122,2.113,24.356,3.429a361.755,361.755,0,0,0,49.9,1.891c5.542-.185,10.9-.371,15.978-2.817a23.669,23.669,0,0,0,9.157-7.989A26.441,26.441,0,0,0,822.009,239.6Z" transform="translate(144.051 -31.362)" fill="rgba(255,255,255,0.08)"/></g></svg>
+  </div>
+</div>
+
+<!-- SCROLL STAGE -->
+<div id="piq-scroll">
+  <div class="piq-body" id="piqBody">
+
+    <!-- ══ SCENE 1: HOME ══ -->
+    <section class="piq-scene" id="s-home">
+      <div class="scene-content">
+        <div class="scene-tag">PathwayIQ — Career Guidance</div>
+        <h1 class="scene-title">Find the career<br><em>you're built for</em></h1>
+        <p class="scene-body">Explore real careers, compare pathways, and get a personalised report — all powered by live Australian labour market data.</p>
+
+        <div class="search-box">
+          <input class="search-input" type="text" placeholder="Search a career… e.g. Nurse, Data Scientist"/>
+          <button class="btn-primary" onclick="openOverlay('search')">Search →</button>
+        </div>
+
+        <div class="tag-row">
+          <span class="interest-tag">Technology</span>
+          <span class="interest-tag">Healthcare</span>
+          <span class="interest-tag">Trades</span>
+          <span class="interest-tag">Education</span>
+          <span class="interest-tag">Creative Arts</span>
+          <span class="interest-tag">Business</span>
+          <span class="interest-tag">Science</span>
+        </div>
+
+        <div class="scene-cta">
+          <button class="btn-primary" onclick="scrollToScene(1)">Take the quiz →</button>
+          <button class="btn-ghost" onclick="scrollToScene(2)">Browse all careers</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SCENE 2: QUIZ ══ -->
+    <section class="piq-scene" id="s-quiz">
+      <div class="scene-content">
+        <div class="scene-tag">Career Interest Quiz</div>
+        <h2 class="scene-title">What kind of<br><em>problem-solver</em><br>are you?</h2>
+        <p class="scene-body">4 quick questions. We match your answers to real careers using live shortage data from the Australian Jobs market.</p>
+        <div class="scene-cta">
+          <button class="btn-primary" onclick="scrollToScene(2)">Skip to Explore →</button>
+        </div>
+      </div>
+
+      <!-- Quiz widget right side -->
+      <div class="quiz-area">
+        <div class="quiz-question">
+          <div class="quiz-q-label">Question 1 of 4</div>
+          <div class="quiz-q-text">What kind of work excites you most?</div>
+          <div class="quiz-options">
+            <button class="quiz-opt" onclick="selectOpt(this)">Solving complex puzzles with data</button>
+            <button class="quiz-opt" onclick="selectOpt(this)">Helping people through difficult times</button>
+            <button class="quiz-opt" onclick="selectOpt(this)">Building or fixing things with my hands</button>
+            <button class="quiz-opt" onclick="selectOpt(this)">Creating something new and original</button>
+          </div>
+        </div>
+        <div style="margin-top:1.6rem;display:flex;justify-content:flex-end">
+          <button class="btn-primary" style="font-size:1.4rem;padding:1.1rem 2.2rem" onclick="scrollToScene(2)">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SCENE 3: EXPLORE ══ -->
+    <section class="piq-scene" id="s-explore">
+      <div class="scene-content">
+        <div class="scene-tag">Explore Careers</div>
+        <h2 class="scene-title">Browse <em>real</em><br>careers &amp;<br>pathways</h2>
+        <p class="scene-body">Filter by industry, salary, or job outlook. Every card shows AI risk, shortage status, and how long it takes to get there.</p>
+        <div class="scene-cta">
+          <button class="btn-primary" onclick="openOverlay('career-ds')">View Data Scientist</button>
+          <button class="btn-ghost" onclick="scrollToScene(3)">Compare careers →</button>
+        </div>
+      </div>
+
+      <!-- Career cards right side -->
+      <div class="cards-area">
+        <div class="career-card" onclick="openOverlay('career-ds')">
+          <div class="card-icon">📊</div>
+          <div class="card-info">
+            <div class="card-title">Data Scientist</div>
+            <div class="card-meta">$95k–$140k · Technology · 3yr degree</div>
+          </div>
+          <div class="card-tag">↑ Shortage</div>
+        </div>
+        <div class="career-card" onclick="openOverlay('career-nurse')">
+          <div class="card-icon">⚕️</div>
+          <div class="card-info">
+            <div class="card-title">Registered Nurse</div>
+            <div class="card-meta">$75k–$110k · Healthcare · 3yr degree</div>
+          </div>
+          <div class="card-tag">↑ Shortage</div>
+        </div>
+        <div class="career-card" onclick="openOverlay('career-elec')">
+          <div class="card-icon">⚡</div>
+          <div class="card-info">
+            <div class="card-title">Electrician</div>
+            <div class="card-meta">$70k–$120k · Trades · Apprenticeship</div>
+          </div>
+          <div class="card-tag">↑ Shortage</div>
+        </div>
+        <div class="career-card" onclick="openOverlay('career-cyber')">
+          <div class="card-icon">🛡️</div>
+          <div class="card-info">
+            <div class="card-title">Cybersecurity Analyst</div>
+            <div class="card-meta">$90k–$135k · Technology · 3yr degree</div>
+          </div>
+          <div class="card-tag">↑ Shortage</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SCENE 4: COMPARE ══ -->
+    <section class="piq-scene" id="s-compare">
+      <div class="scene-content">
+        <div class="scene-tag">Career Comparison</div>
+        <h2 class="scene-title">Side-by-side.<br><em>Every metric</em><br>that matters.</h2>
+        <p class="scene-body">Pick two careers and compare salary, AI risk, pathway length, and 10-year growth. Make the call with confidence.</p>
+        <div class="scene-cta">
+          <button class="btn-primary" onclick="scrollToScene(4)">Get my report →</button>
+        </div>
+      </div>
+
+      <!-- Compare widget right side -->
+      <div class="compare-area">
+        <div class="compare-row">
+          <div class="compare-col selected" onclick="this.classList.toggle('selected')">
+            <div class="compare-job">Data Scientist</div>
+            <div class="compare-sal">$95k</div>
+            <div class="compare-lbl">Starting salary</div>
+            <div style="margin-top:1.4rem;font-size:1.2rem;color:rgba(255,255,255,.5)">
+              <div style="margin-bottom:.4rem">🎓 3yr degree</div>
+              <div style="margin-bottom:.4rem">📈 +22% 10yr growth</div>
+              <div>🤖 Low AI risk</div>
+            </div>
+          </div>
+          <div class="compare-col" onclick="this.classList.toggle('selected')">
+            <div class="compare-job">UX Designer</div>
+            <div class="compare-sal">$75k</div>
+            <div class="compare-lbl">Starting salary</div>
+            <div style="margin-top:1.4rem;font-size:1.2rem;color:rgba(255,255,255,.5)">
+              <div style="margin-bottom:.4rem">🎓 2–3yr degree</div>
+              <div style="margin-bottom:.4rem">📈 +14% 10yr growth</div>
+              <div>⚠️ Mid AI risk</div>
+            </div>
+          </div>
+        </div>
+        <div class="compare-vs">── vs ──</div>
+        <button class="btn-primary" style="width:100%;font-size:1.5rem" onclick="openOverlay('career-ds')">View Data Scientist full report →</button>
+      </div>
+    </section>
+
+    <!-- ══ SCENE 5: REPORT ══ -->
+    <section class="piq-scene" id="s-report">
+      <div class="scene-content">
+        <div class="scene-tag">Career Report</div>
+        <h2 class="scene-title">Your<br><em>personalised</em><br>career report</h2>
+        <p class="scene-body">Salary projections, educational pathways, skills to build, and a 15-year growth timeline. All in one downloadable report.</p>
+        <div class="scene-cta">
+          <button class="btn-primary" onclick="openOverlay('career-ds')">View example report</button>
+          <button class="btn-ghost">Download PDF</button>
+        </div>
+      </div>
+
+      <!-- Report preview right side -->
+      <div class="report-area">
+        <div class="report-card">
+          <div class="report-header">
+            <div class="report-icon">📊</div>
+            <div>
+              <div class="report-job">Data Scientist</div>
+              <div class="report-sub">↑ Shortage role · VIC High demand</div>
+            </div>
+          </div>
+          <div class="report-stats">
+            <div class="stat-block">
+              <div class="stat-val">$95k</div>
+              <div class="stat-lbl">Starting salary</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-val">3 yrs</div>
+              <div class="stat-lbl">To enter field</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-val">+22%</div>
+              <div class="stat-lbl">10yr growth</div>
+            </div>
+            <div class="stat-block">
+              <div class="stat-val">Low</div>
+              <div class="stat-lbl">AI replacement risk</div>
+            </div>
+          </div>
+          <div style="font-size:1.2rem;color:rgba(255,255,255,.4);margin-bottom:.8rem">Career progression</div>
+          <div class="timeline-bar"><div class="timeline-fill"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:1.1rem;color:rgba(255,255,255,.35)">
+            <span>Year 12 now</span><span>Junior DS</span><span>Senior DS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- End anchor for auto-reset -->
+      <div id="gobackttostart" style="position:absolute;right:0;width:1px;height:1px"></div>
+    </section>
+
+  </div><!-- .piq-body -->
+</div><!-- #piq-scroll -->
+
+<!-- ══ OVERLAY PANELS ══ -->
+<div class="piq-overlay" id="piq-overlay">
+  <div class="overlay-panel" id="overlay-content">
+    <button class="overlay-close" onclick="closeOverlay()">✕</button>
+    <!-- content injected by JS -->
+  </div>
+</div>
+
+<script>
+const SCROLL    = document.getElementById('piq-scroll');
+const SCENES    = document.querySelectorAll('.piq-scene');
+const NAV_ITEMS = document.querySelectorAll('.nav-item');
+const CHAR      = document.getElementById('piqChar');
+const HINT      = document.getElementById('scrollHint');
+
+const SCENE_LABELS = ['Home','Quiz','Explore','Compare','Report'];
+
+// ── NAVIGATE TO SCENE (bottom nav click) ──
+function navTo(idx) {
+  // Animate character walking to target position
+  const targetScroll = idx * window.innerWidth;
+  const totalW = SCROLL.scrollWidth;
+  const targetCharX = 80 + (targetScroll / (totalW - window.innerWidth || 1)) * (totalW - 200);
+
+  // direction: face right if going forward, left if going back
+  const goingRight = targetCharX > CHAR_STATE.x;
+  CHAR_STATE.facingRight = goingRight;
+
+  // Tween character X over 600ms while scrolling
+  const startX    = CHAR_STATE.x;
+  const startTime = performance.now();
+  const duration  = 600;
+
+  function tweenChar(now) {
+    const t = Math.min((now - startTime) / duration, 1);
+    // ease in-out
+    const ease = t < .5 ? 2*t*t : -1+(4-2*t)*t;
+    CHAR_STATE.x       = startX + (targetCharX - startX) * ease;
+    CHAR_STATE.isMoving = t < 1;
+    if (t < 1) requestAnimationFrame(tweenChar);
+    else { CHAR_STATE.x = targetCharX; CHAR_STATE.isMoving = false; }
+  }
+  requestAnimationFrame(tweenChar);
+
+  // Smooth scroll page simultaneously
+  SCROLL.scrollTo({ left: targetScroll, behavior: 'smooth' });
+}
+
+const CAREERS = {
+  'career-ds': {
+    icon:'📊', badge:'Technology · Shortage', title:'Data Scientist',
+    salary:'$95k – $140k',
+    stats:[
+      {lbl:'Pathway',      val:'Bachelor (3yr) or Masters'},
+      {lbl:'AI risk',      val:'Low – core analytical role'},
+      {lbl:'10yr growth',  val:'+22% — strong demand'},
+      {lbl:'VIC demand',   val:'High — 840 openings/yr'},
+      {lbl:'Key skills',   val:'Python, SQL, ML, Stats'},
+      {lbl:'ATAR needed',  val:'~80+ recommended'},
+    ]
+  },
+  'career-nurse': {
+    icon:'⚕️', badge:'Healthcare · Shortage', title:'Registered Nurse',
+    salary:'$75k – $110k',
+    stats:[
+      {lbl:'Pathway',      val:'Bachelor of Nursing (3yr)'},
+      {lbl:'AI risk',      val:'Very Low – human-centred'},
+      {lbl:'10yr growth',  val:'+18% — national shortage'},
+      {lbl:'VIC demand',   val:'Very High — 2,400/yr'},
+      {lbl:'Key skills',   val:'Clinical care, empathy'},
+      {lbl:'ATAR needed',  val:'~65+ recommended'},
+    ]
+  },
+  'career-elec': {
+    icon:'⚡', badge:'Trades · Shortage', title:'Electrician',
+    salary:'$70k – $120k',
+    stats:[
+      {lbl:'Pathway',      val:'4yr Apprenticeship (TAFE)'},
+      {lbl:'AI risk',      val:'Very Low – hands-on trade'},
+      {lbl:'10yr growth',  val:'+15% — infrastructure boom'},
+      {lbl:'VIC demand',   val:'High — 1,100 openings/yr'},
+      {lbl:'Key skills',   val:'Wiring, safety, problem-solving'},
+      {lbl:'ATAR needed',  val:'No ATAR required'},
+    ]
+  },
+  'career-cyber': {
+    icon:'🛡️', badge:'Technology · Shortage', title:'Cybersecurity Analyst',
+    salary:'$90k – $135k',
+    stats:[
+      {lbl:'Pathway',      val:'Bachelor IT/Cyber (3yr)'},
+      {lbl:'AI risk',      val:'Low – uses AI as a tool'},
+      {lbl:'10yr growth',  val:'+31% — fastest growing tech'},
+      {lbl:'VIC demand',   val:'High — 620 openings/yr'},
+      {lbl:'Key skills',   val:'Networks, ethical hacking'},
+      {lbl:'ATAR needed',  val:'~75+ recommended'},
+    ]
+  },
+  'search': {
+    icon:'🔍', badge:'Search Results', title:'Career Search',
+    salary:'',
+    stats:[
+      {lbl:'Try searching',val:'Nurse, Engineer, Teacher'},
+      {lbl:'Filter by',    val:'Salary, Pathway, AI risk'},
+      {lbl:'Sort by',      val:'Demand, Growth, Entry level'},
+      {lbl:'Data source',  val:'JSA Occupation Shortage List'},
+      {lbl:'Updated',      val:'Live Australian labour data'},
+      {lbl:'Tip',          val:'Click an Interest Tag to filter'},
+    ]
+  }
+};
+
+function openOverlay(id) {
+  const d = CAREERS[id]; if (!d) return;
+  const panel = document.getElementById('overlay-content');
+  panel.innerHTML = `
+    <button class="overlay-close" onclick="closeOverlay()">✕</button>
+    <div class="ov-badge">${d.badge}</div>
+    <div class="ov-title">${d.icon} ${d.title}</div>
+    ${d.salary ? `<div class="ov-salary">${d.salary}</div>` : ''}
+    <div class="ov-grid">
+      ${d.stats.map(s=>`<div class="ov-cell"><div class="ov-lbl">${s.lbl}</div><div class="ov-val">${s.val}</div></div>`).join('')}
+    </div>
+    <div class="ov-actions">
+      <button class="btn-primary" style="flex:1" onclick="closeOverlay();scrollToScene(4)">Get full report →</button>
+      <button class="btn-ghost" onclick="closeOverlay();scrollToScene(3)">Compare careers</button>
+    </div>`;
+  document.getElementById('piq-overlay').classList.add('open');
+}
+function closeOverlay() {
+  document.getElementById('piq-overlay').classList.remove('open');
+}
+document.getElementById('piq-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('piq-overlay')) closeOverlay();
+});
+
+function selectOpt(el) {
+  el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function scrollToScene(idx) {
+  navTo(idx);
+}
+
+// ── CHARACTER STATE ──
+const CHAR_STATE = {
+  // position in pixels across the full scrollable width
+  x: 80,
+  y: 0,           // vertical offset from bottom (0 = ground)
+  velY: 0,        // vertical velocity for jump
+  facingRight: true,
+  isMoving: false,
+  isJumping: false,
+  keys: {},
+};
+
+const SPEED     = 6;    // px per frame horizontal
+const JUMP_VEL  = 18;   // initial jump velocity
+const GRAVITY   = 1.2;  // gravity pull per frame
+const GROUND_Y  = 0;    // resting y offset
+
+// Total scrollable world width in px
+function worldWidth() {
+  return SCROLL.scrollWidth - window.innerWidth;
+}
+
+// ── FLIP SVG when moving left ──
+function updateFacing() {
+  const svg = CHAR.querySelector('svg');
+  if (!svg) return;
+  svg.style.transform = CHAR_STATE.facingRight ? 'scaleX(1)' : 'scaleX(-1)';
+}
+
+// ── RENDER: apply position to DOM ──
+function renderChar() {
+  // x as percentage of total world width → maps to viewport left position
+  const totalW   = SCROLL.scrollWidth;   // full scrollable width
+  const viewW    = window.innerWidth;
+
+  // Character screen position = char world x minus scroll position
+  const screenX  = CHAR_STATE.x - SCROLL.scrollLeft;
+  const clampedX = Math.max(30, Math.min(viewW - 30, screenX));
+
+  CHAR.style.left      = clampedX + 'px';
+  CHAR.style.transform = 'translateX(-50%)';
+  CHAR.style.bottom    = (CHAR_STATE.y + 0) + 'px';
+
+  // Walking vs idle animation
+  CHAR.classList.toggle('char-walking', CHAR_STATE.isMoving);
+  CHAR.classList.toggle('char-idle',    !CHAR_STATE.isMoving);
+
+  updateFacing();
+}
+
+// ── SYNC SCROLL to follow character ──
+function syncScroll() {
+  const viewW    = window.innerWidth;
+  const deadLeft  = viewW * 0.25;   // scroll left when char < 25% of screen
+  const deadRight = viewW * 0.65;   // scroll right when char > 65% of screen
+
+  const screenX = CHAR_STATE.x - SCROLL.scrollLeft;
+
+  if (screenX < deadLeft) {
+    SCROLL.scrollLeft = CHAR_STATE.x - deadLeft;
+  } else if (screenX > deadRight) {
+    SCROLL.scrollLeft = CHAR_STATE.x - deadRight;
+  }
+
+  SCROLL.scrollLeft = Math.max(0, Math.min(worldWidth(), SCROLL.scrollLeft));
+}
+
+// ── UPDATE SCENE STATE ──
+function updateScene() {
+  const idx = Math.round(SCROLL.scrollLeft / window.innerWidth);
+  SCENES.forEach((s, i)    => s.classList.toggle('in-view', i === idx));
+  NAV_ITEMS.forEach((n, i) => n.classList.toggle('active',  i === idx));
+  if (SCROLL.scrollLeft > 50) HINT.classList.add('hidden');
+}
+
+// ── GAME LOOP ──
+function gameLoop() {
+  const keys  = CHAR_STATE.keys;
+  const maxX  = SCROLL.scrollWidth - 40;
+  let moving  = false;
+
+  // Horizontal movement
+  if (keys['ArrowRight'] || keys['KeyD']) {
+    CHAR_STATE.x = Math.min(maxX, CHAR_STATE.x + SPEED);
+    CHAR_STATE.facingRight = true;
+    moving = true;
+  }
+  if (keys['ArrowLeft'] || keys['KeyA']) {
+    CHAR_STATE.x = Math.max(40, CHAR_STATE.x - SPEED);
+    CHAR_STATE.facingRight = false;
+    moving = true;
+  }
+
+  // Jump (ArrowUp or Space or KeyW)
+  if ((keys['ArrowUp'] || keys['Space'] || keys['KeyW']) && !CHAR_STATE.isJumping) {
+    CHAR_STATE.velY    = JUMP_VEL;
+    CHAR_STATE.isJumping = true;
+  }
+
+  // Apply gravity
+  if (CHAR_STATE.isJumping || CHAR_STATE.y > 0) {
+    CHAR_STATE.velY -= GRAVITY;
+    CHAR_STATE.y    += CHAR_STATE.velY;
+    if (CHAR_STATE.y <= GROUND_Y) {
+      CHAR_STATE.y      = GROUND_Y;
+      CHAR_STATE.velY   = 0;
+      CHAR_STATE.isJumping = false;
+    }
+    moving = true;
+  }
+
+  CHAR_STATE.isMoving = moving;
+
+  syncScroll();
+  renderChar();
+  updateScene();
+
+  requestAnimationFrame(gameLoop);
+}
+
+// ── KEYBOARD LISTENERS ──
+document.addEventListener('keydown', e => {
+  CHAR_STATE.keys[e.code] = true;
+  // Prevent page scroll on arrow keys / space
+  if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code)) {
+    e.preventDefault();
+  }
+});
+document.addEventListener('keyup', e => {
+  CHAR_STATE.keys[e.code] = false;
+});
+
+// ── MOUSE WHEEL still works ──
+SCROLL.addEventListener('wheel', e => {
+  e.preventDefault();
+  const delta = Math.max(-1, Math.min(1, e.deltaY || -e.detail));
+  SCROLL.scrollLeft += delta * 120;
+  // also nudge character to match scroll position
+  const progress = SCROLL.scrollLeft / (worldWidth() || 1);
+  CHAR_STATE.x = 80 + progress * (SCROLL.scrollWidth - 200);
+}, { passive: false });
+
+// ── KEYBOARD HINT (fixed bottom-left) ──
+const kbHint = document.createElement('div');
+kbHint.innerHTML = '⬅ ➡ move &nbsp;|&nbsp; ⬆ / Space jump';
+kbHint.style.cssText = `
+  position:fixed;bottom:2.4rem;left:50%;transform:translateX(-50%);
+  font-size:1.1rem;color:rgba(255,255,255,.35);
+  font-family:'DM Sans',sans-serif;z-index:100;
+  background:rgba(0,0,0,.3);padding:.5rem 1.2rem;border-radius:10rem;
+  pointer-events:none;letter-spacing:.04em;
+  transition:opacity .5s;
+`;
+document.body.appendChild(kbHint);
+// fade out after first key press
+document.addEventListener('keydown', () => {
+  kbHint.style.opacity = '0';
+  setTimeout(() => kbHint.remove(), 600);
+}, { once: true });
+
+// ── INIT ──
+SCENES[0].classList.add('in-view');
+renderChar();
+gameLoop();
+
+// Auto-reset when reaching end
+const endEl = document.getElementById('gobackttostart');
+if (endEl) {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          SCROLL.scrollTo({ left: 0, behavior: 'smooth' });
+          CHAR_STATE.x = 80;
+        }, 2000);
+      }
+    });
+  }).observe(endEl);
+}
+
+// ── AMBIENT COLOUR SYSTEM ──
+// Progress 0→1 maps warm (scene 0) → cool (scene 4)
+// Palette: deep green-navy → indigo-teal → arctic blue
+const BG_STOPS = [
+  // [r, g, b]  body base colour at each scene
+  [12,  20,  18],   // 0: Home       — 暖黑，带一丝绿
+  [10,  14,  28],   // 1: Quiz       — 深蓝黑
+  [6,   16,  32],   // 2: Explore    — 海洋蓝黑
+  [4,   10,  36],   // 3: Compare    — 靛蓝黑
+  [2,   8,   22],   // 4: Report     — 极地冷黑
+];
+
+// Accent glow colour per scene (for radial overlay)
+const GLOW_STOPS = [
+  [0,  196, 106],   // 0: green
+  [99, 102, 241],   // 1: indigo
+  [20, 184, 166],   // 2: teal
+  [56, 189, 248],   // 3: sky blue
+  [99, 198, 255],   // 4: ice blue
+];
+
+function lerpColour(a, b, t) {
+  return [
+    Math.round(a[0] + (b[0] - a[0]) * t),
+    Math.round(a[1] + (b[1] - a[1]) * t),
+    Math.round(a[2] + (b[2] - a[2]) * t),
+  ];
+}
+
+const ambientEl = document.getElementById('ambient-bg');
+let lastProgress = -1;
+
+function updateAmbientColour() {
+  const progress = SCROLL.scrollLeft / (SCROLL.scrollWidth - window.innerWidth || 1);
+  if (Math.abs(progress - lastProgress) < 0.002) return;
+  lastProgress = progress;
+
+  // Which two stops to interpolate between
+  const totalStops = BG_STOPS.length - 1;
+  const scaled = progress * totalStops;
+  const idx    = Math.min(Math.floor(scaled), totalStops - 1);
+  const t      = scaled - idx;
+
+  const bg   = lerpColour(BG_STOPS[idx],   BG_STOPS[idx + 1],   t);
+  const glow = lerpColour(GLOW_STOPS[idx], GLOW_STOPS[idx + 1], t);
+
+  // Body base
+  document.body.style.backgroundColor = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
+
+  // Ambient glow overlay — character is left-ish on screen, so anchor glow there
+  const charScreenPct = Math.max(10, Math.min(85,
+    ((CHAR_STATE.x - SCROLL.scrollLeft) / window.innerWidth) * 100
+  ));
+  ambientEl.style.background = `
+    radial-gradient(ellipse 70% 55% at ${charScreenPct}% 85%,
+      rgba(${glow[0]},${glow[1]},${glow[2]},.11) 0%,
+      transparent 70%),
+    radial-gradient(ellipse 50% 35% at ${100 - charScreenPct}% 15%,
+      rgba(${glow[0]},${glow[1]},${glow[2]},.05) 0%,
+      transparent 60%)
+  `;
+
+}
+
+// Hook into scroll + game loop
+SCROLL.addEventListener('scroll', updateAmbientColour, { passive: true });
+updateAmbientColour();
+
+// ══════════════════════════════════════════════════════
+// LIQUID METAL SHADER — inline WebGL (mirrors @paper-design/shaders)
+// ══════════════════════════════════════════════════════
+(function initLiquidMetal() {
+
+const VERT = `
+attribute vec2 a_position;
+void main() { gl_Position = vec4(a_position, 0.0, 1.0); }
+`;
+
+// Liquid metal fragment shader — iridescent chrome noise
+const FRAG = `
+precision mediump float;
+uniform float u_time;
+uniform vec2  u_res;
+
+// smooth hash
+float hash(vec2 p) {
+  p = fract(p * vec2(234.34, 435.345));
+  p += dot(p, p + 34.23);
+  return fract(p.x * p.y);
+}
+float noise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f*f*(3.0-2.0*f);
+  float a = hash(i);
+  float b = hash(i+vec2(1,0));
+  float c = hash(i+vec2(0,1));
+  float d = hash(i+vec2(1,1));
+  return mix(mix(a,b,f.x), mix(c,d,f.x), f.y);
+}
+float fbm(vec2 p) {
+  float v = 0.0, a = 0.5;
+  for(int i=0;i<5;i++){
+    v += a * noise(p);
+    p  = p * 2.0 + vec2(0.3, 0.7);
+    a *= 0.5;
+  }
+  return v;
+}
+
+// chrome iridescent palette
+vec3 chrome(float t) {
+  // silver base
+  vec3 c0 = vec3(0.75, 0.75, 0.78);
+  // cool highlight
+  vec3 c1 = vec3(0.88, 0.92, 0.98);
+  // warm gold flash
+  vec3 c2 = vec3(0.95, 0.85, 0.60);
+  // shadow
+  vec3 c3 = vec3(0.12, 0.12, 0.14);
+  float s = fract(t * 2.0);
+  if (t < 0.25) return mix(c3, c0, s * 4.0);
+  if (t < 0.50) return mix(c0, c1, (t-0.25)*4.0);
+  if (t < 0.75) return mix(c1, c2, (t-0.50)*4.0);
+  return mix(c2, c0, (t-0.75)*4.0);
+}
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / u_res;
+  // skew UVs like the React component
+  vec2 skew = uv + vec2(uv.y * -0.48, uv.x * 0.14);
+
+  float t = u_time * 0.28;
+  float n = fbm(skew * 4.5 + vec2(t, t * 0.6));
+  float n2= fbm(skew * 7.0 - vec2(t * 0.8, t * 0.3) + 1.7);
+
+  float m = n * 0.7 + n2 * 0.3;
+  m += uv.y * 0.25 - 0.1; // subtle vertical gradient
+
+  vec3 col = chrome(fract(m + t * 0.15));
+
+  // soft vignette edge
+  vec2 edge = uv * (1.0 - uv);
+  float vign = smoothstep(0.0, 0.08, edge.x * edge.y * 8.0);
+  col = mix(vec3(0.05), col, vign * 0.9 + 0.1);
+
+  gl_FragColor = vec4(col, 0.82);
+}
+`;
+
+function compileShader(gl, type, src) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src);
+  gl.compileShader(s);
+  return s;
+}
+
+function createProgram(gl) {
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compileShader(gl, gl.VERTEX_SHADER,   VERT));
+  gl.attachShader(prog, compileShader(gl, gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(prog);
+  return prog;
+}
+
+// One shared rAF loop, each canvas has its own GL context
+const navShaders = [];
+
+document.querySelectorAll('.nav-canvas').forEach((canvas) => {
+  const btn = canvas.closest('.nav-item');
+  const gl  = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false });
+  if (!gl) return;
+
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+  const prog    = createProgram(gl);
+  const posLoc  = gl.getAttribLocation(prog,  'a_position');
+  const timeLoc = gl.getUniformLocation(prog, 'u_time');
+  const resLoc  = gl.getUniformLocation(prog, 'u_res');
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER,
+    new Float32Array([-1,-1, 1,-1, -1,1, 1,-1, 1,1, -1,1]), gl.STATIC_DRAW);
+
+  // Track hover/active speed
+  let speed = 0;        // 0 = paused, 1 = hover, 1.5 = active
+  let accumTime = 0;
+  let lastTs = null;
+
+  btn.addEventListener('mouseenter', () => { speed = 1.0; });
+  btn.addEventListener('mouseleave', () => { speed = 0.4; setTimeout(()=>{ if(speed===0.4) speed=0; }, 600); });
+
+  navShaders.push({ canvas, gl, prog, posLoc, timeLoc, resLoc, buf,
+    getSpeed: () => {
+      return btn.classList.contains('active') ? 0.7 : speed;
+    },
+    accumTime: 0, lastTs: null
+  });
+});
+
+// Unified rAF loop
+let rafActive = false;
+function shaderLoop(ts) {
+  navShaders.forEach(s => {
+    const sp = s.getSpeed();
+    if (sp === 0 && !s.canvas.closest('.nav-item').classList.contains('active')) return;
+
+    const dt = s.lastTs === null ? 0 : (ts - s.lastTs) / 1000;
+    s.lastTs = ts;
+    s.accumTime += dt * (sp || 0.7);
+
+    const { canvas, gl, prog, posLoc, timeLoc, resLoc, buf } = s;
+    const w = canvas.clientWidth  * devicePixelRatio;
+    const h = canvas.clientHeight * devicePixelRatio;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+    gl.viewport(0, 0, w, h);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.uniform1f(timeLoc, s.accumTime);
+    gl.uniform2f(resLoc, w, h);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  });
+  requestAnimationFrame(shaderLoop);
+}
+requestAnimationFrame(shaderLoop);
+
+})(); // end initLiquidMetal
+
+// ── CURSOR FOLLOWER ──
+const cursorGlow = document.getElementById('cursor-glow');
+const cursorDot  = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+
+let mouseX = -200, mouseY = -200;
+let glowX  = -200, glowY  = -200;
+let ringX  = -200, ringY  = -200;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Check if hovering a clickable element
+document.addEventListener('mouseover', e => {
+  const el = e.target.closest('button,a,[onclick],.career-card,.quiz-opt,.interest-tag,.compare-col');
+  document.body.classList.toggle('cursor-hover', !!el);
+});
+
+// Animate cursor with lerp for smooth trailing
+(function cursorLoop() {
+  // dot follows mouse tightly
+  cursorDot.style.transform  = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
+
+  // glow lags behind (slow lerp)
+  glowX += (mouseX - glowX) * 0.06;
+  glowY += (mouseY - glowY) * 0.06;
+  cursorGlow.style.transform = `translate(${glowX}px, ${glowY}px) translate(-50%,-50%)`;
+
+  // ring lags medium
+  ringX += (mouseX - ringX) * 0.18;
+  ringY += (mouseY - ringY) * 0.18;
+  cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%,-50%)`;
+
+  requestAnimationFrame(cursorLoop);
+})();
+
+// Hide cursor on mouse leave, show on enter
+document.addEventListener('mouseleave', () => {
+  cursorGlow.style.opacity = '0';
+  cursorDot.style.opacity  = '0';
+  cursorRing.style.opacity = '0';
+});
+document.addEventListener('mouseenter', () => {
+  cursorGlow.style.opacity = '1';
+  cursorDot.style.opacity  = '.9';
+  cursorRing.style.opacity = '1';
+});
+</script>
+</body>
+</html>
