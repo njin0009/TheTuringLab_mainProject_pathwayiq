@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@paper-design/shaders": "^0.0.72",
+    "@paper-design/shaders-react": "^0.0.74",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.8.0",

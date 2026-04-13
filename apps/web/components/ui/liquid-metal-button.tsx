@@ -8,12 +8,19 @@ interface LiquidMetalButtonProps {
   label?: string;
   onClick?: () => void;
   viewMode?: "text" | "icon";
+  active?: boolean;
+}
+
+interface ShaderMountController {
+  destroy?: () => void;
+  setSpeed?: (speed: number) => void;
 }
 
 export function LiquidMetalButton({
   label = "Get Started",
   onClick,
   viewMode = "text",
+  active = false,
 }: LiquidMetalButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
@@ -21,8 +28,7 @@ export function LiquidMetalButton({
     Array<{ x: number; y: number; id: number }>
   >([]);
   const shaderRef = useRef<HTMLDivElement>(null);
-  // biome-ignore lint/suspicious/noExplicitAny: External library without types
-  const shaderMount = useRef<any>(null);
+  const shaderMount = useRef<ShaderMountController | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const rippleId = useRef(0);
 
@@ -36,16 +42,16 @@ export function LiquidMetalButton({
         shaderWidth: 46,
         shaderHeight: 46,
       };
-    } else {
-      return {
-        width: 142,
-        height: 46,
-        innerWidth: 138,
-        innerHeight: 42,
-        shaderWidth: 142,
-        shaderHeight: 46,
-      };
     }
+
+    return {
+      width: 142,
+      height: 46,
+      innerWidth: 138,
+      innerHeight: 42,
+      shaderWidth: 142,
+      shaderHeight: 46,
+    };
   }, [viewMode]);
 
   useEffect(() => {
@@ -101,11 +107,11 @@ export function LiquidMetalButton({
               u_offsetY: -0.1,
             },
             undefined,
-            0.6,
+            active ? 0.7 : 0.6,
           );
         }
       } catch (error) {
-        console.error("[v0] Failed to load shader:", error);
+        console.error("[pathwayiq] Failed to load shader:", error);
       }
     };
 
@@ -117,17 +123,23 @@ export function LiquidMetalButton({
         shaderMount.current = null;
       }
     };
-  }, []);
+  }, [active]);
+
+  useEffect(() => {
+    if (shaderMount.current?.setSpeed) {
+      shaderMount.current.setSpeed(active ? 0.7 : isHovered ? 1 : 0.6);
+    }
+  }, [active, isHovered]);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    shaderMount.current?.setSpeed?.(1);
+    shaderMount.current?.setSpeed?.(active ? 0.85 : 1);
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
     setIsPressed(false);
-    shaderMount.current?.setSpeed?.(0.6);
+    shaderMount.current?.setSpeed?.(active ? 0.7 : 0.6);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -135,9 +147,9 @@ export function LiquidMetalButton({
       shaderMount.current.setSpeed(2.4);
       setTimeout(() => {
         if (isHovered) {
-          shaderMount.current?.setSpeed?.(1);
+          shaderMount.current?.setSpeed?.(active ? 0.85 : 1);
         } else {
-          shaderMount.current?.setSpeed?.(0.6);
+          shaderMount.current?.setSpeed?.(active ? 0.7 : 0.6);
         }
       }, 300);
     }
@@ -156,6 +168,12 @@ export function LiquidMetalButton({
 
     onClick?.();
   };
+
+  const labelColor = active
+    ? "rgba(255,255,255,0.92)"
+    : isHovered
+      ? "rgba(255,255,255,0.74)"
+      : "#666666";
 
   return (
     <div className="relative inline-block">
@@ -199,7 +217,7 @@ export function LiquidMetalButton({
               <Sparkles
                 size={16}
                 style={{
-                  color: "#666666",
+                  color: labelColor,
                   filter: "drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5))",
                   transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
                   transform: "scale(1)",
@@ -210,8 +228,8 @@ export function LiquidMetalButton({
               <span
                 style={{
                   fontSize: "14px",
-                  color: "#666666",
-                  fontWeight: 400,
+                  color: labelColor,
+                  fontWeight: active ? 600 : 400,
                   textShadow: "0px 1px 2px rgba(0, 0, 0, 0.5)",
                   transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
                   transform: "scale(1)",
@@ -243,10 +261,14 @@ export function LiquidMetalButton({
                 height: `${dimensions.innerHeight}px`,
                 margin: "2px",
                 borderRadius: "100px",
-                background: "linear-gradient(180deg, #202020 0%, #000000 100%)",
+                background: active
+                  ? "linear-gradient(180deg, #232b2f 0%, #050505 100%)"
+                  : "linear-gradient(180deg, #202020 0%, #000000 100%)",
                 boxShadow: isPressed
                   ? "inset 0px 2px 4px rgba(0, 0, 0, 0.4), inset 0px 1px 2px rgba(0, 0, 0, 0.3)"
-                  : "none",
+                  : active
+                    ? "inset 0px 0px 0px 1px rgba(255,255,255,0.08)"
+                    : "none",
                 transition:
                   "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease, box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
@@ -274,9 +296,11 @@ export function LiquidMetalButton({
                 borderRadius: "100px",
                 boxShadow: isPressed
                   ? "0px 0px 0px 1px rgba(0, 0, 0, 0.5), 0px 1px 2px 0px rgba(0, 0, 0, 0.3)"
-                  : isHovered
-                    ? "0px 0px 0px 1px rgba(0, 0, 0, 0.4), 0px 12px 6px 0px rgba(0, 0, 0, 0.05), 0px 8px 5px 0px rgba(0, 0, 0, 0.1), 0px 4px 4px 0px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)"
-                    : "0px 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 36px 14px 0px rgba(0, 0, 0, 0.02), 0px 20px 12px 0px rgba(0, 0, 0, 0.08), 0px 9px 9px 0px rgba(0, 0, 0, 0.12), 0px 2px 5px 0px rgba(0, 0, 0, 0.25)",
+                  : active
+                    ? "0px 0px 0px 1px rgba(255, 255, 255, 0.08), 0px 18px 10px 0px rgba(0, 0, 0, 0.15), 0px 6px 5px 0px rgba(0, 0, 0, 0.18)"
+                    : isHovered
+                      ? "0px 0px 0px 1px rgba(0, 0, 0, 0.4), 0px 12px 6px 0px rgba(0, 0, 0, 0.05), 0px 8px 5px 0px rgba(0, 0, 0, 0.1), 0px 4px 4px 0px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.2)"
+                      : "0px 0px 0px 1px rgba(0, 0, 0, 0.3), 0px 36px 14px 0px rgba(0, 0, 0, 0.02), 0px 20px 12px 0px rgba(0, 0, 0, 0.08), 0px 9px 9px 0px rgba(0, 0, 0, 0.12), 0px 2px 5px 0px rgba(0, 0, 0, 0.25)",
                 transition:
                   "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s ease, height 0.4s ease, box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1)",
                 background: "rgb(0 0 0 / 0)",
@@ -323,6 +347,7 @@ export function LiquidMetalButton({
               overflow: "hidden",
               borderRadius: "100px",
             }}
+            aria-current={active ? "page" : undefined}
             aria-label={label}
           >
             {ripples.map((ripple) => (
