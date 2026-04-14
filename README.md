@@ -185,11 +185,11 @@ See `infrastructure/env-variables.md` for all required secrets.
 
 | Name | Role |
 |---|---|
-| NuoJin / Nora | Frontend Developer |
-| Steve Saji Philip | Backend Developer |
-| Lee Kai Chun (Bill) | Backend · AWS |
-| Yanqing Zhu (Sela) |Research|
-| Prangige Peiris (Shavinthi) | Data · API Integration  |
+| NuoJin / Nora | Frontend Developer  · Integration |
+| Steve Saji Philip | Backend Developer  · Integration |
+| Lee Kai Chun (Bill) | Backend-AI · Integration  |
+| Yanqing Zhu (Sela) |Project Manager|
+| Prangige Peiris (Shavinthi) | Backend-AI  · Integration  |
 
 Mentors: Himanshu, Patrick · Teaching staff: Nelly
 
