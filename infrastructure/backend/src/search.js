@@ -1,64 +1,103 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
+const fs = require("fs");
+const path = require("path");
+
+function validateInput(value, maxLength = 100) {
+  if (!value) return null;
+  const trimmed = value.trim();
+  if (trimmed.length === 0) return null;
+  if (trimmed.length > maxLength) return null;
+  const sanitised = trimmed.replace(/[^a-zA-Z0-9\s\-]/g, "");
+  if (sanitised.length === 0) return null;
+  return sanitised;
+}
+
+module.exports.handler = async (event) => {
+  try {
+    const params = event.queryStringParameters || {};
+
+    const q = validateInput(params.q, 100);
+    const pathway = validateInput(params.pathway, 50);
+    const ai_risk = validateInput(params.ai_risk, 20);
+
+    // Validate pathway
+    const allowedPathways = ["University", "TAFE", "Apprenticeship"];
+    if (pathway && !allowedPathways.includes(pathway)) {
+      return {
+        statusCode: 400,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ error: "Invalid pathway value. Must be University, TAFE, or Apprenticeship." }),
+      };
     }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.handler = void 0;
-const fs = __importStar(require("fs"));
-const path = __importStar(require("path"));
-const handler = async (event) => {
-    const { q, pathway, ai_risk } = event.queryStringParameters || {};
+
+    // Validate ai_risk
+    const allowedRisks = ["Low", "Medium", "High"];
+    if (ai_risk && !allowedRisks.includes(ai_risk)) {
+      return {
+        statusCode: 400,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ error: "Invalid ai_risk value. Must be Low, Medium, or High." }),
+      };
+    }
+
+    // Load data
     const filePath = path.join(process.cwd(), "data/careers.json");
+
+    if (!fs.existsSync(filePath)) {
+      console.error("careers.json not found at:", filePath);
+      return {
+        statusCode: 503,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ error: "Career data is temporarily unavailable. Please try again later." }),
+      };
+    }
+
     const raw = fs.readFileSync(filePath, "utf-8");
-    let careers = JSON.parse(raw);
+    let careers;
+
+    try {
+      careers = JSON.parse(raw);
+    } catch (parseError) {
+      console.error("Failed to parse careers.json:", parseError);
+      return {
+        statusCode: 503,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ error: "Career data is temporarily unavailable. Please try again later." }),
+      };
+    }
+
+    // Apply filters
     if (q) {
-        const query = q.toLowerCase();
-        careers = careers.filter((c) => c.title.toLowerCase().includes(query) ||
-            c.industry.toLowerCase().includes(query));
+      const query = q.toLowerCase();
+      careers = careers.filter((c) =>
+        c.title.toLowerCase().includes(query) ||
+        c.industry.toLowerCase().includes(query)
+      );
     }
+
     if (pathway) {
-        careers = careers.filter((c) => c.pathway === pathway);
+      careers = careers.filter((c) => c.pathway === pathway);
     }
+
     if (ai_risk) {
-        careers = careers.filter((c) => c.ai_risk === ai_risk);
+      careers = careers.filter((c) => c.ai_risk === ai_risk);
     }
+
+    // Return empty array with 200 if no results found
     return {
-        statusCode: 200,
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify(careers),
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(careers),
     };
+
+  } catch (error) {
+    console.error("Unhandled Lambda error:", error);
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ error: "An internal server error occurred. Please try again later." }),
+    };
+  }
 };
-exports.handler = handler;
