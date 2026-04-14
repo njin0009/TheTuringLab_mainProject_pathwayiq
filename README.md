@@ -189,7 +189,7 @@ See `infrastructure/env-variables.md` for all required secrets.
 | Steve Saji Philip | Backend Developer  · Integration |
 | Lee Kai Chun (Bill) | Backend-AI · Integration  |
 | Yanqing Zhu (Sela) |Project Manager|
-| Prangige Peiris (Shavinthi) | Backend-AI  · Integration  |
+| Prangige Peiris (Shavinthi) | Backend-Data· Integration  |
 
 Mentors: Himanshu, Patrick · Teaching staff: Nelly
 
