@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Electrician",
+    "industry": "Construction",
+    "salary_min": 70000,
+    "salary_max": 95000,
+    "pathway": "Apprenticeship",
+    "shortage_status": "In Shortage",
+    "ai_risk": "Low"
+  },
+  {
+    "title": "Registered Nurse",
+    "industry": "Healthcare",
+    "salary_min": 75000,
+    "salary_max": 110000,
+    "pathway": "University",
+    "shortage_status": "In Shortage",
+    "ai_risk": "Low"
+  },
+  {
+    "title": "Software Engineer",
+    "industry": "Technology",
+    "salary_min": 90000,
+    "salary_max": 140000,
+    "pathway": "University",
+    "shortage_status": "Not in Shortage",
+    "ai_risk": "Medium"
+  },
+  {
+    "title": "Chef",
+    "industry": "Hospitality",
+    "salary_min": 55000,
+    "salary_max": 80000,
+    "pathway": "TAFE",
+    "shortage_status": "In Shortage",
+    "ai_risk": "Low"
+  }
+]
