@@ -44,3 +44,25 @@ npm-debug.log*
 # ── Test coverage ──
 coverage/
 .nyc_output/
+
+# ── Python ──
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyi
+
+# ── Data pipeline — processed & output files ──
+data/pathwayiq-Data Pipeline/pipeline/logs/
+data/pathwayiq-Data Pipeline/pipeline/profiles/
+data/pathwayiq-Data Pipeline/pipeline/silver/
+data/pathwayiq-Data Pipeline/cleaned_data/
+*.parquet
+
+# ── Raw data files ──
+*.xlsx
+*.csv
+~$*
