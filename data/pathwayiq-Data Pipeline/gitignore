@@ -1,0 +1,37 @@
+# YData Profiling HTML reports (large, auto-generated)
+docs/profiles/
+
+# Audit logs (auto-generated on every run)
+docs/logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# ── macOS system files ──
+__MACOSX/
+._*
+
+# ── Database build outputs ──
+data/pathwayiq-Data Pipeline/database/build/
+*.sqlite
+*.sql
+
+# ── Frontend export data ──
+data/pathwayiq-Data Pipeline/frontend_exports/
+
+# ── Word temp lock files ──
+~$*.docx
+~$*.doc

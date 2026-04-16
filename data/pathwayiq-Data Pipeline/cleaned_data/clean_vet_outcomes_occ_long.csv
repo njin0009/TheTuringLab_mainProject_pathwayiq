@@ -1,0 +1,1466 @@
+program_id,occupation_label,pct_employed_in_occ,rank,anzsco_major_group_code,anzsco_major_group_label
+10727NAT,Labourers,30.6,occ_top1,8,Labourers
+10728NAT,Labourers,24.6,occ_top1,8,Labourers
+10729NAT,Community And Personal Service Workers,28.2,occ_top1,4,Community and Personal Service Workers
+10797NAT,Professionals,96.9,occ_top1,2,Professionals
+10949NAT,Community And Personal Service Workers,30.6,occ_top1,4,Community and Personal Service Workers
+10971NAT,Sales Workers,41.0,occ_top1,6,Sales Workers
+10984NAT,Labourers,31.6,occ_top1,8,Labourers
+10985NAT,Labourers,32.7,occ_top1,8,Labourers
+11022NAT,Community And Personal Service Workers,35.2,occ_top1,4,Community and Personal Service Workers
+11039NAT,Labourers,30.9,occ_top1,8,Labourers
+11042NAT,Community And Personal Service Workers,20.4,occ_top1,4,Community and Personal Service Workers
+11046NAT,Community And Personal Service Workers,33.2,occ_top1,4,Community and Personal Service Workers
+11225NAT,Community And Personal Service Workers,27.7,occ_top1,4,Community and Personal Service Workers
+11236NAT,Sales Workers,33.7,occ_top1,6,Sales Workers
+11240NAT,Community And Personal Service Workers,25.7,occ_top1,4,Community and Personal Service Workers
+22470VIC,Technicians And Trades Workers,31.8,occ_top1,3,Technicians and Trades Workers
+22472VIC,Sales Workers,35.6,occ_top1,6,Sales Workers
+22473VIC,Labourers,32.9,occ_top1,8,Labourers
+22476VIC,Community And Personal Service Workers,37.3,occ_top1,4,Community and Personal Service Workers
+22485VIC,Labourers,29.3,occ_top1,8,Labourers
+22486VIC,Community And Personal Service Workers,27.3,occ_top1,4,Community and Personal Service Workers
+22499VIC,Technicians And Trades Workers,54.5,occ_top1,3,Technicians and Trades Workers
+22582VIC,Sales Workers,30.8,occ_top1,6,Sales Workers
+22603VIC,Professionals,32.3,occ_top1,2,Professionals
+22614VIC,Technicians And Trades Workers,53.5,occ_top1,3,Technicians and Trades Workers
+22638VIC,Labourers,27.7,occ_top1,8,Labourers
+22639VIC,Community And Personal Service Workers,30.3,occ_top1,4,Community and Personal Service Workers
+22640VIC,Machinery Operators And Drivers,21.4,occ_top1,7,Machinery Operators and Drivers
+52887WA,Technicians And Trades Workers,63.8,occ_top1,3,Technicians and Trades Workers
+52893WA,Technicians And Trades Workers,52.0,occ_top1,3,Technicians and Trades Workers
+52895WA,Sales Workers,37.5,occ_top1,6,Sales Workers
+ACM20121,Sales Workers,29.5,occ_top1,6,Sales Workers
+ACM30122,Technicians And Trades Workers,32.3,occ_top1,3,Technicians and Trades Workers
+ACM30321,Technicians And Trades Workers,46.0,occ_top1,3,Technicians and Trades Workers
+ACM40418,Technicians And Trades Workers,85.1,occ_top1,3,Technicians and Trades Workers
+AHC10120,Labourers,46.9,occ_top1,8,Labourers
+AHC20116,Labourers,41.2,occ_top1,8,Labourers
+AHC20416,Labourers,33.1,occ_top1,8,Labourers
+AHC20422,Professionals,32.8,occ_top1,2,Professionals
+AHC21216,Labourers,35.6,occ_top1,8,Labourers
+AHC30116,Labourers,56.3,occ_top1,8,Labourers
+AHC30716,Technicians And Trades Workers,38.7,occ_top1,3,Technicians and Trades Workers
+AHC30722,Technicians And Trades Workers,38.0,occ_top1,3,Technicians and Trades Workers
+AHC30820,Technicians And Trades Workers,77.3,occ_top1,3,Technicians and Trades Workers
+AHC30921,Technicians And Trades Workers,70.9,occ_top1,3,Technicians and Trades Workers
+AHC31021,Technicians And Trades Workers,59.4,occ_top1,3,Technicians and Trades Workers
+AHC31421,Labourers,36.8,occ_top1,8,Labourers
+AHC41316,Labourers,26.5,occ_top1,8,Labourers
+AMP20316,Labourers,81.2,occ_top1,8,Labourers
+AMP30216,Labourers,76.6,occ_top1,8,Labourers
+AUR10120,Technicians And Trades Workers,34.8,occ_top1,3,Technicians and Trades Workers
+AUR20220,Technicians And Trades Workers,91.7,occ_top1,3,Technicians and Trades Workers
+AUR20520,Technicians And Trades Workers,58.6,occ_top1,3,Technicians and Trades Workers
+AUR20720,Technicians And Trades Workers,41.7,occ_top1,3,Technicians and Trades Workers
+AUR30320,Technicians And Trades Workers,90.0,occ_top1,3,Technicians and Trades Workers
+AUR30620,Technicians And Trades Workers,89.2,occ_top1,3,Technicians and Trades Workers
+AUR31020,Sales Workers,76.2,occ_top1,6,Sales Workers
+AUR31120,Technicians And Trades Workers,92.1,occ_top1,3,Technicians and Trades Workers
+AUR31220,Technicians And Trades Workers,96.9,occ_top1,3,Technicians and Trades Workers
+AUR32120,Technicians And Trades Workers,87.7,occ_top1,3,Technicians and Trades Workers
+AUR32420,Technicians And Trades Workers,47.8,occ_top1,3,Technicians and Trades Workers
+AVI20118,Community And Personal Service Workers,68.5,occ_top1,4,Community and Personal Service Workers
+AVI30419,Labourers,26.6,occ_top1,8,Labourers
+BSB10120,Labourers,28.0,occ_top1,8,Labourers
+BSB20120,Sales Workers,29.4,occ_top1,6,Sales Workers
+BSB30120,Clerical And Administrative Workers,29.7,occ_top1,5,Clerical and Administrative Workers
+BSB30220,Professionals,25.0,occ_top1,2,Professionals
+BSB30420,Clerical And Administrative Workers,26.5,occ_top1,5,Clerical and Administrative Workers
+BSB40120,Clerical And Administrative Workers,36.8,occ_top1,5,Clerical and Administrative Workers
+BSB40320,Professionals,33.6,occ_top1,2,Professionals
+BSB40420,Professionals,38.6,occ_top1,2,Professionals
+BSB40520,Managers,27.0,occ_top1,1,Managers
+BSB40720,Clerical And Administrative Workers,45.4,occ_top1,5,Clerical and Administrative Workers
+BSB40820,Professionals,23.4,occ_top1,2,Professionals
+BSB40920,Clerical And Administrative Workers,29.1,occ_top1,5,Clerical and Administrative Workers
+BSB41419,Professionals,45.5,occ_top1,2,Professionals
+BSB50120,Sales Workers,24.9,occ_top1,6,Sales Workers
+BSB50320,Professionals,49.6,occ_top1,2,Professionals
+BSB50420,Managers,32.8,occ_top1,1,Managers
+BSB50520,Clerical And Administrative Workers,38.8,occ_top1,5,Clerical and Administrative Workers
+BSB50820,Managers,29.9,occ_top1,1,Managers
+BSB50920,Professionals,42.8,occ_top1,2,Professionals
+BSB51319,Professionals,55.8,occ_top1,2,Professionals
+BSB60420,Managers,47.2,occ_top1,1,Managers
+BSB80120,Professionals,55.8,occ_top1,2,Professionals
+CHC14015,Sales Workers,37.1,occ_top1,6,Sales Workers
+CHC22015,Sales Workers,38.3,occ_top1,6,Sales Workers
+CHC24015,Sales Workers,33.6,occ_top1,6,Sales Workers
+CHC30121,Community And Personal Service Workers,56.6,occ_top1,4,Community and Personal Service Workers
+CHC30221,Community And Personal Service Workers,78.5,occ_top1,4,Community and Personal Service Workers
+CHC32015,Community And Personal Service Workers,51.8,occ_top1,4,Community and Personal Service Workers
+CHC33015,Community And Personal Service Workers,81.1,occ_top1,4,Community and Personal Service Workers
+CHC33021,Community And Personal Service Workers,80.3,occ_top1,4,Community and Personal Service Workers
+CHC40221,Community And Personal Service Workers,82.3,occ_top1,4,Community and Personal Service Workers
+CHC40313,Community And Personal Service Workers,82.8,occ_top1,4,Community and Personal Service Workers
+CHC40321,Community And Personal Service Workers,87.7,occ_top1,4,Community and Personal Service Workers
+CHC40413,Community And Personal Service Workers,74.3,occ_top1,4,Community and Personal Service Workers
+CHC40421,Community And Personal Service Workers,64.3,occ_top1,4,Community and Personal Service Workers
+CHC41015,Professionals,42.9,occ_top1,2,Professionals
+CHC42015,Community And Personal Service Workers,51.1,occ_top1,4,Community and Personal Service Workers
+CHC42021,Community And Personal Service Workers,54.7,occ_top1,4,Community and Personal Service Workers
+CHC43015,Community And Personal Service Workers,81.5,occ_top1,4,Community and Personal Service Workers
+CHC43115,Community And Personal Service Workers,80.4,occ_top1,4,Community and Personal Service Workers
+CHC43121,Community And Personal Service Workers,83.4,occ_top1,4,Community and Personal Service Workers
+CHC43215,Professionals,44.5,occ_top1,2,Professionals
+CHC43315,Community And Personal Service Workers,57.5,occ_top1,4,Community and Personal Service Workers
+CHC43415,Community And Personal Service Workers,84.2,occ_top1,4,Community and Personal Service Workers
+CHC43515,Professionals,50.7,occ_top1,2,Professionals
+CHC50121,Community And Personal Service Workers,61.8,occ_top1,4,Community and Personal Service Workers
+CHC50221,Community And Personal Service Workers,62.1,occ_top1,4,Community and Personal Service Workers
+CHC51015,Professionals,40.8,occ_top1,2,Professionals
+CHC52015,Community And Personal Service Workers,62.2,occ_top1,4,Community and Personal Service Workers
+CHC52021,Community And Personal Service Workers,65.7,occ_top1,4,Community and Personal Service Workers
+CHC53315,Community And Personal Service Workers,50.1,occ_top1,4,Community and Personal Service Workers
+CHC62015,Community And Personal Service Workers,42.8,occ_top1,4,Community and Personal Service Workers
+CPC10120,Technicians And Trades Workers,29.7,occ_top1,3,Technicians and Trades Workers
+CPC20220,Technicians And Trades Workers,41.5,occ_top1,3,Technicians and Trades Workers
+CPC30220,Technicians And Trades Workers,87.2,occ_top1,3,Technicians and Trades Workers
+CPC30320,Labourers,66.9,occ_top1,8,Labourers
+CPC30620,Technicians And Trades Workers,91.9,occ_top1,3,Technicians and Trades Workers
+CPC31320,Technicians And Trades Workers,94.3,occ_top1,3,Technicians and Trades Workers
+CPC31420,Technicians And Trades Workers,48.3,occ_top1,3,Technicians and Trades Workers
+CPC32420,Technicians And Trades Workers,94.9,occ_top1,3,Technicians and Trades Workers
+CPC33020,Technicians And Trades Workers,83.4,occ_top1,3,Technicians and Trades Workers
+CPC40120,Technicians And Trades Workers,58.9,occ_top1,3,Technicians and Trades Workers
+CPC40920,Technicians And Trades Workers,91.2,occ_top1,3,Technicians and Trades Workers
+CPC50220,Technicians And Trades Workers,44.1,occ_top1,3,Technicians and Trades Workers
+CPP20218,Community And Personal Service Workers,59.2,occ_top1,4,Community and Personal Service Workers
+CPP30321,Labourers,87.1,occ_top1,8,Labourers
+CPP31318,Community And Personal Service Workers,82.1,occ_top1,4,Community and Personal Service Workers
+CPP40121,Technicians And Trades Workers,39.9,occ_top1,3,Technicians and Trades Workers
+CPP41419,Sales Workers,52.4,occ_top1,6,Sales Workers
+CPP51122,Sales Workers,67.2,occ_top1,6,Sales Workers
+CSC30120,Community And Personal Service Workers,93.5,occ_top1,4,Community and Personal Service Workers
+CSC30122,Community And Personal Service Workers,92.6,occ_top1,4,Community and Personal Service Workers
+CSC40122,Community And Personal Service Workers,86.0,occ_top1,4,Community and Personal Service Workers
+CUA20120,Sales Workers,37.0,occ_top1,6,Sales Workers
+CUA20220,Sales Workers,31.9,occ_top1,6,Sales Workers
+CUA20620,Sales Workers,31.4,occ_top1,6,Sales Workers
+CUA20720,Sales Workers,36.6,occ_top1,6,Sales Workers
+CUA30120,Professionals,28.6,occ_top1,2,Professionals
+CUA30420,Sales Workers,31.5,occ_top1,6,Sales Workers
+CUA30720,Sales Workers,31.2,occ_top1,6,Sales Workers
+CUA30920,Sales Workers,27.3,occ_top1,6,Sales Workers
+CUA31020,Sales Workers,30.1,occ_top1,6,Sales Workers
+CUA31120,Sales Workers,29.9,occ_top1,6,Sales Workers
+CUA40720,Sales Workers,29.6,occ_top1,6,Sales Workers
+CUA41120,Professionals,44.8,occ_top1,2,Professionals
+CUA41220,Sales Workers,28.1,occ_top1,6,Sales Workers
+CUA50720,Professionals,33.9,occ_top1,2,Professionals
+CUA50820,Technicians And Trades Workers,20.2,occ_top1,3,Technicians and Trades Workers
+CUA51020,Sales Workers,29.7,occ_top1,6,Sales Workers
+CUA51120,Community And Personal Service Workers,28.1,occ_top1,4,Community and Personal Service Workers
+CUA60620,Sales Workers,27.3,occ_top1,6,Sales Workers
+FBP20122,Labourers,48.6,occ_top1,8,Labourers
+FBP20221,Technicians And Trades Workers,29.9,occ_top1,3,Technicians and Trades Workers
+FBP30121,Labourers,45.9,occ_top1,8,Labourers
+FBP30521,Technicians And Trades Workers,84.7,occ_top1,3,Technicians and Trades Workers
+FNS10120,Community And Personal Service Workers,31.4,occ_top1,4,Community and Personal Service Workers
+FNS20120,Sales Workers,38.9,occ_top1,6,Sales Workers
+FNS30122,Clerical And Administrative Workers,85.4,occ_top1,5,Clerical and Administrative Workers
+FNS30322,Clerical And Administrative Workers,58.4,occ_top1,5,Clerical and Administrative Workers
+FNS40222,Clerical And Administrative Workers,59.3,occ_top1,5,Clerical and Administrative Workers
+FNS40821,Professionals,46.9,occ_top1,2,Professionals
+FNS50222,Clerical And Administrative Workers,60.5,occ_top1,5,Clerical and Administrative Workers
+FNS50322,Professionals,61.4,occ_top1,2,Professionals
+FSK10219,Labourers,26.0,occ_top1,8,Labourers
+FSK20119,Labourers,29.9,occ_top1,8,Labourers
+HLT21020,Community And Personal Service Workers,33.3,occ_top1,4,Community and Personal Service Workers
+HLT23221,Sales Workers,39.3,occ_top1,6,Sales Workers
+HLT31120,Community And Personal Service Workers,68.4,occ_top1,4,Community and Personal Service Workers
+HLT33015,Community And Personal Service Workers,57.5,occ_top1,4,Community and Personal Service Workers
+HLT33021,Community And Personal Service Workers,62.7,occ_top1,4,Community and Personal Service Workers
+HLT33115,Community And Personal Service Workers,53.6,occ_top1,4,Community and Personal Service Workers
+HLT35021,Community And Personal Service Workers,88.0,occ_top1,4,Community and Personal Service Workers
+HLT37015,Machinery Operators And Drivers,51.6,occ_top1,7,Machinery Operators and Drivers
+HLT37215,Technicians And Trades Workers,60.4,occ_top1,3,Technicians and Trades Workers
+HLT37315,Clerical And Administrative Workers,51.8,occ_top1,5,Clerical and Administrative Workers
+HLT42021,Community And Personal Service Workers,72.0,occ_top1,4,Community and Personal Service Workers
+HLT43015,Community And Personal Service Workers,67.9,occ_top1,4,Community and Personal Service Workers
+HLT43021,Community And Personal Service Workers,56.8,occ_top1,4,Community and Personal Service Workers
+HLT45021,Community And Personal Service Workers,90.4,occ_top1,4,Community and Personal Service Workers
+HLT47315,Clerical And Administrative Workers,68.9,occ_top1,5,Clerical and Administrative Workers
+HLT47321,Clerical And Administrative Workers,69.7,occ_top1,5,Clerical and Administrative Workers
+HLT47815,Technicians And Trades Workers,71.6,occ_top1,3,Technicians and Trades Workers
+HLT51020,Community And Personal Service Workers,67.1,occ_top1,4,Community and Personal Service Workers
+HLT52015,Community And Personal Service Workers,72.3,occ_top1,4,Community and Personal Service Workers
+HLT52021,Community And Personal Service Workers,75.8,occ_top1,4,Community and Personal Service Workers
+HLT54121,Community And Personal Service Workers,87.5,occ_top1,4,Community and Personal Service Workers
+ICT20120,Sales Workers,24.8,occ_top1,6,Sales Workers
+ICT30120,Sales Workers,21.1,occ_top1,6,Sales Workers
+ICT30519,Technicians And Trades Workers,88.0,occ_top1,3,Technicians and Trades Workers
+ICT40120,Technicians And Trades Workers,35.4,occ_top1,3,Technicians and Trades Workers
+ICT50220,Professionals,35.8,occ_top1,2,Professionals
+MAR10220,Labourers,28.5,occ_top1,8,Labourers
+MAR20321,Professionals,28.7,occ_top1,2,Professionals
+MAR30921,Professionals,41.6,occ_top1,2,Professionals
+MEA20518,Technicians And Trades Workers,36.3,occ_top1,3,Technicians and Trades Workers
+MEM10119,Technicians And Trades Workers,34.0,occ_top1,3,Technicians and Trades Workers
+MEM20105,Technicians And Trades Workers,62.3,occ_top1,3,Technicians and Trades Workers
+MEM20422,Technicians And Trades Workers,39.8,occ_top1,3,Technicians and Trades Workers
+MEM30219,Technicians And Trades Workers,89.1,occ_top1,3,Technicians and Trades Workers
+MEM30319,Technicians And Trades Workers,89.6,occ_top1,3,Technicians and Trades Workers
+MEM30522,Technicians And Trades Workers,39.5,occ_top1,3,Technicians and Trades Workers
+MEM31419,Technicians And Trades Workers,93.2,occ_top1,3,Technicians and Trades Workers
+MEM31922,Technicians And Trades Workers,90.7,occ_top1,3,Technicians and Trades Workers
+MEM40119,Technicians And Trades Workers,82.7,occ_top1,3,Technicians and Trades Workers
+MSF30322,Technicians And Trades Workers,89.0,occ_top1,3,Technicians and Trades Workers
+MSF40122,Sales Workers,32.8,occ_top1,6,Sales Workers
+MSF50222,Professionals,34.8,occ_top1,2,Professionals
+MSL20122,Sales Workers,37.5,occ_top1,6,Sales Workers
+MSL30122,Sales Workers,27.6,occ_top1,6,Sales Workers
+MSL40118,Technicians And Trades Workers,74.2,occ_top1,3,Technicians and Trades Workers
+MSL40122,Technicians And Trades Workers,56.5,occ_top1,3,Technicians and Trades Workers
+MSL50122,Technicians And Trades Workers,64.9,occ_top1,3,Technicians and Trades Workers
+MSM30116,Labourers,34.9,occ_top1,8,Labourers
+MSM40116,Technicians And Trades Workers,33.9,occ_top1,3,Technicians and Trades Workers
+MST31022,Sales Workers,22.8,occ_top1,6,Sales Workers
+NWP30222,Machinery Operators And Drivers,54.4,occ_top1,7,Machinery Operators and Drivers
+PMA30120,Technicians And Trades Workers,53.3,occ_top1,3,Technicians and Trades Workers
+PSP20218,Professionals,38.6,occ_top1,2,Professionals
+PSP30218,Community And Personal Service Workers,39.1,occ_top1,4,Community and Personal Service Workers
+PSP40122,Clerical And Administrative Workers,38.0,occ_top1,5,Clerical and Administrative Workers
+PSP40416,Professionals,37.8,occ_top1,2,Professionals
+PSP40616,Clerical And Administrative Workers,58.2,occ_top1,5,Clerical and Administrative Workers
+PSP50122,Clerical And Administrative Workers,42.9,occ_top1,5,Clerical and Administrative Workers
+PSP50616,Clerical And Administrative Workers,43.6,occ_top1,5,Clerical and Administrative Workers
+PUA20119,Community And Personal Service Workers,25.6,occ_top1,4,Community and Personal Service Workers
+PUA20622,Community And Personal Service Workers,86.2,occ_top1,4,Community and Personal Service Workers
+PUA20719,Community And Personal Service Workers,20.5,occ_top1,4,Community and Personal Service Workers
+PUA30622,Community And Personal Service Workers,95.0,occ_top1,4,Community and Personal Service Workers
+PUA40319,Community And Personal Service Workers,85.5,occ_top1,4,Community and Personal Service Workers
+RII20120,Labourers,35.5,occ_top1,8,Labourers
+RII20920,Labourers,66.3,occ_top1,8,Labourers
+RII30120,Machinery Operators And Drivers,87.4,occ_top1,7,Machinery Operators and Drivers
+RII30719,Machinery Operators And Drivers,37.9,occ_top1,7,Machinery Operators and Drivers
+RII30820,Machinery Operators And Drivers,37.4,occ_top1,7,Machinery Operators and Drivers
+RII30920,Labourers,42.5,occ_top1,8,Labourers
+RII31820,Machinery Operators And Drivers,78.6,occ_top1,7,Machinery Operators and Drivers
+RII40720,Technicians And Trades Workers,42.3,occ_top1,3,Technicians and Trades Workers
+RII60520,Technicians And Trades Workers,18.8,occ_top1,3,Technicians and Trades Workers
+SFL30115,Technicians And Trades Workers,39.5,occ_top1,3,Technicians and Trades Workers
+SHB20121,Sales Workers,42.1,occ_top1,6,Sales Workers
+SHB20216,Technicians And Trades Workers,28.1,occ_top1,3,Technicians and Trades Workers
+SHB30121,Community And Personal Service Workers,46.9,occ_top1,4,Community and Personal Service Workers
+SHB30221,Sales Workers,34.5,occ_top1,6,Sales Workers
+SHB30321,Community And Personal Service Workers,44.2,occ_top1,4,Community and Personal Service Workers
+SHB30416,Technicians And Trades Workers,84.0,occ_top1,3,Technicians and Trades Workers
+SHB30516,Technicians And Trades Workers,81.2,occ_top1,3,Technicians and Trades Workers
+SHB50121,Community And Personal Service Workers,71.9,occ_top1,4,Community and Personal Service Workers
+SIR20216,Sales Workers,43.2,occ_top1,6,Sales Workers
+SIR30116,Sales Workers,59.0,occ_top1,6,Sales Workers
+SIR30216,Sales Workers,45.1,occ_top1,6,Sales Workers
+SIR40316,Managers,57.1,occ_top1,1,Managers
+SIS20122,Sales Workers,31.5,occ_top1,6,Sales Workers
+SIS20321,Community And Personal Service Workers,32.0,occ_top1,4,Community and Personal Service Workers
+SIS20419,Sales Workers,27.0,occ_top1,6,Sales Workers
+SIS30115,Community And Personal Service Workers,31.8,occ_top1,4,Community and Personal Service Workers
+SIS30122,Community And Personal Service Workers,37.8,occ_top1,4,Community and Personal Service Workers
+SIS30321,Community And Personal Service Workers,36.6,occ_top1,4,Community and Personal Service Workers
+SIS30521,Community And Personal Service Workers,32.0,occ_top1,4,Community and Personal Service Workers
+SIS40221,Community And Personal Service Workers,52.4,occ_top1,4,Community and Personal Service Workers
+SIT10222,Labourers,35.8,occ_top1,8,Labourers
+SIT20122,Sales Workers,33.6,occ_top1,6,Sales Workers
+SIT20322,Community And Personal Service Workers,34.0,occ_top1,4,Community and Personal Service Workers
+SIT20421,Labourers,26.4,occ_top1,8,Labourers
+SIT30122,Community And Personal Service Workers,33.6,occ_top1,4,Community and Personal Service Workers
+SIT30222,Community And Personal Service Workers,81.1,occ_top1,4,Community and Personal Service Workers
+SIT30622,Community And Personal Service Workers,37.2,occ_top1,4,Community and Personal Service Workers
+SIT30821,Technicians And Trades Workers,76.6,occ_top1,3,Technicians and Trades Workers
+SIT30921,Professionals,91.7,occ_top1,2,Professionals
+SIT31021,Technicians And Trades Workers,45.9,occ_top1,3,Technicians and Trades Workers
+SIT40422,Community And Personal Service Workers,53.2,occ_top1,4,Community and Personal Service Workers
+SIT40521,Technicians And Trades Workers,79.4,occ_top1,3,Technicians and Trades Workers
+SIT40721,Technicians And Trades Workers,46.6,occ_top1,3,Technicians and Trades Workers
+SIT50422,Technicians And Trades Workers,35.8,occ_top1,3,Technicians and Trades Workers
+TAE40116,Professionals,60.4,occ_top1,2,Professionals
+TAE40122,Professionals,57.9,occ_top1,2,Professionals
+TAE50116,Professionals,77.8,occ_top1,2,Professionals
+TAE50216,Professionals,66.2,occ_top1,2,Professionals
+TLI20421,Machinery Operators And Drivers,28.0,occ_top1,7,Machinery Operators and Drivers
+TLI27121,Labourers,43.4,occ_top1,8,Labourers
+TLI30321,Machinery Operators And Drivers,53.7,occ_top1,7,Machinery Operators and Drivers
+TLI31222,Machinery Operators And Drivers,85.8,occ_top1,7,Machinery Operators and Drivers
+TLI31421,Machinery Operators And Drivers,94.8,occ_top1,7,Machinery Operators and Drivers
+TLI41222,Community And Personal Service Workers,50.9,occ_top1,4,Community and Personal Service Workers
+TLI42622,Machinery Operators And Drivers,96.3,occ_top1,7,Machinery Operators and Drivers
+UEE20120,Technicians And Trades Workers,90.9,occ_top1,3,Technicians and Trades Workers
+UEE22020,Technicians And Trades Workers,50.9,occ_top1,3,Technicians and Trades Workers
+UEE30820,Technicians And Trades Workers,93.5,occ_top1,3,Technicians and Trades Workers
+UEE32220,Technicians And Trades Workers,90.2,occ_top1,3,Technicians and Trades Workers
+UEE40420,Technicians And Trades Workers,98.6,occ_top1,3,Technicians and Trades Workers
+UEE42622,Technicians And Trades Workers,89.4,occ_top1,3,Technicians and Trades Workers
+10727NAT,Technicians And Trades Workers,21.3,occ_top2,3,Technicians and Trades Workers
+10728NAT,Community And Personal Service Workers,23.3,occ_top2,4,Community and Personal Service Workers
+10729NAT,Professionals,14.8,occ_top2,2,Professionals
+10797NAT,Sales Workers,1.3,occ_top2,6,Sales Workers
+10949NAT,Labourers,29.4,occ_top2,8,Labourers
+10971NAT,Community And Personal Service Workers,20.6,occ_top2,4,Community and Personal Service Workers
+10984NAT,Community And Personal Service Workers,19.1,occ_top2,4,Community and Personal Service Workers
+10985NAT,Community And Personal Service Workers,16.6,occ_top2,4,Community and Personal Service Workers
+11022NAT,Labourers,14.2,occ_top2,8,Labourers
+11039NAT,Sales Workers,30.2,occ_top2,6,Sales Workers
+11042NAT,Machinery Operators And Drivers,16.9,occ_top2,7,Machinery Operators and Drivers
+11046NAT,Professionals,27.8,occ_top2,2,Professionals
+11225NAT,Sales Workers,24.4,occ_top2,6,Sales Workers
+11236NAT,Labourers,25.3,occ_top2,8,Labourers
+11240NAT,Labourers,22.9,occ_top2,8,Labourers
+22470VIC,Labourers,29.0,occ_top2,8,Labourers
+22472VIC,Labourers,24.5,occ_top2,8,Labourers
+22473VIC,Sales Workers,28.7,occ_top2,6,Sales Workers
+22476VIC,Labourers,25.7,occ_top2,8,Labourers
+22485VIC,Community And Personal Service Workers,18.6,occ_top2,4,Community and Personal Service Workers
+22486VIC,Labourers,18.8,occ_top2,8,Labourers
+22499VIC,Labourers,18.9,occ_top2,8,Labourers
+22582VIC,Community And Personal Service Workers,26.4,occ_top2,4,Community and Personal Service Workers
+22603VIC,Technicians And Trades Workers,18.7,occ_top2,3,Technicians and Trades Workers
+22614VIC,Labourers,17.0,occ_top2,8,Labourers
+22638VIC,Community And Personal Service Workers,25.9,occ_top2,4,Community and Personal Service Workers
+22639VIC,Labourers,20.4,occ_top2,8,Labourers
+22640VIC,Labourers,17.2,occ_top2,8,Labourers
+52887WA,Labourers,15.2,occ_top2,8,Labourers
+52893WA,Labourers,28.3,occ_top2,8,Labourers
+52895WA,Community And Personal Service Workers,37.0,occ_top2,4,Community and Personal Service Workers
+ACM20121,Technicians And Trades Workers,27.5,occ_top2,3,Technicians and Trades Workers
+ACM30122,Sales Workers,27.7,occ_top2,6,Sales Workers
+ACM30321,Sales Workers,18.2,occ_top2,6,Sales Workers
+ACM40418,Sales Workers,4.5,occ_top2,6,Sales Workers
+AHC10120,Technicians And Trades Workers,26.7,occ_top2,3,Technicians and Trades Workers
+AHC20116,Technicians And Trades Workers,22.6,occ_top2,3,Technicians and Trades Workers
+AHC20416,Technicians And Trades Workers,30.0,occ_top2,3,Technicians and Trades Workers
+AHC20422,Labourers,24.0,occ_top2,8,Labourers
+AHC21216,Technicians And Trades Workers,20.8,occ_top2,3,Technicians and Trades Workers
+AHC30116,Technicians And Trades Workers,11.9,occ_top2,3,Technicians and Trades Workers
+AHC30716,Labourers,26.6,occ_top2,8,Labourers
+AHC30722,Labourers,31.8,occ_top2,8,Labourers
+AHC30820,Labourers,6.7,occ_top2,8,Labourers
+AHC30921,Labourers,14.2,occ_top2,8,Labourers
+AHC31021,Labourers,23.9,occ_top2,8,Labourers
+AHC31421,Professionals,23.2,occ_top2,2,Professionals
+AHC41316,Managers,25.7,occ_top2,1,Managers
+AMP20316,Machinery Operators And Drivers,8.0,occ_top2,7,Machinery Operators and Drivers
+AMP30216,Machinery Operators And Drivers,8.6,occ_top2,7,Machinery Operators and Drivers
+AUR10120,Labourers,26.7,occ_top2,8,Labourers
+AUR20220,Managers,4.0,occ_top2,1,Managers
+AUR20520,Labourers,19.5,occ_top2,8,Labourers
+AUR20720,Labourers,25.4,occ_top2,8,Labourers
+AUR30320,Labourers,4.2,occ_top2,8,Labourers
+AUR30620,Managers,2.4,occ_top2,1,Managers
+AUR31020,Clerical And Administrative Workers,7.1,occ_top2,5,Clerical and Administrative Workers
+AUR31120,Managers,4.4,occ_top2,1,Managers
+AUR31220,Professionals,1.2,occ_top2,2,Professionals
+AUR32120,Machinery Operators And Drivers,5.8,occ_top2,7,Machinery Operators and Drivers
+AUR32420,Machinery Operators And Drivers,42.3,occ_top2,7,Machinery Operators and Drivers
+AVI20118,Clerical And Administrative Workers,8.5,occ_top2,5,Clerical and Administrative Workers
+AVI30419,Sales Workers,24.3,occ_top2,6,Sales Workers
+BSB10120,Sales Workers,26.8,occ_top2,6,Sales Workers
+BSB20120,Labourers,24.4,occ_top2,8,Labourers
+BSB30120,Sales Workers,20.4,occ_top2,6,Sales Workers
+BSB30220,Technicians And Trades Workers,19.3,occ_top2,3,Technicians and Trades Workers
+BSB30420,Community And Personal Service Workers,21.8,occ_top2,4,Community and Personal Service Workers
+BSB40120,Managers,12.5,occ_top2,1,Managers
+BSB40320,Managers,19.9,occ_top2,1,Managers
+BSB40420,Clerical And Administrative Workers,31.4,occ_top2,5,Clerical and Administrative Workers
+BSB40520,Professionals,20.9,occ_top2,2,Professionals
+BSB40720,Community And Personal Service Workers,14.9,occ_top2,4,Community and Personal Service Workers
+BSB40820,Community And Personal Service Workers,17.7,occ_top2,4,Community and Personal Service Workers
+BSB40920,Professionals,24.1,occ_top2,2,Professionals
+BSB41419,Managers,18.6,occ_top2,1,Managers
+BSB50120,Community And Personal Service Workers,19.0,occ_top2,4,Community and Personal Service Workers
+BSB50320,Managers,21.7,occ_top2,1,Managers
+BSB50420,Professionals,26.3,occ_top2,2,Professionals
+BSB50520,Technicians And Trades Workers,22.7,occ_top2,3,Technicians and Trades Workers
+BSB50820,Professionals,27.3,occ_top2,2,Professionals
+BSB50920,Managers,36.2,occ_top2,1,Managers
+BSB51319,Managers,24.9,occ_top2,1,Managers
+BSB60420,Professionals,19.3,occ_top2,2,Professionals
+BSB80120,Managers,19.2,occ_top2,1,Managers
+CHC14015,Labourers,24.2,occ_top2,8,Labourers
+CHC22015,Community And Personal Service Workers,28.2,occ_top2,4,Community and Personal Service Workers
+CHC24015,Labourers,24.7,occ_top2,8,Labourers
+CHC30121,Professionals,35.4,occ_top2,2,Professionals
+CHC30221,Sales Workers,7.1,occ_top2,6,Sales Workers
+CHC32015,Sales Workers,11.7,occ_top2,6,Sales Workers
+CHC33015,Labourers,7.1,occ_top2,8,Labourers
+CHC33021,Labourers,6.9,occ_top2,8,Labourers
+CHC40221,Professionals,5.4,occ_top2,2,Professionals
+CHC40313,Professionals,4.9,occ_top2,2,Professionals
+CHC40321,Professionals,6.7,occ_top2,2,Professionals
+CHC40413,Professionals,12.3,occ_top2,2,Professionals
+CHC40421,Professionals,14.9,occ_top2,2,Professionals
+CHC41015,Managers,19.8,occ_top2,1,Managers
+CHC42015,Professionals,24.3,occ_top2,2,Professionals
+CHC42021,Professionals,19.5,occ_top2,2,Professionals
+CHC43015,Labourers,5.3,occ_top2,8,Labourers
+CHC43115,Professionals,4.2,occ_top2,2,Professionals
+CHC43121,Professionals,10.8,occ_top2,2,Professionals
+CHC43215,Community And Personal Service Workers,37.0,occ_top2,4,Community and Personal Service Workers
+CHC43315,Professionals,25.5,occ_top2,2,Professionals
+CHC43415,Professionals,7.2,occ_top2,2,Professionals
+CHC43515,Community And Personal Service Workers,33.0,occ_top2,4,Community and Personal Service Workers
+CHC50121,Professionals,32.1,occ_top2,2,Professionals
+CHC50221,Managers,22.2,occ_top2,1,Managers
+CHC51015,Community And Personal Service Workers,30.1,occ_top2,4,Community and Personal Service Workers
+CHC52015,Professionals,18.3,occ_top2,2,Professionals
+CHC52021,Professionals,14.0,occ_top2,2,Professionals
+CHC53315,Professionals,32.7,occ_top2,2,Professionals
+CHC62015,Managers,39.9,occ_top2,1,Managers
+CPC10120,Labourers,22.0,occ_top2,8,Labourers
+CPC20220,Labourers,25.4,occ_top2,8,Labourers
+CPC30220,Labourers,5.8,occ_top2,8,Labourers
+CPC30320,Technicians And Trades Workers,16.4,occ_top2,3,Technicians and Trades Workers
+CPC30620,Labourers,2.7,occ_top2,8,Labourers
+CPC31320,Labourers,2.9,occ_top2,8,Labourers
+CPC31420,Labourers,25.6,occ_top2,8,Labourers
+CPC32420,Labourers,2.0,occ_top2,8,Labourers
+CPC33020,Labourers,8.1,occ_top2,8,Labourers
+CPC40120,Managers,14.7,occ_top2,1,Managers
+CPC40920,Machinery Operators And Drivers,3.1,occ_top2,7,Machinery Operators and Drivers
+CPC50220,Managers,24.4,occ_top2,1,Managers
+CPP20218,Machinery Operators And Drivers,8.8,occ_top2,7,Machinery Operators and Drivers
+CPP30321,Machinery Operators And Drivers,3.1,occ_top2,7,Machinery Operators and Drivers
+CPP31318,Professionals,5.6,occ_top2,2,Professionals
+CPP40121,Professionals,15.0,occ_top2,2,Professionals
+CPP41419,Managers,13.7,occ_top2,1,Managers
+CPP51122,Managers,20.8,occ_top2,1,Managers
+CSC30120,Clerical And Administrative Workers,3.9,occ_top2,5,Clerical and Administrative Workers
+CSC30122,Clerical And Administrative Workers,2.2,occ_top2,5,Clerical and Administrative Workers
+CSC40122,Professionals,9.0,occ_top2,2,Professionals
+CUA20120,Community And Personal Service Workers,20.5,occ_top2,4,Community and Personal Service Workers
+CUA20220,Labourers,25.7,occ_top2,8,Labourers
+CUA20620,Community And Personal Service Workers,24.7,occ_top2,4,Community and Personal Service Workers
+CUA20720,Labourers,20.4,occ_top2,8,Labourers
+CUA30120,Sales Workers,26.7,occ_top2,6,Sales Workers
+CUA30420,Labourers,16.0,occ_top2,8,Labourers
+CUA30720,Community And Personal Service Workers,21.3,occ_top2,4,Community and Personal Service Workers
+CUA30920,Labourers,25.2,occ_top2,8,Labourers
+CUA31020,Labourers,22.1,occ_top2,8,Labourers
+CUA31120,Labourers,18.8,occ_top2,8,Labourers
+CUA40720,Community And Personal Service Workers,16.4,occ_top2,4,Community and Personal Service Workers
+CUA41120,Community And Personal Service Workers,20.3,occ_top2,4,Community and Personal Service Workers
+CUA41220,Community And Personal Service Workers,20.7,occ_top2,4,Community and Personal Service Workers
+CUA50720,Sales Workers,25.0,occ_top2,6,Sales Workers
+CUA50820,Community And Personal Service Workers,17.9,occ_top2,4,Community and Personal Service Workers
+CUA51020,Community And Personal Service Workers,21.2,occ_top2,4,Community and Personal Service Workers
+CUA51120,Sales Workers,21.7,occ_top2,6,Sales Workers
+CUA60620,Professionals,25.0,occ_top2,2,Professionals
+FBP20122,Technicians And Trades Workers,12.0,occ_top2,3,Technicians and Trades Workers
+FBP20221,Community And Personal Service Workers,21.6,occ_top2,4,Community and Personal Service Workers
+FBP30121,Machinery Operators And Drivers,18.7,occ_top2,7,Machinery Operators and Drivers
+FBP30521,Labourers,5.9,occ_top2,8,Labourers
+FNS10120,Sales Workers,30.9,occ_top2,6,Sales Workers
+FNS20120,Labourers,26.4,occ_top2,8,Labourers
+FNS30122,Sales Workers,4.6,occ_top2,6,Sales Workers
+FNS30322,Professionals,10.3,occ_top2,2,Professionals
+FNS40222,Professionals,10.9,occ_top2,2,Professionals
+FNS40821,Clerical And Administrative Workers,27.1,occ_top2,5,Clerical and Administrative Workers
+FNS50222,Professionals,14.1,occ_top2,2,Professionals
+FNS50322,Clerical And Administrative Workers,19.3,occ_top2,5,Clerical and Administrative Workers
+FSK10219,Community And Personal Service Workers,18.7,occ_top2,4,Community and Personal Service Workers
+FSK20119,Sales Workers,29.4,occ_top2,6,Sales Workers
+HLT21020,Professionals,20.6,occ_top2,2,Professionals
+HLT23221,Community And Personal Service Workers,29.3,occ_top2,4,Community and Personal Service Workers
+HLT31120,Sales Workers,12.8,occ_top2,6,Sales Workers
+HLT33015,Sales Workers,17.6,occ_top2,6,Sales Workers
+HLT33021,Sales Workers,14.5,occ_top2,6,Sales Workers
+HLT33115,Sales Workers,19.3,occ_top2,6,Sales Workers
+HLT35021,Clerical And Administrative Workers,6.0,occ_top2,5,Clerical and Administrative Workers
+HLT37015,Community And Personal Service Workers,20.1,occ_top2,4,Community and Personal Service Workers
+HLT37215,Community And Personal Service Workers,15.5,occ_top2,4,Community and Personal Service Workers
+HLT37315,Community And Personal Service Workers,16.2,occ_top2,4,Community and Personal Service Workers
+HLT42021,Machinery Operators And Drivers,7.0,occ_top2,7,Machinery Operators and Drivers
+HLT43015,Professionals,9.5,occ_top2,2,Professionals
+HLT43021,Sales Workers,18.6,occ_top2,6,Sales Workers
+HLT45021,Clerical And Administrative Workers,4.6,occ_top2,5,Clerical and Administrative Workers
+HLT47315,Community And Personal Service Workers,16.3,occ_top2,4,Community and Personal Service Workers
+HLT47321,Community And Personal Service Workers,9.1,occ_top2,4,Community and Personal Service Workers
+HLT47815,Managers,13.4,occ_top2,1,Managers
+HLT51020,Clerical And Administrative Workers,9.2,occ_top2,5,Clerical and Administrative Workers
+HLT52015,Professionals,7.4,occ_top2,2,Professionals
+HLT52021,Managers,8.2,occ_top2,1,Managers
+HLT54121,Professionals,3.5,occ_top2,2,Professionals
+ICT20120,Labourers,22.7,occ_top2,8,Labourers
+ICT30120,Technicians And Trades Workers,19.8,occ_top2,3,Technicians and Trades Workers
+ICT30519,Professionals,5.0,occ_top2,2,Professionals
+ICT40120,Professionals,27.0,occ_top2,2,Professionals
+ICT50220,Technicians And Trades Workers,14.6,occ_top2,3,Technicians and Trades Workers
+MAR10220,Professionals,15.9,occ_top2,2,Professionals
+MAR20321,Labourers,20.5,occ_top2,8,Labourers
+MAR30921,Labourers,28.8,occ_top2,8,Labourers
+MEA20518,Labourers,28.4,occ_top2,8,Labourers
+MEM10119,Labourers,19.2,occ_top2,8,Labourers
+MEM20105,Labourers,15.6,occ_top2,8,Labourers
+MEM20422,Labourers,25.7,occ_top2,8,Labourers
+MEM30219,Machinery Operators And Drivers,3.5,occ_top2,7,Machinery Operators and Drivers
+MEM30319,Machinery Operators And Drivers,4.2,occ_top2,7,Machinery Operators and Drivers
+MEM30522,Labourers,24.2,occ_top2,8,Labourers
+MEM31419,Managers,2.9,occ_top2,1,Managers
+MEM31922,Machinery Operators And Drivers,5.0,occ_top2,7,Machinery Operators and Drivers
+MEM40119,Professionals,8.3,occ_top2,2,Professionals
+MSF30322,Machinery Operators And Drivers,3.4,occ_top2,7,Machinery Operators and Drivers
+MSF40122,Professionals,19.4,occ_top2,2,Professionals
+MSF50222,Sales Workers,33.4,occ_top2,6,Sales Workers
+MSL20122,Labourers,26.2,occ_top2,8,Labourers
+MSL30122,Community And Personal Service Workers,22.9,occ_top2,4,Community and Personal Service Workers
+MSL40118,Professionals,7.2,occ_top2,2,Professionals
+MSL40122,Community And Personal Service Workers,12.1,occ_top2,4,Community and Personal Service Workers
+MSL50122,Labourers,10.3,occ_top2,8,Labourers
+MSM30116,Machinery Operators And Drivers,21.5,occ_top2,7,Machinery Operators and Drivers
+MSM40116,Machinery Operators And Drivers,19.3,occ_top2,7,Machinery Operators and Drivers
+MST31022,Managers,16.4,occ_top2,1,Managers
+NWP30222,Technicians And Trades Workers,17.4,occ_top2,3,Technicians and Trades Workers
+PMA30120,Machinery Operators And Drivers,31.9,occ_top2,7,Machinery Operators and Drivers
+PSP20218,Community And Personal Service Workers,30.4,occ_top2,4,Community and Personal Service Workers
+PSP30218,Professionals,32.0,occ_top2,2,Professionals
+PSP40122,Professionals,32.9,occ_top2,2,Professionals
+PSP40416,Clerical And Administrative Workers,37.2,occ_top2,5,Clerical and Administrative Workers
+PSP40616,Managers,23.0,occ_top2,1,Managers
+PSP50122,Professionals,33.7,occ_top2,2,Professionals
+PSP50616,Managers,34.3,occ_top2,1,Managers
+PUA20119,Professionals,23.6,occ_top2,2,Professionals
+PUA20622,Technicians And Trades Workers,4.3,occ_top2,3,Technicians and Trades Workers
+PUA20719,Managers,18.8,occ_top2,1,Managers
+PUA30622,Managers,1.8,occ_top2,1,Managers
+PUA40319,Managers,13.2,occ_top2,1,Managers
+RII20120,Technicians And Trades Workers,20.2,occ_top2,3,Technicians and Trades Workers
+RII20920,Machinery Operators And Drivers,22.1,occ_top2,7,Machinery Operators and Drivers
+RII30120,Technicians And Trades Workers,6.2,occ_top2,3,Technicians and Trades Workers
+RII30719,Community And Personal Service Workers,27.0,occ_top2,4,Community and Personal Service Workers
+RII30820,Labourers,29.3,occ_top2,8,Labourers
+RII30920,Machinery Operators And Drivers,31.1,occ_top2,7,Machinery Operators and Drivers
+RII31820,Labourers,12.7,occ_top2,8,Labourers
+RII40720,Machinery Operators And Drivers,17.5,occ_top2,7,Machinery Operators and Drivers
+RII60520,Professionals,18.0,occ_top2,2,Professionals
+SFL30115,Managers,12.5,occ_top2,1,Managers
+SHB20121,Community And Personal Service Workers,29.9,occ_top2,4,Community and Personal Service Workers
+SHB20216,Sales Workers,26.3,occ_top2,6,Sales Workers
+SHB30121,Sales Workers,26.2,occ_top2,6,Sales Workers
+SHB30221,Community And Personal Service Workers,27.5,occ_top2,4,Community and Personal Service Workers
+SHB30321,Sales Workers,21.6,occ_top2,6,Sales Workers
+SHB30416,Community And Personal Service Workers,4.4,occ_top2,4,Community and Personal Service Workers
+SHB30516,Managers,8.0,occ_top2,1,Managers
+SHB50121,Sales Workers,13.6,occ_top2,6,Sales Workers
+SIR20216,Labourers,29.2,occ_top2,8,Labourers
+SIR30116,Technicians And Trades Workers,22.4,occ_top2,3,Technicians and Trades Workers
+SIR30216,Labourers,18.0,occ_top2,8,Labourers
+SIR40316,Sales Workers,19.8,occ_top2,6,Sales Workers
+SIS20122,Community And Personal Service Workers,24.8,occ_top2,4,Community and Personal Service Workers
+SIS20321,Sales Workers,27.2,occ_top2,6,Sales Workers
+SIS20419,Labourers,23.2,occ_top2,8,Labourers
+SIS30115,Sales Workers,25.2,occ_top2,6,Sales Workers
+SIS30122,Sales Workers,20.0,occ_top2,6,Sales Workers
+SIS30321,Sales Workers,15.6,occ_top2,6,Sales Workers
+SIS30521,Professionals,23.1,occ_top2,2,Professionals
+SIS40221,Professionals,14.1,occ_top2,2,Professionals
+SIT10222,Sales Workers,24.5,occ_top2,6,Sales Workers
+SIT20122,Community And Personal Service Workers,25.5,occ_top2,4,Community and Personal Service Workers
+SIT20322,Sales Workers,25.0,occ_top2,6,Sales Workers
+SIT20421,Community And Personal Service Workers,25.6,occ_top2,4,Community and Personal Service Workers
+SIT30122,Sales Workers,29.1,occ_top2,6,Sales Workers
+SIT30222,Clerical And Administrative Workers,7.2,occ_top2,5,Clerical and Administrative Workers
+SIT30622,Sales Workers,20.1,occ_top2,6,Sales Workers
+SIT30821,Labourers,11.7,occ_top2,8,Labourers
+SIT30921,Managers,3.0,occ_top2,1,Managers
+SIT31021,Labourers,17.7,occ_top2,8,Labourers
+SIT40422,Managers,16.4,occ_top2,1,Managers
+SIT40521,Labourers,8.0,occ_top2,8,Labourers
+SIT40721,Labourers,17.9,occ_top2,8,Labourers
+SIT50422,Managers,30.2,occ_top2,1,Managers
+TAE40116,Community And Personal Service Workers,12.1,occ_top2,4,Community and Personal Service Workers
+TAE40122,Community And Personal Service Workers,13.1,occ_top2,4,Community and Personal Service Workers
+TAE50116,Managers,16.9,occ_top2,1,Managers
+TAE50216,Managers,25.1,occ_top2,1,Managers
+TLI20421,Technicians And Trades Workers,27.9,occ_top2,3,Technicians and Trades Workers
+TLI27121,Machinery Operators And Drivers,30.2,occ_top2,7,Machinery Operators and Drivers
+TLI30321,Clerical And Administrative Workers,13.6,occ_top2,5,Clerical and Administrative Workers
+TLI31222,Labourers,4.0,occ_top2,8,Labourers
+TLI31421,Community And Personal Service Workers,3.2,occ_top2,4,Community and Personal Service Workers
+TLI41222,Machinery Operators And Drivers,14.3,occ_top2,7,Machinery Operators and Drivers
+TLI42622,Professionals,1.8,occ_top2,2,Professionals
+UEE20120,Managers,5.1,occ_top2,1,Managers
+UEE22020,Labourers,21.2,occ_top2,8,Labourers
+UEE30820,Labourers,2.2,occ_top2,8,Labourers
+UEE32220,Managers,4.2,occ_top2,1,Managers
+UEE40420,Professionals,0.6,occ_top2,2,Professionals
+UEE42622,Professionals,3.9,occ_top2,2,Professionals
+10727NAT,Community And Personal Service Workers,15.6,occ_top3,4,Community and Personal Service Workers
+10728NAT,Technicians And Trades Workers,14.4,occ_top3,3,Technicians and Trades Workers
+10729NAT,Labourers,13.9,occ_top3,8,Labourers
+10797NAT,Managers,1.1,occ_top3,1,Managers
+10949NAT,Sales Workers,26.2,occ_top3,6,Sales Workers
+10971NAT,Labourers,17.0,occ_top3,8,Labourers
+10984NAT,Machinery Operators And Drivers,18.2,occ_top3,7,Machinery Operators and Drivers
+10985NAT,Machinery Operators And Drivers,15.3,occ_top3,7,Machinery Operators and Drivers
+11022NAT,Sales Workers,12.2,occ_top3,6,Sales Workers
+11039NAT,Technicians And Trades Workers,17.0,occ_top3,3,Technicians and Trades Workers
+11042NAT,Professionals,16.7,occ_top3,2,Professionals
+11046NAT,Clerical And Administrative Workers,18.1,occ_top3,5,Clerical and Administrative Workers
+11225NAT,Technicians And Trades Workers,13.4,occ_top3,3,Technicians and Trades Workers
+11236NAT,Community And Personal Service Workers,24.2,occ_top3,4,Community and Personal Service Workers
+11240NAT,Sales Workers,21.5,occ_top3,6,Sales Workers
+22470VIC,Sales Workers,20.9,occ_top3,6,Sales Workers
+22472VIC,Technicians And Trades Workers,15.5,occ_top3,3,Technicians and Trades Workers
+22473VIC,Technicians And Trades Workers,16.8,occ_top3,3,Technicians and Trades Workers
+22476VIC,Sales Workers,10.8,occ_top3,6,Sales Workers
+22485VIC,Technicians And Trades Workers,15.5,occ_top3,3,Technicians and Trades Workers
+22486VIC,Sales Workers,17.2,occ_top3,6,Sales Workers
+22499VIC,Machinery Operators And Drivers,9.9,occ_top3,7,Machinery Operators and Drivers
+22582VIC,Labourers,12.2,occ_top3,8,Labourers
+22603VIC,Clerical And Administrative Workers,11.3,occ_top3,5,Clerical and Administrative Workers
+22614VIC,Community And Personal Service Workers,9.9,occ_top3,4,Community and Personal Service Workers
+22638VIC,Machinery Operators And Drivers,21.1,occ_top3,7,Machinery Operators and Drivers
+22639VIC,Machinery Operators And Drivers,15.3,occ_top3,7,Machinery Operators and Drivers
+22640VIC,Sales Workers,13.7,occ_top3,6,Sales Workers
+52887WA,Sales Workers,9.9,occ_top3,6,Sales Workers
+52893WA,Sales Workers,9.2,occ_top3,6,Sales Workers
+52895WA,Labourers,10.8,occ_top3,8,Labourers
+ACM20121,Community And Personal Service Workers,16.5,occ_top3,4,Community and Personal Service Workers
+ACM30122,Community And Personal Service Workers,13.7,occ_top3,4,Community and Personal Service Workers
+ACM30321,Community And Personal Service Workers,15.4,occ_top3,4,Community and Personal Service Workers
+ACM40418,Clerical And Administrative Workers,2.9,occ_top3,5,Clerical and Administrative Workers
+AHC10120,Professionals,10.5,occ_top3,2,Professionals
+AHC20116,Sales Workers,15.4,occ_top3,6,Sales Workers
+AHC20416,Community And Personal Service Workers,9.7,occ_top3,4,Community and Personal Service Workers
+AHC20422,Technicians And Trades Workers,18.6,occ_top3,3,Technicians and Trades Workers
+AHC21216,Community And Personal Service Workers,14.3,occ_top3,4,Community and Personal Service Workers
+AHC30116,Managers,11.3,occ_top3,1,Managers
+AHC30716,Professionals,9.5,occ_top3,2,Professionals
+AHC30722,Sales Workers,9.3,occ_top3,6,Sales Workers
+AHC30820,Machinery Operators And Drivers,5.2,occ_top3,7,Machinery Operators and Drivers
+AHC30921,Managers,4.7,occ_top3,1,Managers
+AHC31021,Clerical And Administrative Workers,4.3,occ_top3,5,Clerical and Administrative Workers
+AHC31421,Technicians And Trades Workers,16.4,occ_top3,3,Technicians and Trades Workers
+AHC41316,Technicians And Trades Workers,24.6,occ_top3,3,Technicians and Trades Workers
+AMP20316,Clerical And Administrative Workers,3.4,occ_top3,5,Clerical and Administrative Workers
+AMP30216,Technicians And Trades Workers,5.1,occ_top3,3,Technicians and Trades Workers
+AUR10120,Sales Workers,13.3,occ_top3,6,Sales Workers
+AUR20220,Professionals,1.4,occ_top3,2,Professionals
+AUR20520,Sales Workers,9.1,occ_top3,6,Sales Workers
+AUR20720,Sales Workers,17.8,occ_top3,6,Sales Workers
+AUR30320,Managers,2.3,occ_top3,1,Managers
+AUR30620,Labourers,2.4,occ_top3,8,Labourers
+AUR31020,Managers,6.7,occ_top3,1,Managers
+AUR31120,Machinery Operators And Drivers,1.7,occ_top3,7,Machinery Operators and Drivers
+AUR31220,Labourers,0.9,occ_top3,8,Labourers
+AUR32120,Managers,2.1,occ_top3,1,Managers
+AUR32420,Clerical And Administrative Workers,4.5,occ_top3,5,Clerical and Administrative Workers
+AVI20118,Machinery Operators And Drivers,7.7,occ_top3,7,Machinery Operators and Drivers
+AVI30419,Technicians And Trades Workers,12.7,occ_top3,3,Technicians and Trades Workers
+BSB10120,Community And Personal Service Workers,18.7,occ_top3,4,Community and Personal Service Workers
+BSB20120,Community And Personal Service Workers,18.1,occ_top3,4,Community and Personal Service Workers
+BSB30120,Community And Personal Service Workers,16.8,occ_top3,4,Community and Personal Service Workers
+BSB30220,Community And Personal Service Workers,18.8,occ_top3,4,Community and Personal Service Workers
+BSB30420,Technicians And Trades Workers,13.4,occ_top3,3,Technicians and Trades Workers
+BSB40120,Professionals,11.7,occ_top3,2,Professionals
+BSB40320,Clerical And Administrative Workers,10.9,occ_top3,5,Clerical and Administrative Workers
+BSB40420,Managers,18.4,occ_top3,1,Managers
+BSB40520,Clerical And Administrative Workers,19.1,occ_top3,5,Clerical and Administrative Workers
+BSB40720,Professionals,12.9,occ_top3,2,Professionals
+BSB40820,Clerical And Administrative Workers,14.5,occ_top3,5,Clerical and Administrative Workers
+BSB40920,Managers,19.7,occ_top3,1,Managers
+BSB41419,Clerical And Administrative Workers,11.7,occ_top3,5,Clerical and Administrative Workers
+BSB50120,Clerical And Administrative Workers,14.6,occ_top3,5,Clerical and Administrative Workers
+BSB50320,Clerical And Administrative Workers,20.1,occ_top3,5,Clerical and Administrative Workers
+BSB50420,Clerical And Administrative Workers,16.7,occ_top3,5,Clerical and Administrative Workers
+BSB50520,Professionals,16.1,occ_top3,2,Professionals
+BSB50820,Clerical And Administrative Workers,22.8,occ_top3,5,Clerical and Administrative Workers
+BSB50920,Clerical And Administrative Workers,11.4,occ_top3,5,Clerical and Administrative Workers
+BSB51319,Community And Personal Service Workers,7.3,occ_top3,4,Community and Personal Service Workers
+BSB60420,Clerical And Administrative Workers,17.1,occ_top3,5,Clerical and Administrative Workers
+BSB80120,Community And Personal Service Workers,9.0,occ_top3,4,Community and Personal Service Workers
+CHC14015,Community And Personal Service Workers,22.0,occ_top3,4,Community and Personal Service Workers
+CHC22015,Labourers,20.4,occ_top3,8,Labourers
+CHC24015,Community And Personal Service Workers,20.9,occ_top3,4,Community and Personal Service Workers
+CHC30121,Sales Workers,2.2,occ_top3,6,Sales Workers
+CHC30221,Professionals,4.7,occ_top3,2,Professionals
+CHC32015,Clerical And Administrative Workers,9.6,occ_top3,5,Clerical and Administrative Workers
+CHC33015,Clerical And Administrative Workers,3.1,occ_top3,5,Clerical and Administrative Workers
+CHC33021,Clerical And Administrative Workers,2.8,occ_top3,5,Clerical and Administrative Workers
+CHC40221,Clerical And Administrative Workers,4.7,occ_top3,5,Clerical and Administrative Workers
+CHC40313,Clerical And Administrative Workers,4.7,occ_top3,5,Clerical and Administrative Workers
+CHC40321,Clerical And Administrative Workers,3.7,occ_top3,5,Clerical and Administrative Workers
+CHC40413,Managers,4.8,occ_top3,1,Managers
+CHC40421,Sales Workers,6.3,occ_top3,6,Sales Workers
+CHC41015,Clerical And Administrative Workers,15.8,occ_top3,5,Clerical and Administrative Workers
+CHC42015,Clerical And Administrative Workers,7.6,occ_top3,5,Clerical and Administrative Workers
+CHC42021,Sales Workers,10.4,occ_top3,6,Sales Workers
+CHC43015,Clerical And Administrative Workers,3.3,occ_top3,5,Clerical and Administrative Workers
+CHC43115,Technicians And Trades Workers,3.6,occ_top3,3,Technicians and Trades Workers
+CHC43121,Clerical And Administrative Workers,3.0,occ_top3,5,Clerical and Administrative Workers
+CHC43215,Technicians And Trades Workers,7.1,occ_top3,3,Technicians and Trades Workers
+CHC43315,Clerical And Administrative Workers,6.7,occ_top3,5,Clerical and Administrative Workers
+CHC43415,Clerical And Administrative Workers,2.4,occ_top3,5,Clerical and Administrative Workers
+CHC43515,Sales Workers,6.0,occ_top3,6,Sales Workers
+CHC50121,Managers,2.7,occ_top3,1,Managers
+CHC50221,Professionals,11.5,occ_top3,2,Professionals
+CHC51015,Clerical And Administrative Workers,11.5,occ_top3,5,Clerical and Administrative Workers
+CHC52015,Clerical And Administrative Workers,8.4,occ_top3,5,Clerical and Administrative Workers
+CHC52021,Clerical And Administrative Workers,8.0,occ_top3,5,Clerical and Administrative Workers
+CHC53315,Managers,6.4,occ_top3,1,Managers
+CHC62015,Professionals,10.7,occ_top3,2,Professionals
+CPC10120,Professionals,13.3,occ_top3,2,Professionals
+CPC20220,Sales Workers,13.3,occ_top3,6,Sales Workers
+CPC30220,Managers,2.9,occ_top3,1,Managers
+CPC30320,Managers,7.4,occ_top3,1,Managers
+CPC30620,Machinery Operators And Drivers,2.5,occ_top3,7,Machinery Operators and Drivers
+CPC31320,Managers,2.8,occ_top3,1,Managers
+CPC31420,Managers,22.5,occ_top3,1,Managers
+CPC32420,Managers,1.3,occ_top3,1,Managers
+CPC33020,Machinery Operators And Drivers,2.4,occ_top3,7,Machinery Operators and Drivers
+CPC40120,Professionals,9.3,occ_top3,2,Professionals
+CPC40920,Clerical And Administrative Workers,2.6,occ_top3,5,Clerical and Administrative Workers
+CPC50220,Professionals,9.2,occ_top3,2,Professionals
+CPP20218,Technicians And Trades Workers,7.5,occ_top3,3,Technicians and Trades Workers
+CPP30321,Community And Personal Service Workers,2.6,occ_top3,4,Community and Personal Service Workers
+CPP31318,Managers,5.4,occ_top3,1,Managers
+CPP40121,Clerical And Administrative Workers,11.6,occ_top3,5,Clerical and Administrative Workers
+CPP41419,Clerical And Administrative Workers,13.3,occ_top3,5,Clerical and Administrative Workers
+CPP51122,Professionals,4.5,occ_top3,2,Professionals
+CSC30120,Technicians And Trades Workers,1.4,occ_top3,3,Technicians and Trades Workers
+CSC30122,Technicians And Trades Workers,1.4,occ_top3,3,Technicians and Trades Workers
+CSC40122,Clerical And Administrative Workers,4.1,occ_top3,5,Clerical and Administrative Workers
+CUA20120,Professionals,17.8,occ_top3,2,Professionals
+CUA20220,Community And Personal Service Workers,22.4,occ_top3,4,Community and Personal Service Workers
+CUA20620,Labourers,23.7,occ_top3,8,Labourers
+CUA20720,Community And Personal Service Workers,19.6,occ_top3,4,Community and Personal Service Workers
+CUA30120,Community And Personal Service Workers,24.6,occ_top3,4,Community and Personal Service Workers
+CUA30420,Community And Personal Service Workers,14.9,occ_top3,4,Community and Personal Service Workers
+CUA30720,Labourers,16.5,occ_top3,8,Labourers
+CUA30920,Community And Personal Service Workers,20.8,occ_top3,4,Community and Personal Service Workers
+CUA31020,Community And Personal Service Workers,18.3,occ_top3,4,Community and Personal Service Workers
+CUA31120,Professionals,17.1,occ_top3,2,Professionals
+CUA40720,Professionals,12.9,occ_top3,2,Professionals
+CUA41120,Clerical And Administrative Workers,8.4,occ_top3,5,Clerical and Administrative Workers
+CUA41220,Labourers,14.2,occ_top3,8,Labourers
+CUA50720,Community And Personal Service Workers,14.6,occ_top3,4,Community and Personal Service Workers
+CUA50820,Professionals,16.9,occ_top3,2,Professionals
+CUA51020,Labourers,14.6,occ_top3,8,Labourers
+CUA51120,Professionals,19.8,occ_top3,2,Professionals
+CUA60620,Labourers,18.6,occ_top3,8,Labourers
+FBP20122,Community And Personal Service Workers,10.6,occ_top3,4,Community and Personal Service Workers
+FBP20221,Labourers,19.8,occ_top3,8,Labourers
+FBP30121,Technicians And Trades Workers,8.2,occ_top3,3,Technicians and Trades Workers
+FBP30521,Managers,4.2,occ_top3,1,Managers
+FNS10120,Labourers,26.5,occ_top3,8,Labourers
+FNS20120,Technicians And Trades Workers,12.0,occ_top3,3,Technicians and Trades Workers
+FNS30122,Managers,4.1,occ_top3,1,Managers
+FNS30322,Sales Workers,8.8,occ_top3,6,Sales Workers
+FNS40222,Managers,8.9,occ_top3,1,Managers
+FNS40821,Managers,13.5,occ_top3,1,Managers
+FNS50222,Managers,5.4,occ_top3,1,Managers
+FNS50322,Managers,15.3,occ_top3,1,Managers
+FSK10219,Sales Workers,17.1,occ_top3,6,Sales Workers
+FSK20119,Community And Personal Service Workers,15.0,occ_top3,4,Community and Personal Service Workers
+HLT21020,Technicians And Trades Workers,14.2,occ_top3,3,Technicians and Trades Workers
+HLT23221,Labourers,20.0,occ_top3,8,Labourers
+HLT31120,Clerical And Administrative Workers,6.9,occ_top3,5,Clerical and Administrative Workers
+HLT33015,Clerical And Administrative Workers,10.8,occ_top3,5,Clerical and Administrative Workers
+HLT33021,Professionals,7.6,occ_top3,2,Professionals
+HLT33115,Labourers,11.8,occ_top3,8,Labourers
+HLT35021,Sales Workers,2.2,occ_top3,6,Sales Workers
+HLT37015,Professionals,7.1,occ_top3,2,Professionals
+HLT37215,Professionals,6.7,occ_top3,2,Professionals
+HLT37315,Professionals,8.1,occ_top3,2,Professionals
+HLT42021,Professionals,4.9,occ_top3,2,Professionals
+HLT43015,Clerical And Administrative Workers,7.5,occ_top3,5,Clerical and Administrative Workers
+HLT43021,Clerical And Administrative Workers,12.0,occ_top3,5,Clerical and Administrative Workers
+HLT45021,Professionals,2.6,occ_top3,2,Professionals
+HLT47315,Professionals,6.1,occ_top3,2,Professionals
+HLT47321,Managers,7.6,occ_top3,1,Managers
+HLT47815,Sales Workers,5.1,occ_top3,6,Sales Workers
+HLT51020,Managers,7.7,occ_top3,1,Managers
+HLT52015,Managers,6.1,occ_top3,1,Managers
+HLT52021,Professionals,8.0,occ_top3,2,Professionals
+HLT54121,Sales Workers,3.3,occ_top3,6,Sales Workers
+ICT20120,Community And Personal Service Workers,17.0,occ_top3,4,Community and Personal Service Workers
+ICT30120,Labourers,17.4,occ_top3,8,Labourers
+ICT30519,Managers,3.4,occ_top3,1,Managers
+ICT40120,Sales Workers,8.8,occ_top3,6,Sales Workers
+ICT50220,Clerical And Administrative Workers,13.5,occ_top3,5,Clerical and Administrative Workers
+MAR10220,Sales Workers,12.9,occ_top3,6,Sales Workers
+MAR20321,Community And Personal Service Workers,17.3,occ_top3,4,Community and Personal Service Workers
+MAR30921,Technicians And Trades Workers,10.4,occ_top3,3,Technicians and Trades Workers
+MEA20518,Sales Workers,19.1,occ_top3,6,Sales Workers
+MEM10119,Sales Workers,16.8,occ_top3,6,Sales Workers
+MEM20105,Machinery Operators And Drivers,8.4,occ_top3,7,Machinery Operators and Drivers
+MEM20422,Sales Workers,17.4,occ_top3,6,Sales Workers
+MEM30219,Labourers,2.3,occ_top3,8,Labourers
+MEM30319,Labourers,2.7,occ_top3,8,Labourers
+MEM30522,Sales Workers,12.1,occ_top3,6,Sales Workers
+MEM31419,Professionals,1.5,occ_top3,2,Professionals
+MEM31922,Labourers,2.5,occ_top3,8,Labourers
+MEM40119,Machinery Operators And Drivers,3.1,occ_top3,7,Machinery Operators and Drivers
+MSF30322,Labourers,3.0,occ_top3,8,Labourers
+MSF40122,Clerical And Administrative Workers,11.7,occ_top3,5,Clerical and Administrative Workers
+MSF50222,Clerical And Administrative Workers,11.5,occ_top3,5,Clerical and Administrative Workers
+MSL20122,Community And Personal Service Workers,18.7,occ_top3,4,Community and Personal Service Workers
+MSL30122,Labourers,19.4,occ_top3,8,Labourers
+MSL40118,Clerical And Administrative Workers,6.1,occ_top3,5,Clerical and Administrative Workers
+MSL40122,Sales Workers,10.1,occ_top3,6,Sales Workers
+MSL50122,Professionals,7.6,occ_top3,2,Professionals
+MSM30116,Sales Workers,14.5,occ_top3,6,Sales Workers
+MSM40116,Labourers,19.3,occ_top3,8,Labourers
+MST31022,Professionals,14.6,occ_top3,2,Professionals
+NWP30222,Labourers,14.4,occ_top3,8,Labourers
+PMA30120,Professionals,6.2,occ_top3,2,Professionals
+PSP20218,Clerical And Administrative Workers,11.4,occ_top3,5,Clerical and Administrative Workers
+PSP30218,Clerical And Administrative Workers,9.0,occ_top3,5,Clerical and Administrative Workers
+PSP40122,Community And Personal Service Workers,20.9,occ_top3,4,Community and Personal Service Workers
+PSP40416,Managers,10.6,occ_top3,1,Managers
+PSP40616,Professionals,12.9,occ_top3,2,Professionals
+PSP50122,Technicians And Trades Workers,15.7,occ_top3,3,Technicians and Trades Workers
+PSP50616,Professionals,21.0,occ_top3,2,Professionals
+PUA20119,Managers,15.2,occ_top3,1,Managers
+PUA20622,Machinery Operators And Drivers,3.7,occ_top3,7,Machinery Operators and Drivers
+PUA20719,Professionals,17.4,occ_top3,2,Professionals
+PUA30622,Machinery Operators And Drivers,1.0,occ_top3,7,Machinery Operators and Drivers
+PUA40319,Professionals,1.3,occ_top3,2,Professionals
+RII20120,Machinery Operators And Drivers,13.8,occ_top3,7,Machinery Operators and Drivers
+RII20920,Technicians And Trades Workers,7.3,occ_top3,3,Technicians and Trades Workers
+RII30120,Labourers,3.1,occ_top3,8,Labourers
+RII30719,Technicians And Trades Workers,21.8,occ_top3,3,Technicians and Trades Workers
+RII30820,Technicians And Trades Workers,20.3,occ_top3,3,Technicians and Trades Workers
+RII30920,Technicians And Trades Workers,18.9,occ_top3,3,Technicians and Trades Workers
+RII31820,Professionals,3.7,occ_top3,2,Professionals
+RII40720,Managers,11.0,occ_top3,1,Managers
+RII60520,Clerical And Administrative Workers,13.9,occ_top3,5,Clerical and Administrative Workers
+SFL30115,Professionals,12.5,occ_top3,2,Professionals
+SHB20121,Labourers,19.6,occ_top3,8,Labourers
+SHB20216,Community And Personal Service Workers,24.2,occ_top3,4,Community and Personal Service Workers
+SHB30121,Labourers,9.2,occ_top3,8,Labourers
+SHB30221,Technicians And Trades Workers,12.5,occ_top3,3,Technicians and Trades Workers
+SHB30321,Clerical And Administrative Workers,10.7,occ_top3,5,Clerical and Administrative Workers
+SHB30416,Managers,3.5,occ_top3,1,Managers
+SHB30516,Community And Personal Service Workers,6.1,occ_top3,4,Community and Personal Service Workers
+SHB50121,Technicians And Trades Workers,3.8,occ_top3,3,Technicians and Trades Workers
+SIR20216,Community And Personal Service Workers,11.5,occ_top3,4,Community and Personal Service Workers
+SIR30116,Managers,4.4,occ_top3,1,Managers
+SIR30216,Managers,11.0,occ_top3,1,Managers
+SIR40316,Clerical And Administrative Workers,11.0,occ_top3,5,Clerical and Administrative Workers
+SIS20122,Labourers,24.2,occ_top3,8,Labourers
+SIS20321,Labourers,17.9,occ_top3,8,Labourers
+SIS20419,Community And Personal Service Workers,23.1,occ_top3,4,Community and Personal Service Workers
+SIS30115,Labourers,17.1,occ_top3,8,Labourers
+SIS30122,Technicians And Trades Workers,13.8,occ_top3,3,Technicians and Trades Workers
+SIS30321,Labourers,10.6,occ_top3,8,Labourers
+SIS30521,Sales Workers,13.3,occ_top3,6,Sales Workers
+SIS40221,Managers,8.3,occ_top3,1,Managers
+SIT10222,Community And Personal Service Workers,22.8,occ_top3,4,Community and Personal Service Workers
+SIT20122,Labourers,18.1,occ_top3,8,Labourers
+SIT20322,Labourers,23.7,occ_top3,8,Labourers
+SIT20421,Sales Workers,21.6,occ_top3,6,Sales Workers
+SIT30122,Clerical And Administrative Workers,14.8,occ_top3,5,Clerical and Administrative Workers
+SIT30222,Managers,6.2,occ_top3,1,Managers
+SIT30622,Labourers,18.7,occ_top3,8,Labourers
+SIT30821,Community And Personal Service Workers,3.7,occ_top3,4,Community and Personal Service Workers
+SIT30921,Community And Personal Service Workers,2.3,occ_top3,4,Community and Personal Service Workers
+SIT31021,Community And Personal Service Workers,9.4,occ_top3,4,Community and Personal Service Workers
+SIT40422,Technicians And Trades Workers,11.4,occ_top3,3,Technicians and Trades Workers
+SIT40521,Professionals,4.9,occ_top3,2,Professionals
+SIT40721,Community And Personal Service Workers,17.5,occ_top3,4,Community and Personal Service Workers
+SIT50422,Community And Personal Service Workers,14.6,occ_top3,4,Community and Personal Service Workers
+TAE40116,Managers,11.3,occ_top3,1,Managers
+TAE40122,Managers,10.1,occ_top3,1,Managers
+TAE50116,Community And Personal Service Workers,2.8,occ_top3,4,Community and Personal Service Workers
+TAE50216,Community And Personal Service Workers,3.6,occ_top3,4,Community and Personal Service Workers
+TLI20421,Labourers,19.0,occ_top3,8,Labourers
+TLI27121,Technicians And Trades Workers,9.4,occ_top3,3,Technicians and Trades Workers
+TLI30321,Sales Workers,8.8,occ_top3,6,Sales Workers
+TLI31222,Clerical And Administrative Workers,2.7,occ_top3,5,Clerical and Administrative Workers
+TLI31421,Clerical And Administrative Workers,1.0,occ_top3,5,Clerical and Administrative Workers
+TLI41222,Professionals,14.3,occ_top3,2,Professionals
+TLI42622,Labourers,0.8,occ_top3,8,Labourers
+UEE20120,Labourers,2.1,occ_top3,8,Labourers
+UEE22020,Sales Workers,12.6,occ_top3,6,Sales Workers
+UEE30820,Professionals,1.9,occ_top3,2,Professionals
+UEE32220,Clerical And Administrative Workers,1.5,occ_top3,5,Clerical and Administrative Workers
+UEE40420,Managers,0.4,occ_top3,1,Managers
+UEE42622,Machinery Operators And Drivers,2.6,occ_top3,7,Machinery Operators and Drivers
+10727NAT,False,67.5,occ_top4,,False
+10728NAT,False,62.3,occ_top4,,False
+10729NAT,False,56.9,occ_top4,,False
+10797NAT,False,99.3,occ_top4,,False
+10949NAT,False,86.2,occ_top4,,False
+10971NAT,False,78.6,occ_top4,,False
+10984NAT,False,68.9,occ_top4,,False
+10985NAT,False,64.6,occ_top4,,False
+11022NAT,False,61.6,occ_top4,,False
+11039NAT,False,78.1,occ_top4,,False
+11042NAT,False,54.0,occ_top4,,False
+11046NAT,False,79.1,occ_top4,,False
+11225NAT,False,65.5,occ_top4,,False
+11236NAT,False,83.2,occ_top4,,False
+11240NAT,False,70.1,occ_top4,,False
+22470VIC,False,81.7,occ_top4,,False
+22472VIC,False,75.6,occ_top4,,False
+22473VIC,False,78.4,occ_top4,,False
+22476VIC,False,73.8,occ_top4,,False
+22485VIC,False,63.4,occ_top4,,False
+22486VIC,False,63.3,occ_top4,,False
+22499VIC,False,83.3,occ_top4,,False
+22582VIC,False,69.4,occ_top4,,False
+22603VIC,False,62.3,occ_top4,,False
+22614VIC,False,80.4,occ_top4,,False
+22638VIC,False,74.7,occ_top4,,False
+22639VIC,False,66.0,occ_top4,,False
+22640VIC,False,52.3,occ_top4,,False
+52887WA,False,88.9,occ_top4,,False
+52893WA,False,89.5,occ_top4,,False
+52895WA,False,85.3,occ_top4,,False
+ACM20121,False,73.5,occ_top4,,False
+ACM30122,False,73.7,occ_top4,,False
+ACM30321,False,79.6,occ_top4,,False
+ACM40418,False,92.5,occ_top4,,False
+AHC10120,False,84.1,occ_top4,,False
+AHC20116,False,79.2,occ_top4,,False
+AHC20416,False,72.8,occ_top4,,False
+AHC20422,False,75.4,occ_top4,,False
+AHC21216,False,70.7,occ_top4,,False
+AHC30116,False,79.5,occ_top4,,False
+AHC30716,False,74.8,occ_top4,,False
+AHC30722,False,79.1,occ_top4,,False
+AHC30820,False,89.2,occ_top4,,False
+AHC30921,False,89.8,occ_top4,,False
+AHC31021,False,87.6,occ_top4,,False
+AHC31421,False,76.4,occ_top4,,False
+AHC41316,False,76.8,occ_top4,,False
+AMP20316,False,92.6,occ_top4,,False
+AMP30216,False,90.3,occ_top4,,False
+AUR10120,False,74.8,occ_top4,,False
+AUR20220,False,97.1,occ_top4,,False
+AUR20520,False,87.2,occ_top4,,False
+AUR20720,False,84.9,occ_top4,,False
+AUR30320,False,96.5,occ_top4,,False
+AUR30620,False,94.0,occ_top4,,False
+AUR31020,False,90.0,occ_top4,,False
+AUR31120,False,98.2,occ_top4,,False
+AUR31220,False,99.0,occ_top4,,False
+AUR32120,False,95.6,occ_top4,,False
+AUR32420,False,94.6,occ_top4,,False
+AVI20118,False,84.7,occ_top4,,False
+AVI30419,False,63.6,occ_top4,,False
+BSB10120,False,73.5,occ_top4,,False
+BSB20120,False,71.9,occ_top4,,False
+BSB30120,False,66.9,occ_top4,,False
+BSB30220,False,63.1,occ_top4,,False
+BSB30420,False,61.7,occ_top4,,False
+BSB40120,False,61.0,occ_top4,,False
+BSB40320,False,64.4,occ_top4,,False
+BSB40420,False,88.4,occ_top4,,False
+BSB40520,False,67.0,occ_top4,,False
+BSB40720,False,73.2,occ_top4,,False
+BSB40820,False,55.6,occ_top4,,False
+BSB40920,False,72.9,occ_top4,,False
+BSB41419,False,75.8,occ_top4,,False
+BSB50120,False,58.5,occ_top4,,False
+BSB50320,False,91.4,occ_top4,,False
+BSB50420,False,75.8,occ_top4,,False
+BSB50520,False,77.6,occ_top4,,False
+BSB50820,False,80.0,occ_top4,,False
+BSB50920,False,90.4,occ_top4,,False
+BSB51319,False,88.0,occ_top4,,False
+BSB60420,False,83.6,occ_top4,,False
+BSB80120,False,84.0,occ_top4,,False
+CHC14015,False,83.3,occ_top4,,False
+CHC22015,False,86.9,occ_top4,,False
+CHC24015,False,79.2,occ_top4,,False
+CHC30121,False,94.2,occ_top4,,False
+CHC30221,False,90.3,occ_top4,,False
+CHC32015,False,73.1,occ_top4,,False
+CHC33015,False,91.3,occ_top4,,False
+CHC33021,False,90.0,occ_top4,,False
+CHC40221,False,92.4,occ_top4,,False
+CHC40313,False,92.4,occ_top4,,False
+CHC40321,False,98.1,occ_top4,,False
+CHC40413,False,91.4,occ_top4,,False
+CHC40421,False,85.5,occ_top4,,False
+CHC41015,False,78.5,occ_top4,,False
+CHC42015,False,83.0,occ_top4,,False
+CHC42021,False,84.6,occ_top4,,False
+CHC43015,False,90.1,occ_top4,,False
+CHC43115,False,88.2,occ_top4,,False
+CHC43121,False,97.2,occ_top4,,False
+CHC43215,False,88.6,occ_top4,,False
+CHC43315,False,89.7,occ_top4,,False
+CHC43415,False,93.8,occ_top4,,False
+CHC43515,False,89.7,occ_top4,,False
+CHC50121,False,96.6,occ_top4,,False
+CHC50221,False,95.8,occ_top4,,False
+CHC51015,False,82.4,occ_top4,,False
+CHC52015,False,88.9,occ_top4,,False
+CHC52021,False,87.7,occ_top4,,False
+CHC53315,False,89.2,occ_top4,,False
+CHC62015,False,93.4,occ_top4,,False
+CPC10120,False,65.0,occ_top4,,False
+CPC20220,False,80.2,occ_top4,,False
+CPC30220,False,95.9,occ_top4,,False
+CPC30320,False,90.7,occ_top4,,False
+CPC30620,False,97.1,occ_top4,,False
+CPC31320,False,100.0,occ_top4,,False
+CPC31420,False,96.4,occ_top4,,False
+CPC32420,False,98.2,occ_top4,,False
+CPC33020,False,93.9,occ_top4,,False
+CPC40120,False,82.9,occ_top4,,False
+CPC40920,False,96.9,occ_top4,,False
+CPC50220,False,77.7,occ_top4,,False
+CPP20218,False,75.5,occ_top4,,False
+CPP30321,False,92.8,occ_top4,,False
+CPP31318,False,93.1,occ_top4,,False
+CPP40121,False,66.5,occ_top4,,False
+CPP41419,False,79.4,occ_top4,,False
+CPP51122,False,92.5,occ_top4,,False
+CSC30120,False,98.8,occ_top4,,False
+CSC30122,False,96.2,occ_top4,,False
+CSC40122,False,99.1,occ_top4,,False
+CUA20120,False,75.3,occ_top4,,False
+CUA20220,False,80.0,occ_top4,,False
+CUA20620,False,79.8,occ_top4,,False
+CUA20720,False,76.6,occ_top4,,False
+CUA30120,False,79.9,occ_top4,,False
+CUA30420,False,62.4,occ_top4,,False
+CUA30720,False,69.0,occ_top4,,False
+CUA30920,False,73.3,occ_top4,,False
+CUA31020,False,70.5,occ_top4,,False
+CUA31120,False,65.8,occ_top4,,False
+CUA40720,False,58.9,occ_top4,,False
+CUA41120,False,73.5,occ_top4,,False
+CUA41220,False,63.0,occ_top4,,False
+CUA50720,False,73.5,occ_top4,,False
+CUA50820,False,55.0,occ_top4,,False
+CUA51020,False,65.5,occ_top4,,False
+CUA51120,False,69.6,occ_top4,,False
+CUA60620,False,70.9,occ_top4,,False
+FBP20122,False,71.2,occ_top4,,False
+FBP20221,False,71.3,occ_top4,,False
+FBP30121,False,72.8,occ_top4,,False
+FBP30521,False,94.8,occ_top4,,False
+FNS10120,False,88.8,occ_top4,,False
+FNS20120,False,77.3,occ_top4,,False
+FNS30122,False,94.1,occ_top4,,False
+FNS30322,False,77.5,occ_top4,,False
+FNS40222,False,79.1,occ_top4,,False
+FNS40821,False,87.5,occ_top4,,False
+FNS50222,False,80.0,occ_top4,,False
+FNS50322,False,96.0,occ_top4,,False
+FSK10219,False,61.8,occ_top4,,False
+FSK20119,False,74.3,occ_top4,,False
+HLT21020,False,68.1,occ_top4,,False
+HLT23221,False,88.6,occ_top4,,False
+HLT31120,False,88.1,occ_top4,,False
+HLT33015,False,85.9,occ_top4,,False
+HLT33021,False,84.8,occ_top4,,False
+HLT33115,False,84.7,occ_top4,,False
+HLT35021,False,96.2,occ_top4,,False
+HLT37015,False,78.8,occ_top4,,False
+HLT37215,False,82.6,occ_top4,,False
+HLT37315,False,76.1,occ_top4,,False
+HLT42021,False,83.9,occ_top4,,False
+HLT43015,False,84.9,occ_top4,,False
+HLT43021,False,87.4,occ_top4,,False
+HLT45021,False,97.6,occ_top4,,False
+HLT47315,False,91.3,occ_top4,,False
+HLT47321,False,86.4,occ_top4,,False
+HLT47815,False,90.1,occ_top4,,False
+HLT51020,False,84.0,occ_top4,,False
+HLT52015,False,85.8,occ_top4,,False
+HLT52021,False,92.0,occ_top4,,False
+HLT54121,False,94.3,occ_top4,,False
+ICT20120,False,64.5,occ_top4,,False
+ICT30120,False,58.3,occ_top4,,False
+ICT30519,False,96.4,occ_top4,,False
+ICT40120,False,71.2,occ_top4,,False
+ICT50220,False,63.9,occ_top4,,False
+MAR10220,False,57.3,occ_top4,,False
+MAR20321,False,66.5,occ_top4,,False
+MAR30921,False,80.8,occ_top4,,False
+MEA20518,False,83.8,occ_top4,,False
+MEM10119,False,70.0,occ_top4,,False
+MEM20105,False,86.3,occ_top4,,False
+MEM20422,False,82.9,occ_top4,,False
+MEM30219,False,94.9,occ_top4,,False
+MEM30319,False,96.5,occ_top4,,False
+MEM30522,False,75.8,occ_top4,,False
+MEM31419,False,97.6,occ_top4,,False
+MEM31922,False,98.2,occ_top4,,False
+MEM40119,False,94.1,occ_top4,,False
+MSF30322,False,95.4,occ_top4,,False
+MSF40122,False,63.9,occ_top4,,False
+MSF50222,False,79.7,occ_top4,,False
+MSL20122,False,82.4,occ_top4,,False
+MSL30122,False,69.9,occ_top4,,False
+MSL40118,False,87.5,occ_top4,,False
+MSL40122,False,78.7,occ_top4,,False
+MSL50122,False,82.8,occ_top4,,False
+MSM30116,False,70.9,occ_top4,,False
+MSM40116,False,72.5,occ_top4,,False
+MST31022,False,53.8,occ_top4,,False
+NWP30222,False,86.2,occ_top4,,False
+PMA30120,False,91.4,occ_top4,,False
+PSP20218,False,80.4,occ_top4,,False
+PSP30218,False,80.1,occ_top4,,False
+PSP40122,False,91.8,occ_top4,,False
+PSP40416,False,85.6,occ_top4,,False
+PSP40616,False,94.1,occ_top4,,False
+PSP50122,False,92.3,occ_top4,,False
+PSP50616,False,98.9,occ_top4,,False
+PUA20119,False,64.4,occ_top4,,False
+PUA20622,False,94.2,occ_top4,,False
+PUA20719,False,56.7,occ_top4,,False
+PUA30622,False,97.8,occ_top4,,False
+PUA40319,False,100.0,occ_top4,,False
+RII20120,False,69.5,occ_top4,,False
+RII20920,False,95.7,occ_top4,,False
+RII30120,False,96.7,occ_top4,,False
+RII30719,False,86.7,occ_top4,,False
+RII30820,False,87.0,occ_top4,,False
+RII30920,False,92.5,occ_top4,,False
+RII31820,False,95.0,occ_top4,,False
+RII40720,False,70.8,occ_top4,,False
+RII60520,False,50.7,occ_top4,,False
+SFL30115,False,64.5,occ_top4,,False
+SHB20121,False,91.6,occ_top4,,False
+SHB20216,False,78.6,occ_top4,,False
+SHB30121,False,82.3,occ_top4,,False
+SHB30221,False,74.5,occ_top4,,False
+SHB30321,False,76.5,occ_top4,,False
+SHB30416,False,91.9,occ_top4,,False
+SHB30516,False,95.3,occ_top4,,False
+SHB50121,False,89.3,occ_top4,,False
+SIR20216,False,83.9,occ_top4,,False
+SIR30116,False,85.8,occ_top4,,False
+SIR30216,False,74.1,occ_top4,,False
+SIR40316,False,87.9,occ_top4,,False
+SIS20122,False,80.5,occ_top4,,False
+SIS20321,False,77.1,occ_top4,,False
+SIS20419,False,73.3,occ_top4,,False
+SIS30115,False,74.1,occ_top4,,False
+SIS30122,False,71.6,occ_top4,,False
+SIS30321,False,62.8,occ_top4,,False
+SIS30521,False,68.4,occ_top4,,False
+SIS40221,False,74.8,occ_top4,,False
+SIT10222,False,83.1,occ_top4,,False
+SIT20122,False,77.2,occ_top4,,False
+SIT20322,False,82.7,occ_top4,,False
+SIT20421,False,73.6,occ_top4,,False
+SIT30122,False,77.5,occ_top4,,False
+SIT30222,False,94.5,occ_top4,,False
+SIT30622,False,76.0,occ_top4,,False
+SIT30821,False,92.0,occ_top4,,False
+SIT30921,False,97.0,occ_top4,,False
+SIT31021,False,73.0,occ_top4,,False
+SIT40422,False,81.0,occ_top4,,False
+SIT40521,False,92.3,occ_top4,,False
+SIT40721,False,82.0,occ_top4,,False
+SIT50422,False,80.6,occ_top4,,False
+TAE40116,False,83.8,occ_top4,,False
+TAE40122,False,81.1,occ_top4,,False
+TAE50116,False,97.5,occ_top4,,False
+TAE50216,False,94.9,occ_top4,,False
+TLI20421,False,74.9,occ_top4,,False
+TLI27121,False,83.0,occ_top4,,False
+TLI30321,False,76.1,occ_top4,,False
+TLI31222,False,92.5,occ_top4,,False
+TLI31421,False,99.0,occ_top4,,False
+TLI41222,False,79.5,occ_top4,,False
+TLI42622,False,98.9,occ_top4,,False
+UEE20120,False,98.1,occ_top4,,False
+UEE22020,False,84.7,occ_top4,,False
+UEE30820,False,97.6,occ_top4,,False
+UEE32220,False,95.9,occ_top4,,False
+UEE40420,False,99.6,occ_top4,,False
+UEE42622,False,95.9,occ_top4,,False
+10727NAT,67.5,32.5,occ_top5,,67.5
+10728NAT,62.3,37.7,occ_top5,,62.3
+10729NAT,56.9,43.1,occ_top5,,56.9
+10797NAT,99.3,0.7,occ_top5,,99.3
+10949NAT,86.2,13.8,occ_top5,,86.2
+10971NAT,78.6,21.4,occ_top5,,78.6
+10984NAT,68.9,31.1,occ_top5,,68.9
+10985NAT,64.6,35.4,occ_top5,,64.6
+11022NAT,61.6,38.4,occ_top5,,61.6
+11039NAT,78.1,21.9,occ_top5,,78.1
+11042NAT,54.0,46.0,occ_top5,,54.0
+11046NAT,79.1,20.9,occ_top5,,79.1
+11225NAT,65.5,34.5,occ_top5,,65.5
+11236NAT,83.2,16.8,occ_top5,,83.2
+11240NAT,70.1,29.9,occ_top5,,70.1
+22470VIC,81.7,18.3,occ_top5,,81.7
+22472VIC,75.6,24.4,occ_top5,,75.6
+22473VIC,78.4,21.6,occ_top5,,78.4
+22476VIC,73.8,26.2,occ_top5,,73.8
+22485VIC,63.4,36.6,occ_top5,,63.4
+22486VIC,63.3,36.7,occ_top5,,63.3
+22499VIC,83.3,16.7,occ_top5,,83.3
+22582VIC,69.4,30.6,occ_top5,,69.4
+22603VIC,62.3,37.7,occ_top5,,62.3
+22614VIC,80.4,19.6,occ_top5,,80.4
+22638VIC,74.7,25.3,occ_top5,,74.7
+22639VIC,66.0,34.0,occ_top5,,66.0
+22640VIC,52.3,47.7,occ_top5,,52.3
+52887WA,88.9,11.1,occ_top5,,88.9
+52893WA,89.5,10.5,occ_top5,,89.5
+52895WA,85.3,14.7,occ_top5,,85.3
+ACM20121,73.5,26.5,occ_top5,,73.5
+ACM30122,73.7,26.3,occ_top5,,73.7
+ACM30321,79.6,20.4,occ_top5,,79.6
+ACM40418,92.5,7.5,occ_top5,,92.5
+AHC10120,84.1,15.9,occ_top5,,84.1
+AHC20116,79.2,20.8,occ_top5,,79.2
+AHC20416,72.8,27.2,occ_top5,,72.8
+AHC20422,75.4,24.6,occ_top5,,75.4
+AHC21216,70.7,29.3,occ_top5,,70.7
+AHC30116,79.5,20.5,occ_top5,,79.5
+AHC30716,74.8,25.2,occ_top5,,74.8
+AHC30722,79.1,20.9,occ_top5,,79.1
+AHC30820,89.2,10.8,occ_top5,,89.2
+AHC30921,89.8,10.2,occ_top5,,89.8
+AHC31021,87.6,12.4,occ_top5,,87.6
+AHC31421,76.4,23.6,occ_top5,,76.4
+AHC41316,76.8,23.2,occ_top5,,76.8
+AMP20316,92.6,7.4,occ_top5,,92.6
+AMP30216,90.3,9.7,occ_top5,,90.3
+AUR10120,74.8,25.2,occ_top5,,74.8
+AUR20220,97.1,2.9,occ_top5,,97.1
+AUR20520,87.2,12.8,occ_top5,,87.2
+AUR20720,84.9,15.1,occ_top5,,84.9
+AUR30320,96.5,3.5,occ_top5,,96.5
+AUR30620,94.0,6.0,occ_top5,,94.0
+AUR31020,90.0,10.0,occ_top5,,90.0
+AUR31120,98.2,1.8,occ_top5,,98.2
+AUR31220,99.0,1.0,occ_top5,,99.0
+AUR32120,95.6,4.4,occ_top5,,95.6
+AUR32420,94.6,5.4,occ_top5,,94.6
+AVI20118,84.7,15.3,occ_top5,,84.7
+AVI30419,63.6,36.4,occ_top5,,63.6
+BSB10120,73.5,26.5,occ_top5,,73.5
+BSB20120,71.9,28.1,occ_top5,,71.9
+BSB30120,66.9,33.1,occ_top5,,66.9
+BSB30220,63.1,36.9,occ_top5,,63.1
+BSB30420,61.7,38.3,occ_top5,,61.7
+BSB40120,61.0,39.0,occ_top5,,61.0
+BSB40320,64.4,35.6,occ_top5,,64.4
+BSB40420,88.4,11.6,occ_top5,,88.4
+BSB40520,67.0,33.0,occ_top5,,67.0
+BSB40720,73.2,26.8,occ_top5,,73.2
+BSB40820,55.6,44.4,occ_top5,,55.6
+BSB40920,72.9,27.1,occ_top5,,72.9
+BSB41419,75.8,24.2,occ_top5,,75.8
+BSB50120,58.5,41.5,occ_top5,,58.5
+BSB50320,91.4,8.6,occ_top5,,91.4
+BSB50420,75.8,24.2,occ_top5,,75.8
+BSB50520,77.6,22.4,occ_top5,,77.6
+BSB50820,80.0,20.0,occ_top5,,80.0
+BSB50920,90.4,9.6,occ_top5,,90.4
+BSB51319,88.0,12.0,occ_top5,,88.0
+BSB60420,83.6,16.4,occ_top5,,83.6
+BSB80120,84.0,16.0,occ_top5,,84.0
+CHC14015,83.3,16.7,occ_top5,,83.3
+CHC22015,86.9,13.1,occ_top5,,86.9
+CHC24015,79.2,20.8,occ_top5,,79.2
+CHC30121,94.2,5.8,occ_top5,,94.2
+CHC30221,90.3,9.7,occ_top5,,90.3
+CHC32015,73.1,26.9,occ_top5,,73.1
+CHC33015,91.3,8.7,occ_top5,,91.3
+CHC33021,90.0,10.0,occ_top5,,90.0
+CHC40221,92.4,7.6,occ_top5,,92.4
+CHC40313,92.4,7.6,occ_top5,,92.4
+CHC40321,98.1,1.9,occ_top5,,98.1
+CHC40413,91.4,8.6,occ_top5,,91.4
+CHC40421,85.5,14.5,occ_top5,,85.5
+CHC41015,78.5,21.5,occ_top5,,78.5
+CHC42015,83.0,17.0,occ_top5,,83.0
+CHC42021,84.6,15.4,occ_top5,,84.6
+CHC43015,90.1,9.9,occ_top5,,90.1
+CHC43115,88.2,11.8,occ_top5,,88.2
+CHC43121,97.2,2.8,occ_top5,,97.2
+CHC43215,88.6,11.4,occ_top5,,88.6
+CHC43315,89.7,10.3,occ_top5,,89.7
+CHC43415,93.8,6.2,occ_top5,,93.8
+CHC43515,89.7,10.3,occ_top5,,89.7
+CHC50121,96.6,3.4,occ_top5,,96.6
+CHC50221,95.8,4.2,occ_top5,,95.8
+CHC51015,82.4,17.6,occ_top5,,82.4
+CHC52015,88.9,11.1,occ_top5,,88.9
+CHC52021,87.7,12.3,occ_top5,,87.7
+CHC53315,89.2,10.8,occ_top5,,89.2
+CHC62015,93.4,6.6,occ_top5,,93.4
+CPC10120,65.0,35.0,occ_top5,,65.0
+CPC20220,80.2,19.8,occ_top5,,80.2
+CPC30220,95.9,4.1,occ_top5,,95.9
+CPC30320,90.7,9.3,occ_top5,,90.7
+CPC30620,97.1,2.9,occ_top5,,97.1
+CPC31320,100.0,0.0,occ_top5,,100.0
+CPC31420,96.4,3.6,occ_top5,,96.4
+CPC32420,98.2,1.8,occ_top5,,98.2
+CPC33020,93.9,6.1,occ_top5,,93.9
+CPC40120,82.9,17.1,occ_top5,,82.9
+CPC40920,96.9,3.1,occ_top5,,96.9
+CPC50220,77.7,22.3,occ_top5,,77.7
+CPP20218,75.5,24.5,occ_top5,,75.5
+CPP30321,92.8,7.2,occ_top5,,92.8
+CPP31318,93.1,6.9,occ_top5,,93.1
+CPP40121,66.5,33.5,occ_top5,,66.5
+CPP41419,79.4,20.6,occ_top5,,79.4
+CPP51122,92.5,7.5,occ_top5,,92.5
+CSC30120,98.8,1.2,occ_top5,,98.8
+CSC30122,96.2,3.8,occ_top5,,96.2
+CSC40122,99.1,0.9,occ_top5,,99.1
+CUA20120,75.3,24.7,occ_top5,,75.3
+CUA20220,80.0,20.0,occ_top5,,80.0
+CUA20620,79.8,20.2,occ_top5,,79.8
+CUA20720,76.6,23.4,occ_top5,,76.6
+CUA30120,79.9,20.1,occ_top5,,79.9
+CUA30420,62.4,37.6,occ_top5,,62.4
+CUA30720,69.0,31.0,occ_top5,,69.0
+CUA30920,73.3,26.7,occ_top5,,73.3
+CUA31020,70.5,29.5,occ_top5,,70.5
+CUA31120,65.8,34.2,occ_top5,,65.8
+CUA40720,58.9,41.1,occ_top5,,58.9
+CUA41120,73.5,26.5,occ_top5,,73.5
+CUA41220,63.0,37.0,occ_top5,,63.0
+CUA50720,73.5,26.5,occ_top5,,73.5
+CUA50820,55.0,45.0,occ_top5,,55.0
+CUA51020,65.5,34.5,occ_top5,,65.5
+CUA51120,69.6,30.4,occ_top5,,69.6
+CUA60620,70.9,29.1,occ_top5,,70.9
+FBP20122,71.2,28.8,occ_top5,,71.2
+FBP20221,71.3,28.7,occ_top5,,71.3
+FBP30121,72.8,27.2,occ_top5,,72.8
+FBP30521,94.8,5.2,occ_top5,,94.8
+FNS10120,88.8,11.2,occ_top5,,88.8
+FNS20120,77.3,22.7,occ_top5,,77.3
+FNS30122,94.1,5.9,occ_top5,,94.1
+FNS30322,77.5,22.5,occ_top5,,77.5
+FNS40222,79.1,20.9,occ_top5,,79.1
+FNS40821,87.5,12.5,occ_top5,,87.5
+FNS50222,80.0,20.0,occ_top5,,80.0
+FNS50322,96.0,4.0,occ_top5,,96.0
+FSK10219,61.8,38.2,occ_top5,,61.8
+FSK20119,74.3,25.7,occ_top5,,74.3
+HLT21020,68.1,31.9,occ_top5,,68.1
+HLT23221,88.6,11.4,occ_top5,,88.6
+HLT31120,88.1,11.9,occ_top5,,88.1
+HLT33015,85.9,14.1,occ_top5,,85.9
+HLT33021,84.8,15.2,occ_top5,,84.8
+HLT33115,84.7,15.3,occ_top5,,84.7
+HLT35021,96.2,3.8,occ_top5,,96.2
+HLT37015,78.8,21.2,occ_top5,,78.8
+HLT37215,82.6,17.4,occ_top5,,82.6
+HLT37315,76.1,23.9,occ_top5,,76.1
+HLT42021,83.9,16.1,occ_top5,,83.9
+HLT43015,84.9,15.1,occ_top5,,84.9
+HLT43021,87.4,12.6,occ_top5,,87.4
+HLT45021,97.6,2.4,occ_top5,,97.6
+HLT47315,91.3,8.7,occ_top5,,91.3
+HLT47321,86.4,13.6,occ_top5,,86.4
+HLT47815,90.1,9.9,occ_top5,,90.1
+HLT51020,84.0,16.0,occ_top5,,84.0
+HLT52015,85.8,14.2,occ_top5,,85.8
+HLT52021,92.0,8.0,occ_top5,,92.0
+HLT54121,94.3,5.7,occ_top5,,94.3
+ICT20120,64.5,35.5,occ_top5,,64.5
+ICT30120,58.3,41.7,occ_top5,,58.3
+ICT30519,96.4,3.6,occ_top5,,96.4
+ICT40120,71.2,28.8,occ_top5,,71.2
+ICT50220,63.9,36.1,occ_top5,,63.9
+MAR10220,57.3,42.7,occ_top5,,57.3
+MAR20321,66.5,33.5,occ_top5,,66.5
+MAR30921,80.8,19.2,occ_top5,,80.8
+MEA20518,83.8,16.2,occ_top5,,83.8
+MEM10119,70.0,30.0,occ_top5,,70.0
+MEM20105,86.3,13.7,occ_top5,,86.3
+MEM20422,82.9,17.1,occ_top5,,82.9
+MEM30219,94.9,5.1,occ_top5,,94.9
+MEM30319,96.5,3.5,occ_top5,,96.5
+MEM30522,75.8,24.2,occ_top5,,75.8
+MEM31419,97.6,2.4,occ_top5,,97.6
+MEM31922,98.2,1.8,occ_top5,,98.2
+MEM40119,94.1,5.9,occ_top5,,94.1
+MSF30322,95.4,4.6,occ_top5,,95.4
+MSF40122,63.9,36.1,occ_top5,,63.9
+MSF50222,79.7,20.3,occ_top5,,79.7
+MSL20122,82.4,17.6,occ_top5,,82.4
+MSL30122,69.9,30.1,occ_top5,,69.9
+MSL40118,87.5,12.5,occ_top5,,87.5
+MSL40122,78.7,21.3,occ_top5,,78.7
+MSL50122,82.8,17.2,occ_top5,,82.8
+MSM30116,70.9,29.1,occ_top5,,70.9
+MSM40116,72.5,27.5,occ_top5,,72.5
+MST31022,53.8,46.2,occ_top5,,53.8
+NWP30222,86.2,13.8,occ_top5,,86.2
+PMA30120,91.4,8.6,occ_top5,,91.4
+PSP20218,80.4,19.6,occ_top5,,80.4
+PSP30218,80.1,19.9,occ_top5,,80.1
+PSP40122,91.8,8.2,occ_top5,,91.8
+PSP40416,85.6,14.4,occ_top5,,85.6
+PSP40616,94.1,5.9,occ_top5,,94.1
+PSP50122,92.3,7.7,occ_top5,,92.3
+PSP50616,98.9,1.1,occ_top5,,98.9
+PUA20119,64.4,35.6,occ_top5,,64.4
+PUA20622,94.2,5.8,occ_top5,,94.2
+PUA20719,56.7,43.3,occ_top5,,56.7
+PUA30622,97.8,2.2,occ_top5,,97.8
+PUA40319,100.0,0.0,occ_top5,,100.0
+RII20120,69.5,30.5,occ_top5,,69.5
+RII20920,95.7,4.3,occ_top5,,95.7
+RII30120,96.7,3.3,occ_top5,,96.7
+RII30719,86.7,13.3,occ_top5,,86.7
+RII30820,87.0,13.0,occ_top5,,87.0
+RII30920,92.5,7.5,occ_top5,,92.5
+RII31820,95.0,5.0,occ_top5,,95.0
+RII40720,70.8,29.2,occ_top5,,70.8
+RII60520,50.7,49.3,occ_top5,,50.7
+SFL30115,64.5,35.5,occ_top5,,64.5
+SHB20121,91.6,8.4,occ_top5,,91.6
+SHB20216,78.6,21.4,occ_top5,,78.6
+SHB30121,82.3,17.7,occ_top5,,82.3
+SHB30221,74.5,25.5,occ_top5,,74.5
+SHB30321,76.5,23.5,occ_top5,,76.5
+SHB30416,91.9,8.1,occ_top5,,91.9
+SHB30516,95.3,4.7,occ_top5,,95.3
+SHB50121,89.3,10.7,occ_top5,,89.3
+SIR20216,83.9,16.1,occ_top5,,83.9
+SIR30116,85.8,14.2,occ_top5,,85.8
+SIR30216,74.1,25.9,occ_top5,,74.1
+SIR40316,87.9,12.1,occ_top5,,87.9
+SIS20122,80.5,19.5,occ_top5,,80.5
+SIS20321,77.1,22.9,occ_top5,,77.1
+SIS20419,73.3,26.7,occ_top5,,73.3
+SIS30115,74.1,25.9,occ_top5,,74.1
+SIS30122,71.6,28.4,occ_top5,,71.6
+SIS30321,62.8,37.2,occ_top5,,62.8
+SIS30521,68.4,31.6,occ_top5,,68.4
+SIS40221,74.8,25.2,occ_top5,,74.8
+SIT10222,83.1,16.9,occ_top5,,83.1
+SIT20122,77.2,22.8,occ_top5,,77.2
+SIT20322,82.7,17.3,occ_top5,,82.7
+SIT20421,73.6,26.4,occ_top5,,73.6
+SIT30122,77.5,22.5,occ_top5,,77.5
+SIT30222,94.5,5.5,occ_top5,,94.5
+SIT30622,76.0,24.0,occ_top5,,76.0
+SIT30821,92.0,8.0,occ_top5,,92.0
+SIT30921,97.0,3.0,occ_top5,,97.0
+SIT31021,73.0,27.0,occ_top5,,73.0
+SIT40422,81.0,19.0,occ_top5,,81.0
+SIT40521,92.3,7.7,occ_top5,,92.3
+SIT40721,82.0,18.0,occ_top5,,82.0
+SIT50422,80.6,19.4,occ_top5,,80.6
+TAE40116,83.8,16.2,occ_top5,,83.8
+TAE40122,81.1,18.9,occ_top5,,81.1
+TAE50116,97.5,2.5,occ_top5,,97.5
+TAE50216,94.9,5.1,occ_top5,,94.9
+TLI20421,74.9,25.1,occ_top5,,74.9
+TLI27121,83.0,17.0,occ_top5,,83.0
+TLI30321,76.1,23.9,occ_top5,,76.1
+TLI31222,92.5,7.5,occ_top5,,92.5
+TLI31421,99.0,1.0,occ_top5,,99.0
+TLI41222,79.5,20.5,occ_top5,,79.5
+TLI42622,98.9,1.1,occ_top5,,98.9
+UEE20120,98.1,1.9,occ_top5,,98.1
+UEE22020,84.7,15.3,occ_top5,,84.7
+UEE30820,97.6,2.4,occ_top5,,97.6
+UEE32220,95.9,4.1,occ_top5,,95.9
+UEE40420,99.6,0.4,occ_top5,,99.6
+UEE42622,95.9,4.1,occ_top5,,95.9
