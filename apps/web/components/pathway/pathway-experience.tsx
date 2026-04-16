@@ -7,6 +7,7 @@ import {
   type PathwayWalkerVariant,
 } from "@/components/pathway/pathway-walker";
 import { BottomNav } from "@/components/ui/bottom-nav";
+import { FireBall } from "@/components/ui/fire-ball";
 import PasswordGateScreen from "@/components/ui/password-gate-screen";
 import { useCareerSearch } from "@/hooks/useCareerSearch";
 import { useQuizState } from "@/hooks/useQuizState";
@@ -470,6 +471,19 @@ export function PathwayExperience() {
           backgroundImage: `radial-gradient(circle at 20% 78%, rgba(${glow.accent}, 0.18) 0%, transparent 35%), radial-gradient(circle at 82% 18%, rgba(${glow.secondary}, 0.16) 0%, transparent 30%)`,
         }}
       />
+      {!showGate ? (
+        <FireBall
+          className="pointer-events-none z-[120] opacity-80"
+          background="transparent"
+          colors={["#22d3ee", "#38bdf8", "#fb923c"]}
+          ballColor="#67e8f9"
+          particleCount={18}
+          followStrength={0.14}
+          blur={2.5}
+          blobRadius={6}
+          useXorComposite={false}
+        />
+      ) : null}
 
       {!showGate ? (
         <header
