@@ -96,6 +96,8 @@ const WALKER_VARIANTS: PathwayWalkerVariant[] = [
 const WALKER_START_X = 80;
 const WALKER_GROUND_BOTTOM = "calc(7rem + 12px)";
 const WALKER_MOTION_MS = 220;
+const WALKER_BUBBLE_MS = 2800;
+const WALKER_SEQUENCE_GAP_MS = 180;
 const GATE_COVER_MS = 260;
 const GATE_REVEAL_MS = 620;
 
@@ -136,6 +138,9 @@ export function PathwayExperience() {
   const walkerMotionTimerRef = useRef<number | null>(null);
   const walkerBubbleTimerRef = useRef<number | null>(null);
   const walkerIntroTimerRef = useRef<number | null>(null);
+  const walkerSequenceTimerRef = useRef<number | null>(null);
+  const walkerAutoSceneRef = useRef<number | null>(null);
+  const walkerAutoLineRef = useRef(0);
   const gateTimerRefs = useRef<number[]>([]);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -278,6 +283,10 @@ export function PathwayExperience() {
       if (walkerIntroTimerRef.current !== null) {
         window.clearTimeout(walkerIntroTimerRef.current);
       }
+
+      if (walkerSequenceTimerRef.current !== null) {
+        window.clearTimeout(walkerSequenceTimerRef.current);
+      }
     };
   }, []);
 
@@ -291,17 +300,58 @@ export function PathwayExperience() {
       window.clearTimeout(walkerIntroTimerRef.current);
       walkerIntroTimerRef.current = null;
     }
+
+    if (walkerSequenceTimerRef.current !== null) {
+      window.clearTimeout(walkerSequenceTimerRef.current);
+      walkerSequenceTimerRef.current = null;
+    }
+
+    walkerAutoSceneRef.current = null;
+    walkerAutoLineRef.current = 0;
   }, []);
 
-  const showWalkerBubble = useCallback((text: string) => {
-    clearWalkerBubbleTimers();
+  const showWalkerBubble = useCallback((text: string, duration = WALKER_BUBBLE_MS) => {
+    if (walkerBubbleTimerRef.current !== null) {
+      window.clearTimeout(walkerBubbleTimerRef.current);
+      walkerBubbleTimerRef.current = null;
+    }
+
     setWalkerBubble({ id: Date.now(), text });
 
     walkerBubbleTimerRef.current = window.setTimeout(() => {
       setWalkerBubble(null);
       walkerBubbleTimerRef.current = null;
-    }, 2800);
-  }, [clearWalkerBubbleTimers]);
+    }, duration);
+  }, []);
+
+  const playWalkerIntroSequence = useCallback((sceneIdx: number, lineIdx = 0) => {
+    const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
+    const safeIndex = Math.min(Math.max(lineIdx, 0), lines.length - 1);
+
+    walkerAutoSceneRef.current = sceneIdx;
+    walkerAutoLineRef.current = safeIndex;
+    showWalkerBubble(lines[safeIndex]);
+
+    const nextIndex = safeIndex + 1;
+    if (nextIndex >= lines.length) {
+      walkerAutoSceneRef.current = null;
+      walkerAutoLineRef.current = 0;
+      walkerBubbleCursorRef.current[sceneIdx] = 0;
+      return;
+    }
+
+    walkerSequenceTimerRef.current = window.setTimeout(() => {
+      walkerSequenceTimerRef.current = null;
+
+      if (showGate || isGateTransitioning || activeIdxRef.current !== sceneIdx) {
+        walkerAutoSceneRef.current = null;
+        walkerAutoLineRef.current = 0;
+        return;
+      }
+
+      playWalkerIntroSequence(sceneIdx, nextIndex);
+    }, WALKER_BUBBLE_MS + WALKER_SEQUENCE_GAP_MS);
+  }, [isGateTransitioning, showGate, showWalkerBubble]);
 
   useEffect(() => {
     setWalkerBubble(null);
@@ -312,13 +362,12 @@ export function PathwayExperience() {
     }
 
     const sceneIdx = activeIdx;
-    const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
-    walkerBubbleCursorRef.current[sceneIdx] = lines.length > 1 ? 1 : 0;
+    walkerBubbleCursorRef.current[sceneIdx] = 0;
     walkerIntroTimerRef.current = window.setTimeout(() => {
-      showWalkerBubble(lines[0]);
+      playWalkerIntroSequence(sceneIdx);
       walkerIntroTimerRef.current = null;
     }, 260);
-  }, [activeIdx, clearWalkerBubbleTimers, isGateTransitioning, showGate, showWalkerBubble]);
+  }, [activeIdx, clearWalkerBubbleTimers, playWalkerIntroSequence, isGateTransitioning, showGate]);
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -428,11 +477,24 @@ export function PathwayExperience() {
       return;
     }
 
-    const lines = WALKER_DIALOGUE[activeIdxRef.current] ?? WALKER_DIALOGUE[0];
-    const nextCursor = walkerBubbleCursorRef.current[activeIdxRef.current] ?? 0;
+    const sceneIdx = activeIdxRef.current;
+    const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
+
+    if (walkerAutoSceneRef.current === sceneIdx) {
+      if (walkerSequenceTimerRef.current !== null) {
+        window.clearTimeout(walkerSequenceTimerRef.current);
+        walkerSequenceTimerRef.current = null;
+      }
+
+      const nextAutoLine = Math.min(walkerAutoLineRef.current + 1, lines.length - 1);
+      playWalkerIntroSequence(sceneIdx, nextAutoLine);
+      return;
+    }
+
+    const nextCursor = walkerBubbleCursorRef.current[sceneIdx] ?? 0;
     const text = lines[nextCursor % lines.length];
 
-    walkerBubbleCursorRef.current[activeIdxRef.current] = (nextCursor + 1) % lines.length;
+    walkerBubbleCursorRef.current[sceneIdx] = (nextCursor + 1) % lines.length;
     showWalkerBubble(text);
   }
 

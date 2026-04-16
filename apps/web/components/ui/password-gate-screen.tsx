@@ -28,6 +28,8 @@ interface PasswordGateScreenProps {
 
 const ACCESS_CODE = "666666";
 const UNLOCK_TRANSITION_MS = 1080;
+const GATE_BUBBLE_MS = 3200;
+const GATE_SEQUENCE_GAP_MS = 220;
 const GATE_DIALOGUE = [
   "Hey there. Welcome to PathwayIQ. Want to play a quick code game before we begin?",
   "First clue: the key is one digit repeated in every slot.",
@@ -62,7 +64,10 @@ export default function PasswordGateScreen({
   const walkerIdleTimerRef = useRef<number | null>(null);
   const walkerBubbleTimerRef = useRef<number | null>(null);
   const walkerIntroTimerRef = useRef<number | null>(null);
+  const walkerSequenceTimerRef = useRef<number | null>(null);
   const walkerDialogueCursorRef = useRef(0);
+  const walkerAutoLineRef = useRef(0);
+  const walkerIsAutoTalkingRef = useRef(false);
 
   const helperText = useMemo(() => {
     if (error) {
@@ -115,6 +120,10 @@ export default function PasswordGateScreen({
       if (walkerIntroTimerRef.current !== null) {
         window.clearTimeout(walkerIntroTimerRef.current);
       }
+
+      if (walkerSequenceTimerRef.current !== null) {
+        window.clearTimeout(walkerSequenceTimerRef.current);
+      }
     };
   }, []);
 
@@ -128,15 +137,55 @@ export default function PasswordGateScreen({
       window.clearTimeout(walkerIntroTimerRef.current);
       walkerIntroTimerRef.current = null;
     }
+
+    if (walkerSequenceTimerRef.current !== null) {
+      window.clearTimeout(walkerSequenceTimerRef.current);
+      walkerSequenceTimerRef.current = null;
+    }
+
+    walkerAutoLineRef.current = 0;
+    walkerIsAutoTalkingRef.current = false;
   };
 
-  const showWalkerBubble = (text: string) => {
-    clearWalkerDialogueTimers();
+  const showWalkerBubble = (text: string, duration = GATE_BUBBLE_MS) => {
+    if (walkerBubbleTimerRef.current !== null) {
+      window.clearTimeout(walkerBubbleTimerRef.current);
+      walkerBubbleTimerRef.current = null;
+    }
+
     setWalkerBubble({ id: Date.now(), text });
     walkerBubbleTimerRef.current = window.setTimeout(() => {
       setWalkerBubble(null);
       walkerBubbleTimerRef.current = null;
-    }, 3200);
+    }, duration);
+  };
+
+  const playWalkerSequence = (lineIdx = 0) => {
+    const safeIndex = Math.min(Math.max(lineIdx, 0), GATE_DIALOGUE.length - 1);
+
+    walkerIsAutoTalkingRef.current = true;
+    walkerAutoLineRef.current = safeIndex;
+    showWalkerBubble(GATE_DIALOGUE[safeIndex]);
+
+    const nextIndex = safeIndex + 1;
+    if (nextIndex >= GATE_DIALOGUE.length) {
+      walkerDialogueCursorRef.current = 0;
+      walkerAutoLineRef.current = 0;
+      walkerIsAutoTalkingRef.current = false;
+      return;
+    }
+
+    walkerSequenceTimerRef.current = window.setTimeout(() => {
+      walkerSequenceTimerRef.current = null;
+
+      if (isUnlocking) {
+        walkerAutoLineRef.current = 0;
+        walkerIsAutoTalkingRef.current = false;
+        return;
+      }
+
+      playWalkerSequence(nextIndex);
+    }, GATE_BUBBLE_MS + GATE_SEQUENCE_GAP_MS);
   };
 
   useEffect(() => {
@@ -146,9 +195,9 @@ export default function PasswordGateScreen({
       return;
     }
 
-    walkerDialogueCursorRef.current = 1;
+    walkerDialogueCursorRef.current = 0;
     walkerIntroTimerRef.current = window.setTimeout(() => {
-      showWalkerBubble(GATE_DIALOGUE[0]);
+      playWalkerSequence(0);
       walkerIntroTimerRef.current = null;
     }, 320);
 
@@ -182,6 +231,17 @@ export default function PasswordGateScreen({
 
   const handleWalkerTalk = () => {
     if (isUnlocking) {
+      return;
+    }
+
+    if (walkerIsAutoTalkingRef.current) {
+      if (walkerSequenceTimerRef.current !== null) {
+        window.clearTimeout(walkerSequenceTimerRef.current);
+        walkerSequenceTimerRef.current = null;
+      }
+
+      const nextAutoLine = Math.min(walkerAutoLineRef.current + 1, GATE_DIALOGUE.length - 1);
+      playWalkerSequence(nextAutoLine);
       return;
     }
 
