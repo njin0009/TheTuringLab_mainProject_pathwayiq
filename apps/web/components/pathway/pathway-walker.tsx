@@ -21,7 +21,7 @@ export const PathwayWalker = forwardRef<HTMLDivElement, PathwayWalkerProps>(
     return (
       <div
         ref={ref}
-        className="pathway-walker walker-idle pointer-events-none fixed bottom-[calc(7rem-6px)] left-1/2 z-[195] hidden -translate-x-1/2 md:block"
+        className="pathway-walker walker-idle pointer-events-none fixed bottom-[calc(7rem+6px)] left-1/2 z-[195] hidden -translate-x-1/2 md:block"
         aria-hidden="true"
       >
         <div className="walker-shadow" />
@@ -45,7 +45,7 @@ export const PathwayWalker = forwardRef<HTMLDivElement, PathwayWalkerProps>(
                 height={variant.height}
                 className={
                   variant.className ??
-                  "h-[136px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.28)]"
+                  "h-[150px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.28)]"
                 }
               />
             </div>
