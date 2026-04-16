@@ -8,9 +8,13 @@ import {
   type PathwayWalkerVariant,
 } from "@/components/pathway/pathway-walker";
 import { Balloons } from "@/components/ui/balloons";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FireBall } from "@/components/ui/fire-ball";
-import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   InputOTP,
   InputOTPGroup,
@@ -23,8 +27,18 @@ interface PasswordGateScreenProps {
 }
 
 const ACCESS_CODE = "666666";
-const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
 const UNLOCK_TRANSITION_MS = 1080;
+const GATE_BUBBLE_MS = 3200;
+const GATE_SEQUENCE_GAP_MS = 220;
+const GATE_DIALOGUE = [
+  "Hey there. Welcome to PathwayIQ. Want to play a quick code game before we begin?",
+  "First clue: the key is one digit repeated in every slot.",
+  "Math clue: that digit is greater than 5 and smaller than 7.",
+  "Language clue: its English name has three letters.",
+  "Pattern clue: no slot changes. The whole code is the same number again and again.",
+  "Literature clue: the answer scans like a repeating beat — 6, 6, 6, 6, 6, 6.",
+  "If you want the direct answer now, the code is 666666.",
+] as const;
 const GATE_WALKER: PathwayWalkerVariant = {
   src: "/undraw-scooter.svg",
   width: 800,
@@ -32,19 +46,28 @@ const GATE_WALKER: PathwayWalkerVariant = {
   className: "h-[118px] w-auto drop-shadow-[0_16px_28px_rgba(0,0,0,0.26)]",
 };
 
+interface GateBubbleState {
+  id: number;
+  text: string;
+}
+
 export default function PasswordGateScreen({
   onUnlock,
 }: PasswordGateScreenProps) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const [walkerBubble, setWalkerBubble] = useState<GateBubbleState | null>(null);
   const walkerRef = useRef<HTMLDivElement>(null);
   const balloonsRef = useRef<{ launchAnimation: () => void } | null>(null);
-  const frameRef = useRef<number | null>(null);
   const unlockTimerRef = useRef<number | null>(null);
-  const currentXRef = useRef(0);
-  const targetXRef = useRef(0);
+  const walkerIdleTimerRef = useRef<number | null>(null);
+  const walkerBubbleTimerRef = useRef<number | null>(null);
+  const walkerIntroTimerRef = useRef<number | null>(null);
+  const walkerSequenceTimerRef = useRef<number | null>(null);
+  const walkerDialogueCursorRef = useRef(0);
+  const walkerAutoLineRef = useRef(0);
+  const walkerIsAutoTalkingRef = useRef(false);
 
   const helperText = useMemo(() => {
     if (error) {
@@ -59,106 +82,202 @@ export default function PasswordGateScreen({
       return "Unlocking PathwayIQ...";
     }
 
-    return "Enter the 6-digit access code to continue.";
+    return "Enter the 6-digit access code to continue, or click the guide for clues.";
   }, [error, isUnlocking, value.length]);
 
   useEffect(() => {
-    return () => {
-      if (unlockTimerRef.current !== null) {
-        window.clearTimeout(unlockTimerRef.current);
+    const centerWalker = () => {
+      const walker = walkerRef.current;
+      if (!walker) {
+        return;
       }
-    };
-  }, []);
 
-  useEffect(() => {
-    const walker = walkerRef.current;
-    const section = sectionRef.current;
-    if (!walker || !section) {
-      return;
-    }
-
-    const clampX = (value: number) =>
-      Math.max(96, Math.min(window.innerWidth - 96, value));
-
-    const resetTarget = () => {
-      const centered = clampX(window.innerWidth / 2);
-      currentXRef.current = centered;
-      targetXRef.current = centered;
+      const centered = Math.max(96, Math.min(window.innerWidth - 96, window.innerWidth / 2));
       walker.style.left = `${centered}px`;
       walker.style.bottom = "1.5rem";
       walker.classList.add("walker-idle");
       walker.classList.remove("walker-walking");
     };
 
-    resetTarget();
-
-    const animate = () => {
-      const current = currentXRef.current;
-      const target = targetXRef.current;
-      const next = current + (target - current) * 0.12;
-      currentXRef.current = next;
-      walker.style.left = `${next}px`;
-      walker.style.bottom = "1.5rem";
-
-      const moving = Math.abs(target - next) > 1;
-      walker.classList.toggle("walker-walking", moving);
-      walker.classList.toggle("walker-idle", !moving);
-
-      frameRef.current = window.requestAnimationFrame(animate);
-    };
-
-    const handlePointerMove = (event: PointerEvent) => {
-      targetXRef.current = clampX(event.clientX);
-    };
-
-    const handlePointerLeave = () => {
-      targetXRef.current = clampX(window.innerWidth / 2);
-    };
-
-    const handleResize = () => {
-      targetXRef.current = clampX(targetXRef.current || window.innerWidth / 2);
-      currentXRef.current = clampX(currentXRef.current || window.innerWidth / 2);
-    };
-
-    section.addEventListener("pointermove", handlePointerMove);
-    section.addEventListener("pointerleave", handlePointerLeave);
-    window.addEventListener("resize", handleResize);
-    frameRef.current = window.requestAnimationFrame(animate);
+    centerWalker();
+    window.addEventListener("resize", centerWalker);
 
     return () => {
-      section.removeEventListener("pointermove", handlePointerMove);
-      section.removeEventListener("pointerleave", handlePointerLeave);
-      window.removeEventListener("resize", handleResize);
-      if (frameRef.current !== null) {
-        window.cancelAnimationFrame(frameRef.current);
+      window.removeEventListener("resize", centerWalker);
+
+      if (unlockTimerRef.current !== null) {
+        window.clearTimeout(unlockTimerRef.current);
+      }
+
+      if (walkerIdleTimerRef.current !== null) {
+        window.clearTimeout(walkerIdleTimerRef.current);
+      }
+
+      if (walkerBubbleTimerRef.current !== null) {
+        window.clearTimeout(walkerBubbleTimerRef.current);
+      }
+
+      if (walkerIntroTimerRef.current !== null) {
+        window.clearTimeout(walkerIntroTimerRef.current);
+      }
+
+      if (walkerSequenceTimerRef.current !== null) {
+        window.clearTimeout(walkerSequenceTimerRef.current);
       }
     };
   }, []);
 
+  const clearWalkerDialogueTimers = () => {
+    if (walkerBubbleTimerRef.current !== null) {
+      window.clearTimeout(walkerBubbleTimerRef.current);
+      walkerBubbleTimerRef.current = null;
+    }
+
+    if (walkerIntroTimerRef.current !== null) {
+      window.clearTimeout(walkerIntroTimerRef.current);
+      walkerIntroTimerRef.current = null;
+    }
+
+    if (walkerSequenceTimerRef.current !== null) {
+      window.clearTimeout(walkerSequenceTimerRef.current);
+      walkerSequenceTimerRef.current = null;
+    }
+
+    walkerAutoLineRef.current = 0;
+    walkerIsAutoTalkingRef.current = false;
+  };
+
+  const showWalkerBubble = (text: string, duration = GATE_BUBBLE_MS) => {
+    if (walkerBubbleTimerRef.current !== null) {
+      window.clearTimeout(walkerBubbleTimerRef.current);
+      walkerBubbleTimerRef.current = null;
+    }
+
+    setWalkerBubble({ id: Date.now(), text });
+    walkerBubbleTimerRef.current = window.setTimeout(() => {
+      setWalkerBubble(null);
+      walkerBubbleTimerRef.current = null;
+    }, duration);
+  };
+
+  const playWalkerSequence = (lineIdx = 0) => {
+    const safeIndex = Math.min(Math.max(lineIdx, 0), GATE_DIALOGUE.length - 1);
+
+    walkerIsAutoTalkingRef.current = true;
+    walkerAutoLineRef.current = safeIndex;
+    showWalkerBubble(GATE_DIALOGUE[safeIndex]);
+
+    const nextIndex = safeIndex + 1;
+    if (nextIndex >= GATE_DIALOGUE.length) {
+      walkerDialogueCursorRef.current = 0;
+      walkerAutoLineRef.current = 0;
+      walkerIsAutoTalkingRef.current = false;
+      return;
+    }
+
+    walkerSequenceTimerRef.current = window.setTimeout(() => {
+      walkerSequenceTimerRef.current = null;
+
+      if (isUnlocking) {
+        walkerAutoLineRef.current = 0;
+        walkerIsAutoTalkingRef.current = false;
+        return;
+      }
+
+      playWalkerSequence(nextIndex);
+    }, GATE_BUBBLE_MS + GATE_SEQUENCE_GAP_MS);
+  };
+
+  useEffect(() => {
+    if (isUnlocking) {
+      setWalkerBubble(null);
+      clearWalkerDialogueTimers();
+      return;
+    }
+
+    walkerDialogueCursorRef.current = 0;
+    walkerIntroTimerRef.current = window.setTimeout(() => {
+      playWalkerSequence(0);
+      walkerIntroTimerRef.current = null;
+    }, 320);
+
+    return () => {
+      clearWalkerDialogueTimers();
+    };
+  }, [isUnlocking]);
+
+  const syncWalkerPosition = (clientX: number, moving: boolean) => {
+    const walker = walkerRef.current;
+    if (!walker) {
+      return;
+    }
+
+    const clamped = Math.max(96, Math.min(window.innerWidth - 96, clientX));
+    walker.style.left = `${clamped}px`;
+    walker.style.bottom = "1.5rem";
+    walker.classList.toggle("walker-walking", moving);
+    walker.classList.toggle("walker-idle", !moving);
+  };
+
+  const settleWalker = () => {
+    if (walkerIdleTimerRef.current !== null) {
+      window.clearTimeout(walkerIdleTimerRef.current);
+    }
+
+    walkerIdleTimerRef.current = window.setTimeout(() => {
+      syncWalkerPosition(window.innerWidth / 2, false);
+    }, 220);
+  };
+
+  const handleWalkerTalk = () => {
+    if (isUnlocking) {
+      return;
+    }
+
+    if (walkerIsAutoTalkingRef.current) {
+      if (walkerSequenceTimerRef.current !== null) {
+        window.clearTimeout(walkerSequenceTimerRef.current);
+        walkerSequenceTimerRef.current = null;
+      }
+
+      const nextAutoLine = Math.min(walkerAutoLineRef.current + 1, GATE_DIALOGUE.length - 1);
+      playWalkerSequence(nextAutoLine);
+      return;
+    }
+
+    const nextIndex = walkerDialogueCursorRef.current % GATE_DIALOGUE.length;
+    const nextText = GATE_DIALOGUE[nextIndex];
+    walkerDialogueCursorRef.current = (nextIndex + 1) % GATE_DIALOGUE.length;
+    showWalkerBubble(nextText);
+  };
+
   return (
     <section
-      ref={sectionRef}
       className="relative h-screen w-screen overflow-hidden bg-[#010308] text-white"
+      onPointerMove={(event) => {
+        syncWalkerPosition(event.clientX, true);
+
+        if (walkerIdleTimerRef.current !== null) {
+          window.clearTimeout(walkerIdleTimerRef.current);
+        }
+      }}
+      onPointerLeave={settleWalker}
     >
-      <InteractiveRobotSpline scene={ROBOT_SCENE_URL} className="absolute inset-0 z-0" />
-      <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_18%_18%,rgba(34,211,238,0.18),transparent_20%),radial-gradient(circle_at_80%_22%,rgba(249,115,22,0.18),transparent_24%),linear-gradient(180deg,rgba(1,3,8,0.58),rgba(1,3,8,0.84)_55%,rgba(1,3,8,0.96))]" />
-      <FireBall
-        className="pointer-events-none z-[12] opacity-90"
-        background="transparent"
-        colors={["#22d3ee", "#fb923c", "#38bdf8"]}
-        ballColor="#f8fafc"
-        particleCount={16}
-        followStrength={0.12}
-        blur={2.5}
-        blobRadius={6}
-        useXorComposite={false}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(34,211,238,0.22),transparent_20%),radial-gradient(circle_at_78%_22%,rgba(249,115,22,0.2),transparent_24%),radial-gradient(circle_at_50%_65%,rgba(14,165,233,0.08),transparent_28%),linear-gradient(180deg,#02050b_0%,#050b14_48%,#02040a_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(1,3,8,0.12),rgba(1,3,8,0.72)_56%,rgba(1,3,8,0.94))]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_60%)]" />
+      <Balloons
+        ref={balloonsRef}
+        type="default"
+        className="pointer-events-none absolute inset-0 z-30"
       />
-      <Balloons ref={balloonsRef} type="default" className="pointer-events-none absolute inset-0 z-30" />
 
       <div className="relative z-20 flex h-full items-center justify-center px-6 py-12">
         <Card
-          className={`w-full max-w-xl border-white/10 bg-[#040b15]/72 shadow-[0_32px_100px_rgba(0,0,0,0.48)] backdrop-blur-2xl transition-all duration-700 ${
-            isUnlocking ? "scale-[0.985] border-emerald-300/25 bg-[#051019]/84 shadow-[0_32px_120px_rgba(16,185,129,0.18)]" : ""
+          className={`w-full max-w-xl border-white/10 bg-[#040b15]/82 shadow-[0_32px_100px_rgba(0,0,0,0.42)] transition-all duration-700 ${
+            isUnlocking
+              ? "scale-[0.985] border-emerald-300/25 bg-[#051019]/88 shadow-[0_28px_90px_rgba(16,185,129,0.14)]"
+              : ""
           }`}
         >
           <CardHeader className="items-center text-center">
@@ -169,7 +288,11 @@ export default function PasswordGateScreen({
                   : "border-cyan-300/24 bg-cyan-400/10"
               }`}
             >
-              {error ? <LockKeyhole className="h-6 w-6" /> : <ShieldCheck className="h-6 w-6" />}
+              {error ? (
+                <LockKeyhole className="h-6 w-6" />
+              ) : (
+                <ShieldCheck className="h-6 w-6" />
+              )}
             </div>
             <div
               className={`text-xs font-semibold uppercase tracking-[0.34em] transition-colors duration-500 ${
@@ -184,7 +307,7 @@ export default function PasswordGateScreen({
             <CardDescription className="max-w-md text-base leading-7 text-white/68">
               {isUnlocking
                 ? "Hold on for a moment while we transition you into the main experience."
-                : "This page now sits before Home. Enter the 6-digit code to continue into PathwayIQ."}
+                : "This page now sits before Home. Enter the 6-digit code, or click the guide below to play for clues."}
             </CardDescription>
           </CardHeader>
 
@@ -249,7 +372,11 @@ export default function PasswordGateScreen({
             <div className="rounded-2xl border border-white/8 bg-black/18 px-4 py-3 text-center">
               <div
                 className={`text-sm font-medium ${
-                  error ? "text-orange-200" : isUnlocking ? "text-emerald-100" : "text-white/72"
+                  error
+                    ? "text-orange-200"
+                    : isUnlocking
+                      ? "text-emerald-100"
+                      : "text-white/72"
                 }`}
               >
                 {helperText}
@@ -259,7 +386,12 @@ export default function PasswordGateScreen({
         </Card>
       </div>
 
-      <PathwayWalker ref={walkerRef} variant={GATE_WALKER} />
+      <PathwayWalker
+        ref={walkerRef}
+        variant={GATE_WALKER}
+        bubble={walkerBubble}
+        onTalk={handleWalkerTalk}
+      />
     </section>
   );
 }

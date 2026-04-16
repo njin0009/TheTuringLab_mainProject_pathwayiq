@@ -1,13 +1,12 @@
 "use client";
 
-import { startTransition, useEffect, useRef, useState } from "react";
+import { startTransition, useCallback, useEffect, useRef, useState } from "react";
 import { CareerOverlay } from "@/components/pathway/career-overlay";
 import {
   PathwayWalker,
   type PathwayWalkerVariant,
 } from "@/components/pathway/pathway-walker";
 import { BottomNav } from "@/components/ui/bottom-nav";
-import { FireBall } from "@/components/ui/fire-ball";
 import PasswordGateScreen from "@/components/ui/password-gate-screen";
 import { useCareerSearch } from "@/hooks/useCareerSearch";
 import { useQuizState } from "@/hooks/useQuizState";
@@ -32,44 +31,73 @@ const SCENE_GLOWS = [
   { base: "#081125", accent: "165,180,252", secondary: "87,182,255" },
 ] as const;
 
+const WALKER_DIALOGUE = [
+  [
+    "Use A / D or the left and right arrow keys to switch menus.",
+    "Click me anytime if you want more guidance.",
+    "Press Start when you're ready to begin.",
+  ],
+  [
+    "Choose the card that sounds most like you on this page.",
+    "When you're done, use Explore to open matching paths.",
+    "You can still use A / D or the arrow keys to switch menus.",
+  ],
+  [
+    "Use the search bar or the filter chips to narrow this list.",
+    "Scroll down to browse more cards, then open one for details.",
+    "If two careers stand out, send them to Compare.",
+  ],
+  [
+    "Tap the cards here to build your comparison set.",
+    "Keep your best two options, then continue to Report.",
+    "Use A / D or the arrow keys if you want to jump to another page.",
+  ],
+  [
+    "This page sums up the direction you've built so far.",
+    "Use Compare if you want to back up and inspect your choices again.",
+    "Restart is here whenever you want a fresh run through the guide.",
+  ],
+] as const;
+
 const WALKER_VARIANTS: PathwayWalkerVariant[] = [
   {
     src: "/undraw-scooter.svg",
     width: 800,
     height: 758,
-    className: "h-[130px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
+    className: "h-[144px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
   },
   {
     src: "/undraw-hiking.svg",
     width: 1045,
     height: 792,
-    className: "h-[132px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
+    className: "h-[146px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
   },
   {
     src: "/undraw-party.svg",
     width: 364,
     height: 581,
-    className: "h-[128px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
+    className: "h-[142px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
   },
   {
     src: "/undraw-with-love.svg",
     width: 681,
     height: 800,
-    className: "h-[134px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
+    className: "h-[148px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.26)]",
   },
   {
     src: "/undraw-learning.svg",
     width: 394,
     height: 800,
-    className: "h-[136px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.28)]",
+    className: "h-[150px] w-auto drop-shadow-[0_18px_36px_rgba(0,0,0,0.28)]",
     mirroredByDefault: true,
   },
 ] as const;
 
 const WALKER_START_X = 80;
-const WALKER_JUMP_VEL = 18;
-const WALKER_GRAVITY = 1.2;
-const WALKER_GROUND_Y = 0;
+const WALKER_GROUND_BOTTOM = "calc(7rem + 12px)";
+const WALKER_MOTION_MS = 220;
+const WALKER_BUBBLE_MS = 2800;
+const WALKER_SEQUENCE_GAP_MS = 180;
 const GATE_COVER_MS = 260;
 const GATE_REVEAL_MS = 620;
 
@@ -77,12 +105,12 @@ const INTERACTIVE_TAGS = new Set(["INPUT", "TEXTAREA", "SELECT", "BUTTON"]);
 
 interface WalkerState {
   x: number;
-  y: number;
-  velY: number;
   facingRight: boolean;
-  isMoving: boolean;
-  isJumping: boolean;
-  keys: Record<string, boolean>;
+}
+
+interface WalkerBubbleState {
+  id: number;
+  text: string;
 }
 
 function isInteractiveElement(target: EventTarget | null) {
@@ -103,17 +131,16 @@ export function PathwayExperience() {
   const walkerRef = useRef<HTMLDivElement>(null);
   const walkerStateRef = useRef<WalkerState>({
     x: WALKER_START_X,
-    y: 0,
-    velY: 0,
     facingRight: true,
-    isMoving: false,
-    isJumping: false,
-    keys: {},
   });
   const activeIdxRef = useRef(0);
-  const gameLoopRef = useRef<number | null>(null);
-  const navTweenRef = useRef<number | null>(null);
-  const directionLatchRef = useRef({ left: false, right: false });
+  const walkerBubbleCursorRef = useRef<number[]>(WALKER_DIALOGUE.map(() => 0));
+  const walkerMotionTimerRef = useRef<number | null>(null);
+  const walkerBubbleTimerRef = useRef<number | null>(null);
+  const walkerIntroTimerRef = useRef<number | null>(null);
+  const walkerSequenceTimerRef = useRef<number | null>(null);
+  const walkerAutoSceneRef = useRef<number | null>(null);
+  const walkerAutoLineRef = useRef(0);
   const gateTimerRefs = useRef<number[]>([]);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -124,6 +151,7 @@ export function PathwayExperience() {
   const [homeHeroVersion, setHomeHeroVersion] = useState(0);
   const [homePanelOpen, setHomePanelOpen] = useState(false);
   const [showHint, setShowHint] = useState(true);
+  const [walkerBubble, setWalkerBubble] = useState<WalkerBubbleState | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeInterest, setActiveInterest] = useState<string | null>(null);
   const [selectedCareerId, setSelectedCareerId] = useState<CareerId | null>(null);
@@ -145,10 +173,12 @@ export function PathwayExperience() {
       ? "opacity-0 translate-y-2"
       : "opacity-100 translate-y-0";
 
-  const getContainer = () => scrollRef.current;
-  const getSceneWidth = () => getContainer()?.clientWidth || window.innerWidth;
+  const getSceneWidth = useCallback(
+    () => scrollRef.current?.clientWidth || window.innerWidth,
+    [],
+  );
 
-  const getDockedWalkerPosition = () => {
+  const getDockedWalkerPosition = useCallback(() => {
     const button = document.querySelector<HTMLElement>(
       `[data-nav-item='${activeIdxRef.current}']`,
     );
@@ -159,36 +189,29 @@ export function PathwayExperience() {
     const rect = button.getBoundingClientRect();
     return {
       left: rect.left + rect.width / 2,
-      bottom: window.innerHeight - rect.top + 10,
+      bottom: window.innerHeight - rect.top + 20,
     };
-  };
+  }, []);
 
-  const renderWalker = () => {
+  const renderWalker = useCallback((isWalking = false) => {
     const walker = walkerRef.current;
-    const container = getContainer();
-    if (!walker || !container) {
+    if (!walker) {
       return;
     }
 
     const state = walkerStateRef.current;
-    const viewWidth = container.clientWidth || window.innerWidth;
-    const clampedX = Math.max(56, Math.min(viewWidth - 56, state.x));
+    const dockedPosition = getDockedWalkerPosition();
 
-    if (!state.isMoving && !state.isJumping && state.x === WALKER_START_X) {
-      const dockedPosition = getDockedWalkerPosition();
-      if (dockedPosition) {
-        walker.style.left = `${dockedPosition.left}px`;
-        walker.style.bottom = `${dockedPosition.bottom}px`;
-      } else {
-        walker.style.left = `${clampedX}px`;
-        walker.style.bottom = `calc(7rem + ${Math.max(0, state.y)}px)`;
-      }
+    if (dockedPosition) {
+      walker.style.left = `${dockedPosition.left}px`;
+      walker.style.bottom = `${dockedPosition.bottom}px`;
     } else {
-      walker.style.left = `${clampedX}px`;
-      walker.style.bottom = `calc(7rem + ${Math.max(0, state.y)}px)`;
+      walker.style.left = `${state.x}px`;
+      walker.style.bottom = WALKER_GROUND_BOTTOM;
     }
-    walker.classList.toggle("walker-walking", state.isMoving);
-    walker.classList.toggle("walker-idle", !state.isMoving);
+
+    walker.classList.toggle("walker-walking", isWalking);
+    walker.classList.toggle("walker-idle", !isWalking);
 
     const flipTarget = walker.querySelector(".walker-flip");
     if (flipTarget instanceof HTMLElement) {
@@ -196,72 +219,29 @@ export function PathwayExperience() {
       flipTarget.style.transform = `scaleX(${state.facingRight ? defaultScale : -defaultScale})`;
       flipTarget.style.transformOrigin = "center center";
     }
-  };
+  }, [getDockedWalkerPosition]);
 
-  const maybeTransitionSceneByWalker = () => {
-    if (navTweenRef.current !== null) {
-      return false;
+  const startWalkerMotion = useCallback((faceRight: boolean) => {
+    walkerStateRef.current.facingRight = faceRight;
+    renderWalker(true);
+
+    if (walkerMotionTimerRef.current !== null) {
+      window.clearTimeout(walkerMotionTimerRef.current);
     }
 
-    const state = walkerStateRef.current;
-    if (selectedCareerId || state.isJumping) {
-      return false;
-    }
+    walkerMotionTimerRef.current = window.setTimeout(() => {
+      renderWalker(false);
+    }, WALKER_MOTION_MS);
+  }, [renderWalker]);
 
-    const currentIdx = activeIdxRef.current;
-    const movingRight = state.keys.ArrowRight || state.keys.KeyD;
-    const movingLeft = state.keys.ArrowLeft || state.keys.KeyA;
-
-    if (!movingRight) {
-      directionLatchRef.current.right = false;
-    }
-
-    if (!movingLeft) {
-      directionLatchRef.current.left = false;
-    }
-
-    if (movingRight) {
-      if (directionLatchRef.current.right) {
-        return false;
-      }
-
-      directionLatchRef.current.right = true;
-      const nextIdx = currentIdx === SCENE_LABELS.length - 1 ? 0 : currentIdx + 1;
-      if (currentIdx === SCENE_LABELS.length - 1) {
-        setReportFocusId(null);
-        setHomePanelOpen(false);
-      }
-      scrollToScene(nextIdx, {
-        nextWalkerX: WALKER_START_X,
-        faceRight: true,
-      });
-      return true;
-    }
-
-    if (movingLeft && currentIdx > 0) {
-      if (directionLatchRef.current.left) {
-        return false;
-      }
-
-      directionLatchRef.current.left = true;
-      scrollToScene(currentIdx - 1, {
-        nextWalkerX: WALKER_START_X,
-        faceRight: false,
-      });
-      return true;
-    }
-
-    return false;
-  };
-
-  function scrollToScene(
+  const scrollToScene = useCallback((
     idx: number,
     options?: {
       nextWalkerX?: number;
       faceRight?: boolean;
     },
-  ) {
-    const container = getContainer();
+  ) => {
+    const container = scrollRef.current;
     if (!container) {
       return;
     }
@@ -270,58 +250,135 @@ export function PathwayExperience() {
       setHomeHeroVersion((current) => current + 1);
     }
 
-    if (navTweenRef.current !== null) {
-      cancelAnimationFrame(navTweenRef.current);
-      navTweenRef.current = null;
-    }
-
     const sceneWidth = getSceneWidth();
     const targetScroll = idx * sceneWidth;
     const state = walkerStateRef.current;
     state.facingRight = options?.faceRight ?? idx >= activeIdxRef.current;
     state.x = options?.nextWalkerX ?? WALKER_START_X;
-    state.y = WALKER_GROUND_Y;
-    state.velY = 0;
-    state.isJumping = false;
-    state.isMoving = false;
 
     container.scrollTo({ left: targetScroll, behavior: "auto" });
     activeIdxRef.current = idx;
     startTransition(() => setActiveIdx(idx));
     setShowHint(false);
-    renderWalker();
-  }
+    window.requestAnimationFrame(() => renderWalker(false));
+  }, [getSceneWidth, renderWalker]);
 
   useEffect(() => {
     activeIdxRef.current = activeIdx;
-  }, [activeIdx]);
+    window.requestAnimationFrame(() => renderWalker(false));
+  }, [activeIdx, renderWalker]);
 
   useEffect(() => {
     return () => {
       gateTimerRefs.current.forEach((timer) => window.clearTimeout(timer));
+
+      if (walkerMotionTimerRef.current !== null) {
+        window.clearTimeout(walkerMotionTimerRef.current);
+      }
+
+      if (walkerBubbleTimerRef.current !== null) {
+        window.clearTimeout(walkerBubbleTimerRef.current);
+      }
+
+      if (walkerIntroTimerRef.current !== null) {
+        window.clearTimeout(walkerIntroTimerRef.current);
+      }
+
+      if (walkerSequenceTimerRef.current !== null) {
+        window.clearTimeout(walkerSequenceTimerRef.current);
+      }
     };
   }, []);
 
+  const clearWalkerBubbleTimers = useCallback(() => {
+    if (walkerBubbleTimerRef.current !== null) {
+      window.clearTimeout(walkerBubbleTimerRef.current);
+      walkerBubbleTimerRef.current = null;
+    }
+
+    if (walkerIntroTimerRef.current !== null) {
+      window.clearTimeout(walkerIntroTimerRef.current);
+      walkerIntroTimerRef.current = null;
+    }
+
+    if (walkerSequenceTimerRef.current !== null) {
+      window.clearTimeout(walkerSequenceTimerRef.current);
+      walkerSequenceTimerRef.current = null;
+    }
+
+    walkerAutoSceneRef.current = null;
+    walkerAutoLineRef.current = 0;
+  }, []);
+
+  const showWalkerBubble = useCallback((text: string, duration = WALKER_BUBBLE_MS) => {
+    if (walkerBubbleTimerRef.current !== null) {
+      window.clearTimeout(walkerBubbleTimerRef.current);
+      walkerBubbleTimerRef.current = null;
+    }
+
+    setWalkerBubble({ id: Date.now(), text });
+
+    walkerBubbleTimerRef.current = window.setTimeout(() => {
+      setWalkerBubble(null);
+      walkerBubbleTimerRef.current = null;
+    }, duration);
+  }, []);
+
+  const playWalkerIntroSequence = useCallback((sceneIdx: number, lineIdx = 0) => {
+    const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
+    const safeIndex = Math.min(Math.max(lineIdx, 0), lines.length - 1);
+
+    walkerAutoSceneRef.current = sceneIdx;
+    walkerAutoLineRef.current = safeIndex;
+    showWalkerBubble(lines[safeIndex]);
+
+    const nextIndex = safeIndex + 1;
+    if (nextIndex >= lines.length) {
+      walkerAutoSceneRef.current = null;
+      walkerAutoLineRef.current = 0;
+      walkerBubbleCursorRef.current[sceneIdx] = 0;
+      return;
+    }
+
+    walkerSequenceTimerRef.current = window.setTimeout(() => {
+      walkerSequenceTimerRef.current = null;
+
+      if (showGate || isGateTransitioning || activeIdxRef.current !== sceneIdx) {
+        walkerAutoSceneRef.current = null;
+        walkerAutoLineRef.current = 0;
+        return;
+      }
+
+      playWalkerIntroSequence(sceneIdx, nextIndex);
+    }, WALKER_BUBBLE_MS + WALKER_SEQUENCE_GAP_MS);
+  }, [isGateTransitioning, showGate, showWalkerBubble]);
+
   useEffect(() => {
-    const container = getContainer();
+    setWalkerBubble(null);
+    clearWalkerBubbleTimers();
+
+    if (showGate || isGateTransitioning) {
+      return;
+    }
+
+    const sceneIdx = activeIdx;
+    walkerBubbleCursorRef.current[sceneIdx] = 0;
+    walkerIntroTimerRef.current = window.setTimeout(() => {
+      playWalkerIntroSequence(sceneIdx);
+      walkerIntroTimerRef.current = null;
+    }, 260);
+  }, [activeIdx, clearWalkerBubbleTimers, playWalkerIntroSequence, isGateTransitioning, showGate]);
+
+  useEffect(() => {
+    const container = scrollRef.current;
     if (!container) {
       return;
     }
 
-    const state = walkerStateRef.current;
-    state.x = WALKER_START_X;
     container.scrollTo({ left: activeIdxRef.current * getSceneWidth(), behavior: "auto" });
-    renderWalker();
+    window.requestAnimationFrame(() => renderWalker(false));
 
-    const movementCodes = new Set([
-      "ArrowLeft",
-      "ArrowRight",
-      "ArrowUp",
-      "Space",
-      "KeyA",
-      "KeyD",
-      "KeyW",
-    ]);
+    const moveCodes = new Set(["ArrowLeft", "ArrowRight", "KeyA", "KeyD"]);
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (lockSceneControls) {
@@ -337,101 +394,55 @@ export function PathwayExperience() {
         return;
       }
 
-      if (selectedCareerId || !movementCodes.has(event.code)) {
+      if (selectedCareerId || !moveCodes.has(event.code) || event.repeat) {
         return;
       }
 
-      state.keys[event.code] = true;
-      setShowHint(false);
+      if (event.code === "ArrowRight" || event.code === "KeyD") {
+        const nextIdx =
+          activeIdxRef.current === SCENE_LABELS.length - 1 ? 0 : activeIdxRef.current + 1;
 
-      if (["ArrowLeft", "ArrowRight", "ArrowUp", "Space"].includes(event.code)) {
+        if (activeIdxRef.current === SCENE_LABELS.length - 1) {
+          setReportFocusId(null);
+          setHomePanelOpen(false);
+        }
+
         event.preventDefault();
-      }
-    };
-
-    const handleKeyUp = (event: KeyboardEvent) => {
-      if (!movementCodes.has(event.code)) {
+        startWalkerMotion(true);
+        scrollToScene(nextIdx, { nextWalkerX: WALKER_START_X, faceRight: true });
         return;
       }
 
-      state.keys[event.code] = false;
-    };
-
-    const tick = () => {
-      if (lockSceneControls) {
-        state.isMoving = false;
-        gameLoopRef.current = requestAnimationFrame(tick);
-        return;
+      if ((event.code === "ArrowLeft" || event.code === "KeyA") && activeIdxRef.current > 0) {
+        event.preventDefault();
+        startWalkerMotion(false);
+        scrollToScene(activeIdxRef.current - 1, {
+          nextWalkerX: WALKER_START_X,
+          faceRight: false,
+        });
       }
-
-      let moving = false;
-
-      if (navTweenRef.current === null && !selectedCareerId) {
-        state.x = WALKER_START_X;
-
-        if ((state.keys.ArrowUp || state.keys.Space || state.keys.KeyW) && !state.isJumping) {
-          state.velY = WALKER_JUMP_VEL;
-          state.isJumping = true;
-        }
-      }
-
-      if (state.isJumping || state.y > 0) {
-        state.velY -= WALKER_GRAVITY;
-        state.y += state.velY;
-
-        if (state.y <= WALKER_GROUND_Y) {
-          state.y = WALKER_GROUND_Y;
-          state.velY = 0;
-          state.isJumping = false;
-        }
-
-        moving = true;
-      }
-
-      if (maybeTransitionSceneByWalker()) {
-        gameLoopRef.current = requestAnimationFrame(tick);
-        return;
-      }
-
-      if (navTweenRef.current === null) {
-        state.isMoving = moving;
-        if (moving || Object.values(state.keys).some(Boolean)) {
-          renderWalker();
-        }
-      }
-
-      gameLoopRef.current = requestAnimationFrame(tick);
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
-    gameLoopRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
-
-      if (gameLoopRef.current !== null) {
-        cancelAnimationFrame(gameLoopRef.current);
-      }
-
-      if (navTweenRef.current !== null) {
-        cancelAnimationFrame(navTweenRef.current);
-      }
-    };
-  }, [lockSceneControls, selectedCareerId]);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [
+    getSceneWidth,
+    lockSceneControls,
+    renderWalker,
+    scrollToScene,
+    selectedCareerId,
+    startWalkerMotion,
+  ]);
 
   useEffect(() => {
     const handleResize = () => {
-      const state = walkerStateRef.current;
-      state.x = WALKER_START_X;
-      scrollToScene(activeIdxRef.current);
-      renderWalker();
+      scrollToScene(activeIdxRef.current, { nextWalkerX: WALKER_START_X });
+      window.requestAnimationFrame(() => renderWalker(false));
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [renderWalker, scrollToScene]);
 
   function handleQuizSelect(option: string) {
     selectOption(option);
@@ -461,6 +472,32 @@ export function PathwayExperience() {
     setSelectedCareerId(careerId);
   }
 
+  function handleWalkerTalk() {
+    if (showGate || isGateTransitioning) {
+      return;
+    }
+
+    const sceneIdx = activeIdxRef.current;
+    const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
+
+    if (walkerAutoSceneRef.current === sceneIdx) {
+      if (walkerSequenceTimerRef.current !== null) {
+        window.clearTimeout(walkerSequenceTimerRef.current);
+        walkerSequenceTimerRef.current = null;
+      }
+
+      const nextAutoLine = Math.min(walkerAutoLineRef.current + 1, lines.length - 1);
+      playWalkerIntroSequence(sceneIdx, nextAutoLine);
+      return;
+    }
+
+    const nextCursor = walkerBubbleCursorRef.current[sceneIdx] ?? 0;
+    const text = lines[nextCursor % lines.length];
+
+    walkerBubbleCursorRef.current[sceneIdx] = (nextCursor + 1) % lines.length;
+    showWalkerBubble(text);
+  }
+
   return (
     <main className="relative h-screen overflow-hidden text-white">
       <div
@@ -471,19 +508,6 @@ export function PathwayExperience() {
           backgroundImage: `radial-gradient(circle at 20% 78%, rgba(${glow.accent}, 0.18) 0%, transparent 35%), radial-gradient(circle at 82% 18%, rgba(${glow.secondary}, 0.16) 0%, transparent 30%)`,
         }}
       />
-      {!showGate ? (
-        <FireBall
-          className="pointer-events-none z-[120] opacity-80"
-          background="transparent"
-          colors={["#22d3ee", "#38bdf8", "#fb923c"]}
-          ballColor="#67e8f9"
-          particleCount={18}
-          followStrength={0.14}
-          blur={2.5}
-          blobRadius={6}
-          useXorComposite={false}
-        />
-      ) : null}
 
       {!showGate ? (
         <header
@@ -498,17 +522,17 @@ export function PathwayExperience() {
         </header>
       ) : null}
 
-        <div
-          ref={scrollRef}
-          className={`no-scrollbar relative flex h-screen overflow-hidden transition-[opacity,transform] duration-[680ms] ease-out ${
-            showGate
-              ? "pointer-events-none translate-y-3 opacity-0"
-              : gateTransitionPhase === "revealing"
-                ? "pointer-events-none translate-y-0 opacity-100"
-                : "translate-y-0 opacity-100"
-          }`}
-          style={{ touchAction: "pan-y" }}
-        >
+      <div
+        ref={scrollRef}
+        className={`no-scrollbar relative flex h-screen overflow-hidden transition-[opacity,transform] duration-[680ms] ease-out ${
+          showGate
+            ? "pointer-events-none translate-y-3 opacity-0"
+            : gateTransitionPhase === "revealing"
+              ? "pointer-events-none translate-y-0 opacity-100"
+              : "translate-y-0 opacity-100"
+        }`}
+        style={{ touchAction: "pan-y" }}
+      >
         <HomeScene
           heroVersion={homeHeroVersion}
           panelVisible={homePanelOpen}
@@ -552,10 +576,13 @@ export function PathwayExperience() {
       </div>
 
       {!showGate ? (
-        <div
-          className={`transition-all duration-500 ease-out ${chromeTransitionClass}`}
-        >
-          <PathwayWalker ref={walkerRef} variant={walkerVariant} />
+        <div className={`transition-all duration-500 ease-out ${chromeTransitionClass}`}>
+          <PathwayWalker
+            ref={walkerRef}
+            variant={walkerVariant}
+            bubble={walkerBubble}
+            onTalk={handleWalkerTalk}
+          />
         </div>
       ) : null}
 
@@ -563,7 +590,7 @@ export function PathwayExperience() {
         <div
           className={`pointer-events-none fixed bottom-32 right-6 z-[190] hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-slate-300 transition-all duration-500 ease-out md:flex ${chromeTransitionClass}`}
         >
-          A / D or {"< >"} to ride, W / Space to hop
+          A / D or {"< >"} to ride between scenes
         </div>
       ) : null}
 
