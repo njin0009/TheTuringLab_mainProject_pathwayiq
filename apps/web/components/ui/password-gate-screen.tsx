@@ -9,6 +9,7 @@ import {
 } from "@/components/pathway/pathway-walker";
 import { Balloons } from "@/components/ui/balloons";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { FireBall } from "@/components/ui/fire-ball";
 import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
 import {
   InputOTP,
@@ -23,7 +24,7 @@ interface PasswordGateScreenProps {
 
 const ACCESS_CODE = "666666";
 const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
-const UNLOCK_TRANSITION_MS = 1550;
+const UNLOCK_TRANSITION_MS = 1080;
 const GATE_WALKER: PathwayWalkerVariant = {
   src: "/undraw-scooter.svg",
   width: 800,
@@ -141,6 +142,17 @@ export default function PasswordGateScreen({
     >
       <InteractiveRobotSpline scene={ROBOT_SCENE_URL} className="absolute inset-0 z-0" />
       <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_18%_18%,rgba(34,211,238,0.18),transparent_20%),radial-gradient(circle_at_80%_22%,rgba(249,115,22,0.18),transparent_24%),linear-gradient(180deg,rgba(1,3,8,0.58),rgba(1,3,8,0.84)_55%,rgba(1,3,8,0.96))]" />
+      <FireBall
+        className="pointer-events-none z-[12] opacity-90"
+        background="transparent"
+        colors={["#22d3ee", "#fb923c", "#38bdf8"]}
+        ballColor="#f8fafc"
+        particleCount={16}
+        followStrength={0.12}
+        blur={2.5}
+        blobRadius={6}
+        useXorComposite={false}
+      />
       <Balloons ref={balloonsRef} type="default" className="pointer-events-none absolute inset-0 z-30" />
 
       <div className="relative z-20 flex h-full items-center justify-center px-6 py-12">

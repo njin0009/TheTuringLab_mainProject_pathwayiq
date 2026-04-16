@@ -7,6 +7,7 @@ import {
   type PathwayWalkerVariant,
 } from "@/components/pathway/pathway-walker";
 import { BottomNav } from "@/components/ui/bottom-nav";
+import { FireBall } from "@/components/ui/fire-ball";
 import PasswordGateScreen from "@/components/ui/password-gate-screen";
 import { useCareerSearch } from "@/hooks/useCareerSearch";
 import { useQuizState } from "@/hooks/useQuizState";
@@ -69,6 +70,8 @@ const WALKER_START_X = 80;
 const WALKER_JUMP_VEL = 18;
 const WALKER_GRAVITY = 1.2;
 const WALKER_GROUND_Y = 0;
+const GATE_COVER_MS = 260;
+const GATE_REVEAL_MS = 620;
 
 const INTERACTIVE_TAGS = new Set(["INPUT", "TEXTAREA", "SELECT", "BUTTON"]);
 
@@ -111,9 +114,13 @@ export function PathwayExperience() {
   const gameLoopRef = useRef<number | null>(null);
   const navTweenRef = useRef<number | null>(null);
   const directionLatchRef = useRef({ left: false, right: false });
+  const gateTimerRefs = useRef<number[]>([]);
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [showGate, setShowGate] = useState(true);
+  const [gateTransitionPhase, setGateTransitionPhase] = useState<
+    "idle" | "covering" | "revealing"
+  >("idle");
   const [homeHeroVersion, setHomeHeroVersion] = useState(0);
   const [homePanelOpen, setHomePanelOpen] = useState(false);
   const [showHint, setShowHint] = useState(true);
@@ -130,6 +137,13 @@ export function PathwayExperience() {
   const glow = SCENE_GLOWS[activeIdx] ?? SCENE_GLOWS[0];
   const brandColor = activeIdx === 0 ? "#22d3ee" : "#fb923c";
   const walkerVariant = WALKER_VARIANTS[activeIdx] ?? WALKER_VARIANTS[0];
+  const isGateTransitioning = gateTransitionPhase !== "idle";
+  const lockSceneControls = showGate || isGateTransitioning;
+  const shouldRenderGateLayer = showGate || isGateTransitioning;
+  const chromeTransitionClass =
+    isGateTransitioning
+      ? "opacity-0 translate-y-2"
+      : "opacity-100 translate-y-0";
 
   const getContainer = () => scrollRef.current;
   const getSceneWidth = () => getContainer()?.clientWidth || window.innerWidth;
@@ -283,6 +297,12 @@ export function PathwayExperience() {
   }, [activeIdx]);
 
   useEffect(() => {
+    return () => {
+      gateTimerRefs.current.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, []);
+
+  useEffect(() => {
     const container = getContainer();
     if (!container) {
       return;
@@ -304,7 +324,7 @@ export function PathwayExperience() {
     ]);
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (showGate) {
+      if (lockSceneControls) {
         return;
       }
 
@@ -338,7 +358,7 @@ export function PathwayExperience() {
     };
 
     const tick = () => {
-      if (showGate) {
+      if (lockSceneControls) {
         state.isMoving = false;
         gameLoopRef.current = requestAnimationFrame(tick);
         return;
@@ -399,7 +419,7 @@ export function PathwayExperience() {
         cancelAnimationFrame(navTweenRef.current);
       }
     };
-  }, [selectedCareerId, showGate]);
+  }, [lockSceneControls, selectedCareerId]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -451,9 +471,24 @@ export function PathwayExperience() {
           backgroundImage: `radial-gradient(circle at 20% 78%, rgba(${glow.accent}, 0.18) 0%, transparent 35%), radial-gradient(circle at 82% 18%, rgba(${glow.secondary}, 0.16) 0%, transparent 30%)`,
         }}
       />
+      {!showGate ? (
+        <FireBall
+          className="pointer-events-none z-[120] opacity-80"
+          background="transparent"
+          colors={["#22d3ee", "#38bdf8", "#fb923c"]}
+          ballColor="#67e8f9"
+          particleCount={18}
+          followStrength={0.14}
+          blur={2.5}
+          blobRadius={6}
+          useXorComposite={false}
+        />
+      ) : null}
 
       {!showGate ? (
-        <header className="pointer-events-none fixed inset-x-0 top-0 z-[180] flex items-center justify-between px-6 py-5 md:px-10">
+        <header
+          className={`pointer-events-none fixed inset-x-0 top-0 z-[180] flex items-center justify-between px-6 py-5 transition-all duration-500 ease-out md:px-10 ${chromeTransitionClass}`}
+        >
           <div className="text-2xl font-semibold tracking-tight" style={{ color: brandColor }}>
             Pathway<span className="text-white">IQ</span>
           </div>
@@ -463,11 +498,17 @@ export function PathwayExperience() {
         </header>
       ) : null}
 
-      <div
-        ref={scrollRef}
-        className="no-scrollbar relative flex h-screen overflow-hidden"
-        style={{ touchAction: "pan-y" }}
-      >
+        <div
+          ref={scrollRef}
+          className={`no-scrollbar relative flex h-screen overflow-hidden transition-[opacity,transform] duration-[680ms] ease-out ${
+            showGate
+              ? "pointer-events-none translate-y-3 opacity-0"
+              : gateTransitionPhase === "revealing"
+                ? "pointer-events-none translate-y-0 opacity-100"
+                : "translate-y-0 opacity-100"
+          }`}
+          style={{ touchAction: "pan-y" }}
+        >
         <HomeScene
           heroVersion={homeHeroVersion}
           panelVisible={homePanelOpen}
@@ -510,22 +551,34 @@ export function PathwayExperience() {
         />
       </div>
 
-      {!showGate ? <PathwayWalker ref={walkerRef} variant={walkerVariant} /> : null}
+      {!showGate ? (
+        <div
+          className={`transition-all duration-500 ease-out ${chromeTransitionClass}`}
+        >
+          <PathwayWalker ref={walkerRef} variant={walkerVariant} />
+        </div>
+      ) : null}
 
       {!showGate && showHint ? (
-        <div className="pointer-events-none fixed bottom-32 right-6 z-[190] hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-slate-300 md:flex">
+        <div
+          className={`pointer-events-none fixed bottom-32 right-6 z-[190] hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-slate-300 transition-all duration-500 ease-out md:flex ${chromeTransitionClass}`}
+        >
           A / D or {"< >"} to ride, W / Space to hop
         </div>
       ) : null}
 
       {!showGate ? (
-        <div className="pointer-events-none fixed right-6 top-20 z-[190] hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-400 md:flex">
+        <div
+          className={`pointer-events-none fixed right-6 top-20 z-[190] hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-400 transition-all duration-500 ease-out md:flex ${chromeTransitionClass}`}
+        >
           {SCENE_LABELS[activeIdx]}
         </div>
       ) : null}
 
       {!showGate ? (
-        <BottomNav activeIdx={activeIdx} onNavigate={(idx) => scrollToScene(idx)} />
+        <div className={`transition-all duration-500 ease-out ${chromeTransitionClass}`}>
+          <BottomNav activeIdx={activeIdx} onNavigate={(idx) => scrollToScene(idx)} />
+        </div>
       ) : null}
 
       <CareerOverlay
@@ -545,14 +598,49 @@ export function PathwayExperience() {
         }}
       />
 
-      {showGate ? (
-        <div className="fixed inset-0 z-[400]">
+      {shouldRenderGateLayer ? (
+        <div
+          className={`fixed inset-0 z-[400] transition-opacity duration-[520ms] ease-out ${
+            showGate && gateTransitionPhase === "idle"
+              ? "opacity-100"
+              : "pointer-events-none opacity-0"
+          }`}
+        >
           <PasswordGateScreen
             onUnlock={() => {
-              setShowGate(false);
-              scrollToScene(0, { nextWalkerX: WALKER_START_X, faceRight: true });
+              setGateTransitionPhase("covering");
+              gateTimerRefs.current.forEach((timer) => window.clearTimeout(timer));
+              gateTimerRefs.current = [
+                window.setTimeout(() => {
+                  setShowGate(false);
+                  scrollToScene(0, { nextWalkerX: WALKER_START_X, faceRight: true });
+                  window.requestAnimationFrame(() => {
+                    window.requestAnimationFrame(() => {
+                      setGateTransitionPhase("revealing");
+                    });
+                  });
+                }, GATE_COVER_MS),
+                window.setTimeout(() => {
+                  setGateTransitionPhase("idle");
+                }, GATE_COVER_MS + GATE_REVEAL_MS),
+              ];
             }}
           />
+        </div>
+      ) : null}
+
+      {isGateTransitioning ? (
+        <div
+          className={`pointer-events-none fixed inset-0 z-[450] transition-opacity duration-[680ms] ease-out ${
+            gateTransitionPhase === "covering" ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(34,211,238,0.12),transparent_24%),radial-gradient(circle_at_50%_68%,rgba(249,115,22,0.1),transparent_26%),linear-gradient(180deg,rgba(1,4,10,0.12),rgba(1,4,10,0.84)_46%,rgba(1,4,10,0.98))]" />
+          <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-center px-6">
+            <div className="rounded-full border border-white/10 bg-black/28 px-6 py-3 text-sm font-medium tracking-[0.28em] text-white/78 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
+              ENTERING PATHWAYIQ
+            </div>
+          </div>
         </div>
       ) : null}
     </main>
