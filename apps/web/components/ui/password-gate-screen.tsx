@@ -23,7 +23,7 @@ interface PasswordGateScreenProps {
 
 const ACCESS_CODE = "666666";
 const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
-const UNLOCK_TRANSITION_MS = 1550;
+const UNLOCK_TRANSITION_MS = 1080;
 const GATE_WALKER: PathwayWalkerVariant = {
   src: "/undraw-scooter.svg",
   width: 800,
