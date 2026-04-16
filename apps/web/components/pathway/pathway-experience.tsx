@@ -7,6 +7,7 @@ import {
   type PathwayWalkerVariant,
 } from "@/components/pathway/pathway-walker";
 import { BottomNav } from "@/components/ui/bottom-nav";
+import PasswordGateScreen from "@/components/ui/password-gate-screen";
 import { useCareerSearch } from "@/hooks/useCareerSearch";
 import { useQuizState } from "@/hooks/useQuizState";
 import {
@@ -112,6 +113,7 @@ export function PathwayExperience() {
   const directionLatchRef = useRef({ left: false, right: false });
 
   const [activeIdx, setActiveIdx] = useState(0);
+  const [showGate, setShowGate] = useState(true);
   const [homeHeroVersion, setHomeHeroVersion] = useState(0);
   const [homePanelOpen, setHomePanelOpen] = useState(false);
   const [showHint, setShowHint] = useState(true);
@@ -302,6 +304,10 @@ export function PathwayExperience() {
     ]);
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (showGate) {
+        return;
+      }
+
       if (isInteractiveElement(event.target)) {
         return;
       }
@@ -332,6 +338,12 @@ export function PathwayExperience() {
     };
 
     const tick = () => {
+      if (showGate) {
+        state.isMoving = false;
+        gameLoopRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
       let moving = false;
 
       if (navTweenRef.current === null && !selectedCareerId) {
@@ -387,7 +399,7 @@ export function PathwayExperience() {
         cancelAnimationFrame(navTweenRef.current);
       }
     };
-  }, [selectedCareerId]);
+  }, [selectedCareerId, showGate]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -440,14 +452,16 @@ export function PathwayExperience() {
         }}
       />
 
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-[180] flex items-center justify-between px-6 py-5 md:px-10">
-        <div className="text-2xl font-semibold tracking-tight" style={{ color: brandColor }}>
-          Pathway<span className="text-white">IQ</span>
-        </div>
-        <div className="hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-slate-300 md:block">
-          Bottom rider flow restored
-        </div>
-      </header>
+      {!showGate ? (
+        <header className="pointer-events-none fixed inset-x-0 top-0 z-[180] flex items-center justify-between px-6 py-5 md:px-10">
+          <div className="text-2xl font-semibold tracking-tight" style={{ color: brandColor }}>
+            Pathway<span className="text-white">IQ</span>
+          </div>
+          <div className="hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-slate-300 md:block">
+            Bottom rider flow restored
+          </div>
+        </header>
+      ) : null}
 
       <div
         ref={scrollRef}
@@ -496,19 +510,23 @@ export function PathwayExperience() {
         />
       </div>
 
-      <PathwayWalker ref={walkerRef} variant={walkerVariant} />
+      {!showGate ? <PathwayWalker ref={walkerRef} variant={walkerVariant} /> : null}
 
-      {showHint ? (
+      {!showGate && showHint ? (
         <div className="pointer-events-none fixed bottom-32 right-6 z-[190] hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-slate-300 md:flex">
           A / D or {"< >"} to ride, W / Space to hop
         </div>
       ) : null}
 
-      <div className="pointer-events-none fixed right-6 top-20 z-[190] hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-400 md:flex">
-        {SCENE_LABELS[activeIdx]}
-      </div>
+      {!showGate ? (
+        <div className="pointer-events-none fixed right-6 top-20 z-[190] hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-400 md:flex">
+          {SCENE_LABELS[activeIdx]}
+        </div>
+      ) : null}
 
-      <BottomNav activeIdx={activeIdx} onNavigate={(idx) => scrollToScene(idx)} />
+      {!showGate ? (
+        <BottomNav activeIdx={activeIdx} onNavigate={(idx) => scrollToScene(idx)} />
+      ) : null}
 
       <CareerOverlay
         careerId={selectedCareerId}
@@ -526,6 +544,17 @@ export function PathwayExperience() {
           scrollToScene(4);
         }}
       />
+
+      {showGate ? (
+        <div className="fixed inset-0 z-[400]">
+          <PasswordGateScreen
+            onUnlock={() => {
+              setShowGate(false);
+              scrollToScene(0, { nextWalkerX: WALKER_START_X, faceRight: true });
+            }}
+          />
+        </div>
+      ) : null}
     </main>
   );
 }
