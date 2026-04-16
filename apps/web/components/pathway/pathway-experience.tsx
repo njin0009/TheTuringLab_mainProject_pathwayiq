@@ -31,6 +31,34 @@ const SCENE_GLOWS = [
   { base: "#081125", accent: "165,180,252", secondary: "87,182,255" },
 ] as const;
 
+const WALKER_DIALOGUE = [
+  [
+    "Use A / D or the left and right arrow keys to switch menus.",
+    "Click me anytime if you want more guidance.",
+    "Press Start when you're ready to begin.",
+  ],
+  [
+    "Pick what feels most like you.",
+    "There isn't just one right answer.",
+    "Your interests matter here.",
+  ],
+  [
+    "Let's look around a little.",
+    "Try a few paths before deciding.",
+    "Exploration is part of the process.",
+  ],
+  [
+    "Now we're making sharper choices.",
+    "Compare before you commit.",
+    "A side-by-side view helps a lot.",
+  ],
+  [
+    "This is your current direction.",
+    "You can always come back and refine it.",
+    "A report is a starting point, not the end.",
+  ],
+] as const;
+
 const WALKER_VARIANTS: PathwayWalkerVariant[] = [
   {
     src: "/undraw-scooter.svg",
@@ -78,6 +106,11 @@ interface WalkerState {
   facingRight: boolean;
 }
 
+interface WalkerBubbleState {
+  id: number;
+  text: string;
+}
+
 function isInteractiveElement(target: EventTarget | null) {
   const element = target as HTMLElement | null;
   if (!element) {
@@ -99,7 +132,10 @@ export function PathwayExperience() {
     facingRight: true,
   });
   const activeIdxRef = useRef(0);
+  const walkerBubbleCursorRef = useRef<number[]>(WALKER_DIALOGUE.map(() => 0));
   const walkerMotionTimerRef = useRef<number | null>(null);
+  const walkerBubbleTimerRef = useRef<number | null>(null);
+  const walkerIntroTimerRef = useRef<number | null>(null);
   const gateTimerRefs = useRef<number[]>([]);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -110,6 +146,7 @@ export function PathwayExperience() {
   const [homeHeroVersion, setHomeHeroVersion] = useState(0);
   const [homePanelOpen, setHomePanelOpen] = useState(false);
   const [showHint, setShowHint] = useState(true);
+  const [walkerBubble, setWalkerBubble] = useState<WalkerBubbleState | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeInterest, setActiveInterest] = useState<string | null>(null);
   const [selectedCareerId, setSelectedCareerId] = useState<CareerId | null>(null);
@@ -233,8 +270,55 @@ export function PathwayExperience() {
       if (walkerMotionTimerRef.current !== null) {
         window.clearTimeout(walkerMotionTimerRef.current);
       }
+
+      if (walkerBubbleTimerRef.current !== null) {
+        window.clearTimeout(walkerBubbleTimerRef.current);
+      }
+
+      if (walkerIntroTimerRef.current !== null) {
+        window.clearTimeout(walkerIntroTimerRef.current);
+      }
     };
   }, []);
+
+  const clearWalkerBubbleTimers = useCallback(() => {
+    if (walkerBubbleTimerRef.current !== null) {
+      window.clearTimeout(walkerBubbleTimerRef.current);
+      walkerBubbleTimerRef.current = null;
+    }
+
+    if (walkerIntroTimerRef.current !== null) {
+      window.clearTimeout(walkerIntroTimerRef.current);
+      walkerIntroTimerRef.current = null;
+    }
+  }, []);
+
+  const showWalkerBubble = useCallback((text: string) => {
+    clearWalkerBubbleTimers();
+    setWalkerBubble({ id: Date.now(), text });
+
+    walkerBubbleTimerRef.current = window.setTimeout(() => {
+      setWalkerBubble(null);
+      walkerBubbleTimerRef.current = null;
+    }, 2800);
+  }, [clearWalkerBubbleTimers]);
+
+  useEffect(() => {
+    setWalkerBubble(null);
+    clearWalkerBubbleTimers();
+
+    if (showGate || isGateTransitioning) {
+      return;
+    }
+
+    const sceneIdx = activeIdx;
+    const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
+    walkerBubbleCursorRef.current[sceneIdx] = lines.length > 1 ? 1 : 0;
+    walkerIntroTimerRef.current = window.setTimeout(() => {
+      showWalkerBubble(lines[0]);
+      walkerIntroTimerRef.current = null;
+    }, 260);
+  }, [activeIdx, clearWalkerBubbleTimers, isGateTransitioning, showGate, showWalkerBubble]);
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -339,6 +423,19 @@ export function PathwayExperience() {
     setSelectedCareerId(careerId);
   }
 
+  function handleWalkerTalk() {
+    if (showGate || isGateTransitioning) {
+      return;
+    }
+
+    const lines = WALKER_DIALOGUE[activeIdxRef.current] ?? WALKER_DIALOGUE[0];
+    const nextCursor = walkerBubbleCursorRef.current[activeIdxRef.current] ?? 0;
+    const text = lines[nextCursor % lines.length];
+
+    walkerBubbleCursorRef.current[activeIdxRef.current] = (nextCursor + 1) % lines.length;
+    showWalkerBubble(text);
+  }
+
   return (
     <main className="relative h-screen overflow-hidden text-white">
       <div
@@ -418,7 +515,12 @@ export function PathwayExperience() {
 
       {!showGate ? (
         <div className={`transition-all duration-500 ease-out ${chromeTransitionClass}`}>
-          <PathwayWalker ref={walkerRef} variant={walkerVariant} />
+          <PathwayWalker
+            ref={walkerRef}
+            variant={walkerVariant}
+            bubble={walkerBubble}
+            onTalk={handleWalkerTalk}
+          />
         </div>
       ) : null}
 
