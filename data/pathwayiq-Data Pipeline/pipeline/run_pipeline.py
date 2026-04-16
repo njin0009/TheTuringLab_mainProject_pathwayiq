@@ -83,23 +83,54 @@ def _ensure_runtime_dirs() -> None:
         path.mkdir(parents=True, exist_ok=True)
 
 
-def _preflight_check(logger) -> list[dict]:
+def _preflight_check(logger,
+                     run_these: list[str] | None = None,
+                     skip_these: list[str] | None = None) -> tuple[list[dict], set[str]]:
     """
     Validate the pipeline environment before running:
-    - raw files exist
+    - raw files exist for datasets that are actually going to run
     - pipeline Python sources compile
+
+    Returns:
+        (checks, missing_raw_set)
     """
     _ensure_runtime_dirs()
     checks: list[dict] = []
 
-    missing_raw = sorted(dataset for dataset, path in RAW_FILES.items() if not path.exists())
+    datasets_to_run = []
+    for dataset_key, _ in PIPELINE_ORDER:
+        if run_these and dataset_key not in run_these:
+            continue
+        if skip_these and dataset_key in skip_these:
+            continue
+        datasets_to_run.append(dataset_key)
+
+    missing_raw = sorted(
+        dataset
+        for dataset in datasets_to_run
+        if dataset in RAW_FILES and not RAW_FILES[dataset].exists()
+    )
+    missing_raw_set = set(missing_raw)
+
     checks.append({
         "check": "raw_files_present",
-        "status": "OK" if not missing_raw else "ERROR",
-        "details": {"missing_datasets": missing_raw},
+        "status": "OK" if not missing_raw else "WARNING",
+        "details": {
+            "checked_datasets": datasets_to_run,
+            "missing_datasets": missing_raw,
+            "missing_paths": {
+                dataset: str(RAW_FILES[dataset])
+                for dataset in missing_raw
+                if dataset in RAW_FILES
+            },
+        },
     })
     if missing_raw:
-        raise FileNotFoundError(f"Missing raw files for datasets: {missing_raw}")
+        logger.warning(
+            "Missing raw files for datasets that would run: %s. "
+            "These datasets will be skipped.",
+            missing_raw,
+        )
 
     pipeline_dir = Path(__file__).parent
     py_files = [
@@ -121,8 +152,11 @@ def _preflight_check(logger) -> list[dict]:
     if compile_errors:
         raise RuntimeError(f"Python compile preflight failed for {len(compile_errors)} files.")
 
-    logger.info(f"Preflight checks passed ({len(py_files)} Python files compiled, {len(RAW_FILES)} raw files present).")
-    return checks
+    logger.info(
+        f"Preflight checks completed ({len(py_files)} Python files compiled, "
+        f"{len(datasets_to_run)} datasets checked)."
+    )
+    return checks, missing_raw_set
 
 
 def export_parquet_to_csv():
@@ -155,7 +189,11 @@ def run_pipeline(run_these: list[str] | None = None,
     logger.info("=" * 60)
     logger.info("TA28 DATA GROUP PIPELINE — START")
     logger.info("=" * 60)
-    preflight_checks = _preflight_check(logger)
+    preflight_checks, missing_raw = _preflight_check(
+        logger,
+        run_these=run_these,
+        skip_these=skip_these,
+    )
 
     results = {}
     total_start = time.time()
@@ -166,6 +204,10 @@ def run_pipeline(run_these: list[str] | None = None,
             continue
         if skip_these and dataset_key in skip_these:
             logger.info(f"SKIP  {dataset_key} (in --skip list)")
+            continue
+        if dataset_key in missing_raw:
+            logger.warning(f"SKIP  {dataset_key} (raw file missing: {RAW_FILES[dataset_key]})")
+            results[dataset_key] = {"status": "SKIPPED: missing raw file", "elapsed_s": 0.0}
             continue
 
         logger.info(f"\n{'─'*60}")

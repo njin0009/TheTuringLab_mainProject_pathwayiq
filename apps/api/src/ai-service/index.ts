@@ -6,7 +6,7 @@
  * All API Gateway routes and Lambda function signatures stay identical.
  *
  * Planned files:
- *   bedrock-client.ts  — AWS Bedrock Claude Haiku API wrapper
+ *   bedrock-client.ts  — AWS Bedrock API wrapper
  *   quiz-enhancer.ts   — AI-powered quiz → career matching
  *   embeddings.ts      — Career similarity via Titan Embeddings
  *   report-narrator.ts — Personalised PDF narrative generation

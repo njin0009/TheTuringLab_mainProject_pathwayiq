@@ -1,0 +1,1906 @@
+[
+    {
+        "title": "Aboriginal and Torres Strait Islander Health Worker",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "411511",
+        "median_salary": 65700,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Accountant (General)",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "221111",
+        "median_salary": 48000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Accounts Clerk",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "551111",
+        "median_salary": 48000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Aeroplane Pilot",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "231111",
+        "median_salary": 87200,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Aged or Disabled Carer",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "423111",
+        "median_salary": 45450,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Airconditioning and Mechanical Services Plumber",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "334112",
+        "median_salary": 72550,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Airconditioning and Refrigeration Mechanic",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "342111",
+        "median_salary": 79950,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Aircraft Maintenance Engineer (Mechanical)",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "323112",
+        "median_salary": 93400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Ambulance Officer",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "411111",
+        "median_salary": 85950,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Anaesthetic Technician",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "311211",
+        "median_salary": 76500,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Animal Attendants and Trainers nec",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "361199",
+        "median_salary": 30400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Arborist",
+        "pathway": "TAFE",
+        "industry": "Agriculture & Environment",
+        "anzsco_code": "362511",
+        "median_salary": 71100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Architectural Draftsperson",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "312111",
+        "median_salary": 43750,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Automotive Electrician",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "321111",
+        "median_salary": 87400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Baker",
+        "pathway": "Apprenticeship",
+        "industry": "Hospitality",
+        "anzsco_code": "351111",
+        "median_salary": 59550,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Bank Worker",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "552111",
+        "median_salary": 59350,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Bar Attendant",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "431111",
+        "median_salary": 34000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Barista",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "431112",
+        "median_salary": 36350,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Beauty Therapist",
+        "pathway": "TAFE",
+        "industry": "Hospitality",
+        "anzsco_code": "451111",
+        "median_salary": 31400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Beef Cattle Farm Worker",
+        "pathway": "Apprenticeship",
+        "industry": "Agriculture & Environment",
+        "anzsco_code": "842311",
+        "median_salary": 41850,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Bookkeeper",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "551211",
+        "median_salary": 45550,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Bricklayer",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "331111",
+        "median_salary": 52100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Building Associate",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "312112",
+        "median_salary": 70900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Bus Driver",
+        "pathway": "Apprenticeship",
+        "industry": "Community Services",
+        "anzsco_code": "731211",
+        "median_salary": 48000,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Butcher or Smallgoods Maker",
+        "pathway": "Apprenticeship",
+        "industry": "Hospitality",
+        "anzsco_code": "351211",
+        "median_salary": 59000,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Cabinet Maker",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "394112",
+        "median_salary": 58500,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Cabler (Data and Telecommunications)",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "342411",
+        "median_salary": 74600,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Cafe or Restaurant Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "141111",
+        "median_salary": 47200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Call or Contact Centre Operator",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "541112",
+        "median_salary": 47200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Carpenter",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "331212",
+        "median_salary": 64600,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Carpenter and Joiner",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "331211",
+        "median_salary": 59100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Chef",
+        "pathway": "TAFE",
+        "industry": "Hospitality",
+        "anzsco_code": "351311",
+        "median_salary": 48000,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Chemistry Technician",
+        "pathway": "TAFE",
+        "industry": "Science",
+        "anzsco_code": "311411",
+        "median_salary": 55200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Chief Executive or Managing Director",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "111111",
+        "median_salary": 63100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Child Care Centre Manager",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "134111",
+        "median_salary": 66800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Child Care Worker",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "421111",
+        "median_salary": 40850,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Child or Youth Residential Care Assistant",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "423411",
+        "median_salary": 57750,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Civil Engineer",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "233211",
+        "median_salary": 92500,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Community Worker",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "411711",
+        "median_salary": 48500,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Conference and Event Organiser",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "149311",
+        "median_salary": 43400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Construction Estimator",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "312114",
+        "median_salary": 70900,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Construction Project Manager",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "133111",
+        "median_salary": 88950,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Conveyancer",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "599111",
+        "median_salary": 60300,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Cook",
+        "pathway": "TAFE",
+        "industry": "Hospitality",
+        "anzsco_code": "351411",
+        "median_salary": 48950,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Corporate General Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "111211",
+        "median_salary": 63100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Counsellors nec",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "272199",
+        "median_salary": 62350,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Credit or Loans Officer",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "552211",
+        "median_salary": 65900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Crowd Controller",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "442213",
+        "median_salary": 47200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Customer Service Manager",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "149212",
+        "median_salary": 48000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Dairy Cattle Farm Worker",
+        "pathway": "Apprenticeship",
+        "industry": "Agriculture & Environment",
+        "anzsco_code": "842313",
+        "median_salary": 44700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Data Entry Operator",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "532111",
+        "median_salary": 38700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Debt Collector",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "599311",
+        "median_salary": 56100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Deck Hand",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "899211",
+        "median_salary": 75400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Delivery Driver",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "732111",
+        "median_salary": 47200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Dental Assistant",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "423211",
+        "median_salary": 43700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Dental Technician",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "411213",
+        "median_salary": 45100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Developer Programmer",
+        "pathway": "TAFE",
+        "industry": "Technology",
+        "anzsco_code": "261312",
+        "median_salary": 41300,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Diesel Motor Mechanic",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "321212",
+        "median_salary": 87400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Disabilities Services Officer",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "411712",
+        "median_salary": 48000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Diversional Therapist",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "411311",
+        "median_salary": 46000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Drainer",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "334113",
+        "median_salary": 69100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Driller",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "712211",
+        "median_salary": 129800,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Driving Instructor",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "451211",
+        "median_salary": 40900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Early Childhood (Pre-primary School) Teacher",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "241111",
+        "median_salary": 42400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Earthmoving Plant Operator (General)",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "721211",
+        "median_salary": 87200,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Earth Science Technician",
+        "pathway": "TAFE",
+        "industry": "Science",
+        "anzsco_code": "311412",
+        "median_salary": 55200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Education Adviser",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "249111",
+        "median_salary": 36300,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Electrical Engineer",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "233311",
+        "median_salary": 94000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Electrical Engineering Technician",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "312312",
+        "median_salary": 83900,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Electrician (General)",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "341111",
+        "median_salary": 83900,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Electronic Equipment Trades Worker",
+        "pathway": "TAFE",
+        "industry": "Technology",
+        "anzsco_code": "342313",
+        "median_salary": 41300,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Emergency Service Worker",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "441211",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Engineering Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "133211",
+        "median_salary": 98300,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Enrolled Nurse",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "411411",
+        "median_salary": 68500,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Environmental Consultant",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "234312",
+        "median_salary": 99000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Excavator Operator",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "721214",
+        "median_salary": 72300,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Family Day Care Worker",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "421112",
+        "median_salary": 42400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Family Support Worker",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "411713",
+        "median_salary": 48000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Finance Broker",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "222112",
+        "median_salary": 64250,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Finance Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "132211",
+        "median_salary": 54700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Financial Institution Branch Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "149914",
+        "median_salary": 65900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Financial Investment Adviser",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "222311",
+        "median_salary": 65900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Fire Fighter",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "441212",
+        "median_salary": 111900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Fire Protection Equipment Technician",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "399918",
+        "median_salary": 95700,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "First Aid Trainer",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "451815",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Fitness Centre Manager",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "149112",
+        "median_salary": 34000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Fitness Instructor",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "452111",
+        "median_salary": 34000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Fitter and Turner",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "323212",
+        "median_salary": 99550,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Fitter (General)",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "323211",
+        "median_salary": 97800,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Flight Attendant",
+        "pathway": "TAFE",
+        "industry": "Hospitality",
+        "anzsco_code": "451711",
+        "median_salary": 23100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Floor Finisher",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "332111",
+        "median_salary": 62700,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Florist",
+        "pathway": "TAFE",
+        "industry": "Creative Industries",
+        "anzsco_code": "362111",
+        "median_salary": 31100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Forklift Driver",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "721311",
+        "median_salary": 44900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Gardener (General)",
+        "pathway": "Apprenticeship",
+        "industry": "Agriculture & Environment",
+        "anzsco_code": "362611",
+        "median_salary": 48400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Gasfitter",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "334114",
+        "median_salary": 69100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Gas or Petroleum Operator",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "399212",
+        "median_salary": 111200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "General Clerk",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "531111",
+        "median_salary": 46900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Geologist",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "234411",
+        "median_salary": 95200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Glazier",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "333111",
+        "median_salary": 59200,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Graphic Designer",
+        "pathway": "TAFE",
+        "industry": "Creative Industries",
+        "anzsco_code": "232411",
+        "median_salary": 28200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Hairdresser",
+        "pathway": "Apprenticeship",
+        "industry": "Hospitality",
+        "anzsco_code": "391111",
+        "median_salary": 38700,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Hair or Beauty Salon Manager",
+        "pathway": "Apprenticeship",
+        "industry": "Hospitality",
+        "anzsco_code": "142114",
+        "median_salary": 38800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Health and Welfare Services Managers nec",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "134299",
+        "median_salary": 70800,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Hospital Orderly",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "423311",
+        "median_salary": 45500,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Hotel or Motel Manager",
+        "pathway": "TAFE",
+        "industry": "Hospitality",
+        "anzsco_code": "141311",
+        "median_salary": 42100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Human Resource Adviser",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "223111",
+        "median_salary": 73700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Human Resource Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "132311",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "ICT Customer Support Officer",
+        "pathway": "TAFE",
+        "industry": "Technology",
+        "anzsco_code": "313112",
+        "median_salary": 44250,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "ICT Project Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "135112",
+        "median_salary": 104100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "ICT Support Engineer",
+        "pathway": "TAFE",
+        "industry": "Technology",
+        "anzsco_code": "263212",
+        "median_salary": 44350,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Inspectors and Regulatory Officers nec",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "599599",
+        "median_salary": 99000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Insurance Agent",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "611211",
+        "median_salary": 38700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Insurance Broker",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "222113",
+        "median_salary": 74000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Insurance Consultant",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "552312",
+        "median_salary": 74000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Integration Aide",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "422112",
+        "median_salary": 33750,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Interior Designer",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "232511",
+        "median_salary": 38100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Landscape Gardener",
+        "pathway": "Apprenticeship",
+        "industry": "Agriculture & Environment",
+        "anzsco_code": "362711",
+        "median_salary": 48400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Library Assistant",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "599711",
+        "median_salary": 38900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Library Technician",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "399312",
+        "median_salary": 38900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Lifeguard",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "452414",
+        "median_salary": 37200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Locksmith",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "323313",
+        "median_salary": 61800,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Machine Operators nec",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "711999",
+        "median_salary": 72300,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Management Consultant",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "224713",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Manufacturer",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "133411",
+        "median_salary": 90700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Marketing Specialist",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "225113",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Massage Therapist",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "411611",
+        "median_salary": 36750,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Meat Boner and Slicer",
+        "pathway": "Apprenticeship",
+        "industry": "Hospitality",
+        "anzsco_code": "831211",
+        "median_salary": 57200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Mechanical Engineer",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "233512",
+        "median_salary": 97800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Mechanical Engineering Technician",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "312512",
+        "median_salary": 97800,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Medical Laboratory Technician",
+        "pathway": "TAFE",
+        "industry": "Science",
+        "anzsco_code": "311213",
+        "median_salary": 55200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Medical Receptionist",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "542114",
+        "median_salary": 48400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Metal Fabricator",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "322311",
+        "median_salary": 87200,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Metal Machinist (First Class)",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "323214",
+        "median_salary": 97800,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Midwife",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "254111",
+        "median_salary": 87200,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Mine Deputy",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "312913",
+        "median_salary": 88950,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Miner",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "712212",
+        "median_salary": 121050,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Motorcycle Mechanic",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "321213",
+        "median_salary": 57400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Motor Mechanic (General)",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "321211",
+        "median_salary": 71900,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Nanny",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "421113",
+        "median_salary": 42400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Nurse Educator",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "254211",
+        "median_salary": 87200,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Nurse Practitioner",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "254411",
+        "median_salary": 71150,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Nurseryperson",
+        "pathway": "TAFE",
+        "industry": "Agriculture & Environment",
+        "anzsco_code": "362411",
+        "median_salary": 42900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Nursing Support Worker",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "423312",
+        "median_salary": 48000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Occupational Health and Safety Adviser",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "251312",
+        "median_salary": 95800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Occupational Therapist",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "252411",
+        "median_salary": 43100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Office Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "512111",
+        "median_salary": 48000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Operating Theatre Technician",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "311214",
+        "median_salary": 62400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Order Clerk",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "591117",
+        "median_salary": 43350,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Other Sports Coach or Instructor",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "452317",
+        "median_salary": 34000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Outdoor Adventure Instructor",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "452215",
+        "median_salary": 35650,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Out of School Hours Care Worker",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "421114",
+        "median_salary": 37800,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Panelbeater",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "324111",
+        "median_salary": 58900,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Park Ranger",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "234314",
+        "median_salary": 99000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Parole or Probation Officer",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "411714",
+        "median_salary": 97100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Pathologist",
+        "pathway": "TAFE",
+        "industry": "Science",
+        "anzsco_code": "253915",
+        "median_salary": 44900,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Payroll Clerk",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "551311",
+        "median_salary": 46800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Personal Assistant",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "521111",
+        "median_salary": 46800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Personal Care Assistant",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "423313",
+        "median_salary": 55100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Pet Groomer",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "361113",
+        "median_salary": 32000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Pharmacy Sales Assistant",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "621411",
+        "median_salary": 45600,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Pharmacy Technician",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "311215",
+        "median_salary": 67500,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Pig Farmer",
+        "pathway": "TAFE",
+        "industry": "Agriculture & Environment",
+        "anzsco_code": "121318",
+        "median_salary": 66600,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Plumber (General)",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "334116",
+        "median_salary": 65550,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Police Officer",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "441312",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Policy Analyst",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "224412",
+        "median_salary": 83700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Policy and Planning Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "132411",
+        "median_salary": 95100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Practice Managers nec",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "512299",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Preschool Aide",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "422115",
+        "median_salary": 37800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Primary School Teacher",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "241213",
+        "median_salary": 36300,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Prison Officer",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "442111",
+        "median_salary": 86900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Private Tutors and Teachers nec",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "249299",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Program or Project Administrator",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "511112",
+        "median_salary": 65400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Project Builder",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "133112",
+        "median_salary": 63850,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Property Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "612112",
+        "median_salary": 65050,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Purchasing Officer",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "591113",
+        "median_salary": 97550,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Quality Assurance Manager",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "139916",
+        "median_salary": 89850,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Railway Track Worker",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "821611",
+        "median_salary": 105150,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Real Estate Agent",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "612114",
+        "median_salary": 65050,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Real Estate Representative",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "612115",
+        "median_salary": 65050,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Receptionist (General)",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "542111",
+        "median_salary": 38700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Recruitment Consultant",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "223112",
+        "median_salary": 73700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Regional Education Manager",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "134412",
+        "median_salary": 61750,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Registered Nurse (Aged Care)",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "254412",
+        "median_salary": 55400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Registered Nurse (Community Health)",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "254414",
+        "median_salary": 55100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Registered Nurse (Critical Care and Emergency)",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "254415",
+        "median_salary": 71150,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Registered Nurse (Disability and Rehabilitation)",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "254417",
+        "median_salary": 56850,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Registered Nurse (Medical)",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "254418",
+        "median_salary": 71150,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Registered Nurse (Medical Practice)",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "254421",
+        "median_salary": 55100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Registered Nurse (Mental Health)",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "254422",
+        "median_salary": 71150,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Registered Nurses nec",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "254499",
+        "median_salary": 51550,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Retail Manager (General)",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "142111",
+        "median_salary": 47100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Retail Supervisor",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "621511",
+        "median_salary": 31600,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Roof Plumber",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "334115",
+        "median_salary": 66100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Roof Tiler",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "333311",
+        "median_salary": 51400,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Safety Inspector",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "312611",
+        "median_salary": 92500,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Sales and Marketing Manager",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "131112",
+        "median_salary": 61900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Sales Representative (Business Services)",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "611312",
+        "median_salary": 43350,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Sales Representative (Motor Vehicle Parts and Accessories)",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "611313",
+        "median_salary": 64800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Sales Representative (Personal and Household Goods)",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "611314",
+        "median_salary": 43350,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Sales Representatives nec",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "611399",
+        "median_salary": 48000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Scaffolder",
+        "pathway": "TAFE",
+        "industry": "Construction",
+        "anzsco_code": "821712",
+        "median_salary": 87100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Secondary School Teacher",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "241411",
+        "median_salary": 36300,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Security Consultant",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "442216",
+        "median_salary": 47200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Security Officer",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "442217",
+        "median_salary": 59700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Ship's Master",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "231213",
+        "median_salary": 80600,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Signwriter",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "399611",
+        "median_salary": 58900,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Social Worker",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "272511",
+        "median_salary": 65700,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Software Engineer",
+        "pathway": "TAFE",
+        "industry": "Technology",
+        "anzsco_code": "261313",
+        "median_salary": 41300,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Specialist Managers nec",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "139999",
+        "median_salary": 47200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Special Needs Teacher",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "241511",
+        "median_salary": 36300,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Sterilisation Technician",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "711914",
+        "median_salary": 67500,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Stonemason",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "331112",
+        "median_salary": 63500,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Storeperson",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "741111",
+        "median_salary": 43000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Surveyor",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "232212",
+        "median_salary": 62850,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Swimming Coach or Instructor",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "452315",
+        "median_salary": 20700,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Taxation Accountant",
+        "pathway": "TAFE",
+        "industry": "Business",
+        "anzsco_code": "221113",
+        "median_salary": 46800,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Teacher of English to Speakers of Other Languages",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "249311",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Teachers' Aide",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "422116",
+        "median_salary": 38700,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Telecommunications Technician",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "342414",
+        "median_salary": 78550,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Therapy Aide",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "423314",
+        "median_salary": 43100,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Train Driver",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "731311",
+        "median_salary": 110100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Training and Development Professional",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "223311",
+        "median_salary": 93800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Transport Company Manager",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "149413",
+        "median_salary": 83500,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Travel Consultant",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "451612",
+        "median_salary": 55900,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Tree Faller",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "843113",
+        "median_salary": 66400,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Truck Driver (General)",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "733111",
+        "median_salary": 61200,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Tyre Fitter",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "899415",
+        "median_salary": 107650,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "University Lecturer",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "242111",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "University Tutor",
+        "pathway": "TAFE",
+        "industry": "Education",
+        "anzsco_code": "242112",
+        "median_salary": 87200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Vehicle Painter",
+        "pathway": "Apprenticeship",
+        "industry": "Engineering",
+        "anzsco_code": "324311",
+        "median_salary": 59700,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Veterinary Nurse",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "361311",
+        "median_salary": 41850,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Waiter",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "431511",
+        "median_salary": 34000,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Wall and Floor Tiler",
+        "pathway": "Apprenticeship",
+        "industry": "Construction",
+        "anzsco_code": "333411",
+        "median_salary": 52100,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Warehouse Administrator",
+        "pathway": "Apprenticeship",
+        "industry": "Business",
+        "anzsco_code": "591116",
+        "median_salary": 47200,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Waste Water or Water Plant Operator",
+        "pathway": "Apprenticeship",
+        "industry": "Agriculture & Environment",
+        "anzsco_code": "712921",
+        "median_salary": 93700,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Welder (First Class)",
+        "pathway": "TAFE",
+        "industry": "Engineering",
+        "anzsco_code": "322313",
+        "median_salary": 80850,
+        "shortage_status": "In Shortage"
+    },
+    {
+        "title": "Youth Worker",
+        "pathway": "TAFE",
+        "industry": "Community Services",
+        "anzsco_code": "411716",
+        "median_salary": 70800,
+        "shortage_status": "Not in Shortage"
+    },
+    {
+        "title": "Zookeeper",
+        "pathway": "TAFE",
+        "industry": "Healthcare",
+        "anzsco_code": "361114",
+        "median_salary": 41000,
+        "shortage_status": "Not in Shortage"
+    }
+]

@@ -52,7 +52,7 @@ pathwayiq-Data Pipeline/
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 
-pip install pandas pyarrow openpyxl ydata-profiling rapidfuzz scikit-learn
+pip install pandas pyarrow openpyxl python-calamine ydata-profiling rapidfuzz scikit-learn
 ```
 
 > `rapidfuzz` is optional but strongly recommended — it powers fuzzy

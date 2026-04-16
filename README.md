@@ -105,7 +105,7 @@ pathwayiq/                          ← monorepo root (npm workspaces)
 | API | AWS API Gateway (HTTP API) | AWS ap-southeast-2 | 1M req/mo permanent |
 | Compute | AWS Lambda Node.js 20.x | AWS ap-southeast-2 | 1M req/mo permanent |
 | Data storage | Cloudflare R2 | Cloudflare | 10 GB, zero egress, permanent |
-| AI (Iter 3) | AWS Bedrock Claude Haiku | AWS ap-southeast-2 | Pay per use |
+| AI (Iter 3) | AWS Bedrock model integration | AWS ap-southeast-2 | Pay per use |
 | IaC | Serverless Framework | — | Free open source |
 | CI/CD | GitHub Actions | GitHub | Free for public repos |
 
