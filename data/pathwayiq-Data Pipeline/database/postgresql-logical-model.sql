@@ -165,4 +165,10 @@ CREATE TABLE IF NOT EXISTS pathwayiq.program_occupation_pathway (
   match_score NUMERIC(5,2),
   match_status TEXT NOT NULL,
   UNIQUE (dataset_release_id, program_id, pathway_rank_no)
+
 );
+
+ 
+
+
+
