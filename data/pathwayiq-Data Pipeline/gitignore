@@ -1,9 +1,3 @@
-# Raw data files — never commit source data to the repo
-raw_data/
-
-# Generated clean outputs — reproduced by running the pipeline
-cleaned_data/
-
 # YData Profiling HTML reports (large, auto-generated)
 docs/profiles/
 
@@ -25,3 +19,19 @@ Thumbs.db
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
+
+# ── macOS system files ──
+__MACOSX/
+._*
+
+# ── Database build outputs ──
+data/pathwayiq-Data Pipeline/database/build/
+*.sqlite
+*.sql
+
+# ── Frontend export data ──
+data/pathwayiq-Data Pipeline/frontend_exports/
+
+# ── Word temp lock files ──
+~$*.docx
+~$*.doc

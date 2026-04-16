@@ -1,0 +1,917 @@
+anzsco_code,occupation_title,national_shortage_rating,victoria_shortage_rating,skill_level,major_group_code,major_group_label
+422111,Aboriginal And Torres Strait Islander Education Worker,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+411511,Aboriginal And Torres Strait Islander Health Worker,Shortage,Shortage,2,4,Community and Personal Service Workers
+141999,Accommodation And Hospitality Managers NEC,No Shortage,No Shortage,2,1,Managers
+221111,Accountant (General),No Shortage,No Shortage,1,2,Professionals
+551111,Accounts Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+211111,Actor,No Shortage,No Shortage,1,2,Professionals
+211199,"Actors, Dancers And Other Entertainers NEC",No Shortage,No Shortage,1,2,Professionals
+224111,Actuary,Shortage,Shortage,1,2,Professionals
+252211,Acupuncturist,No Shortage,No Shortage,1,2,Professionals
+542112,Admissions Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+131113,Advertising Manager,No Shortage,No Shortage,1,1,Managers
+225111,Advertising Specialist,No Shortage,No Shortage,1,2,Professionals
+233911,Aeronautical Engineer,Shortage,Shortage,1,2,Professionals
+231111,Aeroplane Pilot,Shortage,Shortage,1,2,Professionals
+423111,Aged Or Disabled Carer,Shortage,Shortage,4,4,Community and Personal Service Workers
+311112,Agricultural And Agritech Technician,Shortage,Shortage,2,3,Technicians and Trades Workers
+721111,Agricultural And Horticultural Mobile Plant Operator,Regional Shortage,Regional Shortage,4,7,Machinery Operators and Drivers
+234111,Agricultural Consultant,Shortage,Shortage,1,2,Professionals
+233912,Agricultural Engineer,Shortage,Shortage,1,2,Professionals
+234114,Agricultural Research Scientist,Shortage,Shortage,1,2,Professionals
+234115,Agronomist,Shortage,Shortage,1,2,Professionals
+231112,Air Traffic Controller,Shortage,Shortage,1,2,Professionals
+231199,Air Transport Professionals NEC,Shortage,Shortage,1,2,Professionals
+334112,Airconditioning And Mechanical Services Plumber,Shortage,Shortage,3,3,Technicians and Trades Workers
+342111,Airconditioning And Refrigeration Mechanic,Shortage,Shortage,3,3,Technicians and Trades Workers
+721911,Aircraft Baggage Handler And Airline Ground Crew,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+323111,Aircraft Maintenance Engineer (Avionics),Shortage,Shortage,3,3,Technicians and Trades Workers
+323112,Aircraft Maintenance Engineer (Mechanical),Shortage,Shortage,3,3,Technicians and Trades Workers
+323113,Aircraft Maintenance Engineer (Structures),Shortage,Shortage,3,3,Technicians and Trades Workers
+733112,Aircraft Refueller,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+411111,Ambulance Officer,Shortage,Shortage,2,4,Community and Personal Service Workers
+149111,Amusement Centre Manager,No Shortage,No Shortage,2,1,Managers
+311211,Anaesthetic Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+253211,Anaesthetist,Shortage,Shortage,1,2,Professionals
+261311,Analyst Programmer,No Shortage,No Shortage,1,2,Professionals
+361199,Animal Attendants And Trainers NEC,No Shortage,No Shortage,4,3,Technicians and Trades Workers
+311113,Animal Husbandry Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+142112,Antique Dealer,No Shortage,No Shortage,2,1,Managers
+121311,Apiarist,No Shortage,No Shortage,1,1,Managers
+393211,Apparel Cutter,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+121111,Aquaculture Farmer,No Shortage,No Shortage,1,1,Managers
+234116,Aquaculture Or Fisheries Scientist,Shortage,Shortage,1,2,Professionals
+311114,Aquaculture Or Fisheries Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+363111,Aquaculture Supervisor,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+362511,Arborist,Shortage,Shortage,2,3,Technicians and Trades Workers
+272414,Archaeologist,No Shortage,No Shortage,1,2,Professionals
+232111,Architect,No Shortage,No Shortage,1,2,Professionals
+312111,Architectural Draftsperson,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+312199,"Architectural, Building And Surveying Technicians NEC",No Shortage,No Shortage,2,3,Technicians and Trades Workers
+224211,Archivist,No Shortage,No Shortage,1,2,Professionals
+212311,"Art Director (Film, Television Or Stage)",No Shortage,No Shortage,1,2,Professionals
+249211,Art Teacher (Private Tuition),No Shortage,No Shortage,1,2,Professionals
+212111,Artistic Director,No Shortage,No Shortage,1,2,Professionals
+139911,Arts Administrator Or Manager,No Shortage,No Shortage,1,1,Managers
+611111,Auctioneer,No Shortage,No Shortage,3,6,Sales Workers
+252711,Audiologist,Shortage,Shortage,1,2,Professionals
+212211,Author,No Shortage,No Shortage,1,2,Professionals
+899412,Autoglazier,Shortage,Shortage,4,8,Labourers
+731199,Automobile Drivers NEC,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+321111,Automotive Electrician,Shortage,Shortage,3,3,Technicians and Trades Workers
+721212,Backhoe Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+351111,Baker,Shortage,Shortage,3,3,Technicians and Trades Workers
+552111,Bank Worker,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+431111,Bar Attendant,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+431112,Barista,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+271111,Barrister,No Shortage,No Shortage,1,2,Professionals
+451111,Beauty Therapist,Shortage,Shortage,3,4,Community and Personal Service Workers
+141911,Bed And Breakfast Operator,No Shortage,No Shortage,2,1,Managers
+842311,Beef Cattle Farm Worker,No Shortage,No Shortage,4,8,Labourers
+121312,Beef Cattle Farmer,No Shortage,No Shortage,1,1,Managers
+142113,Betting Agency Manager,No Shortage,No Shortage,2,1,Managers
+234513,Biochemist,No Shortage,No Shortage,1,2,Professionals
+233913,Biomedical Engineer,Shortage,Shortage,1,2,Professionals
+311313,Biosecurity Officer,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+234514,Biotechnologist,No Shortage,No Shortage,1,2,Professionals
+322111,Blacksmith,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+149911,Boarding Kennel Or Cattery Operator,No Shortage,No Shortage,2,1,Managers
+399111,Boat Builder And Repairer,Shortage,Shortage,3,3,Technicians and Trades Workers
+451814,Body Artist,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+712911,Boiler Or Engine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+212212,Book Or Script Editor,No Shortage,No Shortage,1,2,Professionals
+551211,Bookkeeper,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+552311,Bookmaker,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+234515,Botanist,No Shortage,No Shortage,1,2,Professionals
+331111,Bricklayer,Shortage,Shortage,3,3,Technicians and Trades Workers
+121711,Broadacre Crop And Livestock Farmer,No Shortage,No Shortage,1,1,Managers
+121599,Broadacre Crop Growers NEC,No Shortage,No Shortage,1,1,Managers
+399511,Broadcast Transmitter Operator,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+312999,Building And Engineering Technicians NEC,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+312112,Building Associate,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+312113,Building Inspector,Shortage,Shortage,2,3,Technicians and Trades Workers
+821411,Building Insulation Installer,No Shortage,No Shortage,4,8,Labourers
+712912,Bulk Materials Handling Plant Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+721213,Bulldozer Operator,Shortage,Shortage,4,7,Machinery Operators and Drivers
+452211,Bungy Jump Master,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+731211,Bus Driver,Shortage,Shortage,4,7,Machinery Operators and Drivers
+612111,Business Broker,No Shortage,No Shortage,3,6,Sales Workers
+342311,Business Machine Mechanic,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+351211,Butcher Or Smallgoods Maker,Shortage,Shortage,3,3,Technicians and Trades Workers
+394112,Cabinet Maker,Shortage,Shortage,3,3,Technicians and Trades Workers
+342411,Cabler (Data And Telecommunications),Shortage,Shortage,3,3,Technicians and Trades Workers
+141111,Cafe Or Restaurant Manager,No Shortage,No Shortage,2,1,Managers
+149211,Call Or Contact Centre Manager,No Shortage,No Shortage,2,1,Managers
+541112,Call Or Contact Centre Operator,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+541111,Call Or Contact Centre Team Leader,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+399512,"Camera Operator (Film, Television Or Video)",No Shortage,No Shortage,3,3,Technicians and Trades Workers
+393111,Canvas Goods Fabricator,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+141211,Caravan Park And Camping Ground Manager,No Shortage,No Shortage,2,1,Managers
+311212,Cardiac Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+253312,Cardiologist,Shortage,Shortage,1,2,Professionals
+253512,Cardiothoracic Surgeon,Shortage,Shortage,1,2,Professionals
+272111,Careers Counsellor,No Shortage,No Shortage,1,2,Professionals
+331212,Carpenter,Shortage,Shortage,3,3,Technicians and Trades Workers
+331211,Carpenter And Joiner,Shortage,Shortage,3,3,Technicians and Trades Workers
+811611,Carpet Cleaner,No Shortage,No Shortage,4,8,Labourers
+232213,Cartographer,No Shortage,No Shortage,1,2,Professionals
+842312,Cattle And Sheep Farm Worker,No Shortage,No Shortage,4,8,Labourers
+712913,Cement Production Plant Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+731212,Charter And Tour Bus Driver,Shortage,Shortage,4,7,Machinery Operators and Drivers
+731111,Chauffeur,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+351311,Chef,Regional Shortage,Regional Shortage,2,3,Technicians and Trades Workers
+233111,Chemical Engineer,No Shortage,No Shortage,1,2,Professionals
+399211,Chemical Plant Operator,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+711911,Chemical Production Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+234211,Chemist,No Shortage,No Shortage,1,2,Professionals
+311411,Chemistry Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+111111,Chief Executive Or Managing Director,No Shortage,No Shortage,1,1,Managers
+135111,Chief Information Officer,No Shortage,No Shortage,1,1,Managers
+134111,Child Care Centre Manager,No Shortage,No Shortage,1,1,Managers
+421111,Child Care Worker,Shortage,Shortage,3,4,Community and Personal Service Workers
+423411,Child Or Youth Residential Care Assistant,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+252111,Chiropractor,Shortage,Shortage,1,2,Professionals
+149912,Cinema Or Theatre Manager,No Shortage,No Shortage,2,1,Managers
+451811,Civil Celebrant,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+233211,Civil Engineer,Shortage,Shortage,1,2,Professionals
+312211,Civil Engineering Draftsperson,Shortage,Shortage,2,3,Technicians and Trades Workers
+312212,Civil Engineering Technician,Shortage,Shortage,2,3,Technicians and Trades Workers
+711111,Clay Products Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711199,"Clay, Concrete, Glass And Stone Processing Machine Operators NEC",No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+599999,Clerical And Administrative Workers NEC,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+599211,Clerk Of Court,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+599915,Clinical Coder,Shortage,Shortage,3,5,Clerical and Administrative Workers
+253313,Clinical Haematologist,Shortage,Shortage,1,2,Professionals
+272311,Clinical Psychologist,Shortage,Shortage,1,2,Professionals
+393212,Clothing Patternmaker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+393299,Clothing Trades Workers NEC,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+222111,Commodities Trader,No Shortage,No Shortage,2,2,Professionals
+342312,Communications Operator,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+272611,Community Arts Worker,No Shortage,No Shortage,1,2,Professionals
+411711,Community Worker,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+221211,Company Secretary,No Shortage,No Shortage,1,2,Professionals
+252299,Complementary Health Therapists NEC,No Shortage,No Shortage,1,2,Professionals
+211211,Composer,No Shortage,No Shortage,1,2,Professionals
+263111,Computer Network And Systems Engineer,No Shortage,No Shortage,1,2,Professionals
+712914,Concrete Batching Plant Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711112,Concrete Products Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+712915,Concrete Pump Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+149311,Conference And Event Organiser,No Shortage,No Shortage,2,1,Managers
+234311,Conservation Officer,No Shortage,No Shortage,1,2,Professionals
+234911,Conservator,No Shortage,No Shortage,1,2,Professionals
+312114,Construction Estimator,Regional Shortage,Regional Shortage,2,3,Technicians and Trades Workers
+133111,Construction Project Manager,Shortage,Shortage,1,1,Managers
+821711,Construction Rigger,No Shortage,No Shortage,4,8,Labourers
+225114,Content Creator (Marketing),No Shortage,No Shortage,1,2,Professionals
+511111,Contract Administrator,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+599111,Conveyancer,Shortage,Shortage,2,5,Clerical and Administrative Workers
+351411,Cook,Shortage,Shortage,3,3,Technicians and Trades Workers
+212411,Copywriter,No Shortage,No Shortage,1,2,Professionals
+111211,Corporate General Manager,No Shortage,No Shortage,1,1,Managers
+132111,Corporate Services Manager,No Shortage,No Shortage,1,1,Managers
+221212,Corporate Treasurer,No Shortage,No Shortage,1,2,Professionals
+551112,Cost Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+842211,Cotton Farm Worker,No Shortage,No Shortage,4,8,Labourers
+121511,Cotton Grower,No Shortage,No Shortage,1,1,Managers
+272199,Counsellors NEC,No Shortage,No Shortage,1,2,Professionals
+599212,Court Bailiff Or Sheriff,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+599213,Court Orderly,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+821911,Crane Chaser,No Shortage,No Shortage,4,8,Labourers
+712111,"Crane, Hoist Or Lift Operator",Shortage,Shortage,4,7,Machinery Operators and Drivers
+552211,Credit Or Loans Officer,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+442213,Crowd Controller,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+149212,Customer Service Manager,No Shortage,No Shortage,2,1,Managers
+599511,Customs Officer,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+262114,Cyber Governance Risk And Compliance Specialist,Shortage,Shortage,1,2,Professionals
+262115,Cyber Security Advice And Assessment Specialist,No Shortage,No Shortage,1,2,Professionals
+262116,Cyber Security Analyst,No Shortage,No Shortage,1,2,Professionals
+262117,Cyber Security Architect,Shortage,Shortage,1,2,Professionals
+261315,Cyber Security Engineer,Shortage,Shortage,1,2,Professionals
+262118,Cyber Security Operations Coordinator,Shortage,Shortage,1,2,Professionals
+842313,Dairy Cattle Farm Worker,No Shortage,No Shortage,4,8,Labourers
+121313,Dairy Cattle Farmer,No Shortage,No Shortage,1,1,Managers
+249212,Dance Teacher (Private Tuition),No Shortage,No Shortage,1,2,Professionals
+211112,Dancer Or Choreographer,No Shortage,No Shortage,1,2,Professionals
+224114,Data Analyst,No Shortage,No Shortage,1,2,Professionals
+532111,Data Entry Operator,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+224115,Data Scientist,No Shortage,No Shortage,1,2,Professionals
+262111,Database Administrator,No Shortage,No Shortage,1,2,Professionals
+599311,Debt Collector,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+899211,Deck Hand,Shortage,Shortage,4,8,Labourers
+121314,Deer Farmer,No Shortage,No Shortage,1,1,Managers
+732111,Delivery Driver,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+423211,Dental Assistant,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+411211,Dental Hygienist,Shortage,Shortage,1,4,Community and Personal Service Workers
+411212,Dental Prosthetist,Shortage,Shortage,2,4,Community and Personal Service Workers
+252311,Dental Specialist,Shortage,Shortage,1,2,Professionals
+411213,Dental Technician,Shortage,Shortage,2,4,Community and Personal Service Workers
+411214,Dental Therapist,Shortage,Shortage,1,4,Community and Personal Service Workers
+252312,Dentist,Shortage,Shortage,1,2,Professionals
+253911,Dermatologist,Shortage,Shortage,1,2,Professionals
+591211,Despatching And Receiving Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+261312,Developer Programmer,No Shortage,No Shortage,1,2,Professionals
+261316,Devops Engineer,Shortage,Shortage,1,2,Professionals
+253917,Diagnostic And Interventional Radiologist,Shortage,Shortage,1,2,Professionals
+321212,Diesel Motor Mechanic,Shortage,Shortage,3,3,Technicians and Trades Workers
+251111,Dietitian,No Shortage,No Shortage,1,2,Professionals
+225115,Digital Marketing Analyst,No Shortage,No Shortage,1,2,Professionals
+212312,"Director (Film, Television, Radio Or Stage)",No Shortage,No Shortage,1,2,Professionals
+212313,Director Of Photography,No Shortage,No Shortage,1,2,Professionals
+411712,Disabilities Services Officer,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+399911,Diver,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+411311,Diversional Therapist,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+452311,Diving Instructor (Open Water),No Shortage,No Shortage,3,4,Community and Personal Service Workers
+452318,Dog And Horse Racing Official,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+361111,Dog Handler Or Trainer,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+334113,Drainer,Shortage,Shortage,3,3,Technicians and Trades Workers
+249213,Drama Teacher (Private Tuition),No Shortage,No Shortage,1,2,Professionals
+393213,Dressmaker Or Tailor,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+712211,Driller,Shortage,Shortage,4,7,Machinery Operators and Drivers
+451211,Driving Instructor,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+272112,Drug And Alcohol Counsellor,No Shortage,No Shortage,1,2,Professionals
+241111,Early Childhood (Pre-Primary School) Teacher,Shortage,Shortage,1,2,Professionals
+311412,Earth Science Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+721211,Earthmoving Plant Operator (General),Regional Shortage,Regional Shortage,4,7,Machinery Operators and Drivers
+224311,Economist,No Shortage,No Shortage,1,2,Professionals
+249111,Education Adviser,No Shortage,No Shortage,1,2,Professionals
+134499,Education Managers NEC,No Shortage,No Shortage,1,1,Managers
+249112,Education Reviewer,No Shortage,No Shortage,1,2,Professionals
+272312,Educational Psychologist,Shortage,Shortage,1,2,Professionals
+224911,Electorate Officer,No Shortage,No Shortage,1,2,Professionals
+233311,Electrical Engineer,Shortage,No Shortage,1,2,Professionals
+312311,Electrical Engineering Draftsperson,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+312312,Electrical Engineering Technician,Metro Shortage,Metro Shortage,2,3,Technicians and Trades Workers
+342211,Electrical Linesworker / Electrical Line Mechanic,Shortage,Shortage,3,3,Technicians and Trades Workers
+341111,Electrician (General),Shortage,Shortage,3,3,Technicians and Trades Workers
+341112,Electrician (Special Class),Shortage,Shortage,3,3,Technicians and Trades Workers
+312411,Electronic Engineering Draftsperson,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+312412,Electronic Engineering Technician,Shortage,Shortage,2,3,Technicians and Trades Workers
+342313,Electronic Equipment Trades Worker,Regional Shortage,Regional Shortage,3,3,Technicians and Trades Workers
+342314,Electronic Instrument Trades Worker (General),Shortage,Shortage,3,3,Technicians and Trades Workers
+342315,Electronic Instrument Trades Worker (Special Class),Shortage,Shortage,3,3,Technicians and Trades Workers
+233411,Electronics Engineer,No Shortage,No Shortage,1,2,Professionals
+322112,Electroplater,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+253912,Emergency Medicine Specialist,Shortage,Shortage,1,2,Professionals
+441211,Emergency Service Worker,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+253315,Endocrinologist,Shortage,Shortage,1,2,Professionals
+133211,Engineering Manager,No Shortage,No Shortage,1,1,Managers
+323411,Engineering Patternmaker,Shortage,Shortage,3,3,Technicians and Trades Workers
+712311,Engineering Production Worker,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+233999,Engineering Professionals NEC,No Shortage,No Shortage,1,2,Professionals
+233914,Engineering Technologist,Shortage,Shortage,1,2,Professionals
+323311,Engraver,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+411411,Enrolled Nurse,Regional Shortage,Regional Shortage,2,4,Community and Personal Service Workers
+211113,Entertainer Or Variety Artist,No Shortage,No Shortage,1,2,Professionals
+234521,Entomologist,No Shortage,No Shortage,1,2,Professionals
+234312,Environmental Consultant,No Shortage,No Shortage,1,2,Professionals
+233915,Environmental Engineer,Shortage,Shortage,1,2,Professionals
+251311,Environmental Health Officer,Regional Shortage,Regional Shortage,1,2,Professionals
+139912,Environmental Manager,No Shortage,No Shortage,1,1,Managers
+234313,Environmental Research Scientist,Shortage,Shortage,1,2,Professionals
+234399,Environmental Scientists NEC,No Shortage,No Shortage,1,2,Professionals
+149915,Equipment Hire Manager,No Shortage,No Shortage,2,1,Managers
+721214,Excavator Operator,Shortage,Shortage,4,7,Machinery Operators and Drivers
+234915,Exercise Physiologist,No Shortage,No Shortage,1,2,Professionals
+899413,Exhaust And Muffler Repairer,No Shortage,No Shortage,4,8,Labourers
+221213,External Auditor,Shortage,Shortage,1,2,Professionals
+599916,Facilities Administrator,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+149913,Facilities Manager,No Shortage,No Shortage,2,1,Managers
+134411,Faculty Head,No Shortage,No Shortage,1,1,Managers
+272113,Family And Marriage Counsellor,No Shortage,No Shortage,1,2,Professionals
+421112,Family Day Care Worker,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+411713,Family Support Worker,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+322113,Farrier,Shortage,Shortage,3,3,Technicians and Trades Workers
+232311,Fashion Designer,No Shortage,No Shortage,1,2,Professionals
+821311,Fencer,No Shortage,No Shortage,4,8,Labourers
+212314,Film And Video Editor,Shortage,Shortage,1,2,Professionals
+212399,"Film, Television, Radio And Stage Directors NEC",No Shortage,No Shortage,1,2,Professionals
+222112,Finance Broker,No Shortage,No Shortage,2,2,Professionals
+132211,Finance Manager,No Shortage,No Shortage,1,1,Managers
+222199,Financial Brokers NEC,No Shortage,No Shortage,2,2,Professionals
+222299,Financial Dealers NEC,No Shortage,No Shortage,1,2,Professionals
+149914,Financial Institution Branch Manager,No Shortage,No Shortage,2,1,Managers
+222311,Financial Investment Adviser,No Shortage,No Shortage,1,2,Professionals
+222312,Financial Investment Manager,No Shortage,No Shortage,1,2,Professionals
+222211,Financial Market Dealer,No Shortage,No Shortage,1,2,Professionals
+441212,Fire Fighter,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+399918,Fire Protection Equipment Technician,Regional Shortage,Regional Shortage,3,3,Technicians and Trades Workers
+334117,Fire Protection Plumber,Shortage,Shortage,3,3,Technicians and Trades Workers
+451815,First Aid Trainer,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+311311,Fisheries Officer,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+452212,Fishing Guide,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+899212,Fishing Hand,No Shortage,No Shortage,4,8,Labourers
+363112,Fishing Leading Hand,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+149112,Fitness Centre Manager,No Shortage,No Shortage,2,1,Managers
+452111,Fitness Instructor,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+323211,Fitter (General),Shortage,Shortage,3,3,Technicians and Trades Workers
+323212,Fitter And Turner,Shortage,Shortage,3,3,Technicians and Trades Workers
+323213,Fitter-Welder,Shortage,Shortage,3,3,Technicians and Trades Workers
+149411,Fleet Manager,No Shortage,No Shortage,2,1,Managers
+451711,Flight Attendant,Regional Shortage,Regional Shortage,3,4,Community and Personal Service Workers
+332111,Floor Finisher,Shortage,Shortage,3,3,Technicians and Trades Workers
+362111,Florist,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+121611,Flower Grower,No Shortage,No Shortage,1,1,Managers
+231113,Flying Instructor,Shortage,Shortage,1,2,Professionals
+234212,Food Technologist,No Shortage,No Shortage,1,2,Professionals
+711711,Footwear Production Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+234113,Forester / Forest Scientist,Shortage,Shortage,1,2,Professionals
+363113,Forestry Operations Supervisor,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+843111,Forestry Worker,No Shortage,No Shortage,4,8,Labourers
+721311,Forklift Driver,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+121612,Fruit Grower,No Shortage,No Shortage,1,1,Managers
+451311,Funeral Director,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+451399,Funeral Workers NEC,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+394211,Furniture Finisher,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+394113,Furniture Maker,Shortage,Shortage,3,3,Technicians and Trades Workers
+733113,Furniture Removalist,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+222212,Futures Trader,No Shortage,No Shortage,1,2,Professionals
+224212,Gallery Or Museum Curator,No Shortage,No Shortage,1,2,Professionals
+451411,Gallery Or Museum Guide,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+399311,Gallery Or Museum Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+431311,Gaming Worker,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+362611,Gardener (General),No Shortage,No Shortage,3,3,Technicians and Trades Workers
+399212,Gas Or Petroleum Operator,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+334114,Gasfitter,Shortage,Shortage,3,3,Technicians and Trades Workers
+253316,Gastroenterologist,Shortage,Shortage,1,2,Professionals
+531111,General Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+253111,General Practitioner,Shortage,Shortage,1,2,Professionals
+234411,Geologist,Shortage,No Shortage,1,2,Professionals
+234412,Geophysicist,Shortage,Shortage,1,2,Professionals
+233212,Geotechnical Engineer,Shortage,Shortage,1,2,Professionals
+711113,Glass Production Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+333111,Glazier,Shortage,Shortage,3,3,Technicians and Trades Workers
+121315,Goat Farmer,No Shortage,No Shortage,1,1,Managers
+721215,Grader Operator,Shortage,Shortage,4,7,Machinery Operators and Drivers
+842214,"Grain, Oilseed, Pulse And Pasture Farm Worker",No Shortage,No Shortage,4,8,Labourers
+121512,"Grain, Oilseed, Pulse Or Pasture Grower / Field Crop Grower",No Shortage,No Shortage,1,1,Managers
+232411,Graphic Designer,No Shortage,No Shortage,1,2,Professionals
+392211,Graphic Pre-Press Trades Worker,Shortage,Shortage,3,3,Technicians and Trades Workers
+323312,Gunsmith,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+452312,Gymnastics Coach Or Instructor,Shortage,Shortage,4,4,Community and Personal Service Workers
+142114,Hair Or Beauty Salon Manager,No Shortage,No Shortage,2,1,Managers
+391111,Hairdresser,Shortage,Shortage,3,3,Technicians and Trades Workers
+313111,Hardware Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+134299,Health And Welfare Services Managers NEC,No Shortage,Regional Shortage,1,1,Managers
+251999,Health Diagnostic And Promotion Professionals NEC,Shortage,Shortage,1,2,Professionals
+224213,Health Information Manager,No Shortage,No Shortage,1,2,Professionals
+512211,Health Practice Manager,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+251911,Health Promotion Officer,No Shortage,No Shortage,1,2,Professionals
+231114,Helicopter Pilot,Shortage,Shortage,1,2,Professionals
+451513,Herbalist (Western),No Shortage,No Shortage,4,4,Community and Personal Service Workers
+711712,Hide And Skin Processing Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+272411,Historian,No Shortage,No Shortage,1,2,Professionals
+821412,Home Improvement Installer,No Shortage,No Shortage,4,8,Labourers
+252212,Homoeopath,No Shortage,No Shortage,1,2,Professionals
+121316,Horse Breeder,No Shortage,No Shortage,1,1,Managers
+452313,Horse Riding Coach Or Instructor,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+361112,Horse Trainer,Shortage,Shortage,3,3,Technicians and Trades Workers
+121699,Horticultural Crop Growers NEC,No Shortage,No Shortage,1,1,Managers
+363114,Horticultural Supervisor Or Specialist,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+423311,Hospital Orderly,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+251511,Hospital Pharmacist,Regional Shortage,Regional Shortage,1,2,Professionals
+149999,"Hospitality, Retail And Service Managers NEC",No Shortage,No Shortage,2,1,Managers
+423412,Hostel Parent,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+141311,Hotel Or Motel Manager,No Shortage,No Shortage,2,1,Managers
+542113,Hotel Or Motel Receptionist,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+431411,Hotel Service Manager,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+223111,Human Resource Adviser,No Shortage,No Shortage,1,2,Professionals
+599411,Human Resource Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+132311,Human Resource Manager,No Shortage,No Shortage,1,1,Managers
+452213,Hunting Guide,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+234413,Hydrogeologist,Shortage,Shortage,1,2,Professionals
+311415,Hydrographer,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+225211,ICT Account Manager,No Shortage,No Shortage,1,2,Professionals
+261111,ICT Business Analyst,No Shortage,No Shortage,1,2,Professionals
+225212,ICT Business Development Manager,No Shortage,No Shortage,1,2,Professionals
+313112,ICT Customer Support Officer,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+135199,ICT Managers NEC,No Shortage,No Shortage,1,1,Managers
+135112,ICT Project Manager,No Shortage,No Shortage,1,1,Managers
+263211,ICT Quality Assurance Engineer,No Shortage,No Shortage,1,2,Professionals
+225213,ICT Sales Representative,No Shortage,No Shortage,1,2,Professionals
+263299,ICT Support And Test Engineers NEC,No Shortage,No Shortage,1,2,Professionals
+263212,ICT Support Engineer,No Shortage,No Shortage,1,2,Professionals
+313199,ICT Support Technicians NEC,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+263213,ICT Systems Test Engineer,No Shortage,No Shortage,1,2,Professionals
+232412,Illustrator,No Shortage,No Shortage,1,2,Professionals
+599512,Immigration Officer,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+591212,Import-Export Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+133311,Importer Or Exporter,No Shortage,No Shortage,1,1,Managers
+232312,Industrial Designer,No Shortage,No Shortage,1,2,Professionals
+233511,Industrial Engineer,No Shortage,No Shortage,1,2,Professionals
+251512,Industrial Pharmacist,No Shortage,No Shortage,1,2,Professionals
+711211,Industrial Spraypainter,Shortage,Shortage,4,7,Machinery Operators and Drivers
+224999,Information And Organisation Professionals NEC,No Shortage,No Shortage,1,2,Professionals
+541211,Information Officer,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+599599,Inspectors And Regulatory Officers NEC,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+611211,Insurance Agent,No Shortage,No Shortage,3,6,Sales Workers
+222113,Insurance Broker,No Shortage,No Shortage,2,2,Professionals
+552312,Insurance Consultant,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+599611,Insurance Investigator,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+599612,Insurance Loss Adjuster,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+599613,Insurance Risk Surveyor,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+422112,Integration Aide,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+271214,Intellectual Property Lawyer,No Shortage,No Shortage,1,2,Professionals
+224411,Intelligence Officer,No Shortage,No Shortage,1,2,Professionals
+411112,Intensive Care Ambulance Paramedic,Shortage,Shortage,1,4,Community and Personal Service Workers
+253317,Intensive Care Specialist,Shortage,Shortage,1,2,Professionals
+399912,Interior Decorator,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+232511,Interior Designer,No Shortage,No Shortage,2,2,Professionals
+221214,Internal Auditor,No Shortage,No Shortage,1,2,Professionals
+272412,Interpreter,No Shortage,No Shortage,1,2,Professionals
+599514,"Invasive Pest, Weed And Disease Inspector",No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+311115,Irrigation Designer,Shortage,Shortage,2,3,Technicians and Trades Workers
+362712,Irrigation Technician,Shortage,Shortage,3,3,Technicians and Trades Workers
+399411,Jeweller,Shortage,Shortage,3,3,Technicians and Trades Workers
+232313,Jewellery Designer,No Shortage,No Shortage,1,2,Professionals
+452413,Jockey,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+331213,Joiner,Shortage,Shortage,3,3,Technicians and Trades Workers
+212499,Journalists And Other Writers NEC,No Shortage,No Shortage,1,2,Professionals
+271299,Judicial And Other Legal Professionals NEC,No Shortage,No Shortage,1,2,Professionals
+361115,Kennel Hand,No Shortage,No Shortage,4,3,Technicians and Trades Workers
+711713,Knitting Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+139913,Laboratory Manager,No Shortage,No Shortage,1,1,Managers
+224511,Land Economist,No Shortage,No Shortage,1,2,Professionals
+232112,Landscape Architect,No Shortage,No Shortage,1,2,Professionals
+362711,Landscape Gardener,Shortage,Shortage,3,3,Technicians and Trades Workers
+599214,Law Clerk,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+393112,Leather Goods Maker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+599112,Legal Executive,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+521212,Legal Secretary,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+224912,Liaison Officer,No Shortage,No Shortage,1,2,Professionals
+224611,Librarian,No Shortage,No Shortage,1,2,Professionals
+599711,Library Assistant,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+399312,Library Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+141411,Licensed Club Manager,No Shortage,No Shortage,2,1,Managers
+311413,Life Science Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+234511,Life Scientist (General),No Shortage,No Shortage,1,2,Professionals
+234599,Life Scientists NEC,No Shortage,No Shortage,1,2,Professionals
+452414,Lifeguard,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+341113,Lift Mechanic,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+399513,Light Technician,Shortage,Shortage,3,3,Technicians and Trades Workers
+721912,Linemarker,Shortage,Shortage,4,7,Machinery Operators and Drivers
+121399,Livestock Farmers NEC,No Shortage,No Shortage,1,1,Managers
+842314,Livestock Husbandry Worker,No Shortage,No Shortage,4,8,Labourers
+721216,Loader Operator,Shortage,Shortage,4,7,Machinery Operators and Drivers
+323313,Locksmith,Shortage,Shortage,3,3,Technicians and Trades Workers
+843112,Logging Assistant,No Shortage,No Shortage,4,8,Labourers
+721112,Logging Plant Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711999,Machine Operators NEC,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+532112,Machine Shorthand Reporter,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+312911,Maintenance Planner,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+399514,Make Up Artist,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+221112,Management Accountant,No Shortage,No Shortage,1,2,Professionals
+224713,Management Consultant,No Shortage,No Shortage,1,2,Professionals
+133411,Manufacturer,No Shortage,No Shortage,1,1,Managers
+234516,Marine Biologist,No Shortage,No Shortage,1,2,Professionals
+231215,Marine Surveyor,No Shortage,No Shortage,2,2,Professionals
+231299,Marine Transport Professionals NEC,No Shortage,No Shortage,2,2,Professionals
+225112,Market Research Analyst,No Shortage,No Shortage,1,2,Professionals
+225113,Marketing Specialist,No Shortage,No Shortage,1,2,Professionals
+411611,Massage Therapist,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+231211,Master Fisher,Shortage,Shortage,2,2,Professionals
+233112,Materials Engineer,No Shortage,Shortage,1,2,Professionals
+224112,Mathematician,No Shortage,No Shortage,1,2,Professionals
+831211,Meat Boner And Slicer,No Shortage,No Shortage,4,8,Labourers
+311312,Meat Inspector,Shortage,Shortage,2,3,Technicians and Trades Workers
+233512,Mechanical Engineer,No Shortage,No Shortage,1,2,Professionals
+312511,Mechanical Engineering Draftsperson,Shortage,Shortage,2,3,Technicians and Trades Workers
+312512,Mechanical Engineering Technician,Shortage,Shortage,2,3,Technicians and Trades Workers
+212112,Media Producer (Excluding Video),No Shortage,No Shortage,1,2,Professionals
+134211,Medical Administrator / Medical Superintendent,No Shortage,No Shortage,1,1,Managers
+251211,Medical Diagnostic Radiographer,Shortage,Shortage,1,2,Professionals
+234611,Medical Laboratory Scientist,No Shortage,No Shortage,1,2,Professionals
+311213,Medical Laboratory Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+253314,Medical Oncologist,Shortage,Shortage,1,2,Professionals
+253999,Medical Practitioners NEC,Shortage,Shortage,1,2,Professionals
+251212,Medical Radiation Therapist,Regional Shortage,Regional Shortage,1,2,Professionals
+542114,Medical Receptionist,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+311299,Medical Technicians NEC,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+322114,Metal Casting Trades Worker,Shortage,Shortage,3,3,Technicians and Trades Workers
+322311,Metal Fabricator,Shortage,Shortage,3,3,Technicians and Trades Workers
+323299,Metal Fitters And Machinists NEC,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+323214,Metal Machinist (First Class),Shortage,Shortage,3,3,Technicians and Trades Workers
+322115,Metal Polisher,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+312912,Metallurgical Or Materials Technician,Shortage,Shortage,2,3,Technicians and Trades Workers
+234912,Metallurgist,Shortage,Shortage,1,2,Professionals
+234913,Meteorologist,No Shortage,No Shortage,1,2,Professionals
+234517,Microbiologist,No Shortage,No Shortage,1,2,Professionals
+241311,Middle School Teacher / Intermediate School Teacher,Shortage,Shortage,1,2,Professionals
+254111,Midwife,Shortage,Shortage,1,2,Professionals
+224913,Migration Agent / Immigration Consultant,No Shortage,No Shortage,1,2,Professionals
+312913,Mine Deputy,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+712212,Miner,Regional Shortage,Regional Shortage,4,7,Machinery Operators and Drivers
+233611,Mining Engineer (Excluding Petroleum),Shortage,Shortage,1,2,Professionals
+272211,Minister Of Religion,No Shortage,No Shortage,1,2,Professionals
+121323,Mixed Cattle And Sheep Farmer,No Shortage,No Shortage,1,1,Managers
+121799,Mixed Production Farmers NEC,No Shortage,No Shortage,1,1,Managers
+721999,Mobile Plant Operators NEC,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+552313,Money Market Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+411412,Mothercraft Nurse,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+711912,Motion Picture Projectionist,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+321211,Motor Mechanic (General),Shortage,Shortage,3,3,Technicians and Trades Workers
+599513,Motor Vehicle Licence Examiner,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+621311,Motor Vehicle Or Caravan Salesperson,No Shortage,No Shortage,4,6,Sales Workers
+899411,Motor Vehicle Parts And Accessories Fitter (General),Shortage,Shortage,4,8,Labourers
+621312,Motor Vehicle Parts Interpreter / Automotive Parts Salesperson,No Shortage,No Shortage,4,6,Sales Workers
+321213,Motorcycle Mechanic,Shortage,Shortage,3,3,Technicians and Trades Workers
+452214,Mountain Or Glacier Guide,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+232413,Multimedia Designer,No Shortage,No Shortage,1,2,Professionals
+261211,Multimedia Specialist,No Shortage,No Shortage,1,2,Professionals
+211212,Music Director,No Shortage,No Shortage,1,2,Professionals
+211299,Music Professionals NEC,No Shortage,No Shortage,1,2,Professionals
+249214,Music Teacher (Private Tuition),No Shortage,No Shortage,1,2,Professionals
+399515,Musical Instrument Maker Or Repairer,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+211213,Musician (Instrumental),No Shortage,No Shortage,1,2,Professionals
+421113,Nanny,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+234999,Natural And Physical Science Professionals NEC,No Shortage,No Shortage,1,2,Professionals
+451511,Natural Remedy Consultant,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+252213,Naturopath,No Shortage,No Shortage,1,2,Professionals
+233916,Naval Architect / Marine Designer,Shortage,Shortage,1,2,Professionals
+263112,Network Administrator,No Shortage,No Shortage,1,2,Professionals
+263113,Network Analyst,No Shortage,No Shortage,1,2,Professionals
+253318,Neurologist,Shortage,Shortage,1,2,Professionals
+253513,Neurosurgeon,Shortage,Shortage,1,2,Professionals
+212412,Newspaper Or Periodical Editor,No Shortage,No Shortage,1,2,Professionals
+251213,Nuclear Medicine Technologist,Shortage,Shortage,1,2,Professionals
+254211,Nurse Educator,No Shortage,Shortage,1,2,Professionals
+254311,Nurse Manager,No Shortage,No Shortage,1,2,Professionals
+254411,Nurse Practitioner,Shortage,Shortage,1,2,Professionals
+254212,Nurse Researcher,No Shortage,No Shortage,1,2,Professionals
+362411,Nurseryperson,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+134212,Nursing Clinical Director,No Shortage,No Shortage,1,1,Managers
+423312,Nursing Support Worker,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+121613,Nut Grower,No Shortage,No Shortage,1,1,Managers
+251112,Nutritionist,No Shortage,No Shortage,1,2,Professionals
+253913,Obstetrician And Gynaecologist,Shortage,Shortage,1,2,Professionals
+251312,Occupational Health And Safety Adviser,No Shortage,No Shortage,1,2,Professionals
+252411,Occupational Therapist,Shortage,Shortage,1,2,Professionals
+512111,Office Manager,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+311214,Operating Theatre Technician,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+253914,Ophthalmologist,Shortage,Shortage,1,2,Professionals
+399913,Optical Dispenser / Dispensing Optician,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+399914,Optical Mechanic,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+251411,Optometrist,No Shortage,No Shortage,1,2,Professionals
+591117,Order Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+224712,Organisation And Methods Analyst,No Shortage,No Shortage,1,2,Professionals
+272313,Organisational Psychologist,Shortage,Shortage,1,2,Professionals
+253514,Orthopaedic Surgeon,Shortage,Shortage,1,2,Professionals
+251412,Orthoptist,Shortage,Shortage,1,2,Professionals
+251912,Orthotist Or Prosthetist,Shortage,Shortage,1,2,Professionals
+252112,Osteopath,Shortage,Shortage,1,2,Professionals
+312914,Other Draftsperson,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+639911,Other Sales Support Worker,No Shortage,No Shortage,4,6,Sales Workers
+232214,Other Spatial Scientist,Shortage,Shortage,1,2,Professionals
+452317,Other Sports Coach Or Instructor,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+452323,Other Sports Official,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+711314,Other Wood Processing Machine Operator,Shortage,Shortage,4,7,Machinery Operators and Drivers
+253515,Otorhinolaryngologist,Shortage,Shortage,1,2,Professionals
+421114,Out Of School Hours Care Worker,Regional Shortage,Regional Shortage,3,4,Community and Personal Service Workers
+452299,Outdoor Adventure Guides NEC,Shortage,Shortage,3,4,Community and Personal Service Workers
+452215,Outdoor Adventure Instructor,Shortage,Shortage,3,4,Community and Personal Service Workers
+253516,Paediatric Surgeon,Shortage,Shortage,1,2,Professionals
+253321,Paediatrician,Shortage,Shortage,1,2,Professionals
+332211,Painter,Shortage,Shortage,3,3,Technicians and Trades Workers
+211411,Painter (Visual Arts),No Shortage,No Shortage,1,2,Professionals
+324111,Panelbeater,Shortage,Shortage,3,3,Technicians and Trades Workers
+712916,Paper And Pulp Mill Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711311,Paper Products Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+234314,Park Ranger,No Shortage,No Shortage,1,2,Professionals
+411714,Parole Or Probation Officer,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+731213,Passenger Coach Driver,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+351112,Pastrycook,Regional Shortage,Regional Shortage,3,3,Technicians and Trades Workers
+224914,Patents Examiner,No Shortage,No Shortage,1,2,Professionals
+253915,Pathologist,Shortage,Shortage,1,2,Professionals
+311216,Pathology Collector / Phlebotomist,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+721913,Paving Plant Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+551311,Payroll Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+261317,Penetration Tester,No Shortage,No Shortage,1,2,Professionals
+399599,Performing Arts Technicians NEC,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+521111,Personal Assistant,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+423313,Personal Care Assistant,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+451899,Personal Service Workers NEC,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+843411,Pest Control Technician,No Shortage,No Shortage,4,8,Labourers
+361113,Pet Groomer,No Shortage,No Shortage,4,3,Technicians and Trades Workers
+233612,Petroleum Engineer,Shortage,Shortage,1,2,Professionals
+621411,Pharmacy Sales Assistant,No Shortage,No Shortage,4,6,Sales Workers
+311215,Pharmacy Technician,Regional Shortage,Regional Shortage,2,3,Technicians and Trades Workers
+211311,Photographer,No Shortage,No Shortage,2,2,Professionals
+399915,Photographer's Assistant,No Shortage,No Shortage,4,3,Technicians and Trades Workers
+711411,Photographic Developer And Printer,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+234914,Physicist,No Shortage,No Shortage,1,2,Professionals
+252511,Physiotherapist,Shortage,Shortage,1,2,Professionals
+394212,Picture Framer,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+121318,Pig Farmer,No Shortage,No Shortage,1,1,Managers
+842315,Piggery Farm Worker,No Shortage,No Shortage,4,8,Labourers
+333211,Plasterer (Wall And Ceiling),Shortage,Shortage,3,3,Technicians and Trades Workers
+253517,Plastic And Reconstructive Surgeon,Shortage,Shortage,1,2,Professionals
+711511,Plastic Cablemaking Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711512,Plastic Compounding And Reclamation Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711599,Plastics And Rubber Production Machine Operators NEC,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711513,Plastics Fabricator Or Welder,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711514,Plastics Production Machine Operator (General),No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+399916,Plastics Technician,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+334116,Plumber (General),Shortage,Shortage,3,3,Technicians and Trades Workers
+312115,Plumbing Inspector,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+252611,Podiatrist,Shortage,Shortage,1,2,Professionals
+441312,Police Officer,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+224412,Policy Analyst,No Shortage,No Shortage,1,2,Professionals
+132411,Policy And Planning Manager,No Shortage,No Shortage,1,1,Managers
+142115,Post Office Manager,No Shortage,No Shortage,2,1,Managers
+211412,Potter Or Ceramic Artist,No Shortage,No Shortage,1,2,Professionals
+842316,Poultry Farm Worker,No Shortage,No Shortage,4,8,Labourers
+121321,Poultry Farmer,No Shortage,No Shortage,1,1,Managers
+399213,Power Generation Plant Operator,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+512299,Practice Managers NEC,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+323314,Precision Instrument Maker And Repairer,Shortage,Shortage,3,3,Technicians and Trades Workers
+422115,Preschool Aide,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+322312,Pressure Welder,Shortage,Shortage,3,3,Technicians and Trades Workers
+134213,Primary Health Organisation Manager,No Shortage,No Shortage,1,1,Managers
+311399,Primary Products Assurance And Inspection Officers NEC,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+311314,Primary Products Quality Assurance Officer,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+241213,Primary School Teacher,Shortage,Shortage,1,2,Professionals
+392111,Print Finisher,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+212413,Print Journalist,No Shortage,No Shortage,1,2,Professionals
+899511,Printer's Assistant,No Shortage,No Shortage,4,8,Labourers
+392311,Printing Machinist,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+899512,Printing Table Worker,No Shortage,No Shortage,4,8,Labourers
+442111,Prison Officer,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+442214,Private Investigator,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+249299,Private Tutors And Teachers NEC,No Shortage,No Shortage,1,2,Professionals
+133612,Procurement Manager,No Shortage,No Shortage,1,1,Managers
+839311,Product Examiner,No Shortage,No Shortage,4,8,Labourers
+839312,Product Grader,No Shortage,No Shortage,4,8,Labourers
+839313,Product Tester,No Shortage,No Shortage,4,8,Labourers
+599912,"Production Assistant (Film, Television, Radio Or Stage)",No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+591112,Production Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+133511,Production Manager (Forestry),No Shortage,No Shortage,1,1,Managers
+133512,Production Manager (Manufacturing),No Shortage,No Shortage,1,1,Managers
+133513,Production Manager (Mining),No Shortage,No Shortage,1,1,Managers
+121614,Production Nursery Grower,No Shortage,No Shortage,1,1,Managers
+233513,Production Or Plant Engineer,No Shortage,No Shortage,1,2,Professionals
+212315,Program Director (Television Or Radio),No Shortage,No Shortage,1,2,Professionals
+511112,Program Or Project Administrator,No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+133112,Project Builder,No Shortage,No Shortage,1,1,Managers
+599913,Proof Reader,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+612112,Property Manager,No Shortage,No Shortage,3,6,Sales Workers
+253411,Psychiatrist,Shortage,Shortage,1,2,Professionals
+272399,Psychologists NEC,Shortage,Shortage,1,2,Professionals
+272314,Psychotherapist,No Shortage,No Shortage,1,2,Professionals
+131114,Public Relations Manager,No Shortage,No Shortage,1,1,Managers
+225311,Public Relations Professional,No Shortage,No Shortage,1,2,Professionals
+591113,Purchasing Officer,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+139916,Quality Assurance Manager,No Shortage,No Shortage,1,1,Managers
+233213,Quantity Surveyor,Shortage,Shortage,1,2,Professionals
+253918,Radiation Oncologist,Shortage,Shortage,1,2,Professionals
+899414,Radiator Repairer,No Shortage,No Shortage,4,8,Labourers
+599914,Radio Despatcher,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+212414,Radio Journalist,No Shortage,No Shortage,1,2,Professionals
+212113,Radio Presenter,No Shortage,No Shortage,1,2,Professionals
+313211,Radiocommunications Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+712917,Railway Signal Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+149412,Railway Station Manager,No Shortage,No Shortage,2,1,Managers
+721914,Railway Track Plant Operator,Shortage,Shortage,4,7,Machinery Operators and Drivers
+821611,Railway Track Worker,Shortage,Shortage,4,8,Labourers
+612113,Real Estate Agency Principal / Real Estate Agency Licensee,No Shortage,No Shortage,2,6,Sales Workers
+612114,Real Estate Agent,No Shortage,No Shortage,3,6,Sales Workers
+612115,Real Estate Representative,No Shortage,No Shortage,3,6,Sales Workers
+542111,Receptionist (General),No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+224214,Records Manager,No Shortage,No Shortage,1,2,Professionals
+272612,Recreation Officer / Recreation Coordinator,No Shortage,No Shortage,1,2,Professionals
+223112,Recruitment Consultant,No Shortage,No Shortage,1,2,Professionals
+423413,Refuge Worker,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+134412,Regional Education Manager,No Shortage,No Shortage,1,1,Managers
+254412,Registered Nurse (Aged Care),Shortage,Shortage,1,2,Professionals
+254413,Registered Nurse (Child And Family Health),Shortage,Shortage,1,2,Professionals
+254414,Registered Nurse (Community Health),Shortage,Shortage,1,2,Professionals
+254415,Registered Nurse (Critical Care And Emergency),Shortage,Shortage,1,2,Professionals
+254416,Registered Nurse (Developmental Disability),Shortage,Shortage,1,2,Professionals
+254417,Registered Nurse (Disability And Rehabilitation),Shortage,Shortage,1,2,Professionals
+254421,Registered Nurse (Medical Practice),Regional Shortage,Regional Shortage,1,2,Professionals
+254418,Registered Nurse (Medical),Regional Shortage,Regional Shortage,1,2,Professionals
+254422,Registered Nurse (Mental Health),Shortage,Shortage,1,2,Professionals
+254425,Registered Nurse (Paediatrics),Shortage,Shortage,1,2,Professionals
+254423,Registered Nurse (Perioperative),Shortage,Shortage,1,2,Professionals
+254424,Registered Nurse (Surgical),Regional Shortage,Regional Shortage,1,2,Professionals
+254499,Registered Nurses NEC,No Shortage,No Shortage,1,2,Professionals
+139917,Regulatory Affairs Manager,No Shortage,No Shortage,1,1,Managers
+272114,Rehabilitation Counsellor,Shortage,Shortage,1,2,Professionals
+711515,Reinforced Plastic And Composite Production Worker,Shortage,Shortage,4,7,Machinery Operators and Drivers
+451816,Religious Assistant,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+253322,Renal Medicine Specialist,Shortage,Shortage,1,2,Professionals
+333212,Renderer (Solid Plaster),Shortage,Shortage,3,3,Technicians and Trades Workers
+132511,Research And Development Manager,No Shortage,No Shortage,1,1,Managers
+253112,Resident Medical Officer,Shortage,Shortage,1,2,Professionals
+411715,Residential Care Officer,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+234612,Respiratory Scientist,No Shortage,No Shortage,1,2,Professionals
+311217,Respiratory Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+639211,Retail Buyer,No Shortage,No Shortage,3,6,Sales Workers
+142111,Retail Manager (General),No Shortage,No Shortage,2,1,Managers
+251513,Retail Pharmacist,Shortage,Shortage,1,2,Professionals
+621511,Retail Supervisor,No Shortage,No Shortage,4,6,Sales Workers
+141912,Retirement Village Manager,No Shortage,No Shortage,2,1,Managers
+253323,Rheumatologist,Shortage,Shortage,1,2,Professionals
+721915,Road Roller Operator,Shortage,Shortage,4,7,Machinery Operators and Drivers
+334115,Roof Plumber,Shortage,Shortage,3,3,Technicians and Trades Workers
+333311,Roof Tiler,Shortage,Shortage,3,3,Technicians and Trades Workers
+711516,Rubber Production Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+312611,Safety Inspector,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+393113,Sail Maker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+131112,Sales And Marketing Manager,No Shortage,No Shortage,1,1,Managers
+611311,Sales Representative (Building And Plumbing Supplies),No Shortage,No Shortage,4,6,Sales Workers
+611312,Sales Representative (Business Services),No Shortage,No Shortage,4,6,Sales Workers
+225411,Sales Representative (Industrial Products),No Shortage,No Shortage,1,2,Professionals
+225412,Sales Representative (Medical And Pharmaceutical Products),No Shortage,No Shortage,1,2,Professionals
+611313,Sales Representative (Motor Vehicle Parts And Accessories),No Shortage,No Shortage,4,6,Sales Workers
+611314,Sales Representative (Personal And Household Goods),No Shortage,No Shortage,4,6,Sales Workers
+611399,Sales Representatives NEC,No Shortage,No Shortage,4,6,Sales Workers
+711913,Sand Blaster,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+323315,Saw Doctor,Shortage,Shortage,3,3,Technicians and Trades Workers
+711313,Sawmilling Operator,Shortage,Shortage,4,7,Machinery Operators and Drivers
+821712,Scaffolder,Shortage,Shortage,4,8,Labourers
+311414,School Laboratory Technician,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+134311,School Principal,No Shortage,No Shortage,1,1,Managers
+311499,Science Technicians NEC,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+392112,Screen Printer,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+211413,Sculptor,No Shortage,No Shortage,1,2,Professionals
+241411,Secondary School Teacher,Shortage,Shortage,1,2,Professionals
+521211,Secretary (General),No Shortage,No Shortage,2,5,Clerical and Administrative Workers
+442216,Security Consultant,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+442217,Security Officer,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+363199,"Senior Aquaculture, Crop And Forestry Workers NEC",No Shortage,No Shortage,3,3,Technicians and Trades Workers
+363211,Senior Beef Cattle Station Worker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+363115,Senior Broadacre Crop And Livestock Farm Worker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+363116,Senior Broadacre Crop Farm Worker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+363212,Senior Cattle And Sheep Farm Worker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+363213,Senior Dairy Cattle Farm Worker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+363299,Senior Livestock Farm Workers NEC,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+363214,Senior Piggery Stockperson,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+363215,Senior Sheep Farm Worker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+711611,Sewing Machinist,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+363311,Shearer,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+842317,Sheep Farm Worker,No Shortage,No Shortage,4,8,Labourers
+121322,Sheep Farmer,No Shortage,No Shortage,1,1,Managers
+322211,Sheetmetal Worker,Shortage,Shortage,3,3,Technicians and Trades Workers
+231212,Ship's Engineer,Shortage,Shortage,2,2,Professionals
+231213,Ship's Master,Shortage,Shortage,2,2,Professionals
+231214,Ship's Officer,Shortage,Shortage,2,2,Professionals
+399112,Shipwright,Shortage,Shortage,3,3,Technicians and Trades Workers
+393114,Shoemaker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+712213,Shot Firer,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+399611,Signwriter,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+211214,Singer,No Shortage,No Shortage,1,2,Professionals
+831212,Slaughterer,No Shortage,No Shortage,4,8,Labourers
+321214,Small Engine Mechanic,Shortage,Shortage,3,3,Technicians and Trades Workers
+392312,Small Offset Printer,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+452314,Snowsport Instructor,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+272499,Social Professionals NEC,No Shortage,No Shortage,1,2,Professionals
+599515,Social Security Assessor,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+272511,Social Worker,No Shortage,Regional Shortage,1,2,Professionals
+261399,Software And Applications Programmers NEC,No Shortage,No Shortage,1,2,Professionals
+261313,Software Engineer,No Shortage,No Shortage,1,2,Professionals
+261314,Software Tester,Shortage,Shortage,1,2,Professionals
+271311,Solicitor,Shortage,Shortage,1,2,Professionals
+251214,Sonographer,Shortage,Shortage,1,2,Professionals
+399516,Sound Technician,Shortage,Shortage,3,3,Technicians and Trades Workers
+241599,Special Education Teachers NEC,Shortage,Shortage,1,2,Professionals
+241511,Special Needs Teacher,Shortage,Shortage,1,2,Professionals
+139999,Specialist Managers NEC,No Shortage,No Shortage,1,1,Managers
+253311,Specialist Physician (General Medicine),Shortage,Shortage,1,2,Professionals
+253399,Specialist Physicians NEC,Shortage,Shortage,1,2,Professionals
+252712,Speech Pathologist / Speech Language Therapist,Shortage,Shortage,1,2,Professionals
+139915,Sports Administrator,No Shortage,No Shortage,1,1,Managers
+149113,Sports Centre Manager,No Shortage,No Shortage,2,1,Managers
+452321,Sports Development Officer,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+362312,Sports Turf Manager,Shortage,Shortage,2,3,Technicians and Trades Workers
+362313,Sports Turf Trades Worker,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+452322,Sports Umpire,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+212316,Stage Manager,No Shortage,No Shortage,1,2,Professionals
+712999,Stationary Plant Operators NEC,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+552314,Statistical Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+224116,Statistician,No Shortage,No Shortage,1,2,Professionals
+821713,Steel Fixer,Shortage,Shortage,4,8,Labourers
+711914,Sterilisation Technician,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+611112,Stock And Station Agent,No Shortage,No Shortage,3,6,Sales Workers
+591115,Stock Clerk,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+222213,Stockbroking Dealer,No Shortage,No Shortage,1,2,Professionals
+711114,Stone Processing Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+331112,Stonemason,Shortage,Shortage,3,3,Technicians and Trades Workers
+741111,Storeperson,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+721916,Streetsweeper Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+233214,Structural Engineer,Shortage,Shortage,1,2,Professionals
+821714,Structural Steel Erector,Shortage,Shortage,4,8,Labourers
+272115,Student Counsellor,No Shortage,No Shortage,1,2,Professionals
+842217,Sugar Cane Farm Worker,No Shortage,No Shortage,4,8,Labourers
+121513,Sugar Cane Grower,No Shortage,No Shortage,1,1,Managers
+133611,Supply And Distribution Manager,No Shortage,No Shortage,1,1,Managers
+224714,Supply Chain Analyst,No Shortage,No Shortage,1,2,Professionals
+253511,Surgeon (General),Shortage,Shortage,1,2,Professionals
+312116,Surveying Or Spatial Science Technician,Shortage,Shortage,2,3,Technicians and Trades Workers
+232212,Surveyor,Shortage,Shortage,1,2,Professionals
+452315,Swimming Coach Or Instructor,Shortage,Shortage,4,4,Community and Personal Service Workers
+262113,Systems Administrator,No Shortage,No Shortage,1,2,Professionals
+261112,Systems Analyst,No Shortage,No Shortage,1,2,Professionals
+733114,Tanker Driver,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+221113,Taxation Accountant,Shortage,Shortage,1,2,Professionals
+599516,Taxation Inspector,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+731112,Taxi Driver,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+249311,Teacher Of English To Speakers Of Other Languages,No Shortage,No Shortage,1,2,Professionals
+241512,Teacher Of The Hearing Impaired,Shortage,Shortage,1,2,Professionals
+241513,Teacher Of The Sight Impaired,Shortage,Shortage,1,2,Professionals
+422116,Teachers' Aide,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+342212,Technical Cable Jointer,Shortage,Shortage,3,3,Technicians and Trades Workers
+212317,Technical Director,No Shortage,No Shortage,1,2,Professionals
+225499,Technical Sales Representatives NEC,No Shortage,No Shortage,1,2,Professionals
+212415,Technical Writer,No Shortage,No Shortage,1,2,Professionals
+399999,Technicians And Trades Workers NEC,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+342412,Telecommunications Cable Jointer,Shortage,Shortage,3,3,Technicians and Trades Workers
+263311,Telecommunications Engineer,No Shortage,No Shortage,1,2,Professionals
+313212,Telecommunications Field Engineer,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+342413,Telecommunications Linesworker / Telecommunications Line Mechanic,Shortage,Shortage,3,3,Technicians and Trades Workers
+263312,Telecommunications Network Engineer,No Shortage,No Shortage,1,2,Professionals
+313213,Telecommunications Network Planner,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+313214,Telecommunications Technical Officer Or Technologist,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+342414,Telecommunications Technician,Shortage,Shortage,3,3,Technicians and Trades Workers
+399517,Television Equipment Operator,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+212416,Television Journalist,No Shortage,No Shortage,1,2,Professionals
+212114,Television Presenter,No Shortage,No Shortage,1,2,Professionals
+452316,Tennis Coach,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+711799,Textile And Footwear Production Machine Operators NEC,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+711714,Textile Dyeing And Finishing Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+323215,"Textile, Clothing And Footwear Mechanic",No Shortage,No Shortage,3,3,Technicians and Trades Workers
+423314,Therapy Aide,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+253324,Thoracic Medicine Specialist,Shortage,Shortage,1,2,Professionals
+323412,Toolmaker,Shortage,Shortage,3,3,Technicians and Trades Workers
+451412,Tour Guide,Shortage,Shortage,3,4,Community and Personal Service Workers
+451611,Tourist Information Officer,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+733115,Tow Truck Driver,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+361116,Track Rider,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+252214,Traditional Chinese Medicine Practitioner,No Shortage,No Shortage,1,2,Professionals
+712918,Train Controller,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+731311,Train Driver,Regional Shortage,Regional Shortage,4,7,Machinery Operators and Drivers
+599517,Train Examiner,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+223311,Training And Development Professional,No Shortage,No Shortage,1,2,Professionals
+731312,Tram Driver,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+272413,Translator,No Shortage,No Shortage,1,2,Professionals
+149413,Transport Company Manager,No Shortage,No Shortage,2,1,Managers
+233215,Transport Engineer,Shortage,Shortage,1,2,Professionals
+599518,Transport Operations Inspector,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+142116,Travel Agency Manager,No Shortage,No Shortage,2,1,Managers
+451799,Travel Attendants NEC,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+451612,Travel Consultant,Shortage,Shortage,3,4,Community and Personal Service Workers
+843113,Tree Faller,No Shortage,No Shortage,4,8,Labourers
+362512,Tree Worker,Shortage,Shortage,3,3,Technicians and Trades Workers
+452216,Trekking Guide,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+733111,Truck Driver (General),Shortage,Shortage,4,7,Machinery Operators and Drivers
+599215,Trust Officer,No Shortage,No Shortage,3,5,Clerical and Administrative Workers
+121615,Turf Grower,No Shortage,No Shortage,1,1,Managers
+899415,Tyre Fitter,No Shortage,No Shortage,4,8,Labourers
+242111,University Lecturer,No Shortage,No Shortage,1,2,Professionals
+242112,University Tutor,No Shortage,No Shortage,1,2,Professionals
+393311,Upholsterer,Shortage,Shortage,3,3,Technicians and Trades Workers
+232611,Urban And Regional Planner,Regional Shortage,Regional Shortage,1,2,Professionals
+253518,Urologist,Shortage,Shortage,1,2,Professionals
+261113,User Experience Designer (ICT),No Shortage,No Shortage,1,2,Professionals
+224512,Valuer,No Shortage,No Shortage,1,2,Professionals
+253521,Vascular Surgeon,Shortage,Shortage,1,2,Professionals
+121616,Vegetable Grower,No Shortage,No Shortage,1,1,Managers
+324211,Vehicle Body Builder,Shortage,Shortage,3,3,Technicians and Trades Workers
+324311,Vehicle Painter,Shortage,Shortage,3,3,Technicians and Trades Workers
+324212,Vehicle Trimmer,Shortage,Shortage,3,3,Technicians and Trades Workers
+234711,Veterinarian,Shortage,Shortage,1,2,Professionals
+361311,Veterinary Nurse,Shortage,Shortage,3,3,Technicians and Trades Workers
+212318,Video Producer,No Shortage,No Shortage,1,2,Professionals
+363117,Vineyard Supervisor,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+842222,Vineyard Worker,No Shortage,No Shortage,4,8,Labourers
+211499,Visual Arts And Crafts Professionals NEC,No Shortage,No Shortage,1,2,Professionals
+639511,Visual Merchandiser,No Shortage,No Shortage,4,6,Sales Workers
+242211,Vocational Education Teacher / Polytechnic Teacher,Shortage,Shortage,1,2,Professionals
+431511,Waiter,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+333411,Wall And Floor Tiler,Shortage,Shortage,3,3,Technicians and Trades Workers
+591116,Warehouse Administrator,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+712921,Waste Water Or Water Plant Operator,No Shortage,Shortage,4,7,Machinery Operators and Drivers
+323316,Watch And Clock Maker And Repairer,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+599521,Water Inspector,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+711715,Weaving Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+313113,Web Administrator,No Shortage,No Shortage,2,3,Technicians and Trades Workers
+232414,Web Designer,No Shortage,No Shortage,1,2,Professionals
+261212,Web Developer,No Shortage,No Shortage,1,2,Professionals
+712922,Weighbridge Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+451512,Weight Loss Consultant,No Shortage,No Shortage,4,4,Community and Personal Service Workers
+322313,Welder (First Class),Shortage,Shortage,3,3,Technicians and Trades Workers
+134214,Welfare Centre Manager,No Shortage,No Shortage,1,1,Managers
+272613,Welfare Worker,No Shortage,Regional Shortage,1,2,Professionals
+452217,Whitewater Rafting Guide,No Shortage,No Shortage,3,4,Community and Personal Service Workers
+133312,Wholesaler,No Shortage,No Shortage,1,1,Managers
+121617,Wine Grape Grower,No Shortage,No Shortage,1,1,Managers
+234213,Wine Maker,No Shortage,No Shortage,1,2,Professionals
+394213,Wood Machinist,Shortage,Shortage,3,3,Technicians and Trades Workers
+394299,Wood Machinists And Other Wood Trades Workers NEC,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+394214,Wood Turner,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+639212,Wool Buyer,No Shortage,No Shortage,3,6,Sales Workers
+363312,Wool Classer,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+532113,Word Processing Operator,No Shortage,No Shortage,4,5,Clerical and Administrative Workers
+223113,Workplace Relations Adviser,No Shortage,No Shortage,1,2,Professionals
+711716,Yarn Carding And Spinning Machine Operator,No Shortage,No Shortage,4,7,Machinery Operators and Drivers
+411716,Youth Worker,No Shortage,No Shortage,2,4,Community and Personal Service Workers
+361114,Zookeeper,No Shortage,No Shortage,3,3,Technicians and Trades Workers
+234522,Zoologist,No Shortage,No Shortage,1,2,Professionals

@@ -17,9 +17,6 @@ build/
 .env.test.local
 .env.production.local
 
-# ── Data pipeline — raw source files (too large, may contain PII) ──
-data/raw/
-
 # ── AWS / Cloudflare credentials ──
 .aws/
 .wrangler/
@@ -33,10 +30,13 @@ data/raw/
 # ── OS ──
 .DS_Store
 Thumbs.db
+__MACOSX/
+._*
 
 # ── Logs ──
 *.log
 npm-debug.log*
+docs/logs/
 
 # ── TypeScript ──
 *.tsbuildinfo
@@ -54,15 +54,29 @@ __pycache__/
 *.pyo
 *.pyd
 *.pyi
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+*.ipynb
 
-# ── Data pipeline — processed & output files ──
+# ── Pipeline outputs — auto-generated, do not commit ──
 data/pathwayiq-Data Pipeline/pipeline/logs/
 data/pathwayiq-Data Pipeline/pipeline/profiles/
 data/pathwayiq-Data Pipeline/pipeline/silver/
-data/pathwayiq-Data Pipeline/cleaned_data/
+data/pathwayiq-Data Pipeline/pipeline/logs/*.csv
 *.parquet
 
-# ── Raw data files ──
-*.xlsx
-*.csv
-~$*
+# ── Database build outputs ──
+data/pathwayiq-Data Pipeline/database/build/
+*.sqlite
+*.sql
+
+# ── Frontend export data ──
+data/pathwayiq-Data Pipeline/frontend_exports/
+
+# ── YData Profiling reports ──
+docs/profiles/
+
+# ── Word temp lock files ──
+~$*.docx
+~$*.doc

@@ -1,0 +1,1480 @@
+program_id,industry_label,pct_employed_in_industry,rank
+10727NAT,Foundation/Non-Vocational,0.0,ind_top1
+10728NAT,Accommodation And Food Services,18.7,ind_top1
+10729NAT,Health Care And Social Assistance,29.2,ind_top1
+10797NAT,Retail Trade,92.1,ind_top1
+10949NAT,Accommodation And Food Services,53.3,ind_top1
+10971NAT,Accommodation And Food Services,36.5,ind_top1
+10984NAT,Accommodation And Food Services,21.8,ind_top1
+10985NAT,Health Care And Social Assistance,20.7,ind_top1
+11022NAT,Health Care And Social Assistance,25.2,ind_top1
+11039NAT,Accommodation And Food Services,43.1,ind_top1
+11042NAT,Health Care And Social Assistance,22.2,ind_top1
+11046NAT,Health Care And Social Assistance,24.4,ind_top1
+11225NAT,Accommodation And Food Services,30.1,ind_top1
+11236NAT,Accommodation And Food Services,35.9,ind_top1
+11240NAT,Retail Trade,24.5,ind_top1
+22470VIC,Retail Trade,22.9,ind_top1
+22472VIC,Foundation/Non-Vocational,0.0,ind_top1
+22473VIC,Accommodation And Food Services,31.7,ind_top1
+22476VIC,Foundation/Non-Vocational,0.0,ind_top1
+22485VIC,Accommodation And Food Services,16.7,ind_top1
+22486VIC,Accommodation And Food Services,19.0,ind_top1
+22499VIC,Construction,47.3,ind_top1
+22582VIC,Retail Trade,29.5,ind_top1
+22603VIC,"Professional, Scientific And Technical Services",21.1,ind_top1
+22614VIC,Construction,54.9,ind_top1
+22638VIC,Foundation/Non-Vocational,0.0,ind_top1
+22639VIC,Health Care And Social Assistance,25.1,ind_top1
+22640VIC,Retail Trade,17.3,ind_top1
+52887WA,Construction,64.8,ind_top1
+52893WA,Construction,53.8,ind_top1
+52895WA,Retail Trade,35.3,ind_top1
+ACM20121,Retail Trade,29.1,ind_top1
+ACM30122,Retail Trade,27.2,ind_top1
+ACM30321,Arts And Recreational Services,39.7,ind_top1
+ACM40418,"Professional, Scientific And Technical Services",85.2,ind_top1
+AHC10120,Foundation/Non-Vocational,0.0,ind_top1
+AHC20116,"Agriculture, Forestry And Fishing",32.0,ind_top1
+AHC20416,Administrative And Support Services,20.3,ind_top1
+AHC20422,Education And Training,31.1,ind_top1
+AHC21216,"Agriculture, Forestry And Fishing",19.0,ind_top1
+AHC30116,"Agriculture, Forestry And Fishing",66.3,ind_top1
+AHC30716,Administrative And Support Services,36.2,ind_top1
+AHC30722,Administrative And Support Services,30.1,ind_top1
+AHC30820,Administrative And Support Services,84.1,ind_top1
+AHC30921,Construction,78.9,ind_top1
+AHC31021,Administrative And Support Services,54.3,ind_top1
+AHC31421,"Agriculture, Forestry And Fishing",36.0,ind_top1
+AHC41316,"Agriculture, Forestry And Fishing",70.8,ind_top1
+AMP20316,Manufacturing,83.5,ind_top1
+AMP30216,Manufacturing,85.3,ind_top1
+AUR10120,Foundation/Non-Vocational,0.0,ind_top1
+AUR20220,Other Services,60.5,ind_top1
+AUR20520,Other Services,50.6,ind_top1
+AUR20720,Other Services,28.1,ind_top1
+AUR30320,Other Services,68.8,ind_top1
+AUR30620,Other Services,81.8,ind_top1
+AUR31020,Retail Trade,42.4,ind_top1
+AUR31120,Other Services,76.1,ind_top1
+AUR31220,Mining,49.6,ind_top1
+AUR32120,Other Services,90.6,ind_top1
+AUR32420,Other Services,82.9,ind_top1
+AVI20118,Public Administration And Safety,64.3,ind_top1
+AVI30419,Accommodation And Food Services,29.6,ind_top1
+BSB10120,Foundation/Non-Vocational,0.0,ind_top1
+BSB20120,Accommodation And Food Services,35.7,ind_top1
+BSB30120,Accommodation And Food Services,18.7,ind_top1
+BSB30220,Other Services,15.9,ind_top1
+BSB30420,Accommodation And Food Services,17.3,ind_top1
+BSB40120,Education And Training,13.2,ind_top1
+BSB40320,Health Care And Social Assistance,14.8,ind_top1
+BSB40420,Health Care And Social Assistance,20.1,ind_top1
+BSB40520,Health Care And Social Assistance,18.4,ind_top1
+BSB40720,Information Media And Telecommunications,22.9,ind_top1
+BSB40820,Accommodation And Food Services,22.6,ind_top1
+BSB40920,Public Administration And Safety,21.8,ind_top1
+BSB41419,Construction,21.6,ind_top1
+BSB50120,Retail Trade,24.2,ind_top1
+BSB50320,Health Care And Social Assistance,19.8,ind_top1
+BSB50420,Health Care And Social Assistance,24.9,ind_top1
+BSB50520,Information Media And Telecommunications,37.3,ind_top1
+BSB50820,Construction,23.3,ind_top1
+BSB50920,Health Care And Social Assistance,38.6,ind_top1
+BSB51319,Construction,19.2,ind_top1
+BSB60420,Public Administration And Safety,28.9,ind_top1
+BSB80120,Education And Training,55.9,ind_top1
+CHC14015,Foundation/Non-Vocational,0.0,ind_top1
+CHC22015,Accommodation And Food Services,33.9,ind_top1
+CHC24015,Accommodation And Food Services,46.5,ind_top1
+CHC30121,Health Care And Social Assistance,78.7,ind_top1
+CHC30221,Education And Training,72.2,ind_top1
+CHC32015,Health Care And Social Assistance,50.3,ind_top1
+CHC33015,Health Care And Social Assistance,85.2,ind_top1
+CHC33021,Health Care And Social Assistance,83.2,ind_top1
+CHC40221,Education And Training,79.8,ind_top1
+CHC40313,Health Care And Social Assistance,80.6,ind_top1
+CHC40321,Health Care And Social Assistance,83.9,ind_top1
+CHC40413,Health Care And Social Assistance,62.4,ind_top1
+CHC40421,Health Care And Social Assistance,51.2,ind_top1
+CHC41015,Health Care And Social Assistance,19.0,ind_top1
+CHC42015,Health Care And Social Assistance,69.6,ind_top1
+CHC42021,Health Care And Social Assistance,58.5,ind_top1
+CHC43015,Health Care And Social Assistance,87.6,ind_top1
+CHC43115,Health Care And Social Assistance,83.8,ind_top1
+CHC43121,Health Care And Social Assistance,90.7,ind_top1
+CHC43215,Health Care And Social Assistance,76.1,ind_top1
+CHC43315,Health Care And Social Assistance,78.6,ind_top1
+CHC43415,Health Care And Social Assistance,91.3,ind_top1
+CHC43515,Health Care And Social Assistance,82.2,ind_top1
+CHC50121,Health Care And Social Assistance,80.6,ind_top1
+CHC50221,Health Care And Social Assistance,77.6,ind_top1
+CHC51015,Health Care And Social Assistance,54.5,ind_top1
+CHC52015,Health Care And Social Assistance,78.8,ind_top1
+CHC52021,Health Care And Social Assistance,76.9,ind_top1
+CHC53315,Health Care And Social Assistance,74.1,ind_top1
+CHC62015,Health Care And Social Assistance,84.5,ind_top1
+CPC10120,Foundation/Non-Vocational,0.0,ind_top1
+CPC20220,Construction,36.7,ind_top1
+CPC30220,Construction,94.0,ind_top1
+CPC30320,Construction,88.5,ind_top1
+CPC30620,Construction,94.7,ind_top1
+CPC31320,Construction,97.9,ind_top1
+CPC31420,Construction,91.1,ind_top1
+CPC32420,Construction,87.0,ind_top1
+CPC33020,Construction,84.0,ind_top1
+CPC40120,Construction,78.4,ind_top1
+CPC40920,Construction,85.2,ind_top1
+CPC50220,Construction,74.8,ind_top1
+CPP20218,Public Administration And Safety,52.8,ind_top1
+CPP30321,Administrative And Support Services,57.7,ind_top1
+CPP31318,Public Administration And Safety,78.8,ind_top1
+CPP40121,Construction,26.5,ind_top1
+CPP41419,Rental Hiring And Real Estate Services,63.1,ind_top1
+CPP51122,Rental Hiring And Real Estate Services,82.1,ind_top1
+CSC30120,Public Administration And Safety,97.9,ind_top1
+CSC30122,Public Administration And Safety,96.4,ind_top1
+CSC40122,Public Administration And Safety,97.0,ind_top1
+CUA20120,Accommodation And Food Services,42.8,ind_top1
+CUA20220,Accommodation And Food Services,35.5,ind_top1
+CUA20620,Accommodation And Food Services,36.8,ind_top1
+CUA20720,Accommodation And Food Services,29.5,ind_top1
+CUA30120,Accommodation And Food Services,29.9,ind_top1
+CUA30420,Accommodation And Food Services,27.3,ind_top1
+CUA30720,Retail Trade,31.6,ind_top1
+CUA30920,Accommodation And Food Services,39.0,ind_top1
+CUA31020,Retail Trade,33.8,ind_top1
+CUA31120,Retail Trade,31.4,ind_top1
+CUA40720,Retail Trade,31.1,ind_top1
+CUA41120,"Professional, Scientific And Technical Services",27.4,ind_top1
+CUA41220,Retail Trade,28.9,ind_top1
+CUA50720,Retail Trade,30.8,ind_top1
+CUA50820,Accommodation And Food Services,17.5,ind_top1
+CUA51020,Retail Trade,28.1,ind_top1
+CUA51120,Retail Trade,24.9,ind_top1
+CUA60620,Information Media And Telecommunications,30.2,ind_top1
+FBP20122,Manufacturing,36.7,ind_top1
+FBP20221,Retail Trade,36.0,ind_top1
+FBP30121,Manufacturing,57.8,ind_top1
+FBP30521,Manufacturing,72.8,ind_top1
+FNS10120,Foundation/Non-Vocational,0.0,ind_top1
+FNS20120,Accommodation And Food Services,41.1,ind_top1
+FNS30122,Financial And Insurance Services,87.3,ind_top1
+FNS30322,Retail Trade,12.8,ind_top1
+FNS40222,"Professional, Scientific And Technical Services",20.1,ind_top1
+FNS40821,Financial And Insurance Services,66.0,ind_top1
+FNS50222,"Professional, Scientific And Technical Services",24.5,ind_top1
+FNS50322,Financial And Insurance Services,86.7,ind_top1
+FSK10219,Foundation/Non-Vocational,0.0,ind_top1
+FSK20119,Accommodation And Food Services,40.8,ind_top1
+HLT21020,Health Care And Social Assistance,28.4,ind_top1
+HLT23221,Accommodation And Food Services,42.2,ind_top1
+HLT31120,Health Care And Social Assistance,56.8,ind_top1
+HLT33015,Health Care And Social Assistance,44.8,ind_top1
+HLT33021,Health Care And Social Assistance,56.7,ind_top1
+HLT33115,Health Care And Social Assistance,51.1,ind_top1
+HLT35021,Health Care And Social Assistance,92.3,ind_top1
+HLT37015,Health Care And Social Assistance,77.5,ind_top1
+HLT37215,Health Care And Social Assistance,79.9,ind_top1
+HLT37315,Health Care And Social Assistance,64.9,ind_top1
+HLT42021,Health Care And Social Assistance,59.9,ind_top1
+HLT43015,Health Care And Social Assistance,72.4,ind_top1
+HLT43021,Health Care And Social Assistance,56.1,ind_top1
+HLT45021,Health Care And Social Assistance,95.2,ind_top1
+HLT47315,Health Care And Social Assistance,85.6,ind_top1
+HLT47321,Health Care And Social Assistance,81.3,ind_top1
+HLT47815,Health Care And Social Assistance,92.4,ind_top1
+HLT51020,Health Care And Social Assistance,57.7,ind_top1
+HLT52015,Health Care And Social Assistance,69.5,ind_top1
+HLT52021,Health Care And Social Assistance,79.7,ind_top1
+HLT54121,Health Care And Social Assistance,88.3,ind_top1
+ICT20120,Accommodation And Food Services,31.4,ind_top1
+ICT30120,Retail Trade,21.7,ind_top1
+ICT30519,Information Media And Telecommunications,42.4,ind_top1
+ICT40120,"Professional, Scientific And Technical Services",30.5,ind_top1
+ICT50220,"Professional, Scientific And Technical Services",26.6,ind_top1
+MAR10220,Foundation/Non-Vocational,0.0,ind_top1
+MAR20321,"Transport, Postal And Warehousing",27.5,ind_top1
+MAR30921,"Transport, Postal And Warehousing",43.0,ind_top1
+MEA20518,Accommodation And Food Services,25.7,ind_top1
+MEM10119,Foundation/Non-Vocational,0.0,ind_top1
+MEM20105,Manufacturing,28.7,ind_top1
+MEM20422,Accommodation And Food Services,22.9,ind_top1
+MEM30219,Manufacturing,31.5,ind_top1
+MEM30319,Manufacturing,71.2,ind_top1
+MEM30522,Accommodation And Food Services,27.4,ind_top1
+MEM31419,Other Services,54.1,ind_top1
+MEM31922,Manufacturing,67.1,ind_top1
+MEM40119,Manufacturing,31.1,ind_top1
+MSF30322,Construction,48.5,ind_top1
+MSF40122,Retail Trade,28.2,ind_top1
+MSF50222,Retail Trade,32.3,ind_top1
+MSL20122,Accommodation And Food Services,43.7,ind_top1
+MSL30122,Accommodation And Food Services,39.2,ind_top1
+MSL40118,"Professional, Scientific And Technical Services",39.3,ind_top1
+MSL40122,Health Care And Social Assistance,27.9,ind_top1
+MSL50122,Health Care And Social Assistance,39.4,ind_top1
+MSM30116,Manufacturing,31.3,ind_top1
+MSM40116,Manufacturing,62.7,ind_top1
+MST31022,Manufacturing,27.5,ind_top1
+NWP30222,"Electricity, Gas, Water And Waste Services",55.2,ind_top1
+PMA30120,Manufacturing,51.3,ind_top1
+PSP20218,Health Care And Social Assistance,32.7,ind_top1
+PSP30218,Education And Training,36.6,ind_top1
+PSP40122,Public Administration And Safety,75.6,ind_top1
+PSP40416,Public Administration And Safety,76.0,ind_top1
+PSP40616,Public Administration And Safety,63.0,ind_top1
+PSP50122,Public Administration And Safety,78.6,ind_top1
+PSP50616,Public Administration And Safety,62.6,ind_top1
+PUA20119,Accommodation And Food Services,22.7,ind_top1
+PUA20622,Public Administration And Safety,80.0,ind_top1
+PUA20719,Public Administration And Safety,32.3,ind_top1
+PUA30622,Public Administration And Safety,96.4,ind_top1
+PUA40319,Public Administration And Safety,95.0,ind_top1
+RII20120,Construction,25.8,ind_top1
+RII20920,Mining,51.5,ind_top1
+RII30120,Mining,87.6,ind_top1
+RII30719,Mining,65.0,ind_top1
+RII30820,Construction,61.3,ind_top1
+RII30920,Construction,69.7,ind_top1
+RII31820,Mining,62.8,ind_top1
+RII40720,Construction,70.6,ind_top1
+RII60520,Construction,19.5,ind_top1
+SFL30115,Retail Trade,54.4,ind_top1
+SHB20121,Accommodation And Food Services,48.2,ind_top1
+SHB20216,Other Services,38.6,ind_top1
+SHB30121,Other Services,33.9,ind_top1
+SHB30221,Retail Trade,36.6,ind_top1
+SHB30321,Other Services,36.9,ind_top1
+SHB30416,Other Services,87.4,ind_top1
+SHB30516,Other Services,90.5,ind_top1
+SHB50121,Other Services,64.0,ind_top1
+SIR20216,Accommodation And Food Services,52.8,ind_top1
+SIR30116,Retail Trade,84.6,ind_top1
+SIR30216,Accommodation And Food Services,48.7,ind_top1
+SIR40316,Retail Trade,60.9,ind_top1
+SIS20122,Accommodation And Food Services,34.2,ind_top1
+SIS20321,Accommodation And Food Services,28.7,ind_top1
+SIS20419,Accommodation And Food Services,35.6,ind_top1
+SIS30115,Accommodation And Food Services,23.8,ind_top1
+SIS30122,Education And Training,24.1,ind_top1
+SIS30321,Arts And Recreational Services,19.1,ind_top1
+SIS30521,Education And Training,28.3,ind_top1
+SIS40221,Arts And Recreational Services,34.8,ind_top1
+SIT10222,Foundation/Non-Vocational,0.0,ind_top1
+SIT20122,Accommodation And Food Services,51.1,ind_top1
+SIT20322,Accommodation And Food Services,57.1,ind_top1
+SIT20421,Accommodation And Food Services,55.1,ind_top1
+SIT30122,Retail Trade,27.5,ind_top1
+SIT30222,Administrative And Support Services,78.9,ind_top1
+SIT30622,Accommodation And Food Services,66.2,ind_top1
+SIT30821,Accommodation And Food Services,83.3,ind_top1
+SIT30921,Education And Training,94.0,ind_top1
+SIT31021,Accommodation And Food Services,41.9,ind_top1
+SIT40422,Accommodation And Food Services,74.9,ind_top1
+SIT40521,Accommodation And Food Services,84.7,ind_top1
+SIT40721,Accommodation And Food Services,52.0,ind_top1
+SIT50422,Accommodation And Food Services,83.5,ind_top1
+TAE40116,Education And Training,40.8,ind_top1
+TAE40122,Education And Training,43.5,ind_top1
+TAE50116,Education And Training,85.9,ind_top1
+TAE50216,Education And Training,77.7,ind_top1
+TLI20421,Retail Trade,17.3,ind_top1
+TLI27121,Construction,47.0,ind_top1
+TLI30321,"Transport, Postal And Warehousing",30.4,ind_top1
+TLI31222,"Transport, Postal And Warehousing",81.0,ind_top1
+TLI31421,"Transport, Postal And Warehousing",94.1,ind_top1
+TLI41222,Education And Training,49.5,ind_top1
+TLI42622,"Transport, Postal And Warehousing",78.2,ind_top1
+UEE20120,Construction,79.6,ind_top1
+UEE22020,Construction,38.0,ind_top1
+UEE30820,Construction,73.3,ind_top1
+UEE32220,Construction,66.4,ind_top1
+UEE40420,Mining,47.5,ind_top1
+UEE42622,Mining,44.3,ind_top1
+10727NAT,,0.0,ind_top2
+10728NAT,Health Care And Social Assistance,18.6,ind_top2
+10729NAT,Accommodation And Food Services,14.4,ind_top2
+10797NAT,Health Care And Social Assistance,6.6,ind_top2
+10949NAT,Retail Trade,17.3,ind_top2
+10971NAT,Retail Trade,33.5,ind_top2
+10984NAT,Manufacturing,16.9,ind_top2
+10985NAT,Retail Trade,15.4,ind_top2
+11022NAT,Retail Trade,18.7,ind_top2
+11039NAT,Retail Trade,24.2,ind_top2
+11042NAT,Accommodation And Food Services,13.2,ind_top2
+11046NAT,Other Services,17.7,ind_top2
+11225NAT,Retail Trade,23.7,ind_top2
+11236NAT,Retail Trade,30.0,ind_top2
+11240NAT,Health Care And Social Assistance,19.5,ind_top2
+22470VIC,Accommodation And Food Services,22.7,ind_top2
+22472VIC,,0.0,ind_top2
+22473VIC,Retail Trade,26.1,ind_top2
+22476VIC,,0.0,ind_top2
+22485VIC,Administrative And Support Services,13.5,ind_top2
+22486VIC,Health Care And Social Assistance,16.6,ind_top2
+22499VIC,Accommodation And Food Services,17.4,ind_top2
+22582VIC,Accommodation And Food Services,27.5,ind_top2
+22603VIC,Public Administration And Safety,13.8,ind_top2
+22614VIC,Accommodation And Food Services,9.8,ind_top2
+22638VIC,,0.0,ind_top2
+22639VIC,Accommodation And Food Services,14.7,ind_top2
+22640VIC,Health Care And Social Assistance,12.7,ind_top2
+52887WA,Accommodation And Food Services,15.2,ind_top2
+52893WA,Retail Trade,15.9,ind_top2
+52895WA,Accommodation And Food Services,24.2,ind_top2
+ACM20121,Accommodation And Food Services,18.1,ind_top2
+ACM30122,Other Services,22.0,ind_top2
+ACM30321,Accommodation And Food Services,14.5,ind_top2
+ACM40418,Retail Trade,4.8,ind_top2
+AHC10120,,0.0,ind_top2
+AHC20116,Accommodation And Food Services,14.4,ind_top2
+AHC20416,Accommodation And Food Services,14.7,ind_top2
+AHC20422,Administrative And Support Services,18.0,ind_top2
+AHC21216,Accommodation And Food Services,16.7,ind_top2
+AHC30116,Manufacturing,4.6,ind_top2
+AHC30716,"Agriculture, Forestry And Fishing",12.6,ind_top2
+AHC30722,Education And Training,18.8,ind_top2
+AHC30820,"Agriculture, Forestry And Fishing",6.1,ind_top2
+AHC30921,Administrative And Support Services,8.2,ind_top2
+AHC31021,Education And Training,13.0,ind_top2
+AHC31421,Arts And Recreational Services,13.5,ind_top2
+AHC41316,Wholesale Trade,4.8,ind_top2
+AMP20316,"Transport, Postal And Warehousing",4.1,ind_top2
+AMP30216,Retail Trade,3.2,ind_top2
+AUR10120,,0.0,ind_top2
+AUR20220,Mining,26.2,ind_top2
+AUR20520,Retail Trade,12.2,ind_top2
+AUR20720,Accommodation And Food Services,20.7,ind_top2
+AUR30320,Mining,17.1,ind_top2
+AUR30620,Retail Trade,8.2,ind_top2
+AUR31020,Other Services,19.7,ind_top2
+AUR31120,Mining,7.7,ind_top2
+AUR31220,Other Services,39.3,ind_top2
+AUR32120,Manufacturing,3.0,ind_top2
+AUR32420,Manufacturing,6.5,ind_top2
+AVI20118,"Transport, Postal And Warehousing",23.1,ind_top2
+AVI30419,Retail Trade,26.7,ind_top2
+BSB10120,,0.0,ind_top2
+BSB20120,Retail Trade,25.8,ind_top2
+BSB30120,Retail Trade,18.0,ind_top2
+BSB30220,Health Care And Social Assistance,15.1,ind_top2
+BSB30420,Information Media And Telecommunications,16.3,ind_top2
+BSB40120,Health Care And Social Assistance,12.5,ind_top2
+BSB40320,"Professional, Scientific And Technical Services",14.2,ind_top2
+BSB40420,Public Administration And Safety,15.7,ind_top2
+BSB40520,Public Administration And Safety,15.1,ind_top2
+BSB40720,Education And Training,20.7,ind_top2
+BSB40820,Retail Trade,15.7,ind_top2
+BSB40920,Construction,20.1,ind_top2
+BSB41419,Public Administration And Safety,12.7,ind_top2
+BSB50120,Accommodation And Food Services,21.9,ind_top2
+BSB50320,"Professional, Scientific And Technical Services",18.9,ind_top2
+BSB50420,Public Administration And Safety,16.2,ind_top2
+BSB50520,Education And Training,29.6,ind_top2
+BSB50820,Public Administration And Safety,21.5,ind_top2
+BSB50920,Public Administration And Safety,11.8,ind_top2
+BSB51319,Public Administration And Safety,16.0,ind_top2
+BSB60420,Health Care And Social Assistance,15.2,ind_top2
+BSB80120,Health Care And Social Assistance,8.6,ind_top2
+CHC14015,,0.0,ind_top2
+CHC22015,Retail Trade,32.7,ind_top2
+CHC24015,Retail Trade,26.1,ind_top2
+CHC30121,Education And Training,13.8,ind_top2
+CHC30221,Health Care And Social Assistance,8.5,ind_top2
+CHC32015,Accommodation And Food Services,12.0,ind_top2
+CHC33015,Accommodation And Food Services,4.2,ind_top2
+CHC33021,Accommodation And Food Services,4.4,ind_top2
+CHC40221,Health Care And Social Assistance,8.7,ind_top2
+CHC40313,Education And Training,6.7,ind_top2
+CHC40321,Education And Training,7.6,ind_top2
+CHC40413,Education And Training,18.4,ind_top2
+CHC40421,Education And Training,18.2,ind_top2
+CHC41015,Education And Training,18.1,ind_top2
+CHC42015,Education And Training,8.0,ind_top2
+CHC42021,Education And Training,9.9,ind_top2
+CHC43015,Accommodation And Food Services,3.5,ind_top2
+CHC43115,Accommodation And Food Services,3.5,ind_top2
+CHC43121,Education And Training,7.0,ind_top2
+CHC43215,Public Administration And Safety,7.6,ind_top2
+CHC43315,Education And Training,5.7,ind_top2
+CHC43415,Retail Trade,1.7,ind_top2
+CHC43515,Retail Trade,5.7,ind_top2
+CHC50121,Education And Training,16.2,ind_top2
+CHC50221,Education And Training,17.9,ind_top2
+CHC51015,Education And Training,16.9,ind_top2
+CHC52015,Education And Training,5.2,ind_top2
+CHC52021,Public Administration And Safety,4.1,ind_top2
+CHC53315,Education And Training,9.7,ind_top2
+CHC62015,Education And Training,10.1,ind_top2
+CPC10120,,0.0,ind_top2
+CPC20220,Accommodation And Food Services,19.0,ind_top2
+CPC30220,Manufacturing,1.2,ind_top2
+CPC30320,Education And Training,3.2,ind_top2
+CPC30620,Manufacturing,1.6,ind_top2
+CPC31320,Education And Training,1.6,ind_top2
+CPC31420,Public Administration And Safety,2.7,ind_top2
+CPC32420,"Electricity, Gas, Water And Waste Services",9.4,ind_top2
+CPC33020,Manufacturing,5.3,ind_top2
+CPC40120,"Professional, Scientific And Technical Services",4.2,ind_top2
+CPC40920,"Electricity, Gas, Water And Waste Services",5.2,ind_top2
+CPC50220,Manufacturing,4.9,ind_top2
+CPP20218,Accommodation And Food Services,7.3,ind_top2
+CPP30321,Education And Training,24.9,ind_top2
+CPP31318,"Transport, Postal And Warehousing",10.0,ind_top2
+CPP40121,"Professional, Scientific And Technical Services",21.3,ind_top2
+CPP41419,"Professional, Scientific And Technical Services",5.1,ind_top2
+CPP51122,Construction,4.3,ind_top2
+CSC30120,Other Services,0.9,ind_top2
+CSC30122,Retail Trade,0.7,ind_top2
+CSC40122,Health Care And Social Assistance,2.4,ind_top2
+CUA20120,Education And Training,27.3,ind_top2
+CUA20220,Retail Trade,32.2,ind_top2
+CUA20620,Retail Trade,26.7,ind_top2
+CUA20720,Retail Trade,29.4,ind_top2
+CUA30120,Education And Training,25.5,ind_top2
+CUA30420,Retail Trade,23.5,ind_top2
+CUA30720,Accommodation And Food Services,20.3,ind_top2
+CUA30920,Retail Trade,24.9,ind_top2
+CUA31020,Accommodation And Food Services,31.1,ind_top2
+CUA31120,Accommodation And Food Services,19.1,ind_top2
+CUA40720,Accommodation And Food Services,21.9,ind_top2
+CUA41120,Accommodation And Food Services,16.9,ind_top2
+CUA41220,Accommodation And Food Services,26.7,ind_top2
+CUA50720,"Professional, Scientific And Technical Services",17.3,ind_top2
+CUA50820,Arts And Recreational Services,13.8,ind_top2
+CUA51020,Accommodation And Food Services,25.8,ind_top2
+CUA51120,Accommodation And Food Services,22.7,ind_top2
+CUA60620,Retail Trade,29.6,ind_top2
+FBP20122,Accommodation And Food Services,33.3,ind_top2
+FBP20221,Accommodation And Food Services,32.0,ind_top2
+FBP30121,Accommodation And Food Services,8.8,ind_top2
+FBP30521,Accommodation And Food Services,15.0,ind_top2
+FNS10120,,0.0,ind_top2
+FNS20120,Retail Trade,29.5,ind_top2
+FNS30122,Administrative And Support Services,3.8,ind_top2
+FNS30322,Health Care And Social Assistance,11.6,ind_top2
+FNS40222,Health Care And Social Assistance,16.1,ind_top2
+FNS40821,"Professional, Scientific And Technical Services",6.7,ind_top2
+FNS50222,Retail Trade,12.1,ind_top2
+FNS50322,"Professional, Scientific And Technical Services",4.7,ind_top2
+FSK10219,,0.0,ind_top2
+FSK20119,Retail Trade,23.4,ind_top2
+HLT21020,Mining,16.2,ind_top2
+HLT23221,Retail Trade,29.8,ind_top2
+HLT31120,Retail Trade,13.4,ind_top2
+HLT33015,Accommodation And Food Services,24.0,ind_top2
+HLT33021,Retail Trade,17.2,ind_top2
+HLT33115,Accommodation And Food Services,20.2,ind_top2
+HLT35021,Retail Trade,2.2,ind_top2
+HLT37015,Accommodation And Food Services,5.0,ind_top2
+HLT37215,Retail Trade,5.1,ind_top2
+HLT37315,Retail Trade,10.9,ind_top2
+HLT42021,Other Services,15.2,ind_top2
+HLT43015,Education And Training,8.2,ind_top2
+HLT43021,Retail Trade,19.3,ind_top2
+HLT45021,Education And Training,3.1,ind_top2
+HLT47315,Administrative And Support Services,3.5,ind_top2
+HLT47321,Retail Trade,4.5,ind_top2
+HLT47815,Retail Trade,4.3,ind_top2
+HLT51020,Mining,14.1,ind_top2
+HLT52015,Other Services,7.7,ind_top2
+HLT52021,Education And Training,4.1,ind_top2
+HLT54121,Retail Trade,3.6,ind_top2
+ICT20120,Retail Trade,21.5,ind_top2
+ICT30120,Accommodation And Food Services,21.1,ind_top2
+ICT30519,Construction,38.7,ind_top2
+ICT40120,Retail Trade,11.2,ind_top2
+ICT50220,Retail Trade,14.2,ind_top2
+MAR10220,,0.0,ind_top2
+MAR20321,Public Administration And Safety,13.2,ind_top2
+MAR30921,"Agriculture, Forestry And Fishing",23.1,ind_top2
+MEA20518,Retail Trade,20.3,ind_top2
+MEM10119,,0.0,ind_top2
+MEM20105,Other Services,20.3,ind_top2
+MEM20422,Retail Trade,19.9,ind_top2
+MEM30219,Other Services,28.7,ind_top2
+MEM30319,Construction,13.6,ind_top2
+MEM30522,Manufacturing,14.5,ind_top2
+MEM31419,Mining,26.2,ind_top2
+MEM31922,Construction,13.7,ind_top2
+MEM40119,Mining,26.7,ind_top2
+MSF30322,Manufacturing,47.4,ind_top2
+MSF40122,"Professional, Scientific And Technical Services",17.9,ind_top2
+MSF50222,"Professional, Scientific And Technical Services",29.2,ind_top2
+MSL20122,Retail Trade,33.5,ind_top2
+MSL30122,Retail Trade,19.2,ind_top2
+MSL40118,Health Care And Social Assistance,16.7,ind_top2
+MSL40122,"Professional, Scientific And Technical Services",23.9,ind_top2
+MSL50122,"Professional, Scientific And Technical Services",19.3,ind_top2
+MSM30116,Retail Trade,12.0,ind_top2
+MSM40116,Construction,19.7,ind_top2
+MST31022,Retail Trade,26.9,ind_top2
+NWP30222,Public Administration And Safety,20.6,ind_top2
+PMA30120,Mining,28.9,ind_top2
+PSP20218,Education And Training,32.2,ind_top2
+PSP30218,Health Care And Social Assistance,31.4,ind_top2
+PSP40122,"Professional, Scientific And Technical Services",7.7,ind_top2
+PSP40416,Health Care And Social Assistance,4.8,ind_top2
+PSP40616,Health Care And Social Assistance,12.7,ind_top2
+PSP50122,Education And Training,6.4,ind_top2
+PSP50616,Health Care And Social Assistance,13.1,ind_top2
+PUA20119,Health Care And Social Assistance,13.5,ind_top2
+PUA20622,Accommodation And Food Services,4.9,ind_top2
+PUA20719,Construction,11.0,ind_top2
+PUA30622,Mining,1.4,ind_top2
+PUA40319,"Transport, Postal And Warehousing",4.4,ind_top2
+RII20120,Accommodation And Food Services,17.1,ind_top2
+RII20920,Construction,35.1,ind_top2
+RII30120,Construction,4.3,ind_top2
+RII30719,Manufacturing,12.3,ind_top2
+RII30820,Public Administration And Safety,6.7,ind_top2
+RII30920,Public Administration And Safety,8.6,ind_top2
+RII31820,Construction,32.1,ind_top2
+RII40720,Public Administration And Safety,14.1,ind_top2
+RII60520,"Professional, Scientific And Technical Services",17.6,ind_top2
+SFL30115,Accommodation And Food Services,8.8,ind_top2
+SHB20121,Retail Trade,31.1,ind_top2
+SHB20216,Accommodation And Food Services,29.1,ind_top2
+SHB30121,Accommodation And Food Services,26.7,ind_top2
+SHB30221,Other Services,21.0,ind_top2
+SHB30321,Retail Trade,23.3,ind_top2
+SHB30416,Retail Trade,3.4,ind_top2
+SHB30516,Accommodation And Food Services,2.4,ind_top2
+SHB50121,Retail Trade,13.5,ind_top2
+SIR20216,Retail Trade,19.6,ind_top2
+SIR30116,Health Care And Social Assistance,7.3,ind_top2
+SIR30216,Retail Trade,29.9,ind_top2
+SIR40316,Wholesale Trade,22.0,ind_top2
+SIS20122,Retail Trade,27.6,ind_top2
+SIS20321,Retail Trade,23.1,ind_top2
+SIS20419,Retail Trade,24.2,ind_top2
+SIS30115,Retail Trade,23.6,ind_top2
+SIS30122,Retail Trade,17.9,ind_top2
+SIS30321,Accommodation And Food Services,15.4,ind_top2
+SIS30521,Arts And Recreational Services,19.2,ind_top2
+SIS40221,Education And Training,12.8,ind_top2
+SIT10222,,0.0,ind_top2
+SIT20122,Retail Trade,27.0,ind_top2
+SIT20322,Retail Trade,19.8,ind_top2
+SIT20421,Retail Trade,20.1,ind_top2
+SIT30122,Accommodation And Food Services,25.8,ind_top2
+SIT30222,Accommodation And Food Services,4.3,ind_top2
+SIT30622,Retail Trade,8.2,ind_top2
+SIT30821,Health Care And Social Assistance,6.6,ind_top2
+SIT30921,Accommodation And Food Services,3.3,ind_top2
+SIT31021,Manufacturing,20.8,ind_top2
+SIT40422,Retail Trade,5.2,ind_top2
+SIT40521,Health Care And Social Assistance,5.4,ind_top2
+SIT40721,Manufacturing,23.3,ind_top2
+SIT50422,Education And Training,7.7,ind_top2
+TAE40116,Health Care And Social Assistance,18.2,ind_top2
+TAE40122,Health Care And Social Assistance,16.8,ind_top2
+TAE50116,Public Administration And Safety,2.7,ind_top2
+TAE50216,Public Administration And Safety,8.9,ind_top2
+TLI20421,Construction,16.0,ind_top2
+TLI27121,"Transport, Postal And Warehousing",20.0,ind_top2
+TLI30321,Wholesale Trade,15.4,ind_top2
+TLI31222,"Electricity, Gas, Water And Waste Services",4.3,ind_top2
+TLI31421,Public Administration And Safety,3.0,ind_top2
+TLI41222,"Transport, Postal And Warehousing",13.9,ind_top2
+TLI42622,Mining,19.0,ind_top2
+UEE20120,Mining,12.4,ind_top2
+UEE22020,Accommodation And Food Services,16.7,ind_top2
+UEE30820,"Electricity, Gas, Water And Waste Services",8.2,ind_top2
+UEE32220,Other Services,27.0,ind_top2
+UEE40420,Construction,26.7,ind_top2
+UEE42622,Construction,30.0,ind_top2
+10727NAT,,0.0,ind_top3
+10728NAT,Manufacturing,12.6,ind_top3
+10729NAT,Manufacturing,9.7,ind_top3
+10797NAT,Public Administration And Safety,0.5,ind_top3
+10949NAT,Arts And Recreational Services,16.1,ind_top3
+10971NAT,Health Care And Social Assistance,5.1,ind_top3
+10984NAT,Wholesale Trade,15.9,ind_top3
+10985NAT,Administrative And Support Services,15.2,ind_top3
+11022NAT,Accommodation And Food Services,12.7,ind_top3
+11039NAT,Construction,15.4,ind_top3
+11042NAT,Education And Training,11.1,ind_top3
+11046NAT,Arts And Recreational Services,15.5,ind_top3
+11225NAT,Health Care And Social Assistance,10.1,ind_top3
+11236NAT,Education And Training,9.6,ind_top3
+11240NAT,Accommodation And Food Services,18.0,ind_top3
+22470VIC,Manufacturing,16.1,ind_top3
+22472VIC,,0.0,ind_top3
+22473VIC,Construction,9.2,ind_top3
+22476VIC,,0.0,ind_top3
+22485VIC,Health Care And Social Assistance,13.2,ind_top3
+22486VIC,Retail Trade,13.2,ind_top3
+22499VIC,Retail Trade,6.3,ind_top3
+22582VIC,Education And Training,7.9,ind_top3
+22603VIC,Retail Trade,11.5,ind_top3
+22614VIC,Retail Trade,8.4,ind_top3
+22638VIC,,0.0,ind_top3
+22639VIC,Other Services,12.0,ind_top3
+22640VIC,Administrative And Support Services,11.9,ind_top3
+52887WA,Retail Trade,11.0,ind_top3
+52893WA,Accommodation And Food Services,12.2,ind_top3
+52895WA,Health Care And Social Assistance,21.3,ind_top3
+ACM20121,"Professional, Scientific And Technical Services",15.5,ind_top3
+ACM30122,Accommodation And Food Services,16.4,ind_top3
+ACM30321,Retail Trade,13.8,ind_top3
+ACM40418,Other Services,3.4,ind_top3
+AHC10120,,0.0,ind_top3
+AHC20116,Retail Trade,13.2,ind_top3
+AHC20416,"Agriculture, Forestry And Fishing",11.8,ind_top3
+AHC20422,Retail Trade,16.3,ind_top3
+AHC21216,Retail Trade,15.9,ind_top3
+AHC30116,Other Services,4.0,ind_top3
+AHC30716,Retail Trade,10.2,ind_top3
+AHC30722,Retail Trade,12.5,ind_top3
+AHC30820,Public Administration And Safety,3.2,ind_top3
+AHC30921,Retail Trade,1.9,ind_top3
+AHC31021,Public Administration And Safety,12.0,ind_top3
+AHC31421,Public Administration And Safety,9.5,ind_top3
+AHC41316,Public Administration And Safety,4.5,ind_top3
+AMP20316,Administrative And Support Services,3.2,ind_top3
+AMP30216,"Agriculture, Forestry And Fishing",2.7,ind_top3
+AUR10120,,0.0,ind_top3
+AUR20220,Construction,4.2,ind_top3
+AUR20520,Accommodation And Food Services,8.2,ind_top3
+AUR20720,Retail Trade,19.2,ind_top3
+AUR30320,Manufacturing,3.8,ind_top3
+AUR30620,Mining,2.8,ind_top3
+AUR31020,Wholesale Trade,16.8,ind_top3
+AUR31120,"Transport, Postal And Warehousing",6.3,ind_top3
+AUR31220,Construction,4.4,ind_top3
+AUR32120,Retail Trade,1.9,ind_top3
+AUR32420,"Transport, Postal And Warehousing",2.5,ind_top3
+AVI20118,Health Care And Social Assistance,2.7,ind_top3
+AVI30419,Other Services,5.4,ind_top3
+BSB10120,,0.0,ind_top3
+BSB20120,Construction,5.6,ind_top3
+BSB30120,Health Care And Social Assistance,11.6,ind_top3
+BSB30220,Retail Trade,12.4,ind_top3
+BSB30420,Education And Training,15.8,ind_top3
+BSB40120,Retail Trade,11.6,ind_top3
+BSB40320,Education And Training,13.5,ind_top3
+BSB40420,Education And Training,10.9,ind_top3
+BSB40520,Manufacturing,10.6,ind_top3
+BSB40720,Health Care And Social Assistance,14.0,ind_top3
+BSB40820,"Professional, Scientific And Technical Services",10.3,ind_top3
+BSB40920,Health Care And Social Assistance,8.2,ind_top3
+BSB41419,Mining,10.7,ind_top3
+BSB50120,Health Care And Social Assistance,11.1,ind_top3
+BSB50320,Administrative And Support Services,10.1,ind_top3
+BSB50420,Education And Training,11.1,ind_top3
+BSB50520,Retail Trade,8.1,ind_top3
+BSB50820,"Professional, Scientific And Technical Services",11.1,ind_top3
+BSB50920,Education And Training,9.8,ind_top3
+BSB51319,Mining,14.7,ind_top3
+BSB60420,Education And Training,11.1,ind_top3
+BSB80120,"Professional, Scientific And Technical Services",6.2,ind_top3
+CHC14015,,0.0,ind_top3
+CHC22015,Health Care And Social Assistance,14.0,ind_top3
+CHC24015,Education And Training,7.5,ind_top3
+CHC30121,Retail Trade,2.0,ind_top3
+CHC30221,Retail Trade,7.0,ind_top3
+CHC32015,Retail Trade,9.9,ind_top3
+CHC33015,Administrative And Support Services,2.1,ind_top3
+CHC33021,Retail Trade,2.5,ind_top3
+CHC40221,Retail Trade,3.3,ind_top3
+CHC40313,Retail Trade,3.9,ind_top3
+CHC40321,Public Administration And Safety,4.6,ind_top3
+CHC40413,Public Administration And Safety,6.5,ind_top3
+CHC40421,Retail Trade,8.1,ind_top3
+CHC41015,"Professional, Scientific And Technical Services",11.3,ind_top3
+CHC42015,Retail Trade,5.2,ind_top3
+CHC42021,Retail Trade,8.7,ind_top3
+CHC43015,Retail Trade,2.5,ind_top3
+CHC43115,Education And Training,1.8,ind_top3
+CHC43121,"Professional, Scientific And Technical Services",1.1,ind_top3
+CHC43215,Accommodation And Food Services,4.6,ind_top3
+CHC43315,Retail Trade,2.5,ind_top3
+CHC43415,Arts And Recreational Services,1.2,ind_top3
+CHC43515,Administrative And Support Services,2.6,ind_top3
+CHC50121,Retail Trade,0.5,ind_top3
+CHC50221,Accommodation And Food Services,1.9,ind_top3
+CHC51015,Public Administration And Safety,4.5,ind_top3
+CHC52015,Public Administration And Safety,4.7,ind_top3
+CHC52021,Education And Training,3.4,ind_top3
+CHC53315,Retail Trade,2.6,ind_top3
+CHC62015,Public Administration And Safety,2.1,ind_top3
+CPC10120,,0.0,ind_top3
+CPC20220,Retail Trade,14.1,ind_top3
+CPC30220,Education And Training,0.8,ind_top3
+CPC30320,Public Administration And Safety,3.1,ind_top3
+CPC30620,Accommodation And Food Services,1.6,ind_top3
+CPC31320,"Agriculture, Forestry And Fishing",0.5,ind_top3
+CPC31420,"Transport, Postal And Warehousing",2.0,ind_top3
+CPC32420,Mining,0.7,ind_top3
+CPC33020,Mining,2.3,ind_top3
+CPC40120,Manufacturing,2.4,ind_top3
+CPC40920,Mining,4.8,ind_top3
+CPC50220,"Professional, Scientific And Technical Services",3.6,ind_top3
+CPP20218,Retail Trade,6.8,ind_top3
+CPP30321,Health Care And Social Assistance,4.5,ind_top3
+CPP31318,Manufacturing,2.3,ind_top3
+CPP40121,Retail Trade,11.8,ind_top3
+CPP41419,Construction,4.3,ind_top3
+CPP51122,Retail Trade,2.7,ind_top3
+CSC30120,Health Care And Social Assistance,0.7,ind_top3
+CSC30122,Accommodation And Food Services,0.6,ind_top3
+CSC40122,Education And Training,0.6,ind_top3
+CUA20120,Retail Trade,17.2,ind_top3
+CUA20220,Manufacturing,6.8,ind_top3
+CUA20620,Education And Training,9.1,ind_top3
+CUA20720,Health Care And Social Assistance,9.9,ind_top3
+CUA30120,Retail Trade,24.0,ind_top3
+CUA30420,Arts And Recreational Services,12.6,ind_top3
+CUA30720,Health Care And Social Assistance,7.8,ind_top3
+CUA30920,Education And Training,10.2,ind_top3
+CUA31020,Arts And Recreational Services,6.1,ind_top3
+CUA31120,Education And Training,10.2,ind_top3
+CUA40720,"Professional, Scientific And Technical Services",7.7,ind_top3
+CUA41120,Education And Training,8.7,ind_top3
+CUA41220,Information Media And Telecommunications,9.6,ind_top3
+CUA50720,Accommodation And Food Services,13.5,ind_top3
+CUA50820,Health Care And Social Assistance,13.7,ind_top3
+CUA51020,Information Media And Telecommunications,9.6,ind_top3
+CUA51120,Arts And Recreational Services,16.8,ind_top3
+CUA60620,"Professional, Scientific And Technical Services",11.3,ind_top3
+FBP20122,Retail Trade,13.2,ind_top3
+FBP20221,Manufacturing,16.3,ind_top3
+FBP30121,"Transport, Postal And Warehousing",8.1,ind_top3
+FBP30521,Retail Trade,8.5,ind_top3
+FNS10120,,0.0,ind_top3
+FNS20120,Construction,10.1,ind_top3
+FNS30122,Retail Trade,2.8,ind_top3
+FNS30322,Arts And Recreational Services,10.9,ind_top3
+FNS40222,Retail Trade,9.6,ind_top3
+FNS40821,Retail Trade,5.2,ind_top3
+FNS50222,Health Care And Social Assistance,10.1,ind_top3
+FNS50322,Rental Hiring And Real Estate Services,1.3,ind_top3
+FSK10219,,0.0,ind_top3
+FSK20119,Other Services,6.4,ind_top3
+HLT21020,"Professional, Scientific And Technical Services",11.0,ind_top3
+HLT23221,Health Care And Social Assistance,13.5,ind_top3
+HLT31120,Accommodation And Food Services,6.2,ind_top3
+HLT33015,Retail Trade,15.5,ind_top3
+HLT33021,Accommodation And Food Services,7.7,ind_top3
+HLT33115,Retail Trade,15.8,ind_top3
+HLT35021,Accommodation And Food Services,1.2,ind_top3
+HLT37015,Manufacturing,3.3,ind_top3
+HLT37215,Education And Training,3.5,ind_top3
+HLT37315,Accommodation And Food Services,6.2,ind_top3
+HLT42021,Retail Trade,9.6,ind_top3
+HLT43015,Accommodation And Food Services,5.4,ind_top3
+HLT43021,Education And Training,9.7,ind_top3
+HLT45021,"Agriculture, Forestry And Fishing",0.7,ind_top3
+HLT47315,Retail Trade,2.7,ind_top3
+HLT47321,Education And Training,3.7,ind_top3
+HLT47815,Construction,1.3,ind_top3
+HLT51020,Public Administration And Safety,5.4,ind_top3
+HLT52015,Retail Trade,4.6,ind_top3
+HLT52021,Other Services,3.7,ind_top3
+HLT54121,Accommodation And Food Services,3.1,ind_top3
+ICT20120,Education And Training,13.2,ind_top3
+ICT30120,"Professional, Scientific And Technical Services",12.7,ind_top3
+ICT30519,Other Services,5.3,ind_top3
+ICT40120,Public Administration And Safety,10.4,ind_top3
+ICT50220,Education And Training,12.0,ind_top3
+MAR10220,,0.0,ind_top3
+MAR20321,"Agriculture, Forestry And Fishing",10.4,ind_top3
+MAR30921,Public Administration And Safety,8.2,ind_top3
+MEA20518,Manufacturing,16.5,ind_top3
+MEM10119,,0.0,ind_top3
+MEM20105,Mining,13.9,ind_top3
+MEM20422,Construction,16.7,ind_top3
+MEM30219,Mining,26.6,ind_top3
+MEM30319,Mining,6.1,ind_top3
+MEM30522,"Professional, Scientific And Technical Services",13.9,ind_top3
+MEM31419,Construction,5.4,ind_top3
+MEM31922,Mining,9.2,ind_top3
+MEM40119,Other Services,23.2,ind_top3
+MSF30322,"Transport, Postal And Warehousing",1.1,ind_top3
+MSF40122,Accommodation And Food Services,11.7,ind_top3
+MSF50222,Construction,8.6,ind_top3
+MSL20122,Health Care And Social Assistance,4.6,ind_top3
+MSL30122,"Professional, Scientific And Technical Services",7.9,ind_top3
+MSL40118,Construction,14.4,ind_top3
+MSL40122,Education And Training,15.7,ind_top3
+MSL50122,Education And Training,12.0,ind_top3
+MSM30116,"Transport, Postal And Warehousing",10.4,ind_top3
+MSM40116,Wholesale Trade,5.7,ind_top3
+MST31022,Other Services,8.4,ind_top3
+NWP30222,Construction,11.6,ind_top3
+PMA30120,"Electricity, Gas, Water And Waste Services",6.1,ind_top3
+PSP20218,Retail Trade,8.9,ind_top3
+PSP30218,"Professional, Scientific And Technical Services",6.2,ind_top3
+PSP40122,Administrative And Support Services,6.4,ind_top3
+PSP40416,Arts And Recreational Services,4.7,ind_top3
+PSP40616,Construction,6.6,ind_top3
+PSP50122,Health Care And Social Assistance,5.9,ind_top3
+PSP50616,Construction,8.8,ind_top3
+PUA20119,Construction,13.3,ind_top3
+PUA20622,Construction,4.0,ind_top3
+PUA20719,Arts And Recreational Services,8.7,ind_top3
+PUA30622,Education And Training,1.0,ind_top3
+PUA40319,Education And Training,0.6,ind_top3
+RII20120,Retail Trade,10.8,ind_top3
+RII20920,"Transport, Postal And Warehousing",4.8,ind_top3
+RII30120,"Transport, Postal And Warehousing",1.5,ind_top3
+RII30719,Health Care And Social Assistance,8.5,ind_top3
+RII30820,Mining,6.0,ind_top3
+RII30920,"Transport, Postal And Warehousing",3.7,ind_top3
+RII31820,Public Administration And Safety,2.5,ind_top3
+RII40720,"Professional, Scientific And Technical Services",7.0,ind_top3
+RII60520,Retail Trade,16.5,ind_top3
+SFL30115,Education And Training,6.6,ind_top3
+SHB20121,Other Services,13.0,ind_top3
+SHB20216,Retail Trade,19.8,ind_top3
+SHB30121,Retail Trade,22.3,ind_top3
+SHB30221,Accommodation And Food Services,14.3,ind_top3
+SHB30321,Accommodation And Food Services,14.1,ind_top3
+SHB30416,Health Care And Social Assistance,2.7,ind_top3
+SHB30516,Health Care And Social Assistance,1.4,ind_top3
+SHB50121,Health Care And Social Assistance,9.9,ind_top3
+SIR20216,Administrative And Support Services,4.8,ind_top3
+SIR30116,Administrative And Support Services,1.5,ind_top3
+SIR30216,Health Care And Social Assistance,5.2,ind_top3
+SIR40316,Accommodation And Food Services,7.5,ind_top3
+SIS20122,Arts And Recreational Services,10.9,ind_top3
+SIS20321,Arts And Recreational Services,14.3,ind_top3
+SIS20419,Arts And Recreational Services,6.9,ind_top3
+SIS30115,Arts And Recreational Services,14.1,ind_top3
+SIS30122,Arts And Recreational Services,16.8,ind_top3
+SIS30321,Retail Trade,15.2,ind_top3
+SIS30521,Accommodation And Food Services,16.6,ind_top3
+SIS40221,Other Services,11.1,ind_top3
+SIT10222,,0.0,ind_top3
+SIT20122,Arts And Recreational Services,3.7,ind_top3
+SIT20322,Health Care And Social Assistance,4.6,ind_top3
+SIT20421,Health Care And Social Assistance,5.5,ind_top3
+SIT30122,"Transport, Postal And Warehousing",9.8,ind_top3
+SIT30222,"Transport, Postal And Warehousing",2.9,ind_top3
+SIT30622,Arts And Recreational Services,6.8,ind_top3
+SIT30821,Manufacturing,2.3,ind_top3
+SIT30921,Health Care And Social Assistance,1.5,ind_top3
+SIT31021,Health Care And Social Assistance,7.6,ind_top3
+SIT40422,Public Administration And Safety,3.0,ind_top3
+SIT40521,Education And Training,5.3,ind_top3
+SIT40721,Health Care And Social Assistance,6.8,ind_top3
+SIT50422,Manufacturing,2.5,ind_top3
+TAE40116,Public Administration And Safety,10.4,ind_top3
+TAE40122,Public Administration And Safety,9.6,ind_top3
+TAE50116,Construction,2.5,ind_top3
+TAE50216,Health Care And Social Assistance,3.5,ind_top3
+TLI20421,Accommodation And Food Services,15.1,ind_top3
+TLI27121,Mining,9.2,ind_top3
+TLI30321,Manufacturing,14.6,ind_top3
+TLI31222,Mining,2.8,ind_top3
+TLI31421,Health Care And Social Assistance,1.9,ind_top3
+TLI41222,Health Care And Social Assistance,9.5,ind_top3
+TLI42622,Education And Training,0.6,ind_top3
+UEE20120,"Electricity, Gas, Water And Waste Services",2.5,ind_top3
+UEE22020,Retail Trade,15.1,ind_top3
+UEE30820,Mining,7.1,ind_top3
+UEE32220,Education And Training,2.2,ind_top3
+UEE40420,Manufacturing,13.4,ind_top3
+UEE42622,"Electricity, Gas, Water And Waste Services",9.7,ind_top3
+10727NAT,Certificate I foundation/non-vocational pathway,,ind_top4
+22472VIC,Certificate I foundation/non-vocational pathway,,ind_top4
+22476VIC,Certificate I foundation/non-vocational pathway,,ind_top4
+22638VIC,Certificate I foundation/non-vocational pathway,,ind_top4
+AHC10120,Certificate I foundation/non-vocational pathway,,ind_top4
+AUR10120,Certificate I foundation/non-vocational pathway,,ind_top4
+BSB10120,Certificate I foundation/non-vocational pathway,,ind_top4
+CHC14015,Certificate I foundation/non-vocational pathway,,ind_top4
+CPC10120,Certificate I foundation/non-vocational pathway,,ind_top4
+FNS10120,Certificate I foundation/non-vocational pathway,,ind_top4
+FSK10219,Certificate I foundation/non-vocational pathway,,ind_top4
+MAR10220,Certificate I foundation/non-vocational pathway,,ind_top4
+MEM10119,Certificate I foundation/non-vocational pathway,,ind_top4
+SIT10222,Certificate I foundation/non-vocational pathway,,ind_top4
+10727NAT,False,0.0,ind_top5
+10728NAT,False,49.9,ind_top5
+10729NAT,False,53.3,ind_top5
+10797NAT,False,99.2,ind_top5
+10949NAT,False,86.7,ind_top5
+10971NAT,False,75.1,ind_top5
+10984NAT,False,54.6,ind_top5
+10985NAT,False,51.3,ind_top5
+11022NAT,False,56.6,ind_top5
+11039NAT,False,82.7,ind_top5
+11042NAT,False,46.5,ind_top5
+11046NAT,False,57.6,ind_top5
+11225NAT,False,63.9,ind_top5
+11236NAT,False,75.5,ind_top5
+11240NAT,False,62.0,ind_top5
+22470VIC,False,61.7,ind_top5
+22472VIC,False,0.0,ind_top5
+22473VIC,False,67.0,ind_top5
+22476VIC,False,0.0,ind_top5
+22485VIC,False,43.4,ind_top5
+22486VIC,False,48.8,ind_top5
+22499VIC,False,71.0,ind_top5
+22582VIC,False,64.9,ind_top5
+22603VIC,False,46.4,ind_top5
+22614VIC,False,73.1,ind_top5
+22638VIC,False,0.0,ind_top5
+22639VIC,False,51.8,ind_top5
+22640VIC,False,41.9,ind_top5
+52887WA,False,91.0,ind_top5
+52893WA,False,81.9,ind_top5
+52895WA,False,80.8,ind_top5
+ACM20121,False,62.7,ind_top5
+ACM30122,False,65.6,ind_top5
+ACM30321,False,68.0,ind_top5
+ACM40418,False,93.4,ind_top5
+AHC10120,False,0.0,ind_top5
+AHC20116,False,59.6,ind_top5
+AHC20416,False,46.8,ind_top5
+AHC20422,False,65.4,ind_top5
+AHC21216,False,51.6,ind_top5
+AHC30116,False,74.9,ind_top5
+AHC30716,False,59.0,ind_top5
+AHC30722,False,61.4,ind_top5
+AHC30820,False,93.4,ind_top5
+AHC30921,False,89.0,ind_top5
+AHC31021,False,79.3,ind_top5
+AHC31421,False,59.0,ind_top5
+AHC41316,False,80.1,ind_top5
+AMP20316,False,90.8,ind_top5
+AMP30216,False,91.2,ind_top5
+AUR10120,False,0.0,ind_top5
+AUR20220,False,90.9,ind_top5
+AUR20520,False,71.0,ind_top5
+AUR20720,False,68.0,ind_top5
+AUR30320,False,89.7,ind_top5
+AUR30620,False,92.8,ind_top5
+AUR31020,False,78.9,ind_top5
+AUR31120,False,90.1,ind_top5
+AUR31220,False,93.3,ind_top5
+AUR32120,False,95.5,ind_top5
+AUR32420,False,91.9,ind_top5
+AVI20118,False,90.1,ind_top5
+AVI30419,False,61.7,ind_top5
+BSB10120,False,0.0,ind_top5
+BSB20120,False,67.1,ind_top5
+BSB30120,False,48.3,ind_top5
+BSB30220,False,43.4,ind_top5
+BSB30420,False,49.4,ind_top5
+BSB40120,False,37.3,ind_top5
+BSB40320,False,42.5,ind_top5
+BSB40420,False,46.7,ind_top5
+BSB40520,False,44.1,ind_top5
+BSB40720,False,57.6,ind_top5
+BSB40820,False,48.6,ind_top5
+BSB40920,False,50.1,ind_top5
+BSB41419,False,45.0,ind_top5
+BSB50120,False,57.2,ind_top5
+BSB50320,False,48.8,ind_top5
+BSB50420,False,52.2,ind_top5
+BSB50520,False,75.0,ind_top5
+BSB50820,False,55.9,ind_top5
+BSB50920,False,60.2,ind_top5
+BSB51319,False,49.9,ind_top5
+BSB60420,False,55.2,ind_top5
+BSB80120,False,70.7,ind_top5
+CHC14015,False,0.0,ind_top5
+CHC22015,False,80.6,ind_top5
+CHC24015,False,80.1,ind_top5
+CHC30121,False,94.5,ind_top5
+CHC30221,False,87.7,ind_top5
+CHC32015,False,72.2,ind_top5
+CHC33015,False,91.5,ind_top5
+CHC33021,False,90.1,ind_top5
+CHC40221,False,91.8,ind_top5
+CHC40313,False,91.2,ind_top5
+CHC40321,False,96.1,ind_top5
+CHC40413,False,87.3,ind_top5
+CHC40421,False,77.5,ind_top5
+CHC41015,False,48.4,ind_top5
+CHC42015,False,82.8,ind_top5
+CHC42021,False,77.1,ind_top5
+CHC43015,False,93.6,ind_top5
+CHC43115,False,89.1,ind_top5
+CHC43121,False,98.8,ind_top5
+CHC43215,False,88.3,ind_top5
+CHC43315,False,86.8,ind_top5
+CHC43415,False,94.2,ind_top5
+CHC43515,False,90.5,ind_top5
+CHC50121,False,97.3,ind_top5
+CHC50221,False,97.4,ind_top5
+CHC51015,False,75.9,ind_top5
+CHC52015,False,88.7,ind_top5
+CHC52021,False,84.4,ind_top5
+CHC53315,False,86.4,ind_top5
+CHC62015,False,96.7,ind_top5
+CPC10120,False,0.0,ind_top5
+CPC20220,False,69.8,ind_top5
+CPC30220,False,96.0,ind_top5
+CPC30320,False,94.8,ind_top5
+CPC30620,False,97.9,ind_top5
+CPC31320,False,100.0,ind_top5
+CPC31420,False,95.8,ind_top5
+CPC32420,False,97.1,ind_top5
+CPC33020,False,91.6,ind_top5
+CPC40120,False,85.0,ind_top5
+CPC40920,False,95.2,ind_top5
+CPC50220,False,83.3,ind_top5
+CPP20218,False,66.9,ind_top5
+CPP30321,False,87.1,ind_top5
+CPP31318,False,91.1,ind_top5
+CPP40121,False,59.6,ind_top5
+CPP41419,False,72.5,ind_top5
+CPP51122,False,89.1,ind_top5
+CSC30120,False,99.5,ind_top5
+CSC30122,False,97.7,ind_top5
+CSC40122,False,100.0,ind_top5
+CUA20120,False,87.3,ind_top5
+CUA20220,False,74.5,ind_top5
+CUA20620,False,72.6,ind_top5
+CUA20720,False,68.8,ind_top5
+CUA30120,False,79.4,ind_top5
+CUA30420,False,63.4,ind_top5
+CUA30720,False,59.7,ind_top5
+CUA30920,False,74.1,ind_top5
+CUA31020,False,71.0,ind_top5
+CUA31120,False,60.7,ind_top5
+CUA40720,False,60.7,ind_top5
+CUA41120,False,53.0,ind_top5
+CUA41220,False,65.2,ind_top5
+CUA50720,False,61.6,ind_top5
+CUA50820,False,45.0,ind_top5
+CUA51020,False,63.5,ind_top5
+CUA51120,False,64.4,ind_top5
+CUA60620,False,71.1,ind_top5
+FBP20122,False,83.2,ind_top5
+FBP20221,False,84.3,ind_top5
+FBP30121,False,74.7,ind_top5
+FBP30521,False,96.3,ind_top5
+FNS10120,False,0.0,ind_top5
+FNS20120,False,80.7,ind_top5
+FNS30122,False,93.9,ind_top5
+FNS30322,False,35.3,ind_top5
+FNS40222,False,45.8,ind_top5
+FNS40821,False,77.9,ind_top5
+FNS50222,False,46.7,ind_top5
+FNS50322,False,92.7,ind_top5
+FSK10219,False,0.0,ind_top5
+FSK20119,False,70.6,ind_top5
+HLT21020,False,55.6,ind_top5
+HLT23221,False,85.5,ind_top5
+HLT31120,False,76.4,ind_top5
+HLT33015,False,84.3,ind_top5
+HLT33021,False,81.6,ind_top5
+HLT33115,False,87.1,ind_top5
+HLT35021,False,95.7,ind_top5
+HLT37015,False,85.8,ind_top5
+HLT37215,False,88.5,ind_top5
+HLT37315,False,82.0,ind_top5
+HLT42021,False,84.7,ind_top5
+HLT43015,False,86.0,ind_top5
+HLT43021,False,85.1,ind_top5
+HLT45021,False,99.0,ind_top5
+HLT47315,False,91.8,ind_top5
+HLT47321,False,89.5,ind_top5
+HLT47815,False,98.0,ind_top5
+HLT51020,False,77.2,ind_top5
+HLT52015,False,81.8,ind_top5
+HLT52021,False,87.5,ind_top5
+HLT54121,False,95.0,ind_top5
+ICT20120,False,66.1,ind_top5
+ICT30120,False,55.5,ind_top5
+ICT30519,False,86.4,ind_top5
+ICT40120,False,52.1,ind_top5
+ICT50220,False,52.8,ind_top5
+MAR10220,False,0.0,ind_top5
+MAR20321,False,51.1,ind_top5
+MAR30921,False,74.3,ind_top5
+MEA20518,False,62.5,ind_top5
+MEM10119,False,0.0,ind_top5
+MEM20105,False,62.9,ind_top5
+MEM20422,False,59.5,ind_top5
+MEM30219,False,86.8,ind_top5
+MEM30319,False,90.9,ind_top5
+MEM30522,False,55.8,ind_top5
+MEM31419,False,85.7,ind_top5
+MEM31922,False,90.0,ind_top5
+MEM40119,False,81.0,ind_top5
+MSF30322,False,97.0,ind_top5
+MSF40122,False,57.8,ind_top5
+MSF50222,False,70.1,ind_top5
+MSL20122,False,81.8,ind_top5
+MSL30122,False,66.3,ind_top5
+MSL40118,False,70.4,ind_top5
+MSL40122,False,67.5,ind_top5
+MSL50122,False,70.7,ind_top5
+MSM30116,False,53.7,ind_top5
+MSM40116,False,88.1,ind_top5
+MST31022,False,62.8,ind_top5
+NWP30222,False,87.4,ind_top5
+PMA30120,False,86.3,ind_top5
+PSP20218,False,73.8,ind_top5
+PSP30218,False,74.2,ind_top5
+PSP40122,False,89.7,ind_top5
+PSP40416,False,85.5,ind_top5
+PSP40616,False,82.3,ind_top5
+PSP50122,False,90.9,ind_top5
+PSP50616,False,84.5,ind_top5
+PUA20119,False,49.5,ind_top5
+PUA20622,False,88.9,ind_top5
+PUA20719,False,52.0,ind_top5
+PUA30622,False,98.8,ind_top5
+PUA40319,True,100.0,ind_top5
+RII20120,False,53.7,ind_top5
+RII20920,False,91.4,ind_top5
+RII30120,False,93.4,ind_top5
+RII30719,False,85.8,ind_top5
+RII30820,False,74.0,ind_top5
+RII30920,False,82.0,ind_top5
+RII31820,False,97.4,ind_top5
+RII40720,False,91.7,ind_top5
+RII60520,False,53.6,ind_top5
+SFL30115,False,69.8,ind_top5
+SHB20121,False,92.3,ind_top5
+SHB20216,False,87.5,ind_top5
+SHB30121,False,82.9,ind_top5
+SHB30221,False,71.9,ind_top5
+SHB30321,False,74.3,ind_top5
+SHB30416,False,93.5,ind_top5
+SHB30516,False,94.3,ind_top5
+SHB50121,False,87.4,ind_top5
+SIR20216,False,77.2,ind_top5
+SIR30116,False,93.4,ind_top5
+SIR30216,False,83.8,ind_top5
+SIR40316,False,90.4,ind_top5
+SIS20122,False,72.7,ind_top5
+SIS20321,False,66.1,ind_top5
+SIS20419,False,66.7,ind_top5
+SIS30115,False,61.5,ind_top5
+SIS30122,False,58.8,ind_top5
+SIS30321,False,49.7,ind_top5
+SIS30521,False,64.1,ind_top5
+SIS40221,False,58.7,ind_top5
+SIT10222,False,0.0,ind_top5
+SIT20122,False,81.8,ind_top5
+SIT20322,False,81.5,ind_top5
+SIT20421,False,80.7,ind_top5
+SIT30122,False,63.1,ind_top5
+SIT30222,False,86.1,ind_top5
+SIT30622,False,81.2,ind_top5
+SIT30821,False,92.2,ind_top5
+SIT30921,False,98.8,ind_top5
+SIT31021,False,70.3,ind_top5
+SIT40422,False,83.1,ind_top5
+SIT40521,False,95.4,ind_top5
+SIT40721,False,82.1,ind_top5
+SIT50422,False,93.7,ind_top5
+TAE40116,False,69.4,ind_top5
+TAE40122,False,69.9,ind_top5
+TAE50116,False,91.1,ind_top5
+TAE50216,False,90.1,ind_top5
+TLI20421,False,48.4,ind_top5
+TLI27121,False,76.2,ind_top5
+TLI30321,False,60.4,ind_top5
+TLI31222,False,88.1,ind_top5
+TLI31421,False,99.0,ind_top5
+TLI41222,False,72.9,ind_top5
+TLI42622,False,97.8,ind_top5
+UEE20120,False,94.5,ind_top5
+UEE22020,False,69.8,ind_top5
+UEE30820,False,88.6,ind_top5
+UEE32220,False,95.6,ind_top5
+UEE40420,False,87.6,ind_top5
+UEE42622,False,84.0,ind_top5
+10727NAT,0.0,,ind_top6
+10728NAT,49.9,,ind_top6
+10729NAT,53.3,,ind_top6
+10797NAT,99.2,,ind_top6
+10949NAT,86.7,,ind_top6
+10971NAT,75.1,,ind_top6
+10984NAT,54.6,,ind_top6
+10985NAT,51.3,,ind_top6
+11022NAT,56.6,,ind_top6
+11039NAT,82.7,,ind_top6
+11042NAT,46.5,,ind_top6
+11046NAT,57.6,,ind_top6
+11225NAT,63.9,,ind_top6
+11236NAT,75.5,,ind_top6
+11240NAT,62.0,,ind_top6
+22470VIC,61.7,,ind_top6
+22472VIC,0.0,,ind_top6
+22473VIC,67.0,,ind_top6
+22476VIC,0.0,,ind_top6
+22485VIC,43.4,,ind_top6
+22486VIC,48.8,,ind_top6
+22499VIC,71.0,,ind_top6
+22582VIC,64.9,,ind_top6
+22603VIC,46.4,,ind_top6
+22614VIC,73.1,,ind_top6
+22638VIC,0.0,,ind_top6
+22639VIC,51.8,,ind_top6
+22640VIC,41.9,,ind_top6
+52887WA,91.0,,ind_top6
+52893WA,81.9,,ind_top6
+52895WA,80.8,,ind_top6
+ACM20121,62.7,,ind_top6
+ACM30122,65.6,,ind_top6
+ACM30321,68.0,,ind_top6
+ACM40418,93.4,,ind_top6
+AHC10120,0.0,,ind_top6
+AHC20116,59.6,,ind_top6
+AHC20416,46.8,,ind_top6
+AHC20422,65.4,,ind_top6
+AHC21216,51.6,,ind_top6
+AHC30116,74.9,,ind_top6
+AHC30716,59.0,,ind_top6
+AHC30722,61.4,,ind_top6
+AHC30820,93.4,,ind_top6
+AHC30921,89.0,,ind_top6
+AHC31021,79.3,,ind_top6
+AHC31421,59.0,,ind_top6
+AHC41316,80.1,,ind_top6
+AMP20316,90.8,,ind_top6
+AMP30216,91.2,,ind_top6
+AUR10120,0.0,,ind_top6
+AUR20220,90.9,,ind_top6
+AUR20520,71.0,,ind_top6
+AUR20720,68.0,,ind_top6
+AUR30320,89.7,,ind_top6
+AUR30620,92.8,,ind_top6
+AUR31020,78.9,,ind_top6
+AUR31120,90.1,,ind_top6
+AUR31220,93.3,,ind_top6
+AUR32120,95.5,,ind_top6
+AUR32420,91.9,,ind_top6
+AVI20118,90.1,,ind_top6
+AVI30419,61.7,,ind_top6
+BSB10120,0.0,,ind_top6
+BSB20120,67.1,,ind_top6
+BSB30120,48.3,,ind_top6
+BSB30220,43.4,,ind_top6
+BSB30420,49.4,,ind_top6
+BSB40120,37.3,,ind_top6
+BSB40320,42.5,,ind_top6
+BSB40420,46.7,,ind_top6
+BSB40520,44.1,,ind_top6
+BSB40720,57.6,,ind_top6
+BSB40820,48.6,,ind_top6
+BSB40920,50.1,,ind_top6
+BSB41419,45.0,,ind_top6
+BSB50120,57.2,,ind_top6
+BSB50320,48.8,,ind_top6
+BSB50420,52.2,,ind_top6
+BSB50520,75.0,,ind_top6
+BSB50820,55.9,,ind_top6
+BSB50920,60.2,,ind_top6
+BSB51319,49.9,,ind_top6
+BSB60420,55.2,,ind_top6
+BSB80120,70.7,,ind_top6
+CHC14015,0.0,,ind_top6
+CHC22015,80.6,,ind_top6
+CHC24015,80.1,,ind_top6
+CHC30121,94.5,,ind_top6
+CHC30221,87.7,,ind_top6
+CHC32015,72.2,,ind_top6
+CHC33015,91.5,,ind_top6
+CHC33021,90.1,,ind_top6
+CHC40221,91.8,,ind_top6
+CHC40313,91.2,,ind_top6
+CHC40321,96.1,,ind_top6
+CHC40413,87.3,,ind_top6
+CHC40421,77.5,,ind_top6
+CHC41015,48.4,,ind_top6
+CHC42015,82.8,,ind_top6
+CHC42021,77.1,,ind_top6
+CHC43015,93.6,,ind_top6
+CHC43115,89.1,,ind_top6
+CHC43121,98.8,,ind_top6
+CHC43215,88.3,,ind_top6
+CHC43315,86.8,,ind_top6
+CHC43415,94.2,,ind_top6
+CHC43515,90.5,,ind_top6
+CHC50121,97.3,,ind_top6
+CHC50221,97.4,,ind_top6
+CHC51015,75.9,,ind_top6
+CHC52015,88.7,,ind_top6
+CHC52021,84.4,,ind_top6
+CHC53315,86.4,,ind_top6
+CHC62015,96.7,,ind_top6
+CPC10120,0.0,,ind_top6
+CPC20220,69.8,,ind_top6
+CPC30220,96.0,,ind_top6
+CPC30320,94.8,,ind_top6
+CPC30620,97.9,,ind_top6
+CPC31320,100.0,,ind_top6
+CPC31420,95.8,,ind_top6
+CPC32420,97.1,,ind_top6
+CPC33020,91.6,,ind_top6
+CPC40120,85.0,,ind_top6
+CPC40920,95.2,,ind_top6
+CPC50220,83.3,,ind_top6
+CPP20218,66.9,,ind_top6
+CPP30321,87.1,,ind_top6
+CPP31318,91.1,,ind_top6
+CPP40121,59.6,,ind_top6
+CPP41419,72.5,,ind_top6
+CPP51122,89.1,,ind_top6
+CSC30120,99.5,,ind_top6
+CSC30122,97.7,,ind_top6
+CSC40122,100.0,,ind_top6
+CUA20120,87.3,,ind_top6
+CUA20220,74.5,,ind_top6
+CUA20620,72.6,,ind_top6
+CUA20720,68.8,,ind_top6
+CUA30120,79.4,,ind_top6
+CUA30420,63.4,,ind_top6
+CUA30720,59.7,,ind_top6
+CUA30920,74.1,,ind_top6
+CUA31020,71.0,,ind_top6
+CUA31120,60.7,,ind_top6
+CUA40720,60.7,,ind_top6
+CUA41120,53.0,,ind_top6
+CUA41220,65.2,,ind_top6
+CUA50720,61.6,,ind_top6
+CUA50820,45.0,,ind_top6
+CUA51020,63.5,,ind_top6
+CUA51120,64.4,,ind_top6
+CUA60620,71.1,,ind_top6
+FBP20122,83.2,,ind_top6
+FBP20221,84.3,,ind_top6
+FBP30121,74.7,,ind_top6
+FBP30521,96.3,,ind_top6
+FNS10120,0.0,,ind_top6
+FNS20120,80.7,,ind_top6
+FNS30122,93.9,,ind_top6
+FNS30322,35.3,,ind_top6
+FNS40222,45.8,,ind_top6
+FNS40821,77.9,,ind_top6
+FNS50222,46.7,,ind_top6
+FNS50322,92.7,,ind_top6
+FSK10219,0.0,,ind_top6
+FSK20119,70.6,,ind_top6
+HLT21020,55.6,,ind_top6
+HLT23221,85.5,,ind_top6
+HLT31120,76.4,,ind_top6
+HLT33015,84.3,,ind_top6
+HLT33021,81.6,,ind_top6
+HLT33115,87.1,,ind_top6
+HLT35021,95.7,,ind_top6
+HLT37015,85.8,,ind_top6
+HLT37215,88.5,,ind_top6
+HLT37315,82.0,,ind_top6
+HLT42021,84.7,,ind_top6
+HLT43015,86.0,,ind_top6
+HLT43021,85.1,,ind_top6
+HLT45021,99.0,,ind_top6
+HLT47315,91.8,,ind_top6
+HLT47321,89.5,,ind_top6
+HLT47815,98.0,,ind_top6
+HLT51020,77.2,,ind_top6
+HLT52015,81.8,,ind_top6
+HLT52021,87.5,,ind_top6
+HLT54121,95.0,,ind_top6
+ICT20120,66.1,,ind_top6
+ICT30120,55.5,,ind_top6
+ICT30519,86.4,,ind_top6
+ICT40120,52.1,,ind_top6
+ICT50220,52.8,,ind_top6
+MAR10220,0.0,,ind_top6
+MAR20321,51.1,,ind_top6
+MAR30921,74.3,,ind_top6
+MEA20518,62.5,,ind_top6
+MEM10119,0.0,,ind_top6
+MEM20105,62.9,,ind_top6
+MEM20422,59.5,,ind_top6
+MEM30219,86.8,,ind_top6
+MEM30319,90.9,,ind_top6
+MEM30522,55.8,,ind_top6
+MEM31419,85.7,,ind_top6
+MEM31922,90.0,,ind_top6
+MEM40119,81.0,,ind_top6
+MSF30322,97.0,,ind_top6
+MSF40122,57.8,,ind_top6
+MSF50222,70.1,,ind_top6
+MSL20122,81.8,,ind_top6
+MSL30122,66.3,,ind_top6
+MSL40118,70.4,,ind_top6
+MSL40122,67.5,,ind_top6
+MSL50122,70.7,,ind_top6
+MSM30116,53.7,,ind_top6
+MSM40116,88.1,,ind_top6
+MST31022,62.8,,ind_top6
+NWP30222,87.4,,ind_top6
+PMA30120,86.3,,ind_top6
+PSP20218,73.8,,ind_top6
+PSP30218,74.2,,ind_top6
+PSP40122,89.7,,ind_top6
+PSP40416,85.5,,ind_top6
+PSP40616,82.3,,ind_top6
+PSP50122,90.9,,ind_top6
+PSP50616,84.5,,ind_top6
+PUA20119,49.5,,ind_top6
+PUA20622,88.9,,ind_top6
+PUA20719,52.0,,ind_top6
+PUA30622,98.8,,ind_top6
+PUA40319,100.0,,ind_top6
+RII20120,53.7,,ind_top6
+RII20920,91.4,,ind_top6
+RII30120,93.4,,ind_top6
+RII30719,85.8,,ind_top6
+RII30820,74.0,,ind_top6
+RII30920,82.0,,ind_top6
+RII31820,97.4,,ind_top6
+RII40720,91.7,,ind_top6
+RII60520,53.6,,ind_top6
+SFL30115,69.8,,ind_top6
+SHB20121,92.3,,ind_top6
+SHB20216,87.5,,ind_top6
+SHB30121,82.9,,ind_top6
+SHB30221,71.9,,ind_top6
+SHB30321,74.3,,ind_top6
+SHB30416,93.5,,ind_top6
+SHB30516,94.3,,ind_top6
+SHB50121,87.4,,ind_top6
+SIR20216,77.2,,ind_top6
+SIR30116,93.4,,ind_top6
+SIR30216,83.8,,ind_top6
+SIR40316,90.4,,ind_top6
+SIS20122,72.7,,ind_top6
+SIS20321,66.1,,ind_top6
+SIS20419,66.7,,ind_top6
+SIS30115,61.5,,ind_top6
+SIS30122,58.8,,ind_top6
+SIS30321,49.7,,ind_top6
+SIS30521,64.1,,ind_top6
+SIS40221,58.7,,ind_top6
+SIT10222,0.0,,ind_top6
+SIT20122,81.8,,ind_top6
+SIT20322,81.5,,ind_top6
+SIT20421,80.7,,ind_top6
+SIT30122,63.1,,ind_top6
+SIT30222,86.1,,ind_top6
+SIT30622,81.2,,ind_top6
+SIT30821,92.2,,ind_top6
+SIT30921,98.8,,ind_top6
+SIT31021,70.3,,ind_top6
+SIT40422,83.1,,ind_top6
+SIT40521,95.4,,ind_top6
+SIT40721,82.1,,ind_top6
+SIT50422,93.7,,ind_top6
+TAE40116,69.4,,ind_top6
+TAE40122,69.9,,ind_top6
+TAE50116,91.1,,ind_top6
+TAE50216,90.1,,ind_top6
+TLI20421,48.4,,ind_top6
+TLI27121,76.2,,ind_top6
+TLI30321,60.4,,ind_top6
+TLI31222,88.1,,ind_top6
+TLI31421,99.0,,ind_top6
+TLI41222,72.9,,ind_top6
+TLI42622,97.8,,ind_top6
+UEE20120,94.5,,ind_top6
+UEE22020,69.8,,ind_top6
+UEE30820,88.6,,ind_top6
+UEE32220,95.6,,ind_top6
+UEE40420,87.6,,ind_top6
+UEE42622,84.0,,ind_top6
