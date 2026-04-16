@@ -38,24 +38,24 @@ const WALKER_DIALOGUE = [
     "Press Start when you're ready to begin.",
   ],
   [
-    "Pick what feels most like you.",
-    "There isn't just one right answer.",
-    "Your interests matter here.",
+    "Choose the card that sounds most like you on this page.",
+    "When you're done, use Explore to open matching paths.",
+    "You can still use A / D or the arrow keys to switch menus.",
   ],
   [
-    "Let's look around a little.",
-    "Try a few paths before deciding.",
-    "Exploration is part of the process.",
+    "Use the search bar or the filter chips to narrow this list.",
+    "Scroll down to browse more cards, then open one for details.",
+    "If two careers stand out, send them to Compare.",
   ],
   [
-    "Now we're making sharper choices.",
-    "Compare before you commit.",
-    "A side-by-side view helps a lot.",
+    "Tap the cards here to build your comparison set.",
+    "Keep your best two options, then continue to Report.",
+    "Use A / D or the arrow keys if you want to jump to another page.",
   ],
   [
-    "This is your current direction.",
-    "You can always come back and refine it.",
-    "A report is a starting point, not the end.",
+    "This page sums up the direction you've built so far.",
+    "Use Compare if you want to back up and inspect your choices again.",
+    "Restart is here whenever you want a fresh run through the guide.",
   ],
 ] as const;
 

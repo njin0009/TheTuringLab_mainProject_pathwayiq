@@ -28,6 +28,15 @@ interface PasswordGateScreenProps {
 
 const ACCESS_CODE = "666666";
 const UNLOCK_TRANSITION_MS = 1080;
+const GATE_DIALOGUE = [
+  "Hey there. Welcome to PathwayIQ. Want to play a quick code game before we begin?",
+  "First clue: the key is one digit repeated in every slot.",
+  "Math clue: that digit is greater than 5 and smaller than 7.",
+  "Language clue: its English name has three letters.",
+  "Pattern clue: no slot changes. The whole code is the same number again and again.",
+  "Literature clue: the answer scans like a repeating beat — 6, 6, 6, 6, 6, 6.",
+  "If you want the direct answer now, the code is 666666.",
+] as const;
 const GATE_WALKER: PathwayWalkerVariant = {
   src: "/undraw-scooter.svg",
   width: 800,
@@ -35,16 +44,25 @@ const GATE_WALKER: PathwayWalkerVariant = {
   className: "h-[118px] w-auto drop-shadow-[0_16px_28px_rgba(0,0,0,0.26)]",
 };
 
+interface GateBubbleState {
+  id: number;
+  text: string;
+}
+
 export default function PasswordGateScreen({
   onUnlock,
 }: PasswordGateScreenProps) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
+  const [walkerBubble, setWalkerBubble] = useState<GateBubbleState | null>(null);
   const walkerRef = useRef<HTMLDivElement>(null);
   const balloonsRef = useRef<{ launchAnimation: () => void } | null>(null);
   const unlockTimerRef = useRef<number | null>(null);
   const walkerIdleTimerRef = useRef<number | null>(null);
+  const walkerBubbleTimerRef = useRef<number | null>(null);
+  const walkerIntroTimerRef = useRef<number | null>(null);
+  const walkerDialogueCursorRef = useRef(0);
 
   const helperText = useMemo(() => {
     if (error) {
@@ -59,7 +77,7 @@ export default function PasswordGateScreen({
       return "Unlocking PathwayIQ...";
     }
 
-    return "Enter the 6-digit access code to continue.";
+    return "Enter the 6-digit access code to continue, or click the guide for clues.";
   }, [error, isUnlocking, value.length]);
 
   useEffect(() => {
@@ -89,8 +107,55 @@ export default function PasswordGateScreen({
       if (walkerIdleTimerRef.current !== null) {
         window.clearTimeout(walkerIdleTimerRef.current);
       }
+
+      if (walkerBubbleTimerRef.current !== null) {
+        window.clearTimeout(walkerBubbleTimerRef.current);
+      }
+
+      if (walkerIntroTimerRef.current !== null) {
+        window.clearTimeout(walkerIntroTimerRef.current);
+      }
     };
   }, []);
+
+  const clearWalkerDialogueTimers = () => {
+    if (walkerBubbleTimerRef.current !== null) {
+      window.clearTimeout(walkerBubbleTimerRef.current);
+      walkerBubbleTimerRef.current = null;
+    }
+
+    if (walkerIntroTimerRef.current !== null) {
+      window.clearTimeout(walkerIntroTimerRef.current);
+      walkerIntroTimerRef.current = null;
+    }
+  };
+
+  const showWalkerBubble = (text: string) => {
+    clearWalkerDialogueTimers();
+    setWalkerBubble({ id: Date.now(), text });
+    walkerBubbleTimerRef.current = window.setTimeout(() => {
+      setWalkerBubble(null);
+      walkerBubbleTimerRef.current = null;
+    }, 3200);
+  };
+
+  useEffect(() => {
+    if (isUnlocking) {
+      setWalkerBubble(null);
+      clearWalkerDialogueTimers();
+      return;
+    }
+
+    walkerDialogueCursorRef.current = 1;
+    walkerIntroTimerRef.current = window.setTimeout(() => {
+      showWalkerBubble(GATE_DIALOGUE[0]);
+      walkerIntroTimerRef.current = null;
+    }, 320);
+
+    return () => {
+      clearWalkerDialogueTimers();
+    };
+  }, [isUnlocking]);
 
   const syncWalkerPosition = (clientX: number, moving: boolean) => {
     const walker = walkerRef.current;
@@ -113,6 +178,17 @@ export default function PasswordGateScreen({
     walkerIdleTimerRef.current = window.setTimeout(() => {
       syncWalkerPosition(window.innerWidth / 2, false);
     }, 220);
+  };
+
+  const handleWalkerTalk = () => {
+    if (isUnlocking) {
+      return;
+    }
+
+    const nextIndex = walkerDialogueCursorRef.current % GATE_DIALOGUE.length;
+    const nextText = GATE_DIALOGUE[nextIndex];
+    walkerDialogueCursorRef.current = (nextIndex + 1) % GATE_DIALOGUE.length;
+    showWalkerBubble(nextText);
   };
 
   return (
@@ -171,7 +247,7 @@ export default function PasswordGateScreen({
             <CardDescription className="max-w-md text-base leading-7 text-white/68">
               {isUnlocking
                 ? "Hold on for a moment while we transition you into the main experience."
-                : "This page now sits before Home. Enter the 6-digit code to continue into PathwayIQ."}
+                : "This page now sits before Home. Enter the 6-digit code, or click the guide below to play for clues."}
             </CardDescription>
           </CardHeader>
 
@@ -250,7 +326,12 @@ export default function PasswordGateScreen({
         </Card>
       </div>
 
-      <PathwayWalker ref={walkerRef} variant={GATE_WALKER} />
+      <PathwayWalker
+        ref={walkerRef}
+        variant={GATE_WALKER}
+        bubble={walkerBubble}
+        onTalk={handleWalkerTalk}
+      />
     </section>
   );
 }
