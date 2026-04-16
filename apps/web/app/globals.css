@@ -28,6 +28,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@keyframes caret-blink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-caret-blink {
+  animation: caret-blink 1s step-end infinite;
+}
+
 @keyframes walker-idle-bob {
   0%,
   100% {
