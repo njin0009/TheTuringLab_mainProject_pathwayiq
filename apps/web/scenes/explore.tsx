@@ -1,11 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  CAREER_PROFILES,
-  EXPLORE_AUTOCOMPLETE,
-  INTEREST_TAGS,
-  type CareerCard,
-} from "@/lib/career-data";
-import { ArrowRight, Search, TrendingUp } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { INTEREST_TAGS, type CareerCard } from "@/lib/career-data";
+import { Search, TrendingUp } from "lucide-react";
+import CourseDesignCard, { type CourseDesignCardData } from "@/components/ui/course-design-cards";
+import careerCardsData from "../public/data2/career-cards.json";
 
 interface ExploreSceneProps {
   careers: CareerCard[];
@@ -18,45 +15,245 @@ interface ExploreSceneProps {
   onClearFilters: () => void;
 }
 
-const TRENDING_QUERIES = [
-  { label: "Solar Systems Engineer", detail: "Industry: Renewable Energy" },
-  { label: "Wind Turbine Technician", detail: "Industry: Renewable Energy" },
-  { label: "Cybersecurity Analyst", detail: "Industry: Technology" },
-] as const;
+interface ExploreCareerRecord {
+  title: string;
+  pathway: string;
+  industry: string;
+  anzsco_code: string;
+  median_salary: number;
+  shortage_status: string;
+}
 
+interface ExploreAutocompleteItem {
+  value: string;
+  detail: string;
+  category: "career" | "industry" | "pathway";
+}
+
+interface AutomationLevelTone {
+  label: "Low" | "Medium" | "High";
+  toneClassName: string;
+  pillClassName: string;
+  edgeClassName: string;
+}
+
+const DATA2_CAREERS = careerCardsData as ExploreCareerRecord[];
+const TRENDING_QUERIES = [
+  { label: "Ambulance Officer", detail: "Industry: Healthcare" },
+  { label: "Automotive Electrician", detail: "Industry: Engineering" },
+  { label: "Bricklayer", detail: "Industry: Construction" },
+] as const;
+const QUICK_HINTS = ["healthcare", "engineering", "apprenticeship", "business"] as const;
 const PAGE_SIZE = 6;
 
-function getRiskTone(percent: number) {
-  if (percent >= 60) {
+const INTEREST_MATCHERS: Record<(typeof INTEREST_TAGS)[number], (career: ExploreCareerRecord) => boolean> = {
+  "Data & AI": (career) =>
+    ["Business", "Technology", "Education"].includes(career.industry) ||
+    /data|analyst|software|developer|programmer|telecommunications|network|digital/i.test(career.title),
+  Healthcare: (career) =>
+    ["Healthcare", "Community Services"].includes(career.industry),
+  "Hands-on Trades": (career) =>
+    career.pathway === "Apprenticeship" ||
+    ["Construction", "Engineering", "Agriculture & Environment"].includes(career.industry),
+  Cybersecurity: (career) =>
+    ["Technology", "Business"].includes(career.industry) ||
+    /cyber|security|network|telecommunications|cabler|systems/i.test(career.title),
+  "Creative Problem Solving": (career) =>
+    ["Engineering", "Education", "Construction", "Business"].includes(career.industry) ||
+    /designer|architect|draftsperson|engineer|manager/i.test(career.title),
+};
+
+const autocompleteMap = new Map<string, ExploreAutocompleteItem>();
+
+for (const career of DATA2_CAREERS) {
+  autocompleteMap.set(`career:${career.title}`, {
+    value: career.title,
+    detail: `Career · ${career.industry}`,
+    category: "career",
+  });
+
+  if (!autocompleteMap.has(`industry:${career.industry}`)) {
+    autocompleteMap.set(`industry:${career.industry}`, {
+      value: career.industry,
+      detail: "Industry",
+      category: "industry",
+    });
+  }
+
+  if (!autocompleteMap.has(`pathway:${career.pathway}`)) {
+    autocompleteMap.set(`pathway:${career.pathway}`, {
+      value: career.pathway,
+      detail: "Pathway",
+      category: "pathway",
+    });
+  }
+}
+
+const EXPLORE_AUTOCOMPLETE = Array.from(autocompleteMap.values());
+
+function formatSalary(value: number) {
+  return new Intl.NumberFormat("en-AU", {
+    style: "currency",
+    currency: "AUD",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function getShortageLabel(status: string) {
+  if (/shortage/i.test(status)) {
+    return "Shortage";
+  }
+
+  return "Stable";
+}
+
+function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
+  const title = career.title.toLowerCase();
+
+  if (
+    ["Healthcare", "Community Services", "Construction", "Engineering", "Agriculture & Environment"].includes(
+      career.industry,
+    ) ||
+    career.pathway === "Apprenticeship"
+  ) {
     return {
+      label: "Low",
+      toneClassName: "text-emerald-300",
+      pillClassName: "border-emerald-300/18 bg-emerald-400/12 text-emerald-200",
+      edgeClassName: "before:bg-cyan-300",
+    };
+  }
+
+  if (
+    /clerk|attendant|barista|bookkeeper|cashier|reception|entry|retail|waiter|worker|assistant/i.test(title)
+  ) {
+    return {
+      label: "High",
       toneClassName: "text-rose-300",
-      barClassName: "bg-rose-400",
+      pillClassName: "border-rose-300/18 bg-rose-400/12 text-rose-200",
       edgeClassName: "before:bg-rose-300",
     };
   }
 
-  if (percent >= 25) {
-    return {
-      toneClassName: "text-amber-300",
-      barClassName: "bg-amber-400",
-      edgeClassName: "before:bg-amber-300",
-    };
-  }
-
   return {
-    toneClassName: "text-emerald-300",
-    barClassName: "bg-emerald-400",
-    edgeClassName: "before:bg-cyan-300",
+    label: "Medium",
+    toneClassName: "text-amber-300",
+    pillClassName: "border-amber-300/18 bg-amber-400/12 text-amber-100",
+    edgeClassName: "before:bg-amber-300",
   };
 }
 
+function getCardColorClass(level: "Low" | "Medium" | "High"): CourseDesignCardData["colorClass"] {
+  if (level === "High") {
+    return "red";
+  }
+
+  if (level === "Medium") {
+    return "orange";
+  }
+
+  return "green";
+}
+
+function getProgressPercent(level: "Low" | "Medium" | "High") {
+  if (level === "Low") {
+    return 28;
+  }
+
+  if (level === "High") {
+    return 84;
+  }
+
+  return 56;
+}
+
+function matchesInterest(career: ExploreCareerRecord, activeInterest: string | null) {
+  if (!activeInterest) {
+    return true;
+  }
+
+  const matcher = INTEREST_MATCHERS[activeInterest as (typeof INTEREST_TAGS)[number]];
+  return matcher ? matcher(career) : true;
+}
+
+function matchesQuery(career: ExploreCareerRecord, query: string) {
+  if (!query) {
+    return true;
+  }
+
+  const normalizedTitle = career.title.toLowerCase();
+  const normalizedIndustry = career.industry.toLowerCase();
+  const normalizedPathway = career.pathway.toLowerCase();
+  const normalizedCode = career.anzsco_code.toLowerCase();
+
+  return (
+    normalizedTitle.includes(query) ||
+    normalizedIndustry.includes(query) ||
+    normalizedPathway.includes(query) ||
+    normalizedCode.includes(query)
+  );
+}
+
+function sortExploreCareers(left: ExploreCareerRecord, right: ExploreCareerRecord, query: string) {
+  if (query) {
+    const leftStarts = left.title.toLowerCase().startsWith(query);
+    const rightStarts = right.title.toLowerCase().startsWith(query);
+
+    if (leftStarts !== rightStarts) {
+      return leftStarts ? -1 : 1;
+    }
+  }
+
+  if (left.shortage_status !== right.shortage_status) {
+    return /shortage/i.test(left.shortage_status) ? -1 : 1;
+  }
+
+  return left.title.localeCompare(right.title);
+}
+
+function getAutocompleteScore(item: ExploreAutocompleteItem, query: string) {
+  if (!query) {
+    return 1;
+  }
+
+  const value = item.value.toLowerCase();
+  const detail = item.detail.toLowerCase();
+  const words = value.split(/[\s/()-]+/).filter(Boolean);
+
+  if (value === query) {
+    return 0;
+  }
+
+  if (value.startsWith(query)) {
+    return 120;
+  }
+
+  if (words.some((word) => word.startsWith(query))) {
+    return 96;
+  }
+
+  if (detail.startsWith(query)) {
+    return 72;
+  }
+
+  if (value.includes(query)) {
+    return 54;
+  }
+
+  if (detail.includes(query)) {
+    return 28;
+  }
+
+  return 0;
+}
+
 export default function ExploreScene({
-  careers,
+  careers: _careers,
   searchQuery,
   activeInterest,
   onSearchChange,
   onSelectInterest,
-  onOpenCareer,
+  onOpenCareer: _onOpenCareer,
   onCompare,
   onClearFilters,
 }: ExploreSceneProps) {
@@ -65,22 +262,38 @@ export default function ExploreScene({
   const [page, setPage] = useState(1);
   const discoverQuery = searchQuery.trim() || TRENDING_QUERIES[0].label;
   const normalizedQuery = searchQuery.trim().toLowerCase();
-  const totalPages = Math.max(1, Math.ceil(careers.length / PAGE_SIZE));
-  const pageStart = (page - 1) * PAGE_SIZE;
-  const pageEnd = Math.min(pageStart + PAGE_SIZE, careers.length);
-  const pagedCareers = careers.slice(pageStart, pageEnd);
-  const autocompleteItems = EXPLORE_AUTOCOMPLETE.filter((item) => {
-    if (normalizedQuery.length === 0) {
-      return true;
-    }
+  const filteredCareers = useMemo(
+    () =>
+      [...DATA2_CAREERS]
+        .filter((career) => matchesInterest(career, activeInterest))
+        .filter((career) => matchesQuery(career, normalizedQuery))
+        .sort((left, right) => sortExploreCareers(left, right, normalizedQuery)),
+    [activeInterest, normalizedQuery],
+  );
+  const totalPages = Math.max(1, Math.ceil(filteredCareers.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const pageStart = (safePage - 1) * PAGE_SIZE;
+  const pageEnd = Math.min(pageStart + PAGE_SIZE, filteredCareers.length);
+  const pagedCareers = filteredCareers.slice(pageStart, pageEnd);
+  const autocompleteItems = useMemo(
+    () =>
+      EXPLORE_AUTOCOMPLETE
+        .map((item) => ({
+          item,
+          score: getAutocompleteScore(item, normalizedQuery),
+        }))
+        .filter(({ item, score }) => item.value.toLowerCase() !== normalizedQuery && score > 0)
+        .sort((left, right) => {
+          if (right.score !== left.score) {
+            return right.score - left.score;
+          }
 
-    return (
-      item.value.toLowerCase().includes(normalizedQuery) ||
-      item.detail.toLowerCase().includes(normalizedQuery)
-    );
-  })
-    .filter((item) => item.value.toLowerCase() !== normalizedQuery)
-    .slice(0, 6);
+          return left.item.value.localeCompare(right.item.value);
+        })
+        .map(({ item }) => item)
+        .slice(0, 6),
+    [normalizedQuery],
+  );
 
   useEffect(() => {
     return () => {
@@ -94,12 +307,6 @@ export default function ExploreScene({
     setPage(1);
   }, [searchQuery, activeInterest]);
 
-  useEffect(() => {
-    if (page > totalPages) {
-      setPage(totalPages);
-    }
-  }, [page, totalPages]);
-
   return (
     <section className="relative h-screen w-screen shrink-0 overflow-y-auto px-6 pb-36 pt-24">
       <div className="mx-auto flex min-h-full max-w-[1320px] flex-col">
@@ -111,7 +318,7 @@ export default function ExploreScene({
             Explore your future path
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-slate-300 md:text-lg">
-            Cross-referenced career cards, pathway signals, and AI-risk context in one clear PathwayIQ flow.
+            Browse career cards from the new PathwayIQ dataset, with pathway, industry, shortage signal, salary, and a simple AI displacement level.
           </p>
         </div>
 
@@ -204,16 +411,16 @@ export default function ExploreScene({
             <div className="flex items-center justify-end rounded-[22px] border border-white/10 bg-black/20 px-5 py-4 text-sm text-slate-300">
               Showing
               <span className="mx-1 font-semibold text-cyan-300">
-                {careers.length === 0 ? 0 : pageStart + 1}-{pageEnd}
+                {filteredCareers.length === 0 ? 0 : pageStart + 1}-{pageEnd}
               </span>
               of
-              <span className="mx-1 font-semibold text-cyan-300">{careers.length}</span>
+              <span className="mx-1 font-semibold text-cyan-300">{filteredCareers.length}</span>
               career paths matched
             </div>
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-400">
-            {["renewable energy", "nurse", "cyber", "AI"].map((hint) => (
+            {QUICK_HINTS.map((hint) => (
               <button
                 key={hint}
                 type="button"
@@ -276,97 +483,47 @@ export default function ExploreScene({
         </div>
 
         <div className="relative z-10 mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-          {careers.length === 0 ? (
+          {filteredCareers.length === 0 ? (
             <div className="rounded-[30px] border border-dashed border-white/16 bg-white/[0.04] p-8 text-slate-300 lg:col-span-2 xl:col-span-3">
               No matching careers yet. Try clearing filters or searching with broader terms.
             </div>
           ) : (
             pagedCareers.map((career) => {
-              const profile = CAREER_PROFILES[career.id];
-              const [industry, signal = "Pathway"] = profile.badge.split("·").map((item) => item.trim());
-              const pathway = profile.stats[0]?.val ?? "Pathway details coming soon";
-              const risk = getRiskTone(profile.riskPercent);
+              const shortage = getShortageLabel(career.shortage_status);
+              const aiLevel = getAutomationLevel(career);
+              const cardData: CourseDesignCardData = {
+                id: `${career.anzsco_code}-${career.title}`,
+                colorClass: getCardColorClass(aiLevel.label),
+                eyebrow: career.industry,
+                title: career.title,
+                description: `${career.pathway} pathway · median salary ${formatSalary(career.median_salary)} · ANZSCO ${career.anzsco_code}`,
+                progressLabel: "AI displacement level",
+                progressPercent: getProgressPercent(aiLevel.label),
+                progressValue: aiLevel.label,
+                chips: [career.pathway, `ANZSCO ${career.anzsco_code}`],
+                countdownText: shortage,
+                actionLabel: "Search role",
+                onAction: () => onSearchChange(career.title),
+              };
 
               return (
-                <article
-                  key={career.id}
-                  className={[
-                    "relative overflow-hidden rounded-[30px] border border-white/10 bg-[#08131f]/92 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.18)] before:absolute before:bottom-4 before:left-0 before:top-4 before:w-[3px] before:rounded-full",
-                    risk.edgeClassName,
-                  ].join(" ")}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex flex-wrap gap-3">
-                      <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-slate-200">
-                        {industry}
-                      </span>
-                      <span className="rounded-full border border-emerald-300/18 bg-emerald-400/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">
-                        {signal}
-                      </span>
-                    </div>
-                    <div className="text-3xl">{career.icon}</div>
-                  </div>
-
-                  <div className="mt-6">
-                    <h3 className="text-3xl font-semibold tracking-tight text-white">
-                      {career.title}
-                    </h3>
-                    <div className="mt-4 text-lg text-cyan-200">
-                      payments <span className="ml-2 font-medium text-white">{profile.salary}</span>
-                    </div>
-                    <div className="mt-1 text-sm text-slate-500">{profile.source}</div>
-                  </div>
-
-                  <div className="mt-6">
-                    <div className="flex items-center justify-between text-sm text-slate-400">
-                      <span>AI Displacement Risk</span>
-                      <span className={["font-medium", risk.toneClassName].join(" ")}>
-                        {profile.riskLabel}
-                      </span>
-                    </div>
-                    <div className="mt-3 h-2 rounded-full bg-white/8">
-                      <div
-                        className={["h-full rounded-full", risk.barClassName].join(" ")}
-                        style={{ width: `${profile.riskPercent}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mt-6 border-t border-white/8 pt-5">
-                    <div className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
-                      Pathway
-                    </div>
-                    <div className="mt-2 text-base text-slate-200">{pathway}</div>
-                  </div>
-
-                  <div className="mt-6 flex items-center justify-between gap-4">
-                    <p className="max-w-md text-sm leading-7 text-slate-300">{career.teaser}</p>
-                    <button
-                      type="button"
-                      onClick={() => onOpenCareer(career.id)}
-                      className="inline-flex items-center gap-2 rounded-full border border-cyan-300/18 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-50 transition hover:border-cyan-300/34 hover:bg-cyan-400/16"
-                    >
-                      View Details
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                </article>
+                <CourseDesignCard key={cardData.id} data={cardData} />
               );
             })
           )}
         </div>
 
-        {careers.length > PAGE_SIZE ? (
+        {filteredCareers.length > PAGE_SIZE ? (
           <div className="relative z-10 mt-6 flex flex-wrap items-center justify-between gap-4 rounded-[24px] border border-white/10 bg-[#08131f]/70 px-5 py-4 backdrop-blur-xl">
             <div className="text-sm text-slate-400">
-              Page <span className="font-semibold text-white">{page}</span> of{" "}
+              Page <span className="font-semibold text-white">{safePage}</span> of{" "}
               <span className="font-semibold text-white">{totalPages}</span>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => setPage((current) => Math.max(1, current - 1))}
-                disabled={page === 1}
+                disabled={safePage === 1}
                 className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-slate-200 transition hover:border-white/25 hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Previous
@@ -378,7 +535,7 @@ export default function ExploreScene({
                   onClick={() => setPage(pageNumber)}
                   className={[
                     "h-10 min-w-10 rounded-full border px-3 text-sm transition",
-                    pageNumber === page
+                    pageNumber === safePage
                       ? "border-cyan-300/38 bg-cyan-400/16 text-cyan-50"
                       : "border-white/10 bg-white/[0.04] text-slate-300 hover:border-white/25 hover:bg-white/[0.08]",
                   ].join(" ")}
@@ -389,7 +546,7 @@ export default function ExploreScene({
               <button
                 type="button"
                 onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
-                disabled={page === totalPages}
+                disabled={safePage === totalPages}
                 className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-slate-200 transition hover:border-white/25 hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Next
