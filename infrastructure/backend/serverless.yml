@@ -2,8 +2,11 @@ service: pathwayiq-backend
 
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: nodejs22.x
   region: ap-southeast-2
+  environment:
+    DATABASE_URL: ${ssm:/pathwayiq/DATABASE_URL}
+    ALLOWED_ORIGIN: ${env:ALLOWED_ORIGIN, "*"}
 
 functions:
   search:
