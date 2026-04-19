@@ -1,8 +1,5 @@
 import ShaderShowcase from "@/components/ui/hero";
-import {
-  PathChoiceDeck,
-  type PathChoiceItem,
-} from "@/components/ui/testimonial-cards";
+import GradientCardShowcase from "@/components/ui/gradient-card-showcase";
 
 interface HomeSceneProps {
   heroVersion: number;
@@ -23,13 +20,15 @@ export default function HomeScene({
   onExplore,
   onCompare,
 }: HomeSceneProps) {
-  const pathChoiceItems: PathChoiceItem[] = [
+  const pathChoiceItems = [
     {
       id: "quiz",
       title: "Quiz",
       description: "Answer a few guided questions and get matched roles you can explore next.",
       eyebrow: "Guided start",
-      accentClassName: "border-cyan-400/24 bg-cyan-400/12",
+      ctaLabel: "Start Quiz",
+      gradientFrom: "#00c2ff",
+      gradientTo: "#4dffcf",
       onSelect: onTakeQuiz,
     },
     {
@@ -37,7 +36,9 @@ export default function HomeScene({
       title: "Explore",
       description: "Browse pathways and career cards at your own pace without committing first.",
       eyebrow: "Open browse",
-      accentClassName: "border-white/16 bg-white/[0.06]",
+      ctaLabel: "Open Explore",
+      gradientFrom: "#4f7cff",
+      gradientTo: "#00d0ff",
       onSelect: onExplore,
     },
     {
@@ -45,7 +46,9 @@ export default function HomeScene({
       title: "Compare",
       description: "Jump straight into side-by-side trade-offs when you already have options in mind.",
       eyebrow: "Fast track",
-      accentClassName: "border-orange-300/24 bg-orange-400/12",
+      ctaLabel: "Go to Compare",
+      gradientFrom: "#ffbc00",
+      gradientTo: "#ff5b45",
       onSelect: onCompare,
     },
   ];
@@ -79,7 +82,7 @@ export default function HomeScene({
       {panelVisible ? (
         <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-6">
           <div className="absolute inset-0 bg-black/36 backdrop-blur-[2px]" />
-          <div className="pointer-events-auto relative w-full max-w-5xl rounded-[34px] border border-cyan-400/16 bg-[#071018]/78 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.42)] backdrop-blur-xl md:p-8">
+          <div className="pointer-events-auto relative w-full max-w-6xl rounded-[34px] border border-cyan-400/16 bg-[#071018]/78 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.42)] backdrop-blur-xl md:p-8">
             <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
               <div className="max-w-xl">
                 <div className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">
@@ -89,7 +92,7 @@ export default function HomeScene({
                   Start the journey in the way that feels right first.
                 </h2>
                 <p className="mt-3 text-sm leading-7 text-white/72 md:text-base">
-                  Swipe through the stack or open one directly. Each card keeps the same layered style, but now it points straight into your real flow.
+                  Pick the entrance that matches how you want to begin. Each card takes you straight into a real PathwayIQ flow.
                 </p>
               </div>
               <button
@@ -101,7 +104,7 @@ export default function HomeScene({
               </button>
             </div>
             <div className="mt-2">
-              <PathChoiceDeck items={pathChoiceItems} />
+              <GradientCardShowcase items={pathChoiceItems} />
             </div>
           </div>
         </div>

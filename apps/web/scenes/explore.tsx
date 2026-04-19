@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { INTEREST_TAGS, type CareerCard } from "@/lib/career-data";
 import { Search, TrendingUp } from "lucide-react";
 import CourseDesignCard, { type CourseDesignCardData } from "@/components/ui/course-design-cards";
+import { searchCareers, type BackendCareerRecord } from "@/lib/api-client";
 import careerCardsData from "../public/data2/career-cards.json";
 
 interface ExploreSceneProps {
@@ -15,13 +16,8 @@ interface ExploreSceneProps {
   onClearFilters: () => void;
 }
 
-interface ExploreCareerRecord {
-  title: string;
-  pathway: string;
-  industry: string;
-  anzsco_code: string;
+interface ExploreCareerRecord extends Omit<BackendCareerRecord, "median_salary"> {
   median_salary: number;
-  shortage_status: string;
 }
 
 interface ExploreAutocompleteItem {
@@ -90,6 +86,13 @@ for (const career of DATA2_CAREERS) {
 }
 
 const EXPLORE_AUTOCOMPLETE = Array.from(autocompleteMap.values());
+
+function toExploreCareerRecord(record: BackendCareerRecord): ExploreCareerRecord {
+  return {
+    ...record,
+    median_salary: Number.parseInt(record.median_salary, 10) || 0,
+  };
+}
 
 function formatSalary(value: number) {
   return new Intl.NumberFormat("en-AU", {
@@ -260,15 +263,27 @@ export default function ExploreScene({
   const blurTimeoutRef = useRef<number | null>(null);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [page, setPage] = useState(1);
+  const [apiCareers, setApiCareers] = useState<ExploreCareerRecord[] | null>(null);
+  const [apiState, setApiState] = useState<"idle" | "loading" | "ready" | "fallback">("idle");
+  const [apiError, setApiError] = useState<string | null>(null);
   const discoverQuery = searchQuery.trim() || TRENDING_QUERIES[0].label;
   const normalizedQuery = searchQuery.trim().toLowerCase();
+  const deferredSearchQuery = useDeferredValue(searchQuery.trim());
+  const backendQuery = deferredSearchQuery.trim();
+  const sourceCareers = useMemo(() => {
+    if (backendQuery && apiState === "ready") {
+      return apiCareers ?? [];
+    }
+
+    return DATA2_CAREERS;
+  }, [apiCareers, apiState, backendQuery]);
   const filteredCareers = useMemo(
     () =>
-      [...DATA2_CAREERS]
+      [...sourceCareers]
         .filter((career) => matchesInterest(career, activeInterest))
         .filter((career) => matchesQuery(career, normalizedQuery))
         .sort((left, right) => sortExploreCareers(left, right, normalizedQuery)),
-    [activeInterest, normalizedQuery],
+    [activeInterest, normalizedQuery, sourceCareers],
   );
   const totalPages = Math.max(1, Math.ceil(filteredCareers.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -302,6 +317,39 @@ export default function ExploreScene({
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (!backendQuery) {
+      setApiCareers(null);
+      setApiState("idle");
+      setApiError(null);
+      return;
+    }
+
+    const controller = new AbortController();
+    setApiState("loading");
+    setApiError(null);
+
+    searchCareers({ q: backendQuery }, { signal: controller.signal })
+      .then((records) => {
+        setApiCareers(records.map(toExploreCareerRecord));
+        setApiState("ready");
+      })
+      .catch((error) => {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        console.error("Explore API search failed:", error);
+        setApiCareers(null);
+        setApiState("fallback");
+        setApiError(
+          error instanceof Error ? error.message : "Live career search is unavailable right now.",
+        );
+      });
+
+    return () => controller.abort();
+  }, [backendQuery]);
 
   useEffect(() => {
     setPage(1);
@@ -431,6 +479,25 @@ export default function ExploreScene({
               </button>
             ))}
           </div>
+
+          {backendQuery ? (
+            <div className="mt-4 rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
+              {apiState === "loading" ? (
+                <span className="text-cyan-200">Searching the live AWS careers API…</span>
+              ) : null}
+              {apiState === "ready" ? (
+                <span className="text-emerald-200">
+                  Showing live backend results for “{backendQuery}”.
+                </span>
+              ) : null}
+              {apiState === "fallback" ? (
+                <span className="text-amber-200">
+                  Live backend search is unavailable, so Explore is using the local dataset instead.
+                  {apiError ? ` ${apiError}` : ""}
+                </span>
+              ) : null}
+            </div>
+          ) : null}
         </div>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
