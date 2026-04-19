@@ -36,26 +36,31 @@ const WALKER_DIALOGUE = [
     "Use A / D or the left and right arrow keys to switch menus.",
     "Click me anytime if you want more guidance.",
     "Press Start when you're ready to begin.",
+    "If you still have questions later, click me again and I will replay these tips.",
   ],
   [
     "Choose the card that sounds most like you on this page.",
     "When you're done, use Explore to open matching paths.",
     "You can still use A / D or the arrow keys to switch menus.",
+    "If you want this guidance again, click me and I will walk you through it once more.",
   ],
   [
     "Use the search bar or the filter chips to narrow this list.",
     "Scroll down to browse more cards, then open one for details.",
     "If two careers stand out, send them to Compare.",
+    "If you need these Explore tips again, click me and I will replay them.",
   ],
   [
     "Tap the cards here to build your comparison set.",
     "Keep your best two options, then continue to Report.",
     "Use A / D or the arrow keys if you want to jump to another page.",
+    "If you want to revisit these compare steps, click me again anytime.",
   ],
   [
     "This page sums up the direction you've built so far.",
     "Use Compare if you want to back up and inspect your choices again.",
     "Restart is here whenever you want a fresh run through the guide.",
+    "If you want this report guidance again, click me and I will repeat it.",
   ],
 ] as const;
 
@@ -96,7 +101,7 @@ const WALKER_VARIANTS: PathwayWalkerVariant[] = [
 const WALKER_START_X = 80;
 const WALKER_GROUND_BOTTOM = "calc(7rem + 12px)";
 const WALKER_MOTION_MS = 220;
-const WALKER_BUBBLE_MS = 2800;
+const WALKER_BUBBLE_MS = 4300;
 const WALKER_SEQUENCE_GAP_MS = 180;
 const GATE_COVER_MS = 260;
 const GATE_REVEAL_MS = 620;
@@ -111,6 +116,8 @@ interface WalkerState {
 interface WalkerBubbleState {
   id: number;
   text: string;
+  current: number;
+  total: number;
 }
 
 function isInteractiveElement(target: EventTarget | null) {
@@ -135,6 +142,7 @@ export function PathwayExperience() {
   });
   const activeIdxRef = useRef(0);
   const walkerBubbleCursorRef = useRef<number[]>(WALKER_DIALOGUE.map(() => 0));
+  const walkerVisibleLineRef = useRef<number[]>(WALKER_DIALOGUE.map(() => 0));
   const walkerMotionTimerRef = useRef<number | null>(null);
   const walkerBubbleTimerRef = useRef<number | null>(null);
   const walkerIntroTimerRef = useRef<number | null>(null);
@@ -310,13 +318,18 @@ export function PathwayExperience() {
     walkerAutoLineRef.current = 0;
   }, []);
 
-  const showWalkerBubble = useCallback((text: string, duration = WALKER_BUBBLE_MS) => {
+  const showWalkerBubble = useCallback((
+    text: string,
+    current: number,
+    total: number,
+    duration = WALKER_BUBBLE_MS,
+  ) => {
     if (walkerBubbleTimerRef.current !== null) {
       window.clearTimeout(walkerBubbleTimerRef.current);
       walkerBubbleTimerRef.current = null;
     }
 
-    setWalkerBubble({ id: Date.now(), text });
+    setWalkerBubble({ id: Date.now(), text, current, total });
 
     walkerBubbleTimerRef.current = window.setTimeout(() => {
       setWalkerBubble(null);
@@ -324,13 +337,24 @@ export function PathwayExperience() {
     }, duration);
   }, []);
 
-  const playWalkerIntroSequence = useCallback((sceneIdx: number, lineIdx = 0) => {
+  const showSceneWalkerLine = useCallback((
+    sceneIdx: number,
+    lineIdx: number,
+    duration = WALKER_BUBBLE_MS,
+  ) => {
     const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
     const safeIndex = Math.min(Math.max(lineIdx, 0), lines.length - 1);
 
+    walkerVisibleLineRef.current[sceneIdx] = safeIndex;
+    showWalkerBubble(lines[safeIndex], safeIndex + 1, lines.length, duration);
+    return { lines, safeIndex };
+  }, [showWalkerBubble]);
+
+  const playWalkerIntroSequence = useCallback((sceneIdx: number, lineIdx = 0) => {
+    const { lines, safeIndex } = showSceneWalkerLine(sceneIdx, lineIdx);
+
     walkerAutoSceneRef.current = sceneIdx;
     walkerAutoLineRef.current = safeIndex;
-    showWalkerBubble(lines[safeIndex]);
 
     const nextIndex = safeIndex + 1;
     if (nextIndex >= lines.length) {
@@ -351,7 +375,7 @@ export function PathwayExperience() {
 
       playWalkerIntroSequence(sceneIdx, nextIndex);
     }, WALKER_BUBBLE_MS + WALKER_SEQUENCE_GAP_MS);
-  }, [isGateTransitioning, showGate, showWalkerBubble]);
+  }, [isGateTransitioning, showGate, showSceneWalkerLine]);
 
   useEffect(() => {
     setWalkerBubble(null);
@@ -492,10 +516,61 @@ export function PathwayExperience() {
     }
 
     const nextCursor = walkerBubbleCursorRef.current[sceneIdx] ?? 0;
-    const text = lines[nextCursor % lines.length];
+    const nextIndex = nextCursor % lines.length;
 
     walkerBubbleCursorRef.current[sceneIdx] = (nextCursor + 1) % lines.length;
-    showWalkerBubble(text);
+    showSceneWalkerLine(sceneIdx, nextIndex);
+  }
+
+  function handleWalkerBubblePrev() {
+    if (showGate || isGateTransitioning) {
+      return;
+    }
+
+    const sceneIdx = activeIdxRef.current;
+    const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
+    const currentIndex = walkerVisibleLineRef.current[sceneIdx] ?? 0;
+    const prevIndex = (currentIndex - 1 + lines.length) % lines.length;
+
+    clearWalkerBubbleTimers();
+    walkerBubbleCursorRef.current[sceneIdx] = (prevIndex + 1) % lines.length;
+    showSceneWalkerLine(sceneIdx, prevIndex);
+  }
+
+  function handleWalkerBubbleNext() {
+    if (showGate || isGateTransitioning) {
+      return;
+    }
+
+    const sceneIdx = activeIdxRef.current;
+    const lines = WALKER_DIALOGUE[sceneIdx] ?? WALKER_DIALOGUE[0];
+    const currentIndex = walkerVisibleLineRef.current[sceneIdx] ?? 0;
+    const nextIndex = (currentIndex + 1) % lines.length;
+
+    clearWalkerBubbleTimers();
+    walkerBubbleCursorRef.current[sceneIdx] = (nextIndex + 1) % lines.length;
+    showSceneWalkerLine(sceneIdx, nextIndex);
+  }
+
+  function handleWalkerBubbleClose() {
+    if (showGate || isGateTransitioning) {
+      return;
+    }
+
+    const sceneIdx = activeIdxRef.current;
+    walkerBubbleCursorRef.current[sceneIdx] = walkerVisibleLineRef.current[sceneIdx] ?? 0;
+    clearWalkerBubbleTimers();
+    setWalkerBubble(null);
+  }
+
+  function handleSceneBack() {
+    if (lockSceneControls || activeIdxRef.current === 0) {
+      return;
+    }
+
+    setHomePanelOpen(false);
+    startWalkerMotion(false);
+    scrollToScene(0, { nextWalkerX: WALKER_START_X, faceRight: false });
   }
 
   return (
@@ -513,8 +588,22 @@ export function PathwayExperience() {
         <header
           className={`pointer-events-none fixed inset-x-0 top-0 z-[180] flex items-center justify-between px-6 py-5 transition-all duration-500 ease-out md:px-10 ${chromeTransitionClass}`}
         >
-          <div className="text-2xl font-semibold tracking-tight" style={{ color: brandColor }}>
-            Pathway<span className="text-white">IQ</span>
+          <div className="pointer-events-auto flex items-center gap-3">
+            {activeIdx > 0 ? (
+              <button
+                type="button"
+                onClick={handleSceneBack}
+                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-black/24 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/20 hover:bg-black/34 hover:text-white"
+              >
+                <span aria-hidden className="text-base leading-none">
+                  ←
+                </span>
+                <span>Back to Home</span>
+              </button>
+            ) : null}
+            <div className="text-2xl font-semibold tracking-tight" style={{ color: brandColor }}>
+              Pathway<span className="text-white">IQ</span>
+            </div>
           </div>
           <div className="hidden rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-slate-300 md:block">
             Bottom rider flow restored
@@ -582,6 +671,9 @@ export function PathwayExperience() {
             variant={walkerVariant}
             bubble={walkerBubble}
             onTalk={handleWalkerTalk}
+            onBubblePrev={handleWalkerBubblePrev}
+            onBubbleNext={handleWalkerBubbleNext}
+            onBubbleClose={handleWalkerBubbleClose}
           />
         </div>
       ) : null}
