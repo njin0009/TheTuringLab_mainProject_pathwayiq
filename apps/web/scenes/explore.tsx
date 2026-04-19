@@ -1,4 +1,4 @@
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { INTEREST_TAGS, type CareerCard } from "@/lib/career-data";
 import { Search, TrendingUp } from "lucide-react";
 import CourseDesignCard, { type CourseDesignCardData } from "@/components/ui/course-design-cards";
@@ -262,28 +262,23 @@ export default function ExploreScene({
 }: ExploreSceneProps) {
   const blurTimeoutRef = useRef<number | null>(null);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isComposing, setIsComposing] = useState(false);
   const [page, setPage] = useState(1);
-  const [apiCareers, setApiCareers] = useState<ExploreCareerRecord[] | null>(null);
-  const [apiState, setApiState] = useState<"idle" | "loading" | "ready" | "fallback">("idle");
+  const [apiCareers, setApiCareers] = useState<ExploreCareerRecord[]>([]);
+  const [apiState, setApiState] = useState<"idle" | "loading" | "ready" | "error">("idle");
   const [apiError, setApiError] = useState<string | null>(null);
-  const discoverQuery = searchQuery.trim() || TRENDING_QUERIES[0].label;
+  const [submittedQuery, setSubmittedQuery] = useState("");
+  const [searchRevision, setSearchRevision] = useState(0);
   const normalizedQuery = searchQuery.trim().toLowerCase();
-  const deferredSearchQuery = useDeferredValue(searchQuery.trim());
-  const backendQuery = deferredSearchQuery.trim();
-  const sourceCareers = useMemo(() => {
-    if (backendQuery && apiState === "ready") {
-      return apiCareers ?? [];
-    }
-
-    return DATA2_CAREERS;
-  }, [apiCareers, apiState, backendQuery]);
+  const normalizedSubmittedQuery = submittedQuery.trim().toLowerCase();
+  const sourceCareers = useMemo(() => apiCareers, [apiCareers]);
   const filteredCareers = useMemo(
     () =>
       [...sourceCareers]
         .filter((career) => matchesInterest(career, activeInterest))
-        .filter((career) => matchesQuery(career, normalizedQuery))
-        .sort((left, right) => sortExploreCareers(left, right, normalizedQuery)),
-    [activeInterest, normalizedQuery, sourceCareers],
+        .filter((career) => matchesQuery(career, normalizedSubmittedQuery))
+        .sort((left, right) => sortExploreCareers(left, right, normalizedSubmittedQuery)),
+    [activeInterest, normalizedSubmittedQuery, sourceCareers],
   );
   const totalPages = Math.max(1, Math.ceil(filteredCareers.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -319,18 +314,12 @@ export default function ExploreScene({
   }, []);
 
   useEffect(() => {
-    if (!backendQuery) {
-      setApiCareers(null);
-      setApiState("idle");
-      setApiError(null);
-      return;
-    }
-
     const controller = new AbortController();
+    const nextQuery = submittedQuery.trim();
     setApiState("loading");
     setApiError(null);
 
-    searchCareers({ q: backendQuery }, { signal: controller.signal })
+    searchCareers(nextQuery ? { q: nextQuery } : {}, { signal: controller.signal })
       .then((records) => {
         setApiCareers(records.map(toExploreCareerRecord));
         setApiState("ready");
@@ -341,19 +330,25 @@ export default function ExploreScene({
         }
 
         console.error("Explore API search failed:", error);
-        setApiCareers(null);
-        setApiState("fallback");
+        setApiCareers([]);
+        setApiState("error");
         setApiError(
           error instanceof Error ? error.message : "Live career search is unavailable right now.",
         );
       });
 
     return () => controller.abort();
-  }, [backendQuery]);
+  }, [submittedQuery, searchRevision]);
 
   useEffect(() => {
     setPage(1);
-  }, [searchQuery, activeInterest]);
+  }, [submittedQuery, activeInterest]);
+
+  function submitSearch(nextValue = searchQuery) {
+    setSubmittedQuery(nextValue.trim());
+    setSearchRevision((current) => current + 1);
+    setIsSearchFocused(false);
+  }
 
   return (
     <section className="relative h-screen w-screen shrink-0 overflow-y-auto px-6 pb-36 pt-24">
@@ -380,6 +375,14 @@ export default function ExploreScene({
               <input
                 value={searchQuery}
                 onChange={(event) => onSearchChange(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !isComposing) {
+                    event.preventDefault();
+                    submitSearch();
+                  }
+                }}
+                onCompositionStart={() => setIsComposing(true)}
+                onCompositionEnd={() => setIsComposing(false)}
                 onFocus={() => {
                   if (blurTimeoutRef.current !== null) {
                     window.clearTimeout(blurTimeoutRef.current);
@@ -412,7 +415,7 @@ export default function ExploreScene({
                           onMouseDown={(event) => {
                             event.preventDefault();
                             onSearchChange(item.value);
-                            setIsSearchFocused(false);
+                            submitSearch(item.value);
                           }}
                           className="flex w-full items-center justify-between rounded-[18px] border border-white/8 bg-white/[0.03] px-4 py-3 text-left transition hover:border-cyan-300/26 hover:bg-white/[0.07]"
                         >
@@ -432,10 +435,11 @@ export default function ExploreScene({
             </div>
             <button
               type="button"
-              onClick={() => onSearchChange(discoverQuery)}
+              onClick={() => submitSearch()}
+              disabled={apiState === "loading"}
               className="rounded-[22px] bg-gradient-to-r from-cyan-500 to-orange-500 px-8 py-4 text-base font-semibold text-white shadow-[0_14px_34px_rgba(6,182,212,0.24)] transition hover:translate-y-[-1px] hover:shadow-[0_18px_42px_rgba(249,115,22,0.26)]"
             >
-              Discover
+              {apiState === "loading" ? "Searching..." : "Discover"}
             </button>
           </div>
 
@@ -444,7 +448,10 @@ export default function ExploreScene({
               <button
                 key={item.label}
                 type="button"
-                onClick={() => onSearchChange(item.label)}
+                onClick={() => {
+                  onSearchChange(item.label);
+                  submitSearch(item.label);
+                }}
                 className="flex items-center justify-between rounded-[22px] border border-white/10 bg-white/[0.04] px-5 py-4 text-left transition hover:border-cyan-300/26 hover:bg-white/[0.07]"
               >
                 <div className="flex items-center gap-3">
@@ -472,7 +479,10 @@ export default function ExploreScene({
               <button
                 key={hint}
                 type="button"
-                onClick={() => onSearchChange(hint)}
+                onClick={() => {
+                  onSearchChange(hint);
+                  submitSearch(hint);
+                }}
                 className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 transition hover:border-cyan-300/26 hover:bg-white/[0.08]"
               >
                 Try: {hint}
@@ -480,20 +490,25 @@ export default function ExploreScene({
             ))}
           </div>
 
-          {backendQuery ? (
+          {apiState !== "idle" ? (
             <div className="mt-4 rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
               {apiState === "loading" ? (
-                <span className="text-cyan-200">Searching the live AWS careers API…</span>
+                <span className="text-cyan-200">
+                  {submittedQuery
+                    ? `Searching the live AWS careers API for “${submittedQuery}”…`
+                    : "Loading live career paths from the AWS backend…"}
+                </span>
               ) : null}
               {apiState === "ready" ? (
                 <span className="text-emerald-200">
-                  Showing live backend results for “{backendQuery}”.
+                  {submittedQuery
+                    ? `Showing live backend results for “${submittedQuery}”.`
+                    : "Showing live backend career paths from AWS."}
                 </span>
               ) : null}
-              {apiState === "fallback" ? (
+              {apiState === "error" ? (
                 <span className="text-amber-200">
-                  Live backend search is unavailable, so Explore is using the local dataset instead.
-                  {apiError ? ` ${apiError}` : ""}
+                  Live backend search is unavailable right now. {apiError ?? "Please try again."}
                 </span>
               ) : null}
             </div>
