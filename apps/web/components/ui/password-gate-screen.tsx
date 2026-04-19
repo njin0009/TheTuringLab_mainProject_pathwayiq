@@ -28,7 +28,7 @@ interface PasswordGateScreenProps {
 
 const ACCESS_CODE = "666666";
 const UNLOCK_TRANSITION_MS = 1080;
-const GATE_BUBBLE_MS = 3200;
+const GATE_BUBBLE_MS = 4600;
 const GATE_SEQUENCE_GAP_MS = 220;
 const GATE_DIALOGUE = [
   "Hey there. Welcome to PathwayIQ. Want to play a quick code game before we begin?",
@@ -38,6 +38,7 @@ const GATE_DIALOGUE = [
   "Pattern clue: no slot changes. The whole code is the same number again and again.",
   "Literature clue: the answer scans like a repeating beat — 6, 6, 6, 6, 6, 6.",
   "If you want the direct answer now, the code is 666666.",
+  "If you want these clues again later, click me and I will replay them for you.",
 ] as const;
 const GATE_WALKER: PathwayWalkerVariant = {
   src: "/undraw-scooter.svg",
@@ -49,6 +50,8 @@ const GATE_WALKER: PathwayWalkerVariant = {
 interface GateBubbleState {
   id: number;
   text: string;
+  current: number;
+  total: number;
 }
 
 export default function PasswordGateScreen({
@@ -147,13 +150,18 @@ export default function PasswordGateScreen({
     walkerIsAutoTalkingRef.current = false;
   };
 
-  const showWalkerBubble = (text: string, duration = GATE_BUBBLE_MS) => {
+  const showWalkerBubble = (
+    text: string,
+    current: number,
+    total: number,
+    duration = GATE_BUBBLE_MS,
+  ) => {
     if (walkerBubbleTimerRef.current !== null) {
       window.clearTimeout(walkerBubbleTimerRef.current);
       walkerBubbleTimerRef.current = null;
     }
 
-    setWalkerBubble({ id: Date.now(), text });
+    setWalkerBubble({ id: Date.now(), text, current, total });
     walkerBubbleTimerRef.current = window.setTimeout(() => {
       setWalkerBubble(null);
       walkerBubbleTimerRef.current = null;
@@ -165,7 +173,7 @@ export default function PasswordGateScreen({
 
     walkerIsAutoTalkingRef.current = true;
     walkerAutoLineRef.current = safeIndex;
-    showWalkerBubble(GATE_DIALOGUE[safeIndex]);
+    showWalkerBubble(GATE_DIALOGUE[safeIndex], safeIndex + 1, GATE_DIALOGUE.length);
 
     const nextIndex = safeIndex + 1;
     if (nextIndex >= GATE_DIALOGUE.length) {
@@ -247,8 +255,9 @@ export default function PasswordGateScreen({
 
     const nextIndex = walkerDialogueCursorRef.current % GATE_DIALOGUE.length;
     const nextText = GATE_DIALOGUE[nextIndex];
+    const currentStep = nextIndex + 1;
     walkerDialogueCursorRef.current = (nextIndex + 1) % GATE_DIALOGUE.length;
-    showWalkerBubble(nextText);
+    showWalkerBubble(nextText, currentStep, GATE_DIALOGUE.length);
   };
 
   return (

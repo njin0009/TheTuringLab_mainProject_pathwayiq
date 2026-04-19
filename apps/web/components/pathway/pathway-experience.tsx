@@ -36,26 +36,31 @@ const WALKER_DIALOGUE = [
     "Use A / D or the left and right arrow keys to switch menus.",
     "Click me anytime if you want more guidance.",
     "Press Start when you're ready to begin.",
+    "If you still have questions later, click me again and I will replay these tips.",
   ],
   [
     "Choose the card that sounds most like you on this page.",
     "When you're done, use Explore to open matching paths.",
     "You can still use A / D or the arrow keys to switch menus.",
+    "If you want this guidance again, click me and I will walk you through it once more.",
   ],
   [
     "Use the search bar or the filter chips to narrow this list.",
     "Scroll down to browse more cards, then open one for details.",
     "If two careers stand out, send them to Compare.",
+    "If you need these Explore tips again, click me and I will replay them.",
   ],
   [
     "Tap the cards here to build your comparison set.",
     "Keep your best two options, then continue to Report.",
     "Use A / D or the arrow keys if you want to jump to another page.",
+    "If you want to revisit these compare steps, click me again anytime.",
   ],
   [
     "This page sums up the direction you've built so far.",
     "Use Compare if you want to back up and inspect your choices again.",
     "Restart is here whenever you want a fresh run through the guide.",
+    "If you want this report guidance again, click me and I will repeat it.",
   ],
 ] as const;
 
@@ -96,7 +101,7 @@ const WALKER_VARIANTS: PathwayWalkerVariant[] = [
 const WALKER_START_X = 80;
 const WALKER_GROUND_BOTTOM = "calc(7rem + 12px)";
 const WALKER_MOTION_MS = 220;
-const WALKER_BUBBLE_MS = 2800;
+const WALKER_BUBBLE_MS = 4300;
 const WALKER_SEQUENCE_GAP_MS = 180;
 const GATE_COVER_MS = 260;
 const GATE_REVEAL_MS = 620;
@@ -111,6 +116,8 @@ interface WalkerState {
 interface WalkerBubbleState {
   id: number;
   text: string;
+  current: number;
+  total: number;
 }
 
 function isInteractiveElement(target: EventTarget | null) {
@@ -310,13 +317,18 @@ export function PathwayExperience() {
     walkerAutoLineRef.current = 0;
   }, []);
 
-  const showWalkerBubble = useCallback((text: string, duration = WALKER_BUBBLE_MS) => {
+  const showWalkerBubble = useCallback((
+    text: string,
+    current: number,
+    total: number,
+    duration = WALKER_BUBBLE_MS,
+  ) => {
     if (walkerBubbleTimerRef.current !== null) {
       window.clearTimeout(walkerBubbleTimerRef.current);
       walkerBubbleTimerRef.current = null;
     }
 
-    setWalkerBubble({ id: Date.now(), text });
+    setWalkerBubble({ id: Date.now(), text, current, total });
 
     walkerBubbleTimerRef.current = window.setTimeout(() => {
       setWalkerBubble(null);
@@ -330,7 +342,7 @@ export function PathwayExperience() {
 
     walkerAutoSceneRef.current = sceneIdx;
     walkerAutoLineRef.current = safeIndex;
-    showWalkerBubble(lines[safeIndex]);
+    showWalkerBubble(lines[safeIndex], safeIndex + 1, lines.length);
 
     const nextIndex = safeIndex + 1;
     if (nextIndex >= lines.length) {
@@ -493,9 +505,10 @@ export function PathwayExperience() {
 
     const nextCursor = walkerBubbleCursorRef.current[sceneIdx] ?? 0;
     const text = lines[nextCursor % lines.length];
+    const currentStep = (nextCursor % lines.length) + 1;
 
     walkerBubbleCursorRef.current[sceneIdx] = (nextCursor + 1) % lines.length;
-    showWalkerBubble(text);
+    showWalkerBubble(text, currentStep, lines.length);
   }
 
   return (

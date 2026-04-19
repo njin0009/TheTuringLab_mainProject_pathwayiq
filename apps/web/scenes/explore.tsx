@@ -39,7 +39,7 @@ const TRENDING_QUERIES = [
   { label: "Automotive Electrician", detail: "Industry: Engineering" },
   { label: "Bricklayer", detail: "Industry: Construction" },
 ] as const;
-const QUICK_HINTS = ["healthcare", "engineering", "apprenticeship", "business"] as const;
+const QUICK_HINTS = ["healthcare", "engineering", "business"] as const;
 const PAGE_SIZE = 6;
 
 const INTEREST_MATCHERS: Record<(typeof INTEREST_TAGS)[number], (career: ExploreCareerRecord) => boolean> = {
