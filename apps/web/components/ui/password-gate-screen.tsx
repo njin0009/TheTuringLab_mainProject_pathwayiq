@@ -69,6 +69,7 @@ export default function PasswordGateScreen({
   const walkerIntroTimerRef = useRef<number | null>(null);
   const walkerSequenceTimerRef = useRef<number | null>(null);
   const walkerDialogueCursorRef = useRef(0);
+  const walkerVisibleLineRef = useRef(0);
   const walkerAutoLineRef = useRef(0);
   const walkerIsAutoTalkingRef = useRef(false);
 
@@ -168,12 +169,22 @@ export default function PasswordGateScreen({
     }, duration);
   };
 
-  const playWalkerSequence = (lineIdx = 0) => {
+  const showGateWalkerLine = (
+    lineIdx: number,
+    duration = GATE_BUBBLE_MS,
+  ) => {
     const safeIndex = Math.min(Math.max(lineIdx, 0), GATE_DIALOGUE.length - 1);
+
+    walkerVisibleLineRef.current = safeIndex;
+    showWalkerBubble(GATE_DIALOGUE[safeIndex], safeIndex + 1, GATE_DIALOGUE.length, duration);
+    return safeIndex;
+  };
+
+  const playWalkerSequence = (lineIdx = 0) => {
+    const safeIndex = showGateWalkerLine(lineIdx);
 
     walkerIsAutoTalkingRef.current = true;
     walkerAutoLineRef.current = safeIndex;
-    showWalkerBubble(GATE_DIALOGUE[safeIndex], safeIndex + 1, GATE_DIALOGUE.length);
 
     const nextIndex = safeIndex + 1;
     if (nextIndex >= GATE_DIALOGUE.length) {
@@ -254,10 +265,42 @@ export default function PasswordGateScreen({
     }
 
     const nextIndex = walkerDialogueCursorRef.current % GATE_DIALOGUE.length;
-    const nextText = GATE_DIALOGUE[nextIndex];
     const currentStep = nextIndex + 1;
     walkerDialogueCursorRef.current = (nextIndex + 1) % GATE_DIALOGUE.length;
-    showWalkerBubble(nextText, currentStep, GATE_DIALOGUE.length);
+    walkerVisibleLineRef.current = nextIndex;
+    showWalkerBubble(GATE_DIALOGUE[nextIndex], currentStep, GATE_DIALOGUE.length);
+  };
+
+  const handleWalkerBubblePrev = () => {
+    if (isUnlocking) {
+      return;
+    }
+
+    const prevIndex = (walkerVisibleLineRef.current - 1 + GATE_DIALOGUE.length) % GATE_DIALOGUE.length;
+    clearWalkerDialogueTimers();
+    walkerDialogueCursorRef.current = (prevIndex + 1) % GATE_DIALOGUE.length;
+    showGateWalkerLine(prevIndex);
+  };
+
+  const handleWalkerBubbleNext = () => {
+    if (isUnlocking) {
+      return;
+    }
+
+    const nextIndex = (walkerVisibleLineRef.current + 1) % GATE_DIALOGUE.length;
+    clearWalkerDialogueTimers();
+    walkerDialogueCursorRef.current = (nextIndex + 1) % GATE_DIALOGUE.length;
+    showGateWalkerLine(nextIndex);
+  };
+
+  const handleWalkerBubbleClose = () => {
+    if (isUnlocking) {
+      return;
+    }
+
+    walkerDialogueCursorRef.current = walkerVisibleLineRef.current;
+    clearWalkerDialogueTimers();
+    setWalkerBubble(null);
   };
 
   return (
@@ -400,6 +443,9 @@ export default function PasswordGateScreen({
         variant={GATE_WALKER}
         bubble={walkerBubble}
         onTalk={handleWalkerTalk}
+        onBubblePrev={handleWalkerBubblePrev}
+        onBubbleNext={handleWalkerBubbleNext}
+        onBubbleClose={handleWalkerBubbleClose}
       />
     </section>
   );
