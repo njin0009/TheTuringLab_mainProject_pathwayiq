@@ -351,7 +351,7 @@ export default function ExploreScene({
   }
 
   return (
-    <section className="relative h-screen w-screen shrink-0 overflow-y-auto px-6 pb-36 pt-24">
+    <section className="relative h-screen w-screen shrink-0 overflow-hidden px-6 pb-36 pt-24">
       <div className="mx-auto flex min-h-full max-w-[1320px] flex-col">
         <div className="relative z-10 text-center">
           <div className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">
