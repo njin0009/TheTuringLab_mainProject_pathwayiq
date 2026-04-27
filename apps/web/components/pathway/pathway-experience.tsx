@@ -13,10 +13,10 @@ import { useQuizState } from "@/hooks/useQuizState";
 import {
   CAREER_CARDS,
   DEFAULT_COMPARE,
-  QUIZ_TO_INTEREST,
   SCENE_LABELS,
   type CareerId,
 } from "@/lib/career-data";
+import type { QuizResult } from "@/lib/quiz-data";
 import CompareScene from "@/scenes/compare";
 import ExploreScene from "@/scenes/explore";
 import HomeScene from "@/scenes/home";
@@ -39,8 +39,8 @@ const WALKER_DIALOGUE = [
     "If you still have questions later, click me again and I will replay these tips.",
   ],
   [
-    "Choose the card that sounds most like you on this page.",
-    "When you're done, use Explore to open matching paths.",
+    "Choose Quick Match for a fast read, or Deep Match for a fuller result.",
+    "Answer the questions, then use Explore to open careers that fit your result.",
     "You can still use A / D or the arrow keys to switch menus.",
     "If you want this guidance again, click me and I will walk you through it once more.",
   ],
@@ -165,7 +165,28 @@ export function PathwayExperience() {
   const [selectedCareerId, setSelectedCareerId] = useState<CareerId | null>(null);
   const [reportFocusId, setReportFocusId] = useState<CareerId | null>(null);
   const [compareSelection, setCompareSelection] = useState<CareerId[]>(DEFAULT_COMPARE);
-  const { selectedOption, selectOption } = useQuizState();
+  const {
+    mode: quizMode,
+    modes: quizModes,
+    phase: quizPhase,
+    questions: quizQuestions,
+    answers: quizAnswers,
+    currentQuestion: quizCurrentQuestion,
+    currentQuestionIndex: quizCurrentQuestionIndex,
+    questionNumber: quizQuestionNumber,
+    selectedOptionId: quizSelectedOptionId,
+    progressPercent: quizProgressPercent,
+    hasAnsweredCurrent: quizHasAnsweredCurrent,
+    canGoBack: quizCanGoBack,
+    result: quizResult,
+    startMode: startQuizMode,
+    switchMode: switchQuizMode,
+    chooseOption: chooseQuizOption,
+    nextQuestion: nextQuizQuestion,
+    previousQuestion: previousQuizQuestion,
+    restartMode: restartQuizMode,
+    resetQuiz,
+  } = useQuizState();
   const filteredCareers = useCareerSearch(searchQuery, activeInterest);
 
   const primaryCareer = filteredCareers[0] ?? CAREER_CARDS[0];
@@ -468,9 +489,10 @@ export function PathwayExperience() {
     return () => window.removeEventListener("resize", handleResize);
   }, [renderWalker, scrollToScene]);
 
-  function handleQuizSelect(option: string) {
-    selectOption(option);
-    setActiveInterest(QUIZ_TO_INTEREST[option as keyof typeof QUIZ_TO_INTEREST]);
+  function handleQuizExplore(result: QuizResult) {
+    setActiveInterest(result.exploreInterest);
+    setSearchQuery(result.exploreSearch);
+    scrollToScene(2);
   }
 
   function handleCompareToggle(careerId: CareerId) {
@@ -627,14 +649,35 @@ export function PathwayExperience() {
           panelVisible={homePanelOpen}
           onStart={() => setHomePanelOpen(true)}
           onBack={() => setHomePanelOpen(false)}
-          onTakeQuiz={() => scrollToScene(1)}
+          onTakeQuiz={() => {
+            resetQuiz();
+            scrollToScene(1);
+          }}
           onExplore={() => scrollToScene(2)}
           onCompare={() => scrollToScene(3)}
         />
         <QuizScene
-          selectedOption={selectedOption}
-          onSelectOption={handleQuizSelect}
-          onExplore={() => scrollToScene(2)}
+          phase={quizPhase}
+          mode={quizMode}
+          modes={quizModes}
+          questions={quizQuestions}
+          answers={quizAnswers}
+          currentQuestion={quizCurrentQuestion}
+          currentQuestionIndex={quizCurrentQuestionIndex}
+          questionNumber={quizQuestionNumber}
+          selectedOptionId={quizSelectedOptionId}
+          progressPercent={quizProgressPercent}
+          hasAnsweredCurrent={quizHasAnsweredCurrent}
+          canGoBack={quizCanGoBack}
+          result={quizResult}
+          onChooseMode={startQuizMode}
+          onChooseOption={chooseQuizOption}
+          onNext={nextQuizQuestion}
+          onPrevious={previousQuizQuestion}
+          onRestartMode={restartQuizMode}
+          onSwitchMode={switchQuizMode}
+          onResetQuiz={resetQuiz}
+          onExplore={handleQuizExplore}
         />
         <ExploreScene
           careers={filteredCareers}
@@ -658,7 +701,11 @@ export function PathwayExperience() {
           onCompare={() => scrollToScene(3)}
           onRestart={() => {
             setReportFocusId(null);
+            setSelectedCareerId(null);
             setHomePanelOpen(false);
+            setCompareSelection(DEFAULT_COMPARE);
+            clearFilters();
+            resetQuiz();
             scrollToScene(0);
           }}
         />
