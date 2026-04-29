@@ -66,3 +66,6 @@ data/pathwayiq-Data Pipeline/cleaned_data/
 *.xlsx
 *.csv
 ~$*
+
+# Raw data files — do not commit large or sensitive source files
+src/backend/ai_risk/data/raw/
