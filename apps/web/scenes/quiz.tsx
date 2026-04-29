@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useState } from "react";
+import ExpandCards from "@/components/ui/expand-cards";
 import { CAREER_PROFILES } from "@/lib/career-data";
 import type {
   QuizAnswerMap,
@@ -7,6 +9,7 @@ import type {
   QuizQuestion,
   QuizResult,
 } from "@/lib/quiz-data";
+import { QUIZ_DIMENSIONS } from "@/lib/quiz-data";
 import type { QuizPhase } from "@/hooks/useQuizState";
 
 interface QuizSceneProps {
@@ -150,6 +153,7 @@ export default function QuizScene({
   const activeTheme = getModeTheme(mode);
   const alternateMode = mode === "quick" ? "deep" : "quick";
   const resultTheme = getModeTheme(result?.mode ?? null);
+  const [showAllStyles, setShowAllStyles] = useState(false);
 
   return (
     <section className="relative h-screen w-screen shrink-0 snap-start overflow-y-auto px-6 pb-36 pt-28">
@@ -307,6 +311,17 @@ export default function QuizScene({
                         {result.supportStyle.tagline}
                       </p>
                     </div>
+
+                    <div className="mt-5">
+                      <button
+                        type="button"
+                        onClick={() => setShowAllStyles(true)}
+                        className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-slate-200 transition hover:border-white/22 hover:bg-white/[0.08]"
+                      >
+                        View all results
+                      </button>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -535,6 +550,15 @@ export default function QuizScene({
           ) : null}
         </div>
       </div>
+
+      {phase === "result" && result ? (
+        <ExpandCards
+          open={showAllStyles}
+          onClose={() => setShowAllStyles(false)}
+          items={Object.values(QUIZ_DIMENSIONS)}
+          initialStyleId={result.topStyle.id}
+        />
+      ) : null}
     </section>
   );
 }

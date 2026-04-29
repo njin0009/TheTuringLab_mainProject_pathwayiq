@@ -161,6 +161,7 @@ export function PathwayExperience() {
   const [showHint, setShowHint] = useState(true);
   const [walkerBubble, setWalkerBubble] = useState<WalkerBubbleState | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [exploreLaunchKey, setExploreLaunchKey] = useState(0);
   const [activeInterest, setActiveInterest] = useState<string | null>(null);
   const [selectedCareerId, setSelectedCareerId] = useState<CareerId | null>(null);
   const [reportFocusId, setReportFocusId] = useState<CareerId | null>(null);
@@ -514,6 +515,14 @@ export function PathwayExperience() {
   function handleQuizExplore(result: QuizResult) {
     setActiveInterest(result.exploreInterest);
     setSearchQuery(result.exploreSearch);
+    setExploreLaunchKey((current) => current + 1);
+    scrollToScene(2);
+  }
+
+  function handleHomeExplore(query?: string) {
+    setActiveInterest(null);
+    setSearchQuery(query ?? "");
+    setExploreLaunchKey((current) => current + 1);
     scrollToScene(2);
   }
 
@@ -675,7 +684,7 @@ export function PathwayExperience() {
             resetQuiz();
             scrollToScene(1);
           }}
-          onExplore={() => scrollToScene(2)}
+          onExplore={handleHomeExplore}
           onCompare={() => scrollToScene(3)}
         />
         <QuizScene
@@ -704,6 +713,7 @@ export function PathwayExperience() {
         <ExploreScene
           careers={filteredCareers}
           searchQuery={searchQuery}
+          searchLaunchKey={exploreLaunchKey}
           activeInterest={activeInterest}
           onSearchChange={setSearchQuery}
           onSelectInterest={setActiveInterest}

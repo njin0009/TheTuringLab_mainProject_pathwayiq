@@ -3,11 +3,13 @@ import { INTEREST_TAGS, type CareerCard } from "@/lib/career-data";
 import { Search, TrendingUp } from "lucide-react";
 import CourseDesignCard, { type CourseDesignCardData } from "@/components/ui/course-design-cards";
 import { searchCareers, type BackendCareerRecord } from "@/lib/api-client";
+import { EXPLORE_TRENDING_QUERIES } from "@/lib/explore-trends";
 import careerCardsData from "../public/data2/career-cards.json";
 
 interface ExploreSceneProps {
   careers: CareerCard[];
   searchQuery: string;
+  searchLaunchKey: number;
   activeInterest: string | null;
   onSearchChange: (value: string) => void;
   onSelectInterest: (value: string | null) => void;
@@ -34,11 +36,6 @@ interface AutomationLevelTone {
 }
 
 const DATA2_CAREERS = careerCardsData as ExploreCareerRecord[];
-const TRENDING_QUERIES = [
-  { label: "Ambulance Officer", detail: "Industry: Healthcare" },
-  { label: "Automotive Electrician", detail: "Industry: Engineering" },
-  { label: "Bricklayer", detail: "Industry: Construction" },
-] as const;
 const QUICK_HINTS = ["healthcare", "engineering", "business"] as const;
 const PAGE_SIZE = 6;
 
@@ -253,6 +250,7 @@ function getAutocompleteScore(item: ExploreAutocompleteItem, query: string) {
 export default function ExploreScene({
   careers: _careers,
   searchQuery,
+  searchLaunchKey,
   activeInterest,
   onSearchChange,
   onSelectInterest,
@@ -343,6 +341,14 @@ export default function ExploreScene({
   useEffect(() => {
     setPage(1);
   }, [submittedQuery, activeInterest]);
+
+  useEffect(() => {
+    if (searchLaunchKey === 0) {
+      return;
+    }
+
+    submitSearch(searchQuery);
+  }, [searchLaunchKey]);
 
   function submitSearch(nextValue = searchQuery) {
     setSubmittedQuery(nextValue.trim());
@@ -444,7 +450,7 @@ export default function ExploreScene({
           </div>
 
           <div className="mt-4 grid gap-3 lg:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_auto]">
-            {TRENDING_QUERIES.map((item) => (
+            {EXPLORE_TRENDING_QUERIES.map((item) => (
               <button
                 key={item.label}
                 type="button"

@@ -1,5 +1,6 @@
 import ShaderShowcase from "@/components/ui/hero";
 import GradientCardShowcase from "@/components/ui/gradient-card-showcase";
+import { EXPLORE_TRENDING_QUERIES } from "@/lib/explore-trends";
 
 interface HomeSceneProps {
   heroVersion: number;
@@ -7,7 +8,7 @@ interface HomeSceneProps {
   onStart: () => void;
   onBack: () => void;
   onTakeQuiz: () => void;
-  onExplore: () => void;
+  onExplore: (query?: string) => void;
   onCompare: () => void;
 }
 
@@ -39,7 +40,7 @@ export default function HomeScene({
       ctaLabel: "Open Explore",
       gradientFrom: "#4f7cff",
       gradientTo: "#00d0ff",
-      onSelect: onExplore,
+      onSelect: () => onExplore(),
     },
     {
       id: "compare",
@@ -68,16 +69,61 @@ export default function HomeScene({
         subtitle="Create a clearer pathway into careers, compare options with confidence, and start the journey in the way that suits you best."
         actionSlot={
           !panelVisible ? (
-            <button
-              type="button"
-              onClick={onStart}
-              className="rounded-full border border-cyan-400/35 bg-gradient-to-r from-cyan-500 to-orange-500 px-10 py-4 text-base font-semibold text-white shadow-[0_18px_56px_rgba(6,182,212,0.22)] transition hover:translate-y-[-1px] hover:shadow-[0_22px_64px_rgba(249,115,22,0.28)]"
-            >
-              Start
-            </button>
+            <div className="lg:hidden">
+              <button
+                type="button"
+                onClick={onStart}
+                className="rounded-full border border-cyan-400/35 bg-gradient-to-r from-cyan-500 to-orange-500 px-10 py-4 text-base font-semibold text-white shadow-[0_18px_56px_rgba(6,182,212,0.22)] transition hover:translate-y-[-1px] hover:shadow-[0_22px_64px_rgba(249,115,22,0.28)]"
+              >
+                Start
+              </button>
+            </div>
           ) : null
         }
       />
+
+      {!panelVisible ? (
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-20 hidden items-center px-6 lg:flex lg:px-10">
+          <div className="pointer-events-auto w-[340px] rounded-[30px] border border-white/12 bg-[#071018]/58 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.34)] backdrop-blur-xl">
+            <div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.34em] text-cyan-300/88">
+                Trend Radar
+              </div>
+              <h3 className="mt-3 text-2xl font-semibold text-white">
+                Top roles students are checking right now.
+              </h3>
+              <div className="mt-6 space-y-3">
+                {EXPLORE_TRENDING_QUERIES.slice(0, 3).map((item, index) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => onExplore(item.label)}
+                    className="flex w-full items-center gap-4 rounded-[22px] border border-white/10 bg-white/[0.04] px-4 py-4 text-left transition hover:border-cyan-300/30 hover:bg-white/[0.08]"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-cyan-300/22 bg-cyan-400/10 text-sm font-semibold text-cyan-100">
+                      {index + 1}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="truncate text-base font-medium text-white">{item.label}</div>
+                      <div className="mt-1 text-sm text-slate-400">{item.detail}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <button
+                type="button"
+                onClick={onStart}
+                className="w-full rounded-[24px] border border-cyan-400/35 bg-gradient-to-r from-cyan-500 to-orange-500 px-10 py-4 text-base font-semibold text-white shadow-[0_18px_56px_rgba(6,182,212,0.22)] transition hover:translate-y-[-1px] hover:shadow-[0_22px_64px_rgba(249,115,22,0.28)]"
+              >
+                Start
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {panelVisible ? (
         <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-6">
