@@ -69,3 +69,6 @@ data/pathwayiq-Data Pipeline/cleaned_data/
 
 # Raw data files — do not commit large or sensitive source files
 src/backend/ai_risk/data/raw/
+
+# Allow processed ai_risk CSV (committed intentionally)
+!src/backend/ai_risk/data/processed/*.csv
