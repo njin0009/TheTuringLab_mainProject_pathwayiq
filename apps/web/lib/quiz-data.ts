@@ -1,5 +1,5 @@
-import type { CareerId } from "@/lib/career-data";
-import type { INTEREST_TAGS } from "@/lib/career-data";
+import { INTEREST_TAGS } from "@/lib/career-data";
+import careerCardsData from "../public/data2/career-cards.json";
 
 export type QuizModeId = "quick" | "deep";
 
@@ -31,8 +31,18 @@ export interface QuizDimensionDefinition {
   illustrationSrc: string;
   exploreInterest: (typeof INTEREST_TAGS)[number] | null;
   exploreSearch: string;
-  recommendedCareerIds: CareerId[];
   workLikes: string[];
+}
+
+export interface QuizCareerRecommendation {
+  title: string;
+  pathway: string;
+  industry: string;
+  anzsco_code: string;
+  median_salary: number;
+  shortage_status: string;
+  fitLabel: string;
+  visualStyleId: QuizDimensionId;
 }
 
 export interface QuizQuestionOption {
@@ -65,12 +75,29 @@ export interface QuizResult {
   topStyle: QuizDimensionDefinition;
   supportStyle: QuizDimensionDefinition;
   scoreBreakdown: QuizScoreBreakdown[];
-  recommendedCareerIds: CareerId[];
+  recommendedCareers: QuizCareerRecommendation[];
   exploreInterest: (typeof INTEREST_TAGS)[number] | null;
   exploreSearch: string;
 }
 
 export type QuizAnswerMap = Record<string, string>;
+
+interface QuizCareerDatasetRecord {
+  title: string;
+  pathway: string;
+  industry: string;
+  anzsco_code: string;
+  median_salary: number;
+  shortage_status: string;
+}
+
+interface QuizCareerFitRule {
+  industries?: string[];
+  pathways?: string[];
+  titleKeywords?: string[];
+}
+
+const QUIZ_CAREER_DATA = careerCardsData as QuizCareerDatasetRecord[];
 
 export const QUIZ_MODES: QuizModeDefinition[] = [
   {
@@ -78,16 +105,16 @@ export const QUIZ_MODES: QuizModeDefinition[] = [
     title: "Quick Match",
     duration: "6 questions · about 1 minute",
     questionCount: 6,
-    blurb: "A fast direction check when you want a rough sense of where to look first.",
-    helper: "Best when you want a short, low-pressure starting point.",
+    blurb: "A fast vibe check for the kinds of jobs and pathways that might feel right first.",
+    helper: "Best when you want a quick starting point before diving into career cards.",
   },
   {
     id: "deep",
     title: "Deep Match",
     duration: "12 questions · about 3 minutes",
     questionCount: 12,
-    blurb: "A more complete read across multiple work-style dimensions before you explore careers.",
-    helper: "Best when you want stronger signals before you browse pathways.",
+    blurb: "A more detailed read across multiple work-style dimensions before you explore careers.",
+    helper: "Best when you want a fuller result before checking uni, TAFE, or apprenticeship options.",
   },
 ] as const;
 
@@ -104,7 +131,6 @@ export const QUIZ_DIMENSIONS: Record<QuizDimensionId, QuizDimensionDefinition> =
     illustrationSrc: "/quiz-styles/maker.svg",
     exploreInterest: "Hands-on Trades",
     exploreSearch: "electrician",
-    recommendedCareerIds: ["career-elec", "career-wind", "career-solar"],
     workLikes: ["hands-on progress", "field-based work", "real-world problem solving"],
   },
   decoder: {
@@ -119,7 +145,6 @@ export const QUIZ_DIMENSIONS: Record<QuizDimensionId, QuizDimensionDefinition> =
     illustrationSrc: "/quiz-styles/solver.svg",
     exploreInterest: "Data & AI",
     exploreSearch: "data",
-    recommendedCareerIds: ["career-ds", "career-cyber", "career-prompt"],
     workLikes: ["logic and patterns", "structured challenges", "figuring things out"],
   },
   creator: {
@@ -134,7 +159,6 @@ export const QUIZ_DIMENSIONS: Record<QuizDimensionId, QuizDimensionDefinition> =
     illustrationSrc: "/quiz-styles/creator.svg",
     exploreInterest: "Creative Problem Solving",
     exploreSearch: "designer",
-    recommendedCareerIds: ["career-ux", "career-prompt", "career-solar"],
     workLikes: ["new ideas", "creative systems", "turning concepts into outcomes"],
   },
   guide: {
@@ -149,7 +173,6 @@ export const QUIZ_DIMENSIONS: Record<QuizDimensionId, QuizDimensionDefinition> =
     illustrationSrc: "/quiz-styles/guide.svg",
     exploreInterest: "Healthcare",
     exploreSearch: "nurse",
-    recommendedCareerIds: ["career-nurse", "career-physio", "career-ux"],
     workLikes: ["helping people", "clear communication", "steady support"],
   },
   catalyst: {
@@ -164,7 +187,6 @@ export const QUIZ_DIMENSIONS: Record<QuizDimensionId, QuizDimensionDefinition> =
     illustrationSrc: "/quiz-styles/leader.svg",
     exploreInterest: "Cybersecurity",
     exploreSearch: "security",
-    recommendedCareerIds: ["career-cyber", "career-freight", "career-solar"],
     workLikes: ["momentum and action", "influence", "high-energy decisions"],
   },
   strategist: {
@@ -179,10 +201,276 @@ export const QUIZ_DIMENSIONS: Record<QuizDimensionId, QuizDimensionDefinition> =
     illustrationSrc: "/quiz-styles/planner.svg",
     exploreInterest: "Data & AI",
     exploreSearch: "manager",
-    recommendedCareerIds: ["career-ds", "career-freight", "career-cyber"],
     workLikes: ["planning ahead", "systems and structure", "steady execution"],
   },
 };
+
+const STYLE_FIT_RULES: Record<QuizDimensionId, QuizCareerFitRule> = {
+  builder: {
+    industries: ["Engineering", "Construction", "Agriculture & Environment", "Healthcare"],
+    pathways: ["Apprenticeship", "TAFE"],
+    titleKeywords: [
+      "electrician",
+      "plumber",
+      "bricklayer",
+      "carpenter",
+      "mechanic",
+      "technician",
+      "maintenance",
+      "engineer",
+      "cabler",
+    ],
+  },
+  decoder: {
+    industries: ["Technology", "Engineering", "Business", "Science"],
+    pathways: ["TAFE", "Apprenticeship"],
+    titleKeywords: [
+      "analyst",
+      "developer",
+      "programmer",
+      "software",
+      "ict",
+      "data",
+      "policy",
+      "quality",
+      "engineer",
+    ],
+  },
+  creator: {
+    industries: ["Creative Industries", "Technology", "Education", "Construction", "Business"],
+    pathways: ["TAFE", "Apprenticeship"],
+    titleKeywords: [
+      "designer",
+      "marketing",
+      "graphic",
+      "interior",
+      "architectural",
+      "draftsperson",
+      "developer",
+      "teacher",
+    ],
+  },
+  guide: {
+    industries: ["Healthcare", "Community Services", "Education"],
+    pathways: ["TAFE"],
+    titleKeywords: [
+      "nurse",
+      "teacher",
+      "care",
+      "community",
+      "health",
+      "counsell",
+      "aide",
+      "worker",
+      "educator",
+    ],
+  },
+  catalyst: {
+    industries: ["Business", "Technology", "Engineering", "Construction"],
+    pathways: ["TAFE", "Apprenticeship"],
+    titleKeywords: [
+      "manager",
+      "project",
+      "sales",
+      "marketing",
+      "executive",
+      "lead",
+      "company",
+      "transport",
+      "engineer",
+    ],
+  },
+  strategist: {
+    industries: ["Business", "Education", "Technology", "Engineering", "Community Services"],
+    pathways: ["TAFE", "Apprenticeship"],
+    titleKeywords: [
+      "manager",
+      "analyst",
+      "planning",
+      "policy",
+      "project",
+      "quality",
+      "office",
+      "practice",
+      "engineer",
+    ],
+  },
+};
+
+const STYLE_PAIR_FIT_RULES: Partial<Record<`${QuizDimensionId}:${QuizDimensionId}`, QuizCareerFitRule>> = {
+  "builder:guide": {
+    industries: ["Healthcare", "Community Services", "Construction"],
+    titleKeywords: ["ambulance", "nurse", "health", "care", "technician"],
+  },
+  "builder:strategist": {
+    industries: ["Engineering", "Construction", "Business"],
+    titleKeywords: ["project", "manager", "engineer", "estimator", "technician"],
+  },
+  "decoder:creator": {
+    industries: ["Technology", "Creative Industries", "Business"],
+    titleKeywords: ["designer", "developer", "software", "graphic", "ict", "programmer"],
+  },
+  "decoder:strategist": {
+    industries: ["Technology", "Business", "Science"],
+    titleKeywords: ["analyst", "manager", "policy", "project", "ict", "quality"],
+  },
+  "creator:guide": {
+    industries: ["Education", "Community Services", "Creative Industries"],
+    titleKeywords: ["teacher", "designer", "child", "community", "trainer", "educator"],
+  },
+  "creator:catalyst": {
+    industries: ["Creative Industries", "Business", "Technology"],
+    titleKeywords: ["marketing", "designer", "manager", "project", "developer"],
+  },
+  "guide:strategist": {
+    industries: ["Healthcare", "Education", "Community Services"],
+    titleKeywords: ["nurse", "teacher", "manager", "educator", "welfare", "practice"],
+  },
+  "catalyst:decoder": {
+    industries: ["Technology", "Business", "Engineering"],
+    titleKeywords: ["manager", "analyst", "ict", "software", "engineer", "quality"],
+  },
+  "catalyst:builder": {
+    industries: ["Engineering", "Construction", "Business"],
+    titleKeywords: ["manager", "engineer", "project", "electrician", "technician"],
+  },
+  "strategist:guide": {
+    industries: ["Healthcare", "Education", "Community Services"],
+    titleKeywords: ["nurse", "teacher", "manager", "educator", "welfare", "practice"],
+  },
+};
+
+function getIndustryScore(industries: string[] | undefined, value: string, base: number) {
+  if (!industries) {
+    return 0;
+  }
+
+  const matchIndex = industries.findIndex((industry) => industry === value);
+  if (matchIndex === -1) {
+    return 0;
+  }
+
+  return Math.max(base - matchIndex * 6, Math.round(base * 0.45));
+}
+
+function getPathwayScore(pathways: string[] | undefined, value: string, base: number) {
+  if (!pathways || !pathways.includes(value)) {
+    return 0;
+  }
+
+  return base;
+}
+
+function getKeywordScore(titleKeywords: string[] | undefined, title: string, base: number) {
+  if (!titleKeywords) {
+    return 0;
+  }
+
+  const normalizedTitle = title.toLowerCase();
+  const matches = titleKeywords.filter((keyword) => normalizedTitle.includes(keyword.toLowerCase()));
+  return Math.min(matches.length, 3) * base;
+}
+
+function getQuizCareerScore(
+  career: QuizCareerDatasetRecord,
+  topStyle: QuizDimensionDefinition,
+  supportStyle: QuizDimensionDefinition,
+) {
+  const topRule = STYLE_FIT_RULES[topStyle.id];
+  const supportRule = STYLE_FIT_RULES[supportStyle.id];
+  const pairRule = STYLE_PAIR_FIT_RULES[`${topStyle.id}:${supportStyle.id}`];
+
+  let score = 0;
+
+  score += getIndustryScore(topRule.industries, career.industry, 34);
+  score += getIndustryScore(supportRule.industries, career.industry, 18);
+  score += getIndustryScore(pairRule?.industries, career.industry, 22);
+
+  score += getPathwayScore(topRule.pathways, career.pathway, 18);
+  score += getPathwayScore(supportRule.pathways, career.pathway, 8);
+  score += getPathwayScore(pairRule?.pathways, career.pathway, 10);
+
+  score += getKeywordScore(topRule.titleKeywords, career.title, 8);
+  score += getKeywordScore(supportRule.titleKeywords, career.title, 4);
+  score += getKeywordScore(pairRule?.titleKeywords, career.title, 6);
+
+  if (/^in shortage$/i.test(career.shortage_status)) {
+    score += 8;
+  }
+
+  score += Math.min(10, Math.round(career.median_salary / 20000));
+
+  return score;
+}
+
+function getFitLabel(topStyle: QuizDimensionDefinition, supportStyle: QuizDimensionDefinition) {
+  return `${topStyle.label} + ${supportStyle.label} fit`;
+}
+
+function getSingleStyleCareerScore(
+  career: QuizCareerDatasetRecord,
+  style: QuizDimensionDefinition,
+) {
+  const rule = STYLE_FIT_RULES[style.id];
+
+  let score = 0;
+  score += getIndustryScore(rule.industries, career.industry, 28);
+  score += getPathwayScore(rule.pathways, career.pathway, 14);
+  score += getKeywordScore(rule.titleKeywords, career.title, 7);
+  return score;
+}
+
+function getRecommendationVisualStyleId(
+  career: QuizCareerDatasetRecord,
+  topStyle: QuizDimensionDefinition,
+  supportStyle: QuizDimensionDefinition,
+  index: number,
+): QuizDimensionId {
+  if (index < 2) {
+    return topStyle.id;
+  }
+
+  const topScore = getSingleStyleCareerScore(career, topStyle);
+  const supportScore = getSingleStyleCareerScore(career, supportStyle);
+
+  if (supportScore >= topScore + 6 && supportScore > 0) {
+    return supportStyle.id;
+  }
+
+  return topStyle.id;
+}
+
+function getRecommendedCareers(
+  topStyle: QuizDimensionDefinition,
+  supportStyle: QuizDimensionDefinition,
+): QuizCareerRecommendation[] {
+  return [...QUIZ_CAREER_DATA]
+    .map((career) => ({
+      ...career,
+      fitLabel: getFitLabel(topStyle, supportStyle),
+      __score: getQuizCareerScore(career, topStyle, supportStyle),
+    }))
+    .sort((left, right) => {
+      if (right.__score !== left.__score) {
+        return right.__score - left.__score;
+      }
+
+      if (left.shortage_status !== right.shortage_status) {
+        return /^in shortage$/i.test(left.shortage_status) ? -1 : 1;
+      }
+
+      if (right.median_salary !== left.median_salary) {
+        return right.median_salary - left.median_salary;
+      }
+
+      return left.title.localeCompare(right.title);
+    })
+    .slice(0, 3)
+    .map(({ __score: _score, ...career }, index) => ({
+      ...career,
+      visualStyleId: getRecommendationVisualStyleId(career, topStyle, supportStyle, index),
+    }));
+}
 
 const makeOptions = (
   builder: string,
@@ -193,13 +481,13 @@ const makeOptions = (
   {
     id: "a",
     label: builder,
-    helper: "Hands-on, practical, action-first",
+    helper: "Hands-on, practical, gets moving fast",
     weights: { builder: 3, catalyst: 1 },
   },
   {
     id: "b",
     label: decoder,
-    helper: "Analytical, logical, insight-driven",
+    helper: "Analytical, curious, pattern-focused",
     weights: { decoder: 3, strategist: 1 },
   },
   {
@@ -220,78 +508,78 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "quick-1",
     mode: "quick",
-    prompt: "A new school project drops today. Which role sounds best first?",
-    helper: "Pick the one you would naturally reach for before anyone tells you what to do.",
+    prompt: "Your class gets dropped into a last-minute showcase project. What role do you grab first?",
+    helper: "Choose the one you would naturally jump into before anyone starts assigning jobs.",
     options: makeOptions(
-      "Build the prototype or test something practical",
-      "Work out the pattern, data, or logic behind it",
-      "Shape the concept, look, or pitch",
-      "Keep everyone aligned and supported",
+      "Get the setup sorted and build something that actually works",
+      "Figure out the pattern, data, or logic behind the challenge",
+      "Shape the concept, aesthetic, or pitch so it stands out",
+      "Keep the group calm, organised, and feeling backed up",
     ),
   },
   {
     id: "quick-2",
     mode: "quick",
-    prompt: "Which kind of win feels most satisfying to you?",
-    helper: "Think about what makes you say, “Yes, that felt worth it.”",
+    prompt: "What kind of win gives you the biggest “that was worth it” feeling?",
+    helper: "Think about the kind of result that would make you message the group chat about it later.",
     options: makeOptions(
-      "Something physical or useful now works better",
-      "I cracked a tough problem no one else could see clearly",
-      "An idea came to life in a way people noticed",
-      "Someone felt calmer, stronger, or more understood because I helped",
+      "Something real, useful, or practical works properly now",
+      "I cracked a tricky problem other people were stuck on",
+      "An idea came to life and people instantly noticed it",
+      "Someone felt more confident or supported because I helped",
     ),
   },
   {
     id: "quick-3",
     mode: "quick",
-    prompt: "If you had a free afternoon to explore something, what sounds best?",
-    helper: "Go with interest, not what you think you should choose.",
+    prompt: "You suddenly get a free afternoon after school. What sounds most fun to explore?",
+    helper: "Go with what genuinely pulls you in, not what sounds most impressive.",
     options: makeOptions(
-      "Trying tools, building, fixing, or testing equipment",
-      "Investigating a mystery, game strategy, or complex system",
-      "Designing, writing, filming, sketching, or brainstorming",
-      "Coaching, helping, or checking in with people",
+      "Trying tools, fixing something, building, or testing gear",
+      "Digging into a mystery, strategy, or how a system really works",
+      "Designing, filming, sketching, writing, or brainstorming ideas",
+      "Helping people, coaching someone, or checking in properly",
     ),
   },
   {
     id: "quick-4",
     mode: "quick",
-    prompt: "Which school task drains you the least?",
-    helper: "This is about what you can stay with longest when no one is forcing you.",
+    prompt: "Which kind of school task drains you the least?",
+    helper: "This is really asking what you can stay focused on longest without getting bored.",
     options: makeOptions(
-      "Labs, construction, workshop, or practical setup",
-      "Research, maths, logic, or spreadsheet-style tasks",
-      "Presentations, campaigns, visual work, or concepting",
-      "Tutoring, group support, or wellbeing-focused work",
+      "Workshops, labs, setups, or practical build tasks",
+      "Research, maths, logic puzzles, or spreadsheet-style work",
+      "Presentations, visuals, campaigns, or concept development",
+      "Tutoring, team support, or wellbeing-focused activities",
     ),
   },
   {
     id: "quick-5",
     mode: "quick",
-    prompt: "People usually come to you when they need...",
-    helper: "Think about the role you already play in your class or friend group.",
+    prompt: "Your friends or classmates usually come to you when they need...",
+    helper: "Think about the role you already play without trying too hard.",
     options: [
       {
         id: "a",
-        label: "Someone who can get stuck in and make something happen",
+        label: "Someone who can jump in and make something actually happen",
         helper: "Action-oriented, practical, fast-moving",
         weights: { builder: 2, catalyst: 2 },
       },
       {
         id: "b",
-        label: "Someone who can explain what is really happening",
+        label: "Someone who can explain what is really going on",
         helper: "Analytical, calm, evidence-led",
         weights: { decoder: 2, strategist: 2 },
       },
       {
         id: "c",
-        label: "A fresh angle or a more interesting approach",
+        label: "A fresh angle, cool idea, or more interesting approach",
         helper: "Imaginative, expressive, lateral",
         weights: { creator: 2, catalyst: 2 },
       },
       {
         id: "d",
-        label: "Someone who listens well and keeps people steady",
+        label: "Someone who listens properly and keeps people steady",
         helper: "Supportive, clear, reassuring",
         weights: { guide: 2, strategist: 2 },
       },
@@ -300,8 +588,8 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "quick-6",
     mode: "quick",
-    prompt: "If a future job felt “right”, what would it probably include?",
-    helper: "Choose the strongest signal for you, even if more than one sounds good.",
+    prompt: "If a future job felt genuinely right for you, what would it probably include?",
+    helper: "Choose the strongest signal, even if more than one sounds good.",
     options: [
       {
         id: "a",
@@ -323,7 +611,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "d",
-        label: "People, trust, and meaningful impact on someone’s day",
+        label: "People, trust, and a real impact on someone’s day",
         helper: "Guide",
         weights: { guide: 3, catalyst: 1 },
       },
@@ -332,30 +620,30 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-1",
     mode: "deep",
-    prompt: "In a team, where do you naturally become useful first?",
-    helper: "Think about how you usually contribute before roles are assigned.",
+    prompt: "In a group task or event, where do you naturally become useful first?",
+    helper: "Think about what you start doing before anyone even gives out roles.",
     options: [
       {
         id: "a",
-        label: "I get the task moving so nothing sits still for too long",
+        label: "I get things moving so the group does not stay stuck in planning mode",
         helper: "Catalyst",
         weights: { catalyst: 3, builder: 1 },
       },
       {
         id: "b",
-        label: "I work out the plan so the team stops guessing",
+        label: "I map out the plan so everyone stops guessing",
         helper: "Strategist",
         weights: { strategist: 3, decoder: 1 },
       },
       {
         id: "c",
-        label: "I shape the direction so it feels smarter or more original",
+        label: "I shape the direction so it feels sharper, cooler, or more original",
         helper: "Creator",
         weights: { creator: 3, decoder: 1 },
       },
       {
         id: "d",
-        label: "I notice what people need so the group runs better",
+        label: "I notice what people need so the whole group works better",
         helper: "Guide",
         weights: { guide: 3, catalyst: 1 },
       },
@@ -364,20 +652,20 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-2",
     mode: "deep",
-    prompt: "What kind of challenge keeps you interested longer than most people?",
-    helper: "Choose the one that pulls you in even when it is difficult.",
+    prompt: "What kind of challenge keeps you hooked longer than it does for most people?",
+    helper: "Choose the one you would still care about after the easy part wears off.",
     options: makeOptions(
-      "A practical task that needs patience and real execution",
+      "A practical task that needs patience, tools, and follow-through",
       "A system, case, or puzzle that needs deep thinking",
-      "An idea that could become more interesting or more human",
-      "A situation where people need care, guidance, or clarity",
+      "An idea that could become more interesting, human, or memorable",
+      "A situation where people need support, guidance, or reassurance",
     ),
   },
   {
     id: "deep-3",
     mode: "deep",
-    prompt: "If a teacher gave you total freedom for a final project, what would you build around?",
-    helper: "Imagine no one is grading the style, only whether it feels genuinely yours.",
+    prompt: "If a teacher gave you total freedom for a major final project, what would you base it on?",
+    helper: "Imagine you are choosing by interest, not by what would get the safest mark.",
     options: [
       {
         id: "a",
@@ -387,7 +675,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "b",
-        label: "A research-driven case with findings and a clear answer",
+        label: "A research-driven case with findings and a strong answer",
         helper: "Decoder",
         weights: { decoder: 3, strategist: 1 },
       },
@@ -399,7 +687,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "d",
-        label: "A practical guide or support resource for real people",
+        label: "A practical guide, service, or support resource for real people",
         helper: "Guide",
         weights: { guide: 3, strategist: 1 },
       },
@@ -408,12 +696,12 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-4",
     mode: "deep",
-    prompt: "What do you notice first when something is going badly?",
-    helper: "This helps show what your attention naturally locks onto.",
+    prompt: "When something is going badly, what do you notice first?",
+    helper: "This shows what your attention naturally locks onto under pressure.",
     options: [
       {
         id: "a",
-        label: "The part that is physically broken or not working",
+        label: "The part that is physically broken or just not working",
         helper: "Builder",
         weights: { builder: 3, decoder: 1 },
       },
@@ -425,7 +713,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "c",
-        label: "The experience feels confusing, dull, or badly designed",
+        label: "The experience feels confusing, bland, or badly designed",
         helper: "Creator",
         weights: { creator: 3, guide: 1 },
       },
@@ -440,8 +728,8 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-5",
     mode: "deep",
-    prompt: "Which compliment feels the most accurate when it is said about you?",
-    helper: "Pick the one that makes you think, “Yes, that is me when I am at my best.”",
+    prompt: "Which compliment feels most accurate when someone says it about you?",
+    helper: "Pick the one that makes you think, “Yep, that’s me on a good day.”",
     options: [
       {
         id: "a",
@@ -451,7 +739,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "b",
-        label: "You see things other people miss",
+        label: "You notice things other people miss",
         helper: "Decoder / Strategist",
         weights: { decoder: 2, strategist: 2 },
       },
@@ -463,7 +751,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "d",
-        label: "You make people feel safe and clear",
+        label: "You make people feel calm, safe, and clear",
         helper: "Guide / Strategist",
         weights: { guide: 2, strategist: 2 },
       },
@@ -473,7 +761,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     id: "deep-6",
     mode: "deep",
     prompt: "Which kind of work environment sounds most natural to you?",
-    helper: "Ignore status. Choose by fit.",
+    helper: "Ignore status and prestige. Just pick by genuine fit.",
     options: [
       {
         id: "a",
@@ -504,8 +792,8 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-7",
     mode: "deep",
-    prompt: "When you imagine your future, which feeling matters most?",
-    helper: "This is about the energy you want from work, not a job title.",
+    prompt: "When you picture your future after school, which feeling matters most?",
+    helper: "This is about the energy you want from work, not a specific job title.",
     options: [
       {
         id: "a",
@@ -536,12 +824,12 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-8",
     mode: "deep",
-    prompt: "What kind of responsibility sounds most exciting?",
-    helper: "This helps separate initiative from interest.",
+    prompt: "What kind of responsibility sounds most exciting to you?",
+    helper: "This helps separate what you enjoy from what you would actually want to own.",
     options: [
       {
         id: "a",
-        label: "Owning delivery and making sure something gets built",
+        label: "Owning delivery and making sure something actually gets built",
         helper: "Builder / Catalyst",
         weights: { builder: 2, catalyst: 2 },
       },
@@ -559,7 +847,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "d",
-        label: "Owning the wellbeing, trust, or support side of the work",
+        label: "Owning the trust, wellbeing, or support side of the work",
         helper: "Guide",
         weights: { guide: 3, strategist: 1 },
       },
@@ -568,7 +856,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-9",
     mode: "deep",
-    prompt: "Which kind of problem would you rather solve for a year?",
+    prompt: "Which kind of problem could you imagine working on for a whole year?",
     helper: "Choose the one that still sounds interesting after the novelty wears off.",
     options: [
       {
@@ -585,13 +873,13 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "c",
-        label: "A confusing experience people struggle to use",
+        label: "A messy experience people struggle to use or enjoy",
         helper: "Creator",
         weights: { creator: 3, guide: 1 },
       },
       {
         id: "d",
-        label: "A real situation where people need confidence or care",
+        label: "A real situation where people need confidence, care, or support",
         helper: "Guide",
         weights: { guide: 3, builder: 1 },
       },
@@ -600,8 +888,8 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-10",
     mode: "deep",
-    prompt: "How do you usually influence a group?",
-    helper: "Think about how people respond to you when something important is happening.",
+    prompt: "How do you usually influence a group when something important is happening?",
+    helper: "Think about what people naturally look to you for.",
     options: [
       {
         id: "a",
@@ -617,7 +905,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "c",
-        label: "I make the idea feel compelling and memorable",
+        label: "I make the idea feel exciting, compelling, and memorable",
         helper: "Creator / Catalyst",
         weights: { creator: 2, catalyst: 2 },
       },
@@ -632,12 +920,12 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-11",
     mode: "deep",
-    prompt: "When deadlines are close, what strength do you trust most?",
-    helper: "Pick the move you make when time pressure is real.",
+    prompt: "When the deadline is suddenly very real, what strength do you trust most?",
+    helper: "Pick the move you actually make when time pressure hits.",
     options: [
       {
         id: "a",
-        label: "I can execute fast and keep things moving",
+        label: "I can execute quickly and keep things moving",
         helper: "Builder / Catalyst",
         weights: { builder: 2, catalyst: 2 },
       },
@@ -649,13 +937,13 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       },
       {
         id: "c",
-        label: "I can find a sharper or more engaging angle",
+        label: "I can find a sharper, stronger, or more engaging angle",
         helper: "Creator",
         weights: { creator: 3, catalyst: 1 },
       },
       {
         id: "d",
-        label: "I can keep people calm and coordinated",
+        label: "I can keep people calm, coordinated, and on track",
         helper: "Guide",
         weights: { guide: 3, strategist: 1 },
       },
@@ -664,8 +952,8 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: "deep-12",
     mode: "deep",
-    prompt: "If you could leave school already good at one thing, what would you pick?",
-    helper: "Choose the capability that feels most valuable to your future self.",
+    prompt: "If you could leave school already genuinely strong at one thing, what would you pick?",
+    helper: "Choose the skillset that feels most valuable to the future version of you.",
     options: [
       {
         id: "a",
@@ -791,10 +1079,8 @@ export function buildQuizResult(mode: QuizModeId, answers: QuizAnswerMap): QuizR
       title: `${topStyle.label} + ${supportStyle.label}`,
       summary: `Your answers suggest a mix of ${topStyle.label.toLowerCase()} energy and ${supportStyle.label.toLowerCase()} support.`,
     };
-
-  const recommendedCareerIds = Array.from(
-    new Set([...topStyle.recommendedCareerIds, ...supportStyle.recommendedCareerIds]),
-  ).slice(0, 3);
+  const recommendedCareers = getRecommendedCareers(topStyle, supportStyle);
+  const exploreSearch = recommendedCareers[0]?.title ?? topStyle.exploreSearch;
 
   return {
     mode,
@@ -803,9 +1089,9 @@ export function buildQuizResult(mode: QuizModeId, answers: QuizAnswerMap): QuizR
     archetypeSummary: archetype.summary,
     topStyle,
     supportStyle,
-    recommendedCareerIds,
+    recommendedCareers,
     exploreInterest: topStyle.exploreInterest ?? supportStyle.exploreInterest,
-    exploreSearch: topStyle.exploreSearch,
+    exploreSearch,
     scoreBreakdown: sorted.map(({ definition, score }) => ({
       dimension: definition.id,
       label: definition.label,

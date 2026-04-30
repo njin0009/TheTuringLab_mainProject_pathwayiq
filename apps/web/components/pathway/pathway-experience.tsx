@@ -519,6 +519,13 @@ export function PathwayExperience() {
     scrollToScene(2);
   }
 
+  function handleQuizOpenRecommendedCareer(careerTitle: string) {
+    setActiveInterest(null);
+    setSearchQuery(careerTitle);
+    setExploreLaunchKey((current) => current + 1);
+    scrollToScene(2);
+  }
+
   function handleHomeExplore(query?: string) {
     setActiveInterest(null);
     setSearchQuery(query ?? "");
@@ -709,6 +716,7 @@ export function PathwayExperience() {
           onSwitchMode={switchQuizMode}
           onResetQuiz={resetQuiz}
           onExplore={handleQuizExplore}
+          onOpenRecommendedCareer={handleQuizOpenRecommendedCareer}
         />
         <ExploreScene
           careers={filteredCareers}

@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { useState } from "react";
+import TiltCard from "@/components/ui/3d-tilt-card";
 import ExpandCards from "@/components/ui/expand-cards";
-import { CAREER_PROFILES } from "@/lib/career-data";
+import { GradientCard } from "@/components/ui/gradient-card";
 import type {
   QuizAnswerMap,
+  QuizCareerRecommendation,
+  QuizDimensionDefinition,
   QuizModeDefinition,
   QuizModeId,
   QuizQuestion,
@@ -34,6 +37,7 @@ interface QuizSceneProps {
   onSwitchMode: (mode: QuizModeId) => void;
   onResetQuiz: () => void;
   onExplore: (result: QuizResult) => void;
+  onOpenRecommendedCareer: (careerTitle: string) => void;
 }
 
 function getModeTheme(mode: QuizModeId | null) {
@@ -106,24 +110,73 @@ function ModeCard({
   );
 }
 
-function ResultCareerCard({ careerId }: { careerId: keyof typeof CAREER_PROFILES }) {
-  const profile = CAREER_PROFILES[careerId];
+function ResultCareerCard({
+  career,
+  topStyle,
+  supportStyle,
+  index,
+  onOpen,
+}: {
+  career: QuizCareerRecommendation;
+  topStyle: QuizDimensionDefinition;
+  supportStyle: QuizDimensionDefinition;
+  index: number;
+  onOpen: (careerTitle: string) => void;
+}) {
+  const visualStyle = getCareerVisualStyle(
+    career.visualStyleId === supportStyle.id ? supportStyle : topStyle,
+  );
+  const description = [
+    `${career.industry} pathway through ${career.pathway}`,
+    `Median salary $${career.median_salary.toLocaleString("en-AU")}`,
+    career.shortage_status,
+  ].join(" · ");
 
   return (
-    <div className="rounded-[24px] border border-white/10 bg-white/[0.05] p-5">
-      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
-        {profile.badge}
-      </div>
-      <div className="mt-4 flex items-start gap-3">
-        <div className="text-2xl">{profile.icon}</div>
-        <div>
-          <div className="text-xl font-semibold text-white">{profile.title}</div>
-          <div className="mt-1 text-sm text-cyan-100">{profile.salary}</div>
-        </div>
-      </div>
-      <p className="mt-4 text-sm leading-6 text-slate-300">{profile.summary}</p>
-    </div>
+    <GradientCard
+      onClick={() => onOpen(career.title)}
+      gradient={visualStyle.gradient}
+      badgeText={
+        career.visualStyleId === supportStyle.id
+          ? `${supportStyle.label} support`
+          : `${topStyle.label} lead`
+      }
+      badgeColor={visualStyle.badgeColor}
+      title={career.title}
+      description={description}
+      ctaText={`Open in Explore · ANZSCO ${career.anzsco_code}`}
+      imageUrl={visualStyle.imageUrl}
+      className="min-h-[240px] border border-slate-900/8"
+    />
   );
+}
+
+function getCareerVisualStyle(
+  style: QuizDimensionDefinition,
+) {
+  const gradientByStyle: Record<QuizDimensionDefinition["id"], "orange" | "gray" | "purple" | "green"> = {
+    builder: "orange",
+    decoder: "purple",
+    creator: "purple",
+    guide: "green",
+    catalyst: "orange",
+    strategist: "gray",
+  };
+
+  const badgeColorByStyle: Record<QuizDimensionDefinition["id"], string> = {
+    builder: "#F59E0B",
+    decoder: "#8B5CF6",
+    creator: "#EC4899",
+    guide: "#10B981",
+    catalyst: "#FB923C",
+    strategist: "#64748B",
+  };
+
+  return {
+    gradient: gradientByStyle[style.id],
+    badgeColor: badgeColorByStyle[style.id],
+    imageUrl: style.illustrationSrc,
+  };
 }
 
 export default function QuizScene({
@@ -148,6 +201,7 @@ export default function QuizScene({
   onSwitchMode,
   onResetQuiz,
   onExplore,
+  onOpenRecommendedCareer,
 }: QuizSceneProps) {
   const activeMode = mode ? modes.find((entry) => entry.id === mode) ?? null : null;
   const activeTheme = getModeTheme(mode);
@@ -254,74 +308,71 @@ export default function QuizScene({
                   result.topStyle.surfaceClassName,
                 ].join(" ")}
               >
-                <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
-                  <div className="relative overflow-hidden rounded-[22px] border border-white/10 bg-white/70 p-4">
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.6),transparent_35%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.35),transparent_40%)]" />
-                    <div className="relative">
-                      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-                        Your strongest style
+                <div className="space-y-8">
+                  <div className="mx-auto max-w-[420px]">
+                    <TiltCard
+                      eyebrow="Your strongest style"
+                      title={result.topStyle.label}
+                      tagline={result.topStyle.tagline}
+                      imageUrl={result.topStyle.illustrationSrc}
+                      accentClassName={result.topStyle.lightCardColorClassName}
+                      actionLabel="View all results"
+                      onAction={() => setShowAllStyles(true)}
+                    />
+                  </div>
+
+                  <div className="grid gap-6 xl:grid-cols-[1.18fr_0.82fr]">
+                    <div className="rounded-[24px] border border-white/10 bg-black/12 p-6">
+                      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-200/85">
+                        Top style
                       </div>
                       <div
                         className={[
-                          "mt-3 text-2xl font-semibold",
-                          result.topStyle.lightCardColorClassName,
+                          "mt-3 text-4xl font-semibold tracking-tight",
+                          result.topStyle.colorClassName,
                         ].join(" ")}
                       >
                         {result.topStyle.label}
                       </div>
-                    </div>
-                    <div className="relative mt-4 flex justify-center">
-                      <Image
-                        src={result.topStyle.illustrationSrc}
-                        alt={result.topStyle.label}
-                        width={340}
-                        height={240}
-                        className="h-auto w-full max-w-[260px]"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-200/85">
-                      Top style
-                    </div>
-                    <div
-                      className={[
-                        "mt-2 text-3xl font-semibold",
-                        result.topStyle.colorClassName,
-                      ].join(" ")}
-                    >
-                      {result.topStyle.label}
-                    </div>
-                    <p className="mt-3 text-sm leading-7 text-slate-200/90">{result.topStyle.tagline}</p>
-                    <p className="mt-3 text-sm leading-7 text-slate-200/90">{result.topStyle.summary}</p>
-                    <div className="mt-4 rounded-[20px] border border-white/10 bg-black/16 p-4">
-                      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-300">
-                        Support style
-                      </div>
-                      <div
-                        className={[
-                          "mt-2 text-xl font-semibold",
-                          result.supportStyle.colorClassName,
-                        ].join(" ")}
-                      >
-                        {result.supportStyle.label}
-                      </div>
-                      <p className="mt-2 text-sm leading-7 text-slate-200/85">
-                        {result.supportStyle.tagline}
+                      <p className="mt-4 text-base leading-8 text-slate-100/95">
+                        {result.topStyle.tagline}
+                      </p>
+                      <p className="mt-4 text-base leading-8 text-slate-200/90">
+                        {result.topStyle.summary}
                       </p>
                     </div>
 
-                    <div className="mt-5">
-                      <button
-                        type="button"
-                        onClick={() => setShowAllStyles(true)}
-                        className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-slate-200 transition hover:border-white/22 hover:bg-white/[0.08]"
-                      >
-                        View all results
-                      </button>
+                    <div className="flex flex-col gap-5">
+                      <div className="rounded-[24px] border border-white/10 bg-black/16 p-5">
+                        <div className="flex items-start gap-4">
+                          <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-[20px] bg-white/10 p-2">
+                            <Image
+                              src={result.supportStyle.illustrationSrc}
+                              alt={result.supportStyle.label}
+                              width={96}
+                              height={96}
+                              className="h-auto w-full max-w-[84px]"
+                            />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-300">
+                              Support style
+                            </div>
+                            <div
+                              className={[
+                                "mt-3 text-2xl font-semibold",
+                                result.supportStyle.colorClassName,
+                              ].join(" ")}
+                            >
+                              {result.supportStyle.label}
+                            </div>
+                            <p className="mt-3 text-base leading-8 text-slate-200/85">
+                              {result.supportStyle.tagline}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -509,8 +560,15 @@ export default function QuizScene({
                   Recommended starting roles
                 </div>
                 <div className="mt-4 grid gap-4">
-                  {result.recommendedCareerIds.map((careerId) => (
-                    <ResultCareerCard key={careerId} careerId={careerId} />
+                  {result.recommendedCareers.map((career, index) => (
+                    <ResultCareerCard
+                      key={`${career.anzsco_code}-${career.title}`}
+                      career={career}
+                      topStyle={result.topStyle}
+                      supportStyle={result.supportStyle}
+                      index={index}
+                      onOpen={onOpenRecommendedCareer}
+                    />
                   ))}
                 </div>
               </div>

@@ -38,6 +38,8 @@ interface AutomationLevelTone {
 const DATA2_CAREERS = careerCardsData as ExploreCareerRecord[];
 const QUICK_HINTS = ["healthcare", "engineering", "business"] as const;
 const PAGE_SIZE = 6;
+const DATA2_BY_CODE = new Map(DATA2_CAREERS.map((career) => [career.anzsco_code, career]));
+const DATA2_BY_TITLE = new Map(DATA2_CAREERS.map((career) => [career.title.toLowerCase(), career]));
 
 const INTEREST_MATCHERS: Record<(typeof INTEREST_TAGS)[number], (career: ExploreCareerRecord) => boolean> = {
   "Data & AI": (career) =>
@@ -89,6 +91,14 @@ function toExploreCareerRecord(record: BackendCareerRecord): ExploreCareerRecord
     ...record,
     median_salary: Number.parseInt(record.median_salary, 10) || 0,
   };
+}
+
+function mergeWithLocalCareerData(record: ExploreCareerRecord): ExploreCareerRecord {
+  return (
+    DATA2_BY_CODE.get(record.anzsco_code) ??
+    DATA2_BY_TITLE.get(record.title.toLowerCase()) ??
+    record
+  );
 }
 
 function formatSalary(value: number) {
@@ -269,7 +279,17 @@ export default function ExploreScene({
   const [searchRevision, setSearchRevision] = useState(0);
   const normalizedQuery = searchQuery.trim().toLowerCase();
   const normalizedSubmittedQuery = submittedQuery.trim().toLowerCase();
-  const sourceCareers = useMemo(() => apiCareers, [apiCareers]);
+  const liveMatchedCareers = useMemo(
+    () => apiCareers.map(mergeWithLocalCareerData),
+    [apiCareers],
+  );
+  const sourceCareers = useMemo(() => {
+    if (normalizedSubmittedQuery && apiState === "ready" && liveMatchedCareers.length > 0) {
+      return liveMatchedCareers;
+    }
+
+    return DATA2_CAREERS;
+  }, [apiState, liveMatchedCareers, normalizedSubmittedQuery]);
   const filteredCareers = useMemo(
     () =>
       [...sourceCareers]
@@ -314,10 +334,17 @@ export default function ExploreScene({
   useEffect(() => {
     const controller = new AbortController();
     const nextQuery = submittedQuery.trim();
+    if (!nextQuery) {
+      setApiCareers([]);
+      setApiState("idle");
+      setApiError(null);
+      return () => controller.abort();
+    }
+
     setApiState("loading");
     setApiError(null);
 
-    searchCareers(nextQuery ? { q: nextQuery } : {}, { signal: controller.signal })
+    searchCareers({ q: nextQuery }, { signal: controller.signal })
       .then((records) => {
         setApiCareers(records.map(toExploreCareerRecord));
         setApiState("ready");
@@ -500,21 +527,19 @@ export default function ExploreScene({
             <div className="mt-4 rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
               {apiState === "loading" ? (
                 <span className="text-cyan-200">
-                  {submittedQuery
-                    ? `Searching the live AWS careers API for “${submittedQuery}”…`
-                    : "Loading live career paths from the AWS backend…"}
+                  {`Searching the live AWS careers API for “${submittedQuery}”…`}
                 </span>
               ) : null}
               {apiState === "ready" ? (
                 <span className="text-emerald-200">
-                  {submittedQuery
-                    ? `Showing live backend results for “${submittedQuery}”.`
-                    : "Showing live backend career paths from AWS."}
+                  {liveMatchedCareers.length > 0
+                    ? `Showing live backend matches for “${submittedQuery}”, enriched with PathwayIQ dataset card details.`
+                    : `No live backend matches were found for “${submittedQuery}”. Showing matching cards from the PathwayIQ dataset instead.`}
                 </span>
               ) : null}
               {apiState === "error" ? (
                 <span className="text-amber-200">
-                  Live backend search is unavailable right now. {apiError ?? "Please try again."}
+                  Showing PathwayIQ dataset cards while live backend search is unavailable. {apiError ?? "Please try again."}
                 </span>
               ) : null}
             </div>
@@ -584,11 +609,11 @@ export default function ExploreScene({
                 colorClass: getCardColorClass(aiLevel.label),
                 eyebrow: career.industry,
                 title: career.title,
-                description: `${career.pathway} pathway · median salary ${formatSalary(career.median_salary)} · ANZSCO ${career.anzsco_code}`,
+                description: `${career.shortage_status} · median salary ${formatSalary(career.median_salary)} · ANZSCO ${career.anzsco_code}`,
                 progressLabel: "AI displacement level",
                 progressPercent: getProgressPercent(aiLevel.label),
                 progressValue: aiLevel.label,
-                chips: [career.pathway, `ANZSCO ${career.anzsco_code}`],
+                chips: [`${career.pathway} pathway`, `Salary ${formatSalary(career.median_salary)}`],
                 countdownText: shortage,
                 actionLabel: "Search role",
                 onAction: () => onSearchChange(career.title),
