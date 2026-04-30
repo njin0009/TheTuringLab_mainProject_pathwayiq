@@ -3,6 +3,7 @@ import { useState } from "react";
 import TiltCard from "@/components/ui/3d-tilt-card";
 import ExpandCards from "@/components/ui/expand-cards";
 import { GradientCard } from "@/components/ui/gradient-card";
+import { AnimatedRoadmap } from "@/components/ui/hero-section-5";
 import type {
   QuizAnswerMap,
   QuizCareerRecommendation,
@@ -68,6 +69,45 @@ function getModeTheme(mode: QuizModeId | null) {
     accentText: "text-cyan-200",
     modeLabel: "Fast Start",
   };
+}
+
+function getQuestionRoadmap(
+  questionNumber: number,
+  totalQuestions: number,
+  activeMode: QuizModeDefinition,
+  progressPercent: number,
+  hasAnsweredCurrent: boolean,
+) {
+  const isFinalQuestion = questionNumber >= totalQuestions;
+  const resultReady = isFinalQuestion && hasAnsweredCurrent;
+  const nearingResult = isFinalQuestion && !hasAnsweredCurrent;
+
+  return [
+    {
+      id: 1,
+      name: "Version picked",
+      status: "complete" as const,
+      note: activeMode.title,
+    },
+    {
+      id: 2,
+      name: "In progress",
+      status: "in-progress" as const,
+      note: `Q${questionNumber}/${totalQuestions}`,
+    },
+    {
+      id: 3,
+      name: "Result unlock",
+      status: resultReady ? ("in-progress" as const) : ("pending" as const),
+      note: resultReady ? "See my result is ready" : nearingResult ? "Pick one more answer" : "Build your pattern",
+    },
+    {
+      id: 4,
+      name: "Explore next",
+      status: "pending" as const,
+      note: "Open matching careers",
+    },
+  ];
 }
 
 function ModeCard({
@@ -259,7 +299,12 @@ export default function QuizScene({
                 <button
                   type="button"
                   onClick={onResetQuiz}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/22 hover:bg-white/[0.08]"
+                  className={[
+                    "rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950",
+                    mode === "deep"
+                      ? "border-fuchsia-300/35 bg-gradient-to-r from-fuchsia-500/22 to-orange-400/18 text-fuchsia-50 shadow-[0_14px_34px_rgba(217,70,239,0.18)] hover:border-fuchsia-200/45 hover:from-fuchsia-500/28 hover:to-orange-400/24"
+                      : "border-cyan-300/35 bg-gradient-to-r from-cyan-500/22 to-sky-400/18 text-cyan-50 shadow-[0_14px_34px_rgba(34,211,238,0.18)] hover:border-cyan-200/45 hover:from-cyan-500/28 hover:to-sky-400/24",
+                  ].join(" ")}
                 >
                   Change version
                 </button>
@@ -270,13 +315,21 @@ export default function QuizScene({
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-              <div className="mt-6 rounded-[22px] border border-white/8 bg-black/18 p-5">
-                <div className="text-lg font-semibold text-white">{currentQuestion.prompt}</div>
-                <p className="mt-3 text-sm leading-7 text-slate-300">{currentQuestion.helper}</p>
-                <div className="mt-4 text-xs uppercase tracking-[0.22em] text-slate-500">
-                  Saved answers: {Object.keys(answers).length}
-                </div>
-              </div>
+              <AnimatedRoadmap
+                className="mt-6"
+                caption={
+                  questionNumber === questions.length && hasAnsweredCurrent
+                    ? "Your final answer is in. Tap See my result to unlock your matching careers."
+                    : `You are ${Object.keys(answers).length} answers in. Finish this run to unlock your result and matching careers.`
+                }
+                milestones={getQuestionRoadmap(
+                  questionNumber,
+                  questions.length,
+                  activeMode,
+                  progressPercent,
+                  hasAnsweredCurrent,
+                )}
+              />
             </div>
           ) : null}
 
