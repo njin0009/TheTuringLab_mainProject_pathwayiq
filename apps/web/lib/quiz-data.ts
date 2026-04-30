@@ -97,6 +97,13 @@ interface QuizCareerFitRule {
   titleKeywords?: string[];
 }
 
+interface QuizCareerScoredRecord extends QuizCareerDatasetRecord {
+  __styleScores: Record<QuizDimensionId, number>;
+  __styleTags: QuizDimensionId[];
+  __primaryStyleId: QuizDimensionId;
+  __quizScore: number;
+}
+
 const QUIZ_CAREER_DATA = careerCardsData as QuizCareerDatasetRecord[];
 
 export const QUIZ_MODES: QuizModeDefinition[] = [
@@ -420,8 +427,63 @@ function getSingleStyleCareerScore(
   return score;
 }
 
+function getRankedStyleScores(career: QuizCareerDatasetRecord) {
+  return (Object.values(QUIZ_DIMENSIONS) as QuizDimensionDefinition[])
+    .map((style) => ({
+      id: style.id,
+      score: getSingleStyleCareerScore(career, style),
+    }))
+    .sort((left, right) => right.score - left.score);
+}
+
+function inferCareerStyleTags(
+  rankedScores: { id: QuizDimensionId; score: number }[],
+): QuizDimensionId[] {
+  const bestScore = rankedScores[0]?.score ?? 0;
+  if (bestScore <= 0) {
+    return ["strategist"];
+  }
+
+  const tags = rankedScores
+    .filter((entry, index) => {
+      if (index === 0) {
+        return true;
+      }
+
+      if (index === 1) {
+        return entry.score >= Math.max(12, bestScore - 10);
+      }
+
+      if (index === 2) {
+        return entry.score >= Math.max(14, Math.round(bestScore * 0.68));
+      }
+
+      return false;
+    })
+    .map((entry) => entry.id);
+
+  return tags.slice(0, 3);
+}
+
+function getCareerStyleProfile(career: QuizCareerDatasetRecord) {
+  const rankedScores = getRankedStyleScores(career);
+  const styleScores = rankedScores.reduce<Record<QuizDimensionId, number>>((acc, entry) => {
+    acc[entry.id] = entry.score;
+    return acc;
+  }, {} as Record<QuizDimensionId, number>);
+
+  const styleTags = inferCareerStyleTags(rankedScores);
+  const primaryStyleId = styleTags[0] ?? rankedScores[0]?.id ?? "strategist";
+
+  return {
+    styleScores,
+    styleTags,
+    primaryStyleId,
+  };
+}
+
 function getRecommendationVisualStyleId(
-  career: QuizCareerDatasetRecord,
+  career: QuizCareerScoredRecord,
   topStyle: QuizDimensionDefinition,
   supportStyle: QuizDimensionDefinition,
   index: number,
@@ -430,46 +492,150 @@ function getRecommendationVisualStyleId(
     return topStyle.id;
   }
 
-  const topScore = getSingleStyleCareerScore(career, topStyle);
-  const supportScore = getSingleStyleCareerScore(career, supportStyle);
+  const topScore = career.__styleScores[topStyle.id] ?? 0;
+  const supportScore = career.__styleScores[supportStyle.id] ?? 0;
 
-  if (supportScore >= topScore + 6 && supportScore > 0) {
+  const isClearlySupportLed =
+    career.__primaryStyleId === supportStyle.id ||
+    (supportScore >= topScore + 8 && career.__styleTags.includes(supportStyle.id));
+
+  if (isClearlySupportLed) {
     return supportStyle.id;
   }
 
   return topStyle.id;
 }
 
+function getCompositeQuizCareerScore(
+  career: QuizCareerDatasetRecord,
+  topStyle: QuizDimensionDefinition,
+  supportStyle: QuizDimensionDefinition,
+) {
+  const styleProfile = getCareerStyleProfile(career);
+  const pairRule = STYLE_PAIR_FIT_RULES[`${topStyle.id}:${supportStyle.id}`];
+
+  let score = 0;
+
+  const topScore = styleProfile.styleScores[topStyle.id] ?? 0;
+  const supportScore = styleProfile.styleScores[supportStyle.id] ?? 0;
+
+  score += topScore * 2.8;
+  score += supportScore * 1.6;
+
+  if (styleProfile.primaryStyleId === topStyle.id) {
+    score += 42;
+  }
+
+  if (styleProfile.primaryStyleId === supportStyle.id) {
+    score += 18;
+  }
+
+  if (styleProfile.styleTags.includes(topStyle.id)) {
+    score += 28;
+  }
+
+  if (styleProfile.styleTags.includes(supportStyle.id)) {
+    score += 18;
+  }
+
+  if (
+    styleProfile.styleTags.includes(topStyle.id) &&
+    styleProfile.styleTags.includes(supportStyle.id)
+  ) {
+    score += 26;
+  }
+
+  score += getIndustryScore(pairRule?.industries, career.industry, 18);
+  score += getPathwayScore(pairRule?.pathways, career.pathway, 10);
+  score += getKeywordScore(pairRule?.titleKeywords, career.title, 6);
+
+  if (/^in shortage$/i.test(career.shortage_status)) {
+    score += 8;
+  }
+
+  score += Math.min(10, Math.round(career.median_salary / 20000));
+
+  return {
+    styleProfile,
+    score,
+  };
+}
+
 function getRecommendedCareers(
   topStyle: QuizDimensionDefinition,
   supportStyle: QuizDimensionDefinition,
 ): QuizCareerRecommendation[] {
-  return [...QUIZ_CAREER_DATA]
-    .map((career) => ({
+  const scoredCareers: QuizCareerScoredRecord[] = QUIZ_CAREER_DATA.map((career) => {
+    const { styleProfile, score } = getCompositeQuizCareerScore(career, topStyle, supportStyle);
+
+    return {
       ...career,
-      fitLabel: getFitLabel(topStyle, supportStyle),
-      __score: getQuizCareerScore(career, topStyle, supportStyle),
-    }))
-    .sort((left, right) => {
-      if (right.__score !== left.__score) {
-        return right.__score - left.__score;
-      }
+      __styleScores: styleProfile.styleScores,
+      __styleTags: styleProfile.styleTags,
+      __primaryStyleId: styleProfile.primaryStyleId,
+      __quizScore: score,
+    };
+  }).sort((left, right) => {
+    if (right.__quizScore !== left.__quizScore) {
+      return right.__quizScore - left.__quizScore;
+    }
 
-      if (left.shortage_status !== right.shortage_status) {
-        return /^in shortage$/i.test(left.shortage_status) ? -1 : 1;
-      }
+    if (left.shortage_status !== right.shortage_status) {
+      return /^in shortage$/i.test(left.shortage_status) ? -1 : 1;
+    }
 
-      if (right.median_salary !== left.median_salary) {
-        return right.median_salary - left.median_salary;
-      }
+    if (right.median_salary !== left.median_salary) {
+      return right.median_salary - left.median_salary;
+    }
 
-      return left.title.localeCompare(right.title);
-    })
-    .slice(0, 3)
-    .map(({ __score: _score, ...career }, index) => ({
-      ...career,
-      visualStyleId: getRecommendationVisualStyleId(career, topStyle, supportStyle, index),
-    }));
+    return left.title.localeCompare(right.title);
+  });
+
+  const chosen: QuizCareerScoredRecord[] = [];
+  const usedTitles = new Set<string>();
+
+  const pushIfAvailable = (career: QuizCareerScoredRecord | undefined) => {
+    if (!career || usedTitles.has(career.title) || chosen.length >= 3) {
+      return;
+    }
+    chosen.push(career);
+    usedTitles.add(career.title);
+  };
+
+  const topStylePool = scoredCareers.filter((career) => career.__styleTags.includes(topStyle.id));
+  const supportOnlyPool = scoredCareers.filter(
+    (career) =>
+      career.__styleTags.includes(supportStyle.id) && !career.__styleTags.includes(topStyle.id),
+  );
+  const blendedPool = scoredCareers.filter(
+    (career) =>
+      career.__styleTags.includes(topStyle.id) && career.__styleTags.includes(supportStyle.id),
+  );
+
+  pushIfAvailable(blendedPool[0] ?? topStylePool[0]);
+  pushIfAvailable(topStylePool.find((career) => !usedTitles.has(career.title)));
+
+  const supportCandidate = supportOnlyPool[0];
+  const fallbackCandidate = scoredCareers.find((career) => !usedTitles.has(career.title));
+  pushIfAvailable(supportCandidate ?? fallbackCandidate);
+
+  while (chosen.length < 3) {
+    pushIfAvailable(scoredCareers.find((career) => !usedTitles.has(career.title)));
+  }
+
+  return chosen.map((career, index) => ({
+    title: career.title,
+    pathway: career.pathway,
+    industry: career.industry,
+    anzsco_code: career.anzsco_code,
+    median_salary: career.median_salary,
+    shortage_status: career.shortage_status,
+    fitLabel:
+      career.__primaryStyleId === supportStyle.id && !career.__styleTags.includes(topStyle.id)
+        ? `${supportStyle.label}-led fit`
+        : getFitLabel(topStyle, supportStyle),
+    visualStyleId: getRecommendationVisualStyleId(career, topStyle, supportStyle, index),
+  }));
 }
 
 const makeOptions = (

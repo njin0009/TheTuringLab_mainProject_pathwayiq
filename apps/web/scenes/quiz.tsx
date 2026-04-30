@@ -4,6 +4,7 @@ import TiltCard from "@/components/ui/3d-tilt-card";
 import ExpandCards from "@/components/ui/expand-cards";
 import { GradientCard } from "@/components/ui/gradient-card";
 import { AnimatedRoadmap } from "@/components/ui/hero-section-5";
+import { LoopingWords } from "@/components/ui/looping-words-with-gsap";
 import type {
   QuizAnswerMap,
   QuizCareerRecommendation,
@@ -69,6 +70,14 @@ function getModeTheme(mode: QuizModeId | null) {
     accentText: "text-cyan-200",
     modeLabel: "Fast Start",
   };
+}
+
+function getVersionActionClasses(mode: QuizModeId) {
+  if (mode === "deep") {
+    return "border-fuchsia-300/30 bg-gradient-to-r from-fuchsia-500/90 to-orange-500/85 text-white shadow-[0_14px_34px_rgba(217,70,239,0.24)] hover:from-fuchsia-400 hover:to-orange-400";
+  }
+
+  return "border-cyan-300/30 bg-gradient-to-r from-cyan-500/90 to-sky-500/85 text-white shadow-[0_14px_34px_rgba(6,182,212,0.24)] hover:from-cyan-400 hover:to-sky-400";
 }
 
 function getQuestionRoadmap(
@@ -362,20 +371,20 @@ export default function QuizScene({
                 ].join(" ")}
               >
                 <div className="space-y-8">
-                  <div className="mx-auto max-w-[420px]">
-                    <TiltCard
-                      eyebrow="Your strongest style"
-                      title={result.topStyle.label}
-                      tagline={result.topStyle.tagline}
-                      imageUrl={result.topStyle.illustrationSrc}
-                      accentClassName={result.topStyle.lightCardColorClassName}
-                      actionLabel="View all results"
-                      onAction={() => setShowAllStyles(true)}
-                    />
-                  </div>
+                  <div className="flex flex-col items-center gap-6">
+                    <div className="w-full max-w-[420px]">
+                      <TiltCard
+                        eyebrow="Your strongest style"
+                        title={result.topStyle.label}
+                        tagline={result.topStyle.tagline}
+                        imageUrl={result.topStyle.illustrationSrc}
+                        accentClassName={result.topStyle.lightCardColorClassName}
+                        actionLabel="View all results"
+                        onAction={() => setShowAllStyles(true)}
+                      />
+                    </div>
 
-                  <div className="grid gap-6 xl:grid-cols-[1.18fr_0.82fr]">
-                    <div className="rounded-[24px] border border-white/10 bg-black/12 p-6">
+                    <div className="w-full rounded-[24px] border border-white/10 bg-black/12 p-6">
                       <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-200/85">
                         Top style
                       </div>
@@ -395,35 +404,33 @@ export default function QuizScene({
                       </p>
                     </div>
 
-                    <div className="flex flex-col gap-5">
-                      <div className="rounded-[24px] border border-white/10 bg-black/16 p-5">
-                        <div className="flex items-start gap-4">
-                          <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-[20px] bg-white/10 p-2">
-                            <Image
-                              src={result.supportStyle.illustrationSrc}
-                              alt={result.supportStyle.label}
-                              width={96}
-                              height={96}
-                              className="h-auto w-full max-w-[84px]"
-                            />
-                          </div>
-                          <div className="min-w-0">
-                            <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-300">
-                              Support style
-                            </div>
-                            <div
-                              className={[
-                                "mt-3 text-2xl font-semibold",
-                                result.supportStyle.colorClassName,
-                              ].join(" ")}
-                            >
-                              {result.supportStyle.label}
-                            </div>
-                            <p className="mt-3 text-base leading-8 text-slate-200/85">
-                              {result.supportStyle.tagline}
-                            </p>
-                          </div>
+                    <div className="w-full rounded-[24px] border border-white/10 bg-black/16 p-6">
+                      <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-300">
+                        Support style
+                      </div>
+                      <div className="mt-6 flex justify-center">
+                        <div className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-[24px] bg-white/10 p-3 shadow-[0_16px_40px_rgba(15,23,42,0.24)]">
+                          <Image
+                            src={result.supportStyle.illustrationSrc}
+                            alt={result.supportStyle.label}
+                            width={120}
+                            height={120}
+                            className="h-auto w-full max-w-[100px]"
+                          />
                         </div>
+                      </div>
+                      <div className="mt-6 text-center">
+                        <div
+                          className={[
+                            "text-2xl font-semibold",
+                            result.supportStyle.colorClassName,
+                          ].join(" ")}
+                        >
+                          {result.supportStyle.label}
+                        </div>
+                        <p className="mt-3 text-base leading-8 text-slate-200/85">
+                          {result.supportStyle.tagline}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -559,34 +566,17 @@ export default function QuizScene({
 
           {phase === "result" && result ? (
             <>
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="text-xs font-semibold uppercase tracking-[0.3em] text-[#00c46a]">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="text-sm font-semibold uppercase tracking-[0.32em] text-[#7ce7b0] md:text-[15px]">
                   Your result
                 </div>
-                <button
-                  type="button"
-                  onClick={onResetQuiz}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-white/22 hover:bg-white/[0.08]"
-                >
-                  Choose another version
-                </button>
               </div>
 
-              <div className="mt-6 rounded-[24px] border border-white/10 bg-black/18 p-6">
-                <div className="text-sm font-medium text-white">
-                  You may enjoy work that feels like:
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {result.topStyle.workLikes.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-sm text-slate-200"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                <p className="mt-5 text-sm leading-7 text-slate-300">{result.topStyle.summary}</p>
+              <div className="mt-6 flex justify-center">
+                <LoopingWords
+                  words={result.topStyle.workLikes}
+                  accentClassName={result.topStyle.colorClassName}
+                />
               </div>
 
               <div className="mt-6 space-y-3">
@@ -609,7 +599,7 @@ export default function QuizScene({
               </div>
 
               <div className="mt-8">
-                <div className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">
+                <div className="text-base font-semibold uppercase tracking-[0.26em] text-slate-300 md:text-[17px]">
                   Recommended starting roles
                 </div>
                 <div className="mt-4 grid gap-4">
@@ -640,16 +630,32 @@ export default function QuizScene({
                 <button
                   type="button"
                   onClick={() => onSwitchMode(alternateMode)}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-slate-200 transition hover:border-white/22 hover:bg-white/[0.08]"
+                  className={[
+                    "rounded-full border px-5 py-3 text-sm font-semibold transition hover:translate-y-[-1px]",
+                    getVersionActionClasses(alternateMode),
+                  ].join(" ")}
                 >
                   {mode === "quick" ? "Try the deeper quiz" : "Try the quick version"}
                 </button>
                 <button
                   type="button"
                   onClick={onRestartMode}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-medium text-slate-200 transition hover:border-white/22 hover:bg-white/[0.08]"
+                  className={[
+                    "rounded-full border px-5 py-3 text-sm font-semibold transition hover:translate-y-[-1px]",
+                    getVersionActionClasses(result.mode),
+                  ].join(" ")}
                 >
                   Retake this version
+                </button>
+                <button
+                  type="button"
+                  onClick={onResetQuiz}
+                  className={[
+                    "rounded-full border px-5 py-3 text-sm font-semibold transition hover:translate-y-[-1px]",
+                    getVersionActionClasses(result.mode),
+                  ].join(" ")}
+                >
+                  Choose another version
                 </button>
               </div>
 
