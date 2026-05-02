@@ -98,7 +98,7 @@ module.exports.handler = async (event) => {
     }
 
     let query = `
-      SELECT anzsco_code, title, industry, median_salary, pathway, shortage_status
+      SELECT anzsco_code, title, industry, median_salary, pathway, shortage_status, ai_risk
       FROM pathwayiq_mart.vw_frontend_career_cards
       WHERE 1=1
     `;
