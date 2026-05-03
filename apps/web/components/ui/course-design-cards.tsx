@@ -11,6 +11,8 @@ export interface CourseDesignCardData {
   eyebrow: string;
   title: string;
   description: string;
+  highlightStatLabel?: string;
+  highlightStatValue?: string;
   progressLabel: string;
   progressPercent: number;
   progressValue: string;
@@ -101,6 +103,8 @@ export default function CourseDesignCard({ data }: CardProps) {
     eyebrow,
     title,
     description,
+    highlightStatLabel,
+    highlightStatValue,
     progressLabel,
     progressPercent,
     progressValue,
@@ -180,7 +184,7 @@ export default function CourseDesignCard({ data }: CardProps) {
               <LevelIcon className="h-5 w-5" />
             </div>
             <div className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/65">
-              {progressValue} AI
+              {progressValue}
             </div>
           </div>
         </div>
@@ -194,6 +198,18 @@ export default function CourseDesignCard({ data }: CardProps) {
         <h3 className="max-w-[14ch] text-[1.9rem] font-semibold leading-[1.02] tracking-[-0.03em] text-white">
           {title}
         </h3>
+        {highlightStatValue ? (
+          <div className="mt-4 inline-flex max-w-full items-baseline gap-3 rounded-[20px] border border-white/10 bg-white/[0.07] px-4 py-3 shadow-[0_12px_28px_rgba(0,0,0,0.14)]">
+            {highlightStatLabel ? (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/58">
+                {highlightStatLabel}
+              </span>
+            ) : null}
+            <span className={cn("text-xl font-semibold tracking-[-0.02em]", colorStyles.accent)}>
+              {highlightStatValue}
+            </span>
+          </div>
+        ) : null}
         <p className="mt-4 max-w-[32ch] text-sm leading-6 text-white/74">
           {description}
         </p>

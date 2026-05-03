@@ -29,7 +29,7 @@ interface ExploreAutocompleteItem {
 }
 
 interface AutomationLevelTone {
-  label: "Low" | "Medium" | "High";
+  label: "Low change" | "Some change" | "Big change";
   toneClassName: string;
   pillClassName: string;
   edgeClassName: string;
@@ -127,7 +127,7 @@ function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
     career.pathway === "Apprenticeship"
   ) {
     return {
-      label: "Low",
+      label: "Low change",
       toneClassName: "text-emerald-300",
       pillClassName: "border-emerald-300/18 bg-emerald-400/12 text-emerald-200",
       edgeClassName: "before:bg-cyan-300",
@@ -138,7 +138,7 @@ function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
     /clerk|attendant|barista|bookkeeper|cashier|reception|entry|retail|waiter|worker|assistant/i.test(title)
   ) {
     return {
-      label: "High",
+      label: "Big change",
       toneClassName: "text-rose-300",
       pillClassName: "border-rose-300/18 bg-rose-400/12 text-rose-200",
       edgeClassName: "before:bg-rose-300",
@@ -146,31 +146,31 @@ function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
   }
 
   return {
-    label: "Medium",
+    label: "Some change",
     toneClassName: "text-amber-300",
     pillClassName: "border-amber-300/18 bg-amber-400/12 text-amber-100",
     edgeClassName: "before:bg-amber-300",
   };
 }
 
-function getCardColorClass(level: "Low" | "Medium" | "High"): CourseDesignCardData["colorClass"] {
-  if (level === "High") {
+function getCardColorClass(level: "Low change" | "Some change" | "Big change"): CourseDesignCardData["colorClass"] {
+  if (level === "Big change") {
     return "red";
   }
 
-  if (level === "Medium") {
+  if (level === "Some change") {
     return "orange";
   }
 
   return "green";
 }
 
-function getProgressPercent(level: "Low" | "Medium" | "High") {
-  if (level === "Low") {
+function getProgressPercent(level: "Low change" | "Some change" | "Big change") {
+  if (level === "Low change") {
     return 28;
   }
 
-  if (level === "High") {
+  if (level === "Big change") {
     return 84;
   }
 
@@ -394,7 +394,7 @@ export default function ExploreScene({
             Explore your future path
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-slate-300 md:text-lg">
-            Browse career cards from the new PathwayIQ dataset, with pathway, industry, shortage signal, salary, and a simple AI displacement level.
+            Browse career cards from the new PathwayIQ dataset, with pathway, industry, shortage signal, salary, and a simple read on how much AI might change each role.
           </p>
         </div>
 
@@ -609,11 +609,13 @@ export default function ExploreScene({
                 colorClass: getCardColorClass(aiLevel.label),
                 eyebrow: career.industry,
                 title: career.title,
-                description: `${career.shortage_status} · median salary ${formatSalary(career.median_salary)} · ANZSCO ${career.anzsco_code}`,
-                progressLabel: "AI displacement level",
+                description: `${career.shortage_status} · ANZSCO ${career.anzsco_code}`,
+                highlightStatLabel: "Median salary",
+                highlightStatValue: formatSalary(career.median_salary),
+                progressLabel: "How much AI might change this role",
                 progressPercent: getProgressPercent(aiLevel.label),
                 progressValue: aiLevel.label,
-                chips: [`${career.pathway} pathway`, `Salary ${formatSalary(career.median_salary)}`],
+                chips: [`${career.pathway} pathway`, `ANZSCO ${career.anzsco_code}`],
                 countdownText: shortage,
                 actionLabel: "Search role",
                 onAction: () => onSearchChange(career.title),
