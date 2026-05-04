@@ -25,6 +25,9 @@ const HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
+  "Content-Security-Policy": "default-src 'none'",
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+  "Referrer-Policy": "no-referrer",
 };
 
 function validateInput(value, maxLength = 100) {
