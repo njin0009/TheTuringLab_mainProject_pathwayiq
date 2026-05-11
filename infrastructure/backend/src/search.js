@@ -4,10 +4,6 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL environment variable is not set");
 }
 
-if (!process.env.ALLOWED_ORIGIN) {
-  throw new Error("ALLOWED_ORIGIN environment variable is not set");
-}
-
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -20,9 +16,6 @@ const pool = new Pool({
 
 const HEADERS = {
   "Content-Type": "application/json",
-  "Access-Control-Allow-Origin": process.env.ALLOWED_ORIGIN,
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
   "Content-Security-Policy": "default-src 'none'",
@@ -125,10 +118,9 @@ module.exports.handler = async (event) => {
     const values = [];
 
     if (q) {
-      values.push(`%${q.toLowerCase()}%`);
-      query += ` AND (LOWER(title) LIKE $${values.length} OR LOWER(industry) LIKE $${values.length})`;
-    }
-
+  values.push(`%${q.toLowerCase()}%`);
+  query += ` AND (LOWER(title) LIKE $${values.length} OR LOWER(industry) LIKE $${values.length})`;
+}
     if (pathway) {
       values.push(pathway);
       query += ` AND pathway = $${values.length}`;
