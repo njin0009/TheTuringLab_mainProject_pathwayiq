@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"d:\\\\PathwayIQ\\\\TheTuringLab_mainProject_pathwayiq\" -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(Head -50)",
+      "Bash(cd /mnt/d/PathwayIQ/TheTuringLab_mainProject_pathwayiq && find . -type f -name \"*.tsx\" -path \"*/scenes/*\" -o -name \"*.tsx\" -path \"*/pages/*\" | grep -v \".next\" | grep -v \"node_modules\" | head -30)",
+      "Read(//mnt/d/PathwayIQ/**)",
+      "Bash(curl -s \"https://generativelanguage.googleapis.com/v1/models?key=AIzaSyBMmh1WhkgKuXa_fb_elZcLza0OEF4L2QI\")",
+      "Bash(python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(m['name']\\) for m in data.get\\('models',[]\\)]\")",
+      "PowerShell($response = Invoke-RestMethod -Uri \"https://generativelanguage.googleapis.com/v1/models?key=AIzaSyBMmh1WhkgKuXa_fb_elZcLza0OEF4L2QI\" -Method GET; $response.models | Select-Object name, supportedGenerationMethods | Where-Object { $_.supportedGenerationMethods -contains \"generateContent\" })",
+      "PowerShell($response = Invoke-RestMethod -Uri \"https://generativelanguage.googleapis.com/v1/models?key=AIzaSyBMmh1WhkgKuXa_fb_elZcLza0OEF4L2QI\" -Method GET; $response.models.name)",
+      "PowerShell($response = Invoke-RestMethod -Uri \"https://generativelanguage.googleapis.com/v1/models?key=AIzaSyCjltOEhK_m0vkY3ky_mKayFk_jDw922KI\" -Method GET; $response.models.name)"
+    ]
+  }
+}

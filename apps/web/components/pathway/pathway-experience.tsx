@@ -150,6 +150,7 @@ export function PathwayExperience() {
   const walkerSequenceTimerRef = useRef<number | null>(null);
   const walkerAutoSceneRef = useRef<number | null>(null);
   const walkerAutoLineRef = useRef(0);
+  const walkerIntroShownScenesRef = useRef<Set<number>>(new Set());
 
   const [activeIdx, setActiveIdx] = useState(0);
   const showGate = false;
@@ -440,6 +441,12 @@ export function PathwayExperience() {
     }
 
     const sceneIdx = activeIdx;
+
+    if (walkerIntroShownScenesRef.current.has(sceneIdx)) {
+      return;
+    }
+    walkerIntroShownScenesRef.current.add(sceneIdx);
+
     walkerBubbleCursorRef.current[sceneIdx] = 0;
     walkerIntroTimerRef.current = window.setTimeout(() => {
       playWalkerIntroSequence(sceneIdx);

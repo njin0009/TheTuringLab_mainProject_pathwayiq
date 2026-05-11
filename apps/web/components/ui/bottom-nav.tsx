@@ -61,11 +61,19 @@ export function BottomNav({ activeIdx = 0, onNavigate, reportCompanion }: Bottom
           }),
         });
 
+        const data = (await response.json()) as { reply?: string; error?: string };
+
         if (!response.ok) {
-          throw new Error("Gemini endpoint failed");
+          setMessages((current) => [
+            ...current,
+            {
+              role: "assistant",
+              content: `Error: ${data.error ?? response.statusText}`,
+            },
+          ]);
+          return;
         }
 
-        const data = (await response.json()) as { reply?: string };
         setMessages((current) => [
           ...current,
           {
@@ -83,12 +91,12 @@ export function BottomNav({ activeIdx = 0, onNavigate, reportCompanion }: Bottom
           content: `Gemini is ready to connect. Once the backend endpoint is configured, I can answer as your ${reportCompanion?.label ?? "style"} guide for ${reportCompanion?.careerTitle ?? "this report"}.`,
         },
       ]);
-    } catch {
+    } catch (err) {
       setMessages((current) => [
         ...current,
         {
           role: "assistant",
-          content: "I could not reach the Gemini endpoint yet. Check the AWS endpoint or API config, then try again.",
+          content: `Connection failed: ${err instanceof Error ? err.message : "unknown error"}`,
         },
       ]);
     } finally {
