@@ -48,49 +48,34 @@ export function BottomNav({ activeIdx = 0, onNavigate, reportCompanion }: Bottom
     setIsSending(true);
 
     try {
-      const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
-      if (!apiKey) {
-        setMessages((current) => [
-          ...current,
-          { role: "assistant", content: "AI guide is not configured yet. Add NEXT_PUBLIC_GROQ_API_KEY to enable it." },
-        ]);
-        return;
-      }
-
-      const systemPrompt = `You are a career guide AI built into PathwayIQ, helping Victorian Year 10–12 students understand their personalised career report. The student's style profile is "${reportCompanion?.label ?? "balanced"}". They are exploring the career: "${reportCompanion?.careerTitle ?? "this career"}". Be warm, encouraging, and practical. Keep every reply under 120 words.`;
-
-      const groqMessages = [
-        { role: "system", content: systemPrompt },
-        ...nextMessages.slice(1).map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.content })),
-      ];
-
-      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      const response = await fetch("/api/groq-chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-        body: JSON.stringify({ model: "llama-3.3-70b-versatile", messages: groqMessages, max_tokens: 200, temperature: 0.7 }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: nextMessages,
+          style: reportCompanion?.label,
+          careerTitle: reportCompanion?.careerTitle,
+        }),
       });
 
-      const data = (await response.json()) as { choices?: { message?: { content?: string } }[]; error?: { message?: string } };
+      const data = (await response.json()) as { reply?: string; error?: string };
 
       if (!response.ok) {
         setMessages((current) => [
           ...current,
-          { role: "assistant", content: `Error: ${data.error?.message ?? response.statusText}` },
+          { role: "assistant", content: `Error: ${data.error ?? response.statusText}` },
         ]);
         return;
       }
 
       setMessages((current) => [
         ...current,
-        { role: "assistant", content: data.choices?.[0]?.message?.content ?? "I couldn't generate a response. Please try again." },
+        { role: "assistant", content: data.reply ?? "I couldn't generate a response. Please try again." },
       ]);
     } catch (err) {
       setMessages((current) => [
         ...current,
-        {
-          role: "assistant",
-          content: `Connection failed: ${err instanceof Error ? err.message : "unknown error"}`,
-        },
+        { role: "assistant", content: `Connection failed: ${err instanceof Error ? err.message : "unknown error"}` },
       ]);
     } finally {
       setIsSending(false);
