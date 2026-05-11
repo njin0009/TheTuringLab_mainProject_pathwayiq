@@ -125,7 +125,7 @@ export function BottomNav({ activeIdx = 0, onNavigate, reportCompanion }: Bottom
                   <div className="text-xs text-slate-500">Gemini-ready chatbot</div>
                 </div>
               </div>
-              <div className="mt-3 max-h-52 space-y-2 overflow-y-auto pr-1">
+              <div className="mt-3 max-h-80 space-y-2 overflow-y-auto pr-1">
                 {messages.map((message, index) => (
                   <div
                     key={`${message.role}-${index}`}
