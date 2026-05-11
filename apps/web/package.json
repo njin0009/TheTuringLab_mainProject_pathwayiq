@@ -20,10 +20,12 @@
     "framer-motion": "^12.38.0",
     "gsap": "^3.15.0",
     "input-otp": "^1.4.2",
+    "jspdf": "^4.2.1",
     "lucide-react": "^1.8.0",
     "next": "16.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "swiper": "^12.1.4",
     "tailwind-merge": "^3.5.0",
     "three": "^0.183.2"
   },

@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { INTEREST_TAGS, type CareerCard } from "@/lib/career-data";
+import { CAREER_CARDS, INTEREST_TAGS, type CareerCard, type CareerId } from "@/lib/career-data";
 import { Search, TrendingUp } from "lucide-react";
 import CourseDesignCard, { type CourseDesignCardData } from "@/components/ui/course-design-cards";
 import { searchCareers, type BackendCareerRecord } from "@/lib/api-client";
 import { EXPLORE_TRENDING_QUERIES } from "@/lib/explore-trends";
+import { QUIZ_DIMENSIONS, type QuizDimensionId } from "@/lib/quiz-data";
+import type { ReportCareerSnapshot } from "@/lib/report-career";
 import careerCardsData from "../public/data2/career-cards.json";
 
 interface ExploreSceneProps {
@@ -14,6 +16,7 @@ interface ExploreSceneProps {
   onSearchChange: (value: string) => void;
   onSelectInterest: (value: string | null) => void;
   onOpenCareer: (careerId: CareerCard["id"]) => void;
+  onOpenReport: (career: ReportCareerSnapshot) => void;
   onCompare: () => void;
   onClearFilters: () => void;
 }
@@ -40,6 +43,28 @@ const QUICK_HINTS = ["healthcare", "engineering", "business"] as const;
 const PAGE_SIZE = 6;
 const DATA2_BY_CODE = new Map(DATA2_CAREERS.map((career) => [career.anzsco_code, career]));
 const DATA2_BY_TITLE = new Map(DATA2_CAREERS.map((career) => [career.title.toLowerCase(), career]));
+const REPORT_CAREER_BY_DATA2_TITLE: Record<string, CareerId> = {
+  "software engineer": "career-ds",
+  "registered nurse (medical practice)": "career-nurse",
+  "electrician (general)": "career-elec",
+  "security consultant": "career-cyber",
+  "electrical engineering technician": "career-solar",
+  "telecommunications technician": "career-wind",
+  "therapy aide": "career-physio",
+  "graphic designer": "career-ux",
+  "developer programmer": "career-prompt",
+  "transport company manager": "career-freight",
+  "data entry operator": "career-data-entry",
+};
+
+const FALLBACK_REPORT_BY_STYLE: Record<QuizDimensionId, CareerId> = {
+  builder: "career-solar",
+  decoder: "career-ds",
+  creator: "career-ux",
+  guide: "career-nurse",
+  catalyst: "career-cyber",
+  strategist: "career-freight",
+};
 
 const INTEREST_MATCHERS: Record<(typeof INTEREST_TAGS)[number], (career: ExploreCareerRecord) => boolean> = {
   "Data & AI": (career) =>
@@ -56,6 +81,46 @@ const INTEREST_MATCHERS: Record<(typeof INTEREST_TAGS)[number], (career: Explore
   "Creative Problem Solving": (career) =>
     ["Engineering", "Education", "Construction", "Business"].includes(career.industry) ||
     /designer|architect|draftsperson|engineer|manager/i.test(career.title),
+};
+
+const STYLE_RULES: Record<
+  QuizDimensionId,
+  {
+    industries: string[];
+    pathways: string[];
+    titleKeywords: string[];
+  }
+> = {
+  builder: {
+    industries: ["Engineering", "Construction", "Agriculture & Environment"],
+    pathways: ["Apprenticeship", "TAFE"],
+    titleKeywords: ["electrician", "plumber", "carpenter", "mechanic", "technician", "maintenance", "engineer"],
+  },
+  decoder: {
+    industries: ["Technology", "Science", "Business"],
+    pathways: ["TAFE"],
+    titleKeywords: ["analyst", "developer", "software", "programmer", "data", "security", "consultant"],
+  },
+  creator: {
+    industries: ["Creative Industries", "Technology", "Education"],
+    pathways: ["TAFE"],
+    titleKeywords: ["designer", "graphic", "interior", "draftsperson", "marketing", "creative"],
+  },
+  guide: {
+    industries: ["Healthcare", "Community Services", "Education"],
+    pathways: ["TAFE"],
+    titleKeywords: ["nurse", "therapy", "health", "care", "social", "community", "teacher", "support"],
+  },
+  catalyst: {
+    industries: ["Business", "Technology", "Engineering", "Construction"],
+    pathways: ["TAFE", "Apprenticeship"],
+    titleKeywords: ["manager", "project", "sales", "lead", "executive", "transport", "security"],
+  },
+  strategist: {
+    industries: ["Business", "Education", "Technology", "Engineering", "Community Services"],
+    pathways: ["TAFE", "Apprenticeship"],
+    titleKeywords: ["manager", "planning", "policy", "project", "administrator", "coordinator", "operator"],
+  },
 };
 
 const autocompleteMap = new Map<string, ExploreAutocompleteItem>();
@@ -177,6 +242,47 @@ function getProgressPercent(level: "Low change" | "Some change" | "Big change") 
   return 56;
 }
 
+function inferExploreStyleId(career: ExploreCareerRecord): QuizDimensionId {
+  const normalizedTitle = career.title.toLowerCase();
+  const rankedStyles = (Object.keys(STYLE_RULES) as QuizDimensionId[])
+    .map((styleId) => {
+      const rule = STYLE_RULES[styleId];
+      const industryScore = rule.industries.includes(career.industry) ? 16 : 0;
+      const pathwayScore = rule.pathways.includes(career.pathway) ? 8 : 0;
+      const keywordScore = rule.titleKeywords.reduce(
+        (score, keyword) => score + (normalizedTitle.includes(keyword) ? 7 : 0),
+        0,
+      );
+
+      return { styleId, score: industryScore + pathwayScore + keywordScore };
+    })
+    .sort((left, right) => right.score - left.score);
+
+  return rankedStyles[0]?.styleId ?? "strategist";
+}
+
+function getReportCareerId(career: ExploreCareerRecord, styleId: QuizDimensionId) {
+  const localCareer = CAREER_CARDS.find((card) => card.title.toLowerCase() === career.title.toLowerCase());
+  if (localCareer) {
+    return localCareer.id;
+  }
+
+  return REPORT_CAREER_BY_DATA2_TITLE[career.title.toLowerCase()] ?? FALLBACK_REPORT_BY_STYLE[styleId];
+}
+
+function buildReportSnapshot(career: ExploreCareerRecord, styleId: QuizDimensionId): ReportCareerSnapshot {
+  return {
+    sourceCareerId: getReportCareerId(career, styleId),
+    title: career.title,
+    industry: career.industry,
+    anzscoCode: career.anzsco_code,
+    medianSalary: career.median_salary,
+    pathway: career.pathway,
+    shortageStatus: career.shortage_status,
+    styleId,
+  };
+}
+
 function matchesInterest(career: ExploreCareerRecord, activeInterest: string | null) {
   if (!activeInterest) {
     return true;
@@ -265,6 +371,7 @@ export default function ExploreScene({
   onSearchChange,
   onSelectInterest,
   onOpenCareer: _onOpenCareer,
+  onOpenReport,
   onCompare,
   onClearFilters,
 }: ExploreSceneProps) {
@@ -604,6 +711,9 @@ export default function ExploreScene({
             pagedCareers.map((career) => {
               const shortage = getShortageLabel(career.shortage_status);
               const aiLevel = getAutomationLevel(career);
+              const styleId = inferExploreStyleId(career);
+              const style = QUIZ_DIMENSIONS[styleId];
+              const reportSnapshot = buildReportSnapshot(career, styleId);
               const cardData: CourseDesignCardData = {
                 id: `${career.anzsco_code}-${career.title}`,
                 colorClass: getCardColorClass(aiLevel.label),
@@ -617,8 +727,11 @@ export default function ExploreScene({
                 progressValue: aiLevel.label,
                 chips: [`${career.pathway} pathway`, `ANZSCO ${career.anzsco_code}`],
                 countdownText: shortage,
-                actionLabel: "Search role",
-                onAction: () => onSearchChange(career.title),
+                styleLabel: style.label,
+                styleTagline: style.tagline,
+                styleIllustrationSrc: style.illustrationSrc,
+                actionLabel: "Open report",
+                onAction: () => onOpenReport(reportSnapshot),
               };
 
               return (
