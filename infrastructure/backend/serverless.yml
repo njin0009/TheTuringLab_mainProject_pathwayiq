@@ -6,7 +6,7 @@ provider:
   region: ap-southeast-2
   environment:
     DATABASE_URL: ${ssm:/pathwayiq/DATABASE_URL}
-    ALLOWED_ORIGIN: ${env:ALLOWED_ORIGIN, "*"}
+    ALLOWED_ORIGIN: ${env:ALLOWED_ORIGIN, "https://pathwayiq.me"}
 
 functions:
   search:
@@ -14,4 +14,10 @@ functions:
     events:
       - httpApi:
           path: /careers
+          method: GET
+  compare:
+    handler: src/compare.handler
+    events:
+      - httpApi:
+          path: /compare
           method: GET
