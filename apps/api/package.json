@@ -6,16 +6,21 @@
     "deploy": "serverless deploy",
     "deploy:prod": "serverless deploy --stage prod",
     "offline": "serverless offline",
-    "build": "tsc --noEmit"
+    "build": "tsc --noEmit",
+    "build:emit": "tsc --outDir .build",
+    "local:quiz": "npm run build:emit && node scripts/local-quiz-api.js"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.0.0"
+    "@aws-sdk/client-s3": "^3.0.0",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.0",
     "@types/node": "^20.0.0",
+    "@types/pg": "^8.11.10",
     "serverless": "^3.0.0",
     "serverless-offline": "^13.0.0",
+    "serverless-plugin-typescript": "^2.1.5",
     "typescript": "^5.0.0"
   }
 }

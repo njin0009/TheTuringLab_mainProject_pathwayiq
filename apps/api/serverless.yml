@@ -8,6 +8,12 @@ provider:
   region: ap-southeast-2
   stage: ${opt:stage, 'dev'}
   environment:
+    DATA_BACKEND: ${env:DATA_BACKEND, 'auto'}
+    DATABASE_URL: ${env:DATABASE_URL, ''}
+    AZURE_POSTGRES_CONNECTION_STRING: ${env:AZURE_POSTGRES_CONNECTION_STRING, ''}
+    DB_SSL_REJECT_UNAUTHORIZED: ${env:DB_SSL_REJECT_UNAUTHORIZED, 'false'}
+    DB_POOL_MAX: ${env:DB_POOL_MAX, '4'}
+    DB_CONNECT_TIMEOUT_MS: ${env:DB_CONNECT_TIMEOUT_MS, '10000'}
     R2_BUCKET_NAME: ${env:R2_BUCKET_NAME}
     R2_ACCOUNT_ID:  ${env:R2_ACCOUNT_ID}
     R2_ACCESS_KEY:  ${env:R2_ACCESS_KEY}
@@ -25,10 +31,21 @@ provider:
         - POST
 
 functions:
+  quizConfig:
+    handler: src/functions/quiz-config.handler
+    description: "GET /quiz/config — fetch active quiz mode config from PostgreSQL"
+    events:
+      - httpApi:
+          path: /quiz/config
+          method: GET
+
   quiz:
     handler: src/functions/quiz.handler
-    description: "POST /quiz — score quiz answers, return ranked career matches"
+    description: "POST /quiz/result — score quiz answers, return ranked career matches"
     events:
+      - httpApi:
+          path: /quiz/result
+          method: POST
       - httpApi:
           path: /quiz
           method: POST
@@ -68,4 +85,5 @@ functions:
           method: GET
 
 plugins:
+  - serverless-plugin-typescript
   - serverless-offline

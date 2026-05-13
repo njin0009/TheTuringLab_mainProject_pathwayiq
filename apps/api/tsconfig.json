@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2022",
     "module": "commonjs",
-    "lib": ["ES2020"],
-    "types": ["node"],
-    "strict": true,
+    "moduleResolution": "node",
+    "lib": ["ES2022"],
+    "types": ["node", "aws-lambda"],
     "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
     "outDir": ".build",
     "rootDir": "."
   },
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", ".build"]
 }
