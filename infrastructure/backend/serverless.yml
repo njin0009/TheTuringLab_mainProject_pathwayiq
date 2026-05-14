@@ -21,3 +21,13 @@ functions:
       - httpApi:
           path: /compare
           method: GET
+  quiz:
+    handler: src/quiz.handler
+    events:
+      - httpApi:
+          path: /quiz/config
+          method: GET
+      - httpApi:
+          path: /quiz/result
+          method: POST
+  
