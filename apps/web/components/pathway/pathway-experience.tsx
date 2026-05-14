@@ -7,16 +7,45 @@ import {
   type PathwayWalkerVariant,
 } from "@/components/pathway/pathway-walker";
 import { BottomNav } from "@/components/ui/bottom-nav";
-import PasswordGateScreen from "@/components/ui/password-gate-screen";
+import { Balloons, type BalloonsHandle } from "@/components/ui/balloons";
 import { useCareerSearch } from "@/hooks/useCareerSearch";
 import { useQuizState } from "@/hooks/useQuizState";
 import {
   CAREER_CARDS,
-  DEFAULT_COMPARE,
-  QUIZ_TO_INTEREST,
   SCENE_LABELS,
   type CareerId,
 } from "@/lib/career-data";
+
+const DATA2_TITLE_BY_CAREER_ID: Record<CareerId, string> = {
+  "career-ds": "Software Engineer",
+  "career-nurse": "Registered Nurse (Medical Practice)",
+  "career-elec": "Electrician (General)",
+  "career-cyber": "Security Consultant",
+  "career-solar": "Electrical Engineering Technician",
+  "career-wind": "Telecommunications Technician",
+  "career-physio": "Therapy Aide",
+  "career-ux": "Graphic Designer",
+  "career-prompt": "Developer Programmer",
+  "career-freight": "Transport Company Manager",
+  "career-data-entry": "Data Entry Operator",
+};
+
+const CAREER_TITLE_TO_ID: Record<string, CareerId> = {
+  "Software Engineer": "career-ds",
+  "Registered Nurse (Medical Practice)": "career-nurse",
+  "Electrician (General)": "career-elec",
+  "Security Consultant": "career-cyber",
+  "Electrical Engineering Technician": "career-solar",
+  "Telecommunications Technician": "career-wind",
+  "Therapy Aide": "career-physio",
+  "Graphic Designer": "career-ux",
+  "Developer Programmer": "career-prompt",
+  "Transport Company Manager": "career-freight",
+  "Data Entry Operator": "career-data-entry",
+};
+import { QUIZ_DIMENSIONS, type QuizResult } from "@/lib/quiz-data";
+import { REPORT_STYLE_BY_CAREER_ID } from "@/lib/report-style";
+import type { ReportCareerSnapshot } from "@/lib/report-career";
 import CompareScene from "@/scenes/compare";
 import ExploreScene from "@/scenes/explore";
 import HomeScene from "@/scenes/home";
@@ -39,8 +68,8 @@ const WALKER_DIALOGUE = [
     "If you still have questions later, click me again and I will replay these tips.",
   ],
   [
-    "Choose the card that sounds most like you on this page.",
-    "When you're done, use Explore to open matching paths.",
+    "Choose Quick Match for a fast read, or Deep Match for a fuller result.",
+    "Answer the questions, then use Explore to open careers that fit your result.",
     "You can still use A / D or the arrow keys to switch menus.",
     "If you want this guidance again, click me and I will walk you through it once more.",
   ],
@@ -103,8 +132,6 @@ const WALKER_GROUND_BOTTOM = "calc(7rem + 12px)";
 const WALKER_MOTION_MS = 220;
 const WALKER_BUBBLE_MS = 4300;
 const WALKER_SEQUENCE_GAP_MS = 180;
-const GATE_COVER_MS = 260;
-const GATE_REVEAL_MS = 620;
 
 const INTERACTIVE_TAGS = new Set(["INPUT", "TEXTAREA", "SELECT", "BUTTON"]);
 
@@ -136,6 +163,7 @@ function isInteractiveElement(target: EventTarget | null) {
 export function PathwayExperience() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const walkerRef = useRef<HTMLDivElement>(null);
+  const balloonsRef = useRef<BalloonsHandle | null>(null);
   const walkerStateRef = useRef<WalkerState>({
     x: WALKER_START_X,
     facingRight: true,
@@ -149,33 +177,60 @@ export function PathwayExperience() {
   const walkerSequenceTimerRef = useRef<number | null>(null);
   const walkerAutoSceneRef = useRef<number | null>(null);
   const walkerAutoLineRef = useRef(0);
-  const gateTimerRefs = useRef<number[]>([]);
+  const walkerIntroShownScenesRef = useRef<Set<number>>(new Set());
 
   const [activeIdx, setActiveIdx] = useState(0);
-  const [showGate, setShowGate] = useState(true);
-  const [gateTransitionPhase, setGateTransitionPhase] = useState<
-    "idle" | "covering" | "revealing"
-  >("idle");
+  const showGate = false;
+  const gateTransitionPhase = "idle";
   const [homeHeroVersion, setHomeHeroVersion] = useState(0);
   const [homePanelOpen, setHomePanelOpen] = useState(false);
   const [showHint, setShowHint] = useState(true);
   const [walkerBubble, setWalkerBubble] = useState<WalkerBubbleState | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [exploreLaunchKey, setExploreLaunchKey] = useState(0);
   const [activeInterest, setActiveInterest] = useState<string | null>(null);
   const [selectedCareerId, setSelectedCareerId] = useState<CareerId | null>(null);
   const [reportFocusId, setReportFocusId] = useState<CareerId | null>(null);
-  const [compareSelection, setCompareSelection] = useState<CareerId[]>(DEFAULT_COMPARE);
-  const { selectedOption, selectOption } = useQuizState();
+  const [dynamicReportCareer, setDynamicReportCareer] = useState<ReportCareerSnapshot | null>(null);
+  const [hasReportInput, setHasReportInput] = useState(false);
+  const [compareSeedTitles, setCompareSeedTitles] = useState<[string | null, string | null]>([null, null]);
+  const [compareSeedKey, setCompareSeedKey] = useState(0);
+  const {
+    mode: quizMode,
+    modes: quizModes,
+    phase: quizPhase,
+    questions: quizQuestions,
+    answers: quizAnswers,
+    currentQuestion: quizCurrentQuestion,
+    currentQuestionIndex: quizCurrentQuestionIndex,
+    questionNumber: quizQuestionNumber,
+    selectedOptionIds: quizSelectedOptionIds,
+    progressPercent: quizProgressPercent,
+    hasAnsweredCurrent: quizHasAnsweredCurrent,
+    canGoBack: quizCanGoBack,
+    result: quizResult,
+    startMode: startQuizMode,
+    switchMode: switchQuizMode,
+    chooseOption: chooseQuizOption,
+    nextQuestion: nextQuizQuestion,
+    previousQuestion: previousQuizQuestion,
+    restartMode: restartQuizMode,
+    resetQuiz,
+  } = useQuizState();
   const filteredCareers = useCareerSearch(searchQuery, activeInterest);
 
   const primaryCareer = filteredCareers[0] ?? CAREER_CARDS[0];
   const reportCareerId = reportFocusId ?? selectedCareerId ?? primaryCareer.id;
+  const reportStyle = QUIZ_DIMENSIONS[dynamicReportCareer?.styleId ?? REPORT_STYLE_BY_CAREER_ID[reportCareerId]];
+  const reportCareerTitle =
+    dynamicReportCareer?.title ??
+    CAREER_CARDS.find((career) => career.id === reportCareerId)?.title ??
+    "this report";
   const glow = SCENE_GLOWS[activeIdx] ?? SCENE_GLOWS[0];
   const brandColor = activeIdx === 0 ? "#22d3ee" : "#fb923c";
   const walkerVariant = WALKER_VARIANTS[activeIdx] ?? WALKER_VARIANTS[0];
   const isGateTransitioning = gateTransitionPhase !== "idle";
   const lockSceneControls = showGate || isGateTransitioning;
-  const shouldRenderGateLayer = showGate || isGateTransitioning;
   const chromeTransitionClass =
     isGateTransitioning
       ? "opacity-0 translate-y-2"
@@ -278,8 +333,6 @@ export function PathwayExperience() {
 
   useEffect(() => {
     return () => {
-      gateTimerRefs.current.forEach((timer) => window.clearTimeout(timer));
-
       if (walkerMotionTimerRef.current !== null) {
         window.clearTimeout(walkerMotionTimerRef.current);
       }
@@ -297,6 +350,36 @@ export function PathwayExperience() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      balloonsRef.current?.launchAnimation();
+    }, 520);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    const previousHtmlOverflow = html.style.overflow;
+    const previousBodyOverflow = body.style.overflow;
+    const previousHtmlOverscroll = html.style.overscrollBehavior;
+    const previousBodyOverscroll = body.style.overscrollBehavior;
+
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    html.style.overscrollBehavior = "none";
+    body.style.overscrollBehavior = "none";
+
+    return () => {
+      html.style.overflow = previousHtmlOverflow;
+      body.style.overflow = previousBodyOverflow;
+      html.style.overscrollBehavior = previousHtmlOverscroll;
+      body.style.overscrollBehavior = previousBodyOverscroll;
+    };
+  }, []);
+
 
   const clearWalkerBubbleTimers = useCallback(() => {
     if (walkerBubbleTimerRef.current !== null) {
@@ -386,6 +469,12 @@ export function PathwayExperience() {
     }
 
     const sceneIdx = activeIdx;
+
+    if (walkerIntroShownScenesRef.current.has(sceneIdx)) {
+      return;
+    }
+    walkerIntroShownScenesRef.current.add(sceneIdx);
+
     walkerBubbleCursorRef.current[sceneIdx] = 0;
     walkerIntroTimerRef.current = window.setTimeout(() => {
       playWalkerIntroSequence(sceneIdx);
@@ -468,23 +557,25 @@ export function PathwayExperience() {
     return () => window.removeEventListener("resize", handleResize);
   }, [renderWalker, scrollToScene]);
 
-  function handleQuizSelect(option: string) {
-    selectOption(option);
-    setActiveInterest(QUIZ_TO_INTEREST[option as keyof typeof QUIZ_TO_INTEREST]);
+  function handleQuizExplore(result: QuizResult) {
+    setActiveInterest(result.exploreInterest);
+    setSearchQuery(result.exploreSearch);
+    setExploreLaunchKey((current) => current + 1);
+    scrollToScene(2);
   }
 
-  function handleCompareToggle(careerId: CareerId) {
-    setCompareSelection((current) => {
-      if (current.includes(careerId)) {
-        return current.length === 1 ? current : current.filter((item) => item !== careerId);
-      }
+  function handleQuizOpenRecommendedCareer(careerTitle: string) {
+    setActiveInterest(null);
+    setSearchQuery(careerTitle);
+    setExploreLaunchKey((current) => current + 1);
+    scrollToScene(2);
+  }
 
-      if (current.length < 2) {
-        return [...current, careerId];
-      }
-
-      return [current[1], careerId];
-    });
+  function handleHomeExplore(query?: string) {
+    setActiveInterest(null);
+    setSearchQuery(query ?? "");
+    setExploreLaunchKey((current) => current + 1);
+    scrollToScene(2);
   }
 
   function clearFilters() {
@@ -492,8 +583,46 @@ export function PathwayExperience() {
     setActiveInterest(null);
   }
 
+  function goToCompareWithCareer(careerId: CareerId) {
+    const title = DATA2_TITLE_BY_CAREER_ID[careerId] ?? null;
+    setCompareSeedTitles([title, null]);
+    setCompareSeedKey((k) => k + 1);
+    scrollToScene(3);
+  }
+
+  function restartExperienceFromReport() {
+    setReportFocusId(null);
+    setSelectedCareerId(null);
+    setDynamicReportCareer(null);
+    setHasReportInput(false);
+    setHomePanelOpen(false);
+    setCompareSeedTitles([null, null]);
+    setCompareSeedKey((k) => k + 1);
+    clearFilters();
+    resetQuiz();
+    scrollToScene(0);
+  }
+
   function openCareer(careerId: CareerId) {
     setSelectedCareerId(careerId);
+  }
+
+  function openReportFromExplore(career: ReportCareerSnapshot) {
+    setDynamicReportCareer(career);
+    setReportFocusId(career.sourceCareerId ?? null);
+    setHasReportInput(true);
+    setSelectedCareerId(null);
+    scrollToScene(4);
+  }
+
+  function openReportFromCompare(careerTitle: string | null) {
+    setDynamicReportCareer(null);
+    const careerId = careerTitle
+      ? ((CAREER_TITLE_TO_ID as Record<string, CareerId | undefined>)[careerTitle] ?? null)
+      : null;
+    setReportFocusId(careerId);
+    setHasReportInput(Boolean(careerTitle));
+    scrollToScene(4);
   }
 
   function handleWalkerTalk() {
@@ -583,6 +712,11 @@ export function PathwayExperience() {
           backgroundImage: `radial-gradient(circle at 20% 78%, rgba(${glow.accent}, 0.18) 0%, transparent 35%), radial-gradient(circle at 82% 18%, rgba(${glow.secondary}, 0.16) 0%, transparent 30%)`,
         }}
       />
+      <Balloons
+        ref={balloonsRef}
+        type="default"
+        className="pointer-events-none fixed inset-0 z-[210]"
+      />
 
       {!showGate ? (
         <header
@@ -613,13 +747,7 @@ export function PathwayExperience() {
 
       <div
         ref={scrollRef}
-        className={`no-scrollbar relative flex h-screen overflow-hidden transition-[opacity,transform] duration-[680ms] ease-out ${
-          showGate
-            ? "pointer-events-none translate-y-3 opacity-0"
-            : gateTransitionPhase === "revealing"
-              ? "pointer-events-none translate-y-0 opacity-100"
-              : "translate-y-0 opacity-100"
-        }`}
+        className="no-scrollbar relative flex h-screen translate-y-0 overflow-hidden opacity-100 transition-[opacity,transform] duration-[680ms] ease-out"
         style={{ touchAction: "pan-y" }}
       >
         <HomeScene
@@ -627,44 +755,73 @@ export function PathwayExperience() {
           panelVisible={homePanelOpen}
           onStart={() => setHomePanelOpen(true)}
           onBack={() => setHomePanelOpen(false)}
-          onTakeQuiz={() => scrollToScene(1)}
-          onExplore={() => scrollToScene(2)}
+          onTakeQuiz={() => {
+            resetQuiz();
+            scrollToScene(1);
+          }}
+          onExplore={handleHomeExplore}
           onCompare={() => scrollToScene(3)}
         />
         <QuizScene
-          selectedOption={selectedOption}
-          onSelectOption={handleQuizSelect}
-          onExplore={() => scrollToScene(2)}
+          phase={quizPhase}
+          mode={quizMode}
+          modes={quizModes}
+          questions={quizQuestions}
+          answers={quizAnswers}
+          currentQuestion={quizCurrentQuestion}
+          currentQuestionIndex={quizCurrentQuestionIndex}
+          questionNumber={quizQuestionNumber}
+          selectedOptionIds={quizSelectedOptionIds}
+          progressPercent={quizProgressPercent}
+          hasAnsweredCurrent={quizHasAnsweredCurrent}
+          canGoBack={quizCanGoBack}
+          result={quizResult}
+          onChooseMode={startQuizMode}
+          onChooseOption={chooseQuizOption}
+          onNext={nextQuizQuestion}
+          onPrevious={previousQuizQuestion}
+          onRestartMode={restartQuizMode}
+          onSwitchMode={switchQuizMode}
+          onResetQuiz={resetQuiz}
+          onExplore={handleQuizExplore}
+          onOpenRecommendedCareer={handleQuizOpenRecommendedCareer}
         />
         <ExploreScene
           careers={filteredCareers}
           searchQuery={searchQuery}
+          searchLaunchKey={exploreLaunchKey}
           activeInterest={activeInterest}
           onSearchChange={setSearchQuery}
           onSelectInterest={setActiveInterest}
           onOpenCareer={openCareer}
+          onOpenReport={openReportFromExplore}
           onCompare={() => scrollToScene(3)}
           onClearFilters={clearFilters}
         />
         <CompareScene
-          selectedCareerIds={compareSelection}
-          onToggleCareer={handleCompareToggle}
-          onOpenCareer={openCareer}
-          onReport={() => scrollToScene(4)}
+          seedTitles={compareSeedTitles}
+          seedKey={compareSeedKey}
+          onReport={openReportFromCompare}
         />
         <ReportScene
           careerId={reportCareerId}
-          onOpenCareer={openCareer}
-          onCompare={() => scrollToScene(3)}
-          onRestart={() => {
-            setReportFocusId(null);
-            setHomePanelOpen(false);
-            scrollToScene(0);
+          dynamicCareer={dynamicReportCareer}
+          hasReportInput={hasReportInput}
+          startPanelVisible={homePanelOpen}
+          onStart={() => setHomePanelOpen(true)}
+          onStartBack={() => setHomePanelOpen(false)}
+          onTakeQuiz={() => {
+            resetQuiz();
+            scrollToScene(1);
           }}
+          onExplore={handleHomeExplore}
+          onOpenCareer={openCareer}
+          onCompare={goToCompareWithCareer}
+          onRestart={restartExperienceFromReport}
         />
       </div>
 
-      {!showGate ? (
+      {!showGate && activeIdx !== 4 ? (
         <div className={`transition-all duration-500 ease-out ${chromeTransitionClass}`}>
           <PathwayWalker
             ref={walkerRef}
@@ -696,7 +853,15 @@ export function PathwayExperience() {
 
       {!showGate ? (
         <div className={`transition-all duration-500 ease-out ${chromeTransitionClass}`}>
-          <BottomNav activeIdx={activeIdx} onNavigate={(idx) => scrollToScene(idx)} />
+          <BottomNav
+            activeIdx={activeIdx}
+            onNavigate={(idx) => scrollToScene(idx)}
+            reportCompanion={{
+              label: reportStyle.label,
+              illustrationSrc: reportStyle.illustrationSrc,
+              careerTitle: reportCareerTitle,
+            }}
+          />
         </div>
       ) : null}
 
@@ -705,63 +870,22 @@ export function PathwayExperience() {
         onClose={() => setSelectedCareerId(null)}
         onGoToCompare={() => {
           if (selectedCareerId) {
-            handleCompareToggle(selectedCareerId);
+            const title = DATA2_TITLE_BY_CAREER_ID[selectedCareerId] ?? null;
+            setCompareSeedTitles([title, null]);
+            setCompareSeedKey((k) => k + 1);
           }
           setSelectedCareerId(null);
           scrollToScene(3);
         }}
         onGoToReport={() => {
+          setDynamicReportCareer(null);
           setReportFocusId(selectedCareerId ?? reportCareerId);
+          setHasReportInput(Boolean(selectedCareerId ?? reportCareerId));
           setSelectedCareerId(null);
           scrollToScene(4);
         }}
       />
 
-      {shouldRenderGateLayer ? (
-        <div
-          className={`fixed inset-0 z-[400] transition-opacity duration-[520ms] ease-out ${
-            showGate && gateTransitionPhase === "idle"
-              ? "opacity-100"
-              : "pointer-events-none opacity-0"
-          }`}
-        >
-          <PasswordGateScreen
-            onUnlock={() => {
-              setGateTransitionPhase("covering");
-              gateTimerRefs.current.forEach((timer) => window.clearTimeout(timer));
-              gateTimerRefs.current = [
-                window.setTimeout(() => {
-                  setShowGate(false);
-                  scrollToScene(0, { nextWalkerX: WALKER_START_X, faceRight: true });
-                  window.requestAnimationFrame(() => {
-                    window.requestAnimationFrame(() => {
-                      setGateTransitionPhase("revealing");
-                    });
-                  });
-                }, GATE_COVER_MS),
-                window.setTimeout(() => {
-                  setGateTransitionPhase("idle");
-                }, GATE_COVER_MS + GATE_REVEAL_MS),
-              ];
-            }}
-          />
-        </div>
-      ) : null}
-
-      {isGateTransitioning ? (
-        <div
-          className={`pointer-events-none fixed inset-0 z-[450] transition-opacity duration-[680ms] ease-out ${
-            gateTransitionPhase === "covering" ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(34,211,238,0.12),transparent_24%),radial-gradient(circle_at_50%_68%,rgba(249,115,22,0.1),transparent_26%),linear-gradient(180deg,rgba(1,4,10,0.12),rgba(1,4,10,0.84)_46%,rgba(1,4,10,0.98))]" />
-          <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-center px-6">
-            <div className="rounded-full border border-white/10 bg-black/28 px-6 py-3 text-sm font-medium tracking-[0.28em] text-white/78 shadow-[0_18px_60px_rgba(0,0,0,0.28)]">
-              ENTERING PATHWAYIQ
-            </div>
-          </div>
-        </div>
-      ) : null}
     </main>
   );
 }

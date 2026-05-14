@@ -1,23 +1,34 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { INTEREST_TAGS, type CareerCard } from "@/lib/career-data";
+import { CAREER_CARDS, INTEREST_TAGS, type CareerCard, type CareerId } from "@/lib/career-data";
 import { Search, TrendingUp } from "lucide-react";
 import CourseDesignCard, { type CourseDesignCardData } from "@/components/ui/course-design-cards";
 import { searchCareers, type BackendCareerRecord } from "@/lib/api-client";
+import { EXPLORE_TRENDING_QUERIES } from "@/lib/explore-trends";
+import { QUIZ_DIMENSIONS, type QuizDimensionId } from "@/lib/quiz-data";
+import type { ReportCareerSnapshot } from "@/lib/report-career";
 import careerCardsData from "../public/data2/career-cards.json";
 
 interface ExploreSceneProps {
   careers: CareerCard[];
   searchQuery: string;
+  searchLaunchKey: number;
   activeInterest: string | null;
   onSearchChange: (value: string) => void;
   onSelectInterest: (value: string | null) => void;
   onOpenCareer: (careerId: CareerCard["id"]) => void;
+  onOpenReport: (career: ReportCareerSnapshot) => void;
   onCompare: () => void;
   onClearFilters: () => void;
 }
 
-interface ExploreCareerRecord extends Omit<BackendCareerRecord, "median_salary"> {
+interface ExploreCareerRecord {
+  title: string;
+  pathway: string;
+  industry: string;
+  anzsco_code: string;
   median_salary: number;
+  shortage_status: string;
+  ai_risk?: string; // "Low" | "Medium" | "High" when sourced from backend
 }
 
 interface ExploreAutocompleteItem {
@@ -27,20 +38,39 @@ interface ExploreAutocompleteItem {
 }
 
 interface AutomationLevelTone {
-  label: "Low" | "Medium" | "High";
+  label: "Low change" | "Some change" | "Big change";
   toneClassName: string;
   pillClassName: string;
   edgeClassName: string;
 }
 
 const DATA2_CAREERS = careerCardsData as ExploreCareerRecord[];
-const TRENDING_QUERIES = [
-  { label: "Ambulance Officer", detail: "Industry: Healthcare" },
-  { label: "Automotive Electrician", detail: "Industry: Engineering" },
-  { label: "Bricklayer", detail: "Industry: Construction" },
-] as const;
 const QUICK_HINTS = ["healthcare", "engineering", "business"] as const;
 const PAGE_SIZE = 6;
+const DATA2_BY_CODE = new Map(DATA2_CAREERS.map((career) => [career.anzsco_code, career]));
+const DATA2_BY_TITLE = new Map(DATA2_CAREERS.map((career) => [career.title.toLowerCase(), career]));
+const REPORT_CAREER_BY_DATA2_TITLE: Record<string, CareerId> = {
+  "software engineer": "career-ds",
+  "registered nurse (medical practice)": "career-nurse",
+  "electrician (general)": "career-elec",
+  "security consultant": "career-cyber",
+  "electrical engineering technician": "career-solar",
+  "telecommunications technician": "career-wind",
+  "therapy aide": "career-physio",
+  "graphic designer": "career-ux",
+  "developer programmer": "career-prompt",
+  "transport company manager": "career-freight",
+  "data entry operator": "career-data-entry",
+};
+
+const FALLBACK_REPORT_BY_STYLE: Record<QuizDimensionId, CareerId> = {
+  builder: "career-solar",
+  decoder: "career-ds",
+  creator: "career-ux",
+  guide: "career-nurse",
+  catalyst: "career-cyber",
+  strategist: "career-freight",
+};
 
 const INTEREST_MATCHERS: Record<(typeof INTEREST_TAGS)[number], (career: ExploreCareerRecord) => boolean> = {
   "Data & AI": (career) =>
@@ -57,6 +87,46 @@ const INTEREST_MATCHERS: Record<(typeof INTEREST_TAGS)[number], (career: Explore
   "Creative Problem Solving": (career) =>
     ["Engineering", "Education", "Construction", "Business"].includes(career.industry) ||
     /designer|architect|draftsperson|engineer|manager/i.test(career.title),
+};
+
+const STYLE_RULES: Record<
+  QuizDimensionId,
+  {
+    industries: string[];
+    pathways: string[];
+    titleKeywords: string[];
+  }
+> = {
+  builder: {
+    industries: ["Engineering", "Construction", "Agriculture & Environment"],
+    pathways: ["Apprenticeship", "TAFE"],
+    titleKeywords: ["electrician", "plumber", "carpenter", "mechanic", "technician", "maintenance", "engineer"],
+  },
+  decoder: {
+    industries: ["Technology", "Science", "Business"],
+    pathways: ["TAFE"],
+    titleKeywords: ["analyst", "developer", "software", "programmer", "data", "security", "consultant"],
+  },
+  creator: {
+    industries: ["Creative Industries", "Technology", "Education"],
+    pathways: ["TAFE"],
+    titleKeywords: ["designer", "graphic", "interior", "draftsperson", "marketing", "creative"],
+  },
+  guide: {
+    industries: ["Healthcare", "Community Services", "Education"],
+    pathways: ["TAFE"],
+    titleKeywords: ["nurse", "therapy", "health", "care", "social", "community", "teacher", "support"],
+  },
+  catalyst: {
+    industries: ["Business", "Technology", "Engineering", "Construction"],
+    pathways: ["TAFE", "Apprenticeship"],
+    titleKeywords: ["manager", "project", "sales", "lead", "executive", "transport", "security"],
+  },
+  strategist: {
+    industries: ["Business", "Education", "Technology", "Engineering", "Community Services"],
+    pathways: ["TAFE", "Apprenticeship"],
+    titleKeywords: ["manager", "planning", "policy", "project", "administrator", "coordinator", "operator"],
+  },
 };
 
 const autocompleteMap = new Map<string, ExploreAutocompleteItem>();
@@ -87,7 +157,7 @@ for (const career of DATA2_CAREERS) {
 
 const EXPLORE_AUTOCOMPLETE = Array.from(autocompleteMap.values());
 
-function toExploreCareerRecord(record: BackendCareerRecord): ExploreCareerRecord {
+function fromBackendRecord(record: BackendCareerRecord): ExploreCareerRecord {
   return {
     ...record,
     median_salary: Number.parseInt(record.median_salary, 10) || 0,
@@ -111,8 +181,34 @@ function getShortageLabel(status: string) {
 }
 
 function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
-  const title = career.title.toLowerCase();
+  // Use backend pre-computed value when available
+  if (career.ai_risk === "Low") {
+    return {
+      label: "Low change",
+      toneClassName: "text-emerald-300",
+      pillClassName: "border-emerald-300/18 bg-emerald-400/12 text-emerald-200",
+      edgeClassName: "before:bg-cyan-300",
+    };
+  }
+  if (career.ai_risk === "High") {
+    return {
+      label: "Big change",
+      toneClassName: "text-rose-300",
+      pillClassName: "border-rose-300/18 bg-rose-400/12 text-rose-200",
+      edgeClassName: "before:bg-rose-300",
+    };
+  }
+  if (career.ai_risk === "Medium") {
+    return {
+      label: "Some change",
+      toneClassName: "text-amber-300",
+      pillClassName: "border-amber-300/18 bg-amber-400/12 text-amber-100",
+      edgeClassName: "before:bg-amber-300",
+    };
+  }
 
+  // Fallback: keyword inference for local JSON records (no ai_risk field)
+  const title = career.title.toLowerCase();
   if (
     ["Healthcare", "Community Services", "Construction", "Engineering", "Agriculture & Environment"].includes(
       career.industry,
@@ -120,54 +216,91 @@ function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
     career.pathway === "Apprenticeship"
   ) {
     return {
-      label: "Low",
+      label: "Low change",
       toneClassName: "text-emerald-300",
       pillClassName: "border-emerald-300/18 bg-emerald-400/12 text-emerald-200",
       edgeClassName: "before:bg-cyan-300",
     };
   }
-
-  if (
-    /clerk|attendant|barista|bookkeeper|cashier|reception|entry|retail|waiter|worker|assistant/i.test(title)
-  ) {
+  if (/clerk|attendant|barista|bookkeeper|cashier|reception|entry|retail|waiter|worker|assistant/i.test(title)) {
     return {
-      label: "High",
+      label: "Big change",
       toneClassName: "text-rose-300",
       pillClassName: "border-rose-300/18 bg-rose-400/12 text-rose-200",
       edgeClassName: "before:bg-rose-300",
     };
   }
-
   return {
-    label: "Medium",
+    label: "Some change",
     toneClassName: "text-amber-300",
     pillClassName: "border-amber-300/18 bg-amber-400/12 text-amber-100",
     edgeClassName: "before:bg-amber-300",
   };
 }
 
-function getCardColorClass(level: "Low" | "Medium" | "High"): CourseDesignCardData["colorClass"] {
-  if (level === "High") {
+function getCardColorClass(level: "Low change" | "Some change" | "Big change"): CourseDesignCardData["colorClass"] {
+  if (level === "Big change") {
     return "red";
   }
 
-  if (level === "Medium") {
+  if (level === "Some change") {
     return "orange";
   }
 
   return "green";
 }
 
-function getProgressPercent(level: "Low" | "Medium" | "High") {
-  if (level === "Low") {
+function getProgressPercent(level: "Low change" | "Some change" | "Big change") {
+  if (level === "Low change") {
     return 28;
   }
 
-  if (level === "High") {
+  if (level === "Big change") {
     return 84;
   }
 
   return 56;
+}
+
+function inferExploreStyleId(career: ExploreCareerRecord): QuizDimensionId {
+  const normalizedTitle = career.title.toLowerCase();
+  const rankedStyles = (Object.keys(STYLE_RULES) as QuizDimensionId[])
+    .map((styleId) => {
+      const rule = STYLE_RULES[styleId];
+      const industryScore = rule.industries.includes(career.industry) ? 16 : 0;
+      const pathwayScore = rule.pathways.includes(career.pathway) ? 8 : 0;
+      const keywordScore = rule.titleKeywords.reduce(
+        (score, keyword) => score + (normalizedTitle.includes(keyword) ? 7 : 0),
+        0,
+      );
+
+      return { styleId, score: industryScore + pathwayScore + keywordScore };
+    })
+    .sort((left, right) => right.score - left.score);
+
+  return rankedStyles[0]?.styleId ?? "strategist";
+}
+
+function getReportCareerId(career: ExploreCareerRecord, styleId: QuizDimensionId) {
+  const localCareer = CAREER_CARDS.find((card) => card.title.toLowerCase() === career.title.toLowerCase());
+  if (localCareer) {
+    return localCareer.id;
+  }
+
+  return REPORT_CAREER_BY_DATA2_TITLE[career.title.toLowerCase()] ?? FALLBACK_REPORT_BY_STYLE[styleId];
+}
+
+function buildReportSnapshot(career: ExploreCareerRecord, styleId: QuizDimensionId): ReportCareerSnapshot {
+  return {
+    sourceCareerId: getReportCareerId(career, styleId),
+    title: career.title,
+    industry: career.industry,
+    anzscoCode: career.anzsco_code,
+    medianSalary: career.median_salary,
+    pathway: career.pathway,
+    shortageStatus: career.shortage_status,
+    styleId,
+  };
 }
 
 function matchesInterest(career: ExploreCareerRecord, activeInterest: string | null) {
@@ -253,10 +386,12 @@ function getAutocompleteScore(item: ExploreAutocompleteItem, query: string) {
 export default function ExploreScene({
   careers: _careers,
   searchQuery,
+  searchLaunchKey,
   activeInterest,
   onSearchChange,
   onSelectInterest,
   onOpenCareer: _onOpenCareer,
+  onOpenReport,
   onCompare,
   onClearFilters,
 }: ExploreSceneProps) {
@@ -264,21 +399,24 @@ export default function ExploreScene({
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isComposing, setIsComposing] = useState(false);
   const [page, setPage] = useState(1);
-  const [apiCareers, setApiCareers] = useState<ExploreCareerRecord[]>([]);
-  const [apiState, setApiState] = useState<"idle" | "loading" | "ready" | "error">("idle");
-  const [apiError, setApiError] = useState<string | null>(null);
   const [submittedQuery, setSubmittedQuery] = useState("");
-  const [searchRevision, setSearchRevision] = useState(0);
+  const [apiCareers, setApiCareers] = useState<ExploreCareerRecord[]>([]);
+  const [apiReady, setApiReady] = useState(false);
   const normalizedQuery = searchQuery.trim().toLowerCase();
   const normalizedSubmittedQuery = submittedQuery.trim().toLowerCase();
-  const sourceCareers = useMemo(() => apiCareers, [apiCareers]);
+
+  const sourceCareers = useMemo(
+    () => (apiReady && apiCareers.length > 0 ? apiCareers : DATA2_CAREERS),
+    [apiReady, apiCareers],
+  );
+
   const filteredCareers = useMemo(
     () =>
-      [...sourceCareers]
+      sourceCareers
         .filter((career) => matchesInterest(career, activeInterest))
         .filter((career) => matchesQuery(career, normalizedSubmittedQuery))
         .sort((left, right) => sortExploreCareers(left, right, normalizedSubmittedQuery)),
-    [activeInterest, normalizedSubmittedQuery, sourceCareers],
+    [sourceCareers, activeInterest, normalizedSubmittedQuery],
   );
   const totalPages = Math.max(1, Math.ceil(filteredCareers.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -314,39 +452,40 @@ export default function ExploreScene({
   }, []);
 
   useEffect(() => {
+    if (!submittedQuery) {
+      setApiCareers([]);
+      setApiReady(false);
+      return;
+    }
+
     const controller = new AbortController();
-    const nextQuery = submittedQuery.trim();
-    setApiState("loading");
-    setApiError(null);
-
-    searchCareers(nextQuery ? { q: nextQuery } : {}, { signal: controller.signal })
+    searchCareers({ q: submittedQuery }, { signal: controller.signal })
       .then((records) => {
-        setApiCareers(records.map(toExploreCareerRecord));
-        setApiState("ready");
+        setApiCareers(records.map(fromBackendRecord));
+        setApiReady(true);
       })
-      .catch((error) => {
-        if (controller.signal.aborted) {
-          return;
-        }
-
-        console.error("Explore API search failed:", error);
+      .catch(() => {
         setApiCareers([]);
-        setApiState("error");
-        setApiError(
-          error instanceof Error ? error.message : "Live career search is unavailable right now.",
-        );
+        setApiReady(false);
       });
 
     return () => controller.abort();
-  }, [submittedQuery, searchRevision]);
+  }, [submittedQuery]);
 
   useEffect(() => {
     setPage(1);
   }, [submittedQuery, activeInterest]);
 
+  useEffect(() => {
+    if (searchLaunchKey === 0) {
+      return;
+    }
+
+    submitSearch(searchQuery);
+  }, [searchLaunchKey]);
+
   function submitSearch(nextValue = searchQuery) {
     setSubmittedQuery(nextValue.trim());
-    setSearchRevision((current) => current + 1);
     setIsSearchFocused(false);
   }
 
@@ -361,7 +500,7 @@ export default function ExploreScene({
             Explore your future path
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-slate-300 md:text-lg">
-            Browse career cards from the new PathwayIQ dataset, with pathway, industry, shortage signal, salary, and a simple AI displacement level.
+            Browse career cards from the new PathwayIQ dataset, with pathway, industry, shortage signal, salary, and a simple read on how much AI might change each role.
           </p>
         </div>
 
@@ -436,15 +575,14 @@ export default function ExploreScene({
             <button
               type="button"
               onClick={() => submitSearch()}
-              disabled={apiState === "loading"}
               className="rounded-[22px] bg-gradient-to-r from-cyan-500 to-orange-500 px-8 py-4 text-base font-semibold text-white shadow-[0_14px_34px_rgba(6,182,212,0.24)] transition hover:translate-y-[-1px] hover:shadow-[0_18px_42px_rgba(249,115,22,0.26)]"
             >
-              {apiState === "loading" ? "Searching..." : "Discover"}
+              Discover
             </button>
           </div>
 
           <div className="mt-4 grid gap-3 lg:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_auto]">
-            {TRENDING_QUERIES.map((item) => (
+            {EXPLORE_TRENDING_QUERIES.map((item) => (
               <button
                 key={item.label}
                 type="button"
@@ -490,29 +628,6 @@ export default function ExploreScene({
             ))}
           </div>
 
-          {apiState !== "idle" ? (
-            <div className="mt-4 rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
-              {apiState === "loading" ? (
-                <span className="text-cyan-200">
-                  {submittedQuery
-                    ? `Searching the live AWS careers API for “${submittedQuery}”…`
-                    : "Loading live career paths from the AWS backend…"}
-                </span>
-              ) : null}
-              {apiState === "ready" ? (
-                <span className="text-emerald-200">
-                  {submittedQuery
-                    ? `Showing live backend results for “${submittedQuery}”.`
-                    : "Showing live backend career paths from AWS."}
-                </span>
-              ) : null}
-              {apiState === "error" ? (
-                <span className="text-amber-200">
-                  Live backend search is unavailable right now. {apiError ?? "Please try again."}
-                </span>
-              ) : null}
-            </div>
-          ) : null}
         </div>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
@@ -573,19 +688,27 @@ export default function ExploreScene({
             pagedCareers.map((career) => {
               const shortage = getShortageLabel(career.shortage_status);
               const aiLevel = getAutomationLevel(career);
+              const styleId = inferExploreStyleId(career);
+              const style = QUIZ_DIMENSIONS[styleId];
+              const reportSnapshot = buildReportSnapshot(career, styleId);
               const cardData: CourseDesignCardData = {
                 id: `${career.anzsco_code}-${career.title}`,
                 colorClass: getCardColorClass(aiLevel.label),
                 eyebrow: career.industry,
                 title: career.title,
-                description: `${career.pathway} pathway · median salary ${formatSalary(career.median_salary)} · ANZSCO ${career.anzsco_code}`,
-                progressLabel: "AI displacement level",
+                description: `${career.shortage_status} · ANZSCO ${career.anzsco_code}`,
+                highlightStatLabel: "Median salary",
+                highlightStatValue: formatSalary(career.median_salary),
+                progressLabel: "How much AI might change this role",
                 progressPercent: getProgressPercent(aiLevel.label),
                 progressValue: aiLevel.label,
-                chips: [career.pathway, `ANZSCO ${career.anzsco_code}`],
+                chips: [`${career.pathway} pathway`, `ANZSCO ${career.anzsco_code}`],
                 countdownText: shortage,
-                actionLabel: "Search role",
-                onAction: () => onSearchChange(career.title),
+                styleLabel: style.label,
+                styleTagline: style.tagline,
+                styleIllustrationSrc: style.illustrationSrc,
+                actionLabel: "Open report",
+                onAction: () => onOpenReport(reportSnapshot),
               };
 
               return (

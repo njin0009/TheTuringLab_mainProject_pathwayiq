@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Sparkles, TriangleAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,11 +12,16 @@ export interface CourseDesignCardData {
   eyebrow: string;
   title: string;
   description: string;
+  highlightStatLabel?: string;
+  highlightStatValue?: string;
   progressLabel: string;
   progressPercent: number;
   progressValue: string;
   chips: string[];
   countdownText: string;
+  styleLabel?: string;
+  styleTagline?: string;
+  styleIllustrationSrc?: string;
   actionLabel?: string;
   onAction?: () => void;
 }
@@ -101,11 +107,16 @@ export default function CourseDesignCard({ data }: CardProps) {
     eyebrow,
     title,
     description,
+    highlightStatLabel,
+    highlightStatValue,
     progressLabel,
     progressPercent,
     progressValue,
     chips,
     countdownText,
+    styleLabel,
+    styleTagline,
+    styleIllustrationSrc,
     actionLabel = "Explore",
     onAction,
   } = data;
@@ -167,8 +178,15 @@ export default function CourseDesignCard({ data }: CardProps) {
 
       <div className="relative z-10 flex items-start justify-between gap-4">
         <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/55">
-            {eyebrow}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/55">
+              {eyebrow}
+            </div>
+            {styleLabel ? (
+              <div className="rounded-full border border-white/12 bg-white/[0.08] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/72">
+                {styleLabel}
+              </div>
+            ) : null}
           </div>
           <div className="mt-3 flex items-center gap-3">
             <div
@@ -180,13 +198,26 @@ export default function CourseDesignCard({ data }: CardProps) {
               <LevelIcon className="h-5 w-5" />
             </div>
             <div className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/65">
-              {progressValue} AI
+              {progressValue}
             </div>
           </div>
         </div>
 
-        <div className={cn("rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]", colorStyles.status)}>
-          {countdownText}
+        <div className="flex flex-col items-end gap-2">
+          {styleIllustrationSrc ? (
+            <div className="flex h-16 w-16 items-center justify-center rounded-3xl border border-white/12 bg-white/90 shadow-[0_14px_36px_rgba(0,0,0,0.18)]">
+              <Image
+                src={styleIllustrationSrc}
+                alt=""
+                width={64}
+                height={64}
+                className="h-14 w-14 object-contain"
+              />
+            </div>
+          ) : null}
+          <div className={cn("rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]", colorStyles.status)}>
+            {countdownText}
+          </div>
         </div>
       </div>
 
@@ -194,9 +225,26 @@ export default function CourseDesignCard({ data }: CardProps) {
         <h3 className="max-w-[14ch] text-[1.9rem] font-semibold leading-[1.02] tracking-[-0.03em] text-white">
           {title}
         </h3>
+        {highlightStatValue ? (
+          <div className="mt-4 inline-flex max-w-full items-baseline gap-3 rounded-[20px] border border-white/10 bg-white/[0.07] px-4 py-3 shadow-[0_12px_28px_rgba(0,0,0,0.14)]">
+            {highlightStatLabel ? (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/58">
+                {highlightStatLabel}
+              </span>
+            ) : null}
+            <span className={cn("text-xl font-semibold tracking-[-0.02em]", colorStyles.accent)}>
+              {highlightStatValue}
+            </span>
+          </div>
+        ) : null}
         <p className="mt-4 max-w-[32ch] text-sm leading-6 text-white/74">
           {description}
         </p>
+        {styleTagline ? (
+          <p className="mt-3 max-w-[34ch] text-xs leading-5 text-white/58">
+            {styleTagline}
+          </p>
+        ) : null}
       </div>
 
       <div className="relative z-10 mt-7 space-y-3">

@@ -6,6 +6,15 @@ const repoRoot = path.resolve(__dirname, "../../");
 const nextConfig: NextConfig = {
   output: "export",
   outputFileTracingRoot: repoRoot,
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+    ],
+  },
   turbopack: {
     root: repoRoot,
   },

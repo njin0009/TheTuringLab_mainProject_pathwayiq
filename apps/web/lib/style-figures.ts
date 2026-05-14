@@ -1,0 +1,276 @@
+import type { QuizDimensionId } from "@/lib/quiz-data";
+
+export interface StyleFigure {
+  name: string;
+  field: string;
+  lesson: string;
+  imageUrl: string;
+  wikiUrl: string;
+}
+
+export const STYLE_FIGURES: Record<QuizDimensionId, StyleFigure[]> = {
+  builder: [
+    {
+      name: "Isambard Kingdom Brunel",
+      field: "Engineer",
+      lesson: "Built bold infrastructure systems that changed transport and engineering.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Robert_Howlett_%28Isambard_Kingdom_Brunel_Standing_Before_the_Launching_Chains_of_the_Great_Eastern%29%2C_The_Metropolitan_Museum_of_Art_-_restoration1.jpg/330px-Robert_Howlett_%28Isambard_Kingdom_Brunel_Standing_Before_the_Launching_Chains_of_the_Great_Eastern%29%2C_The_Metropolitan_Museum_of_Art_-_restoration1.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Isambard_Kingdom_Brunel",
+    },
+    {
+      name: "Hedy Lamarr",
+      field: "Actor and inventor",
+      lesson: "Mixed creative instinct with technical invention to solve communication problems.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Hedy_Lamarr_Publicity_Photo_for_The_Heavenly_Body_1944.jpg/330px-Hedy_Lamarr_Publicity_Photo_for_The_Heavenly_Body_1944.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Hedy_Lamarr",
+    },
+    {
+      name: "Nikola Tesla",
+      field: "Inventor",
+      lesson: "Imagined and built electrical systems that shaped modern technology.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Tesla_circa_1890.jpeg/330px-Tesla_circa_1890.jpeg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Nikola_Tesla",
+    },
+    {
+      name: "Thomas Edison",
+      field: "Inventor",
+      lesson: "Turned experimentation into practical products people could actually use.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/330px-Thomas_Edison2.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Thomas_Edison",
+    },
+    {
+      name: "Steve Jobs",
+      field: "Product builder",
+      lesson: "Connected technology, design, and consumer experience into category-defining products.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Steve_Jobs_Headshot_2010_%28cropped_4%29.jpg/330px-Steve_Jobs_Headshot_2010_%28cropped_4%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Steve_Jobs",
+    },
+    {
+      name: "Mae Jemison",
+      field: "Engineer and astronaut",
+      lesson: "Combined engineering, medicine, and exploration with visible courage.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Mae_Carol_Jemison.jpg/330px-Mae_Carol_Jemison.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Mae_Jemison",
+    },
+  ],
+  decoder: [
+    {
+      name: "Ada Lovelace",
+      field: "Mathematician",
+      lesson: "Saw how machines could work with patterns beyond simple calculation.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Ada_Lovelace_daguerreotype_by_Antoine_Claudet_1843_-_cropped.png/330px-Ada_Lovelace_daguerreotype_by_Antoine_Claudet_1843_-_cropped.png",
+      wikiUrl: "https://en.wikipedia.org/wiki/Ada_Lovelace",
+    },
+    {
+      name: "Alan Turing",
+      field: "Computer scientist",
+      lesson: "Used logic and systems thinking to solve hidden, complex problems.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Alan_turing_header.jpg/330px-Alan_turing_header.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Alan_Turing",
+    },
+    {
+      name: "Katherine Johnson",
+      field: "Mathematician",
+      lesson: "Brought precision and calm reasoning to high-stakes space missions.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Katherine_Johnson_1983.jpg/330px-Katherine_Johnson_1983.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Katherine_Johnson",
+    },
+    {
+      name: "Marie Curie",
+      field: "Scientist",
+      lesson: "Followed evidence deeply enough to open new fields of scientific knowledge.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/330px-Marie_Curie_c._1920s.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Marie_Curie",
+    },
+    {
+      name: "Tim Berners-Lee",
+      field: "Computer scientist",
+      lesson: "Designed a system that made information easier for the world to connect.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/LS3_4919_%28cropped%29.jpg/330px-LS3_4919_%28cropped%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Tim_Berners-Lee",
+    },
+    {
+      name: "Fei-Fei Li",
+      field: "AI researcher",
+      lesson: "Built AI research around data, vision, and human-centred responsibility.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Fei-Fei_Li_at_AI_for_Good_2017.jpg/330px-Fei-Fei_Li_at_AI_for_Good_2017.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Fei-Fei_Li",
+    },
+  ],
+  creator: [
+    {
+      name: "Leonardo da Vinci",
+      field: "Artist and inventor",
+      lesson: "Connected art, observation, science, and invention into one practice.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Francesco_Melzi_-_Portrait_of_Leonardo.png/330px-Francesco_Melzi_-_Portrait_of_Leonardo.png",
+      wikiUrl: "https://en.wikipedia.org/wiki/Leonardo_da_Vinci",
+    },
+    {
+      name: "Maya Angelou",
+      field: "Writer",
+      lesson: "Used language and storytelling to shape courage, identity, and empathy.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg/330px-Angelou_at_Clinton_inauguration_%28cropped_2%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Maya_Angelou",
+    },
+    {
+      name: "Frida Kahlo",
+      field: "Painter",
+      lesson: "Turned personal experience into a powerful visual language.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg/330px-Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Frida_Kahlo",
+    },
+    {
+      name: "Taylor Swift",
+      field: "Singer-songwriter",
+      lesson: "Built a creative world through songwriting, audience insight, and reinvention.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%283%29.png/330px-Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%283%29.png",
+      wikiUrl: "https://en.wikipedia.org/wiki/Taylor_Swift",
+    },
+    {
+      name: "Hayao Miyazaki",
+      field: "Animator",
+      lesson: "Created immersive visual stories with detail, emotion, and original worlds.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/HayaoMiyazakiCCJuly09.jpg/330px-HayaoMiyazakiCCJuly09.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Hayao_Miyazaki",
+    },
+    {
+      name: "Billie Eilish",
+      field: "Singer-songwriter",
+      lesson: "Built a distinct creative identity through sound, visuals, mood, and collaboration.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/BillieEilishO2140725-39_-_54665577407_%28cropped%29.jpg/330px-BillieEilishO2140725-39_-_54665577407_%28cropped%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Billie_Eilish",
+    },
+  ],
+  guide: [
+    {
+      name: "Florence Nightingale",
+      field: "Nursing reformer",
+      lesson: "Used care, evidence, and communication to improve health systems.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Florence_Nightingale_%28H_Hering_NPG_x82368%29.jpg/330px-Florence_Nightingale_%28H_Hering_NPG_x82368%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Florence_Nightingale",
+    },
+    {
+      name: "Confucius",
+      field: "Teacher",
+      lesson: "Built a lasting model of learning, ethics, and human guidance.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Confucius_Tang_Dynasty.jpg/330px-Confucius_Tang_Dynasty.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Confucius",
+    },
+    {
+      name: "Maria Montessori",
+      field: "Educator",
+      lesson: "Redesigned education around observation, independence, and growth.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Maria_Montessori_%28portrait%29.jpg/330px-Maria_Montessori_%28portrait%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Maria_Montessori",
+    },
+    {
+      name: "Malala Yousafzai",
+      field: "Education activist",
+      lesson: "Speaks for access, safety, and learning with clarity that reaches globally.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Malala_Yousafzai_2023_portrait_2x3.jpg/330px-Malala_Yousafzai_2023_portrait_2x3.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Malala_Yousafzai",
+    },
+    {
+      name: "Oprah Winfrey",
+      field: "Media leader",
+      lesson: "Uses conversation, empathy, and storytelling to help people feel seen.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Oprah_Winfrey_2016.jpg/330px-Oprah_Winfrey_2016.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Oprah_Winfrey",
+    },
+    {
+      name: "Michelle Obama",
+      field: "Advocate",
+      lesson: "Guides public attention toward education, health, and confidence-building.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Michelle_Obama_2013_official_portrait.jpg/330px-Michelle_Obama_2013_official_portrait.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Michelle_Obama",
+    },
+  ],
+  catalyst: [
+    {
+      name: "Nelson Mandela",
+      field: "Leader",
+      lesson: "Moved people toward change with patience, courage, and moral clarity.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Nelson_Mandela_1994.jpg/330px-Nelson_Mandela_1994.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Nelson_Mandela",
+    },
+    {
+      name: "Eleanor Roosevelt",
+      field: "Advocate",
+      lesson: "Turned public influence into action for rights and opportunity.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Eleanor_Roosevelt_at_the_United_Nations%2C_circa_1946-1947_%283x4_cropped%29.jpg/330px-Eleanor_Roosevelt_at_the_United_Nations%2C_circa_1946-1947_%283x4_cropped%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Eleanor_Roosevelt",
+    },
+    {
+      name: "Mahatma Gandhi",
+      field: "Activist",
+      lesson: "Led social change through discipline, conviction, and nonviolent action.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/330px-Mahatma-Gandhi%2C_studio%2C_1931.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Mahatma_Gandhi",
+    },
+    {
+      name: "Greta Thunberg",
+      field: "Climate activist",
+      lesson: "Turns urgency into a clear public message that moves people to act.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Greta_Thunberg_4.jpg/330px-Greta_Thunberg_4.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Greta_Thunberg",
+    },
+    {
+      name: "BTS",
+      field: "Music group",
+      lesson: "Builds momentum through teamwork, fandom, message, and global cultural reach.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/BTS_during_a_White_House_press_conference_May_31%2C_2022_%28cropped%29.jpg/330px-BTS_during_a_White_House_press_conference_May_31%2C_2022_%28cropped%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/BTS",
+    },
+    {
+      name: "MrBeast",
+      field: "Creator",
+      lesson: "Turns bold ideas into large-scale projects with fast feedback and audience energy.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/MrBeast_2023_%28cropped%29.jpg/330px-MrBeast_2023_%28cropped%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/MrBeast",
+    },
+  ],
+  strategist: [
+    {
+      name: "Zhuge Liang",
+      field: "Strategist",
+      lesson: "Used planning, timing, and systems thinking for complex decisions.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/%E6%98%8E%E4%BA%BA%E7%BB%98_%E3%80%8A%E8%AF%B8%E8%91%9B%E4%BA%AE%E5%83%8F%E3%80%8B%EF%BC%88%E5%8D%97%E8%96%B0%E6%AE%BF%E6%9C%AC%EF%BC%89.jpg/330px-%E6%98%8E%E4%BA%BA%E7%BB%98_%E3%80%8A%E8%AF%B8%E8%91%9B%E4%BA%AE%E5%83%8F%E3%80%8B%EF%BC%88%E5%8D%97%E8%96%B0%E6%AE%BF%E6%9C%AC%EF%BC%89.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Zhuge_Liang",
+    },
+    {
+      name: "Sun Tzu",
+      field: "Military strategist",
+      lesson: "Focused on preparation, timing, and understanding the whole field.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cf/%E5%90%B4%E5%8F%B8%E9%A9%AC%E5%AD%99%E6%AD%A6.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Sun_Tzu",
+    },
+    {
+      name: "Grace Hopper",
+      field: "Computer scientist",
+      lesson: "Made computing more usable by connecting technical systems with human language.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Commodore_Grace_M._Hopper%2C_USN_%28covered%29_head_and_shoulders_crop.jpg/330px-Commodore_Grace_M._Hopper%2C_USN_%28covered%29_head_and_shoulders_crop.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Grace_Hopper",
+    },
+    {
+      name: "Indra Nooyi",
+      field: "Business strategist",
+      lesson: "Balanced long-term business direction with product, people, and global markets.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/IndraNooyiDavos2010ver2.jpg/330px-IndraNooyiDavos2010ver2.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Indra_Nooyi",
+    },
+    {
+      name: "Serena Williams",
+      field: "Athlete",
+      lesson: "Shows strategy through preparation, resilience, pressure management, and reinvention.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Serena_Williams_at_the_2025_International_Tennis_Hall_of_Fame_Induction_Ceremony_Press_Conference_%28cropped%29.jpg/330px-Serena_Williams_at_the_2025_International_Tennis_Hall_of_Fame_Induction_Ceremony_Press_Conference_%28cropped%29.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Serena_Williams",
+    },
+    {
+      name: "Simone Biles",
+      field: "Gymnast",
+      lesson: "Plans excellence through precision, focus, boundaries, and elite performance discipline.",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Simone_Biles_National_Team_2024.jpg/330px-Simone_Biles_National_Team_2024.jpg",
+      wikiUrl: "https://en.wikipedia.org/wiki/Simone_Biles",
+    },
+  ],
+};
