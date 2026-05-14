@@ -4,13 +4,14 @@ import { useState } from "react";
 import {
   ArrowRight,
   BriefcaseBusiness,
-  ClipboardCheck,
+  Check,
   Download,
+  ExternalLink,
   LineChart,
+  Link2,
   Route,
   Share2,
   ShieldCheck,
-  Sparkles,
   Target,
 } from "lucide-react";
 
@@ -175,201 +176,131 @@ function safeFilename(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-const STYLE_NEXT_STEP_CONTENT: Record<
-  QuizDimensionId,
-  {
-    celebrity: { title: string; detail: string; highlights: string[] };
-    article: { title: string; detail: string; highlights: string[] };
-    platform: { title: string; detail: string; highlights: string[] };
-    action: { title: string; detail: string; highlights: string[] };
-  }
-> = {
+interface NextStepCert {
+  name: string;
+  provider: string;
+  cost: "Free" | "Paid";
+  time: string;
+  url: string;
+}
+
+interface NextStepGroup {
+  name: string;
+  platform: string;
+  members: string;
+  url: string;
+}
+
+interface StyleNextStepContent {
+  certify: NextStepCert[];
+  today: { action: string; url: string };
+  connect: NextStepGroup[];
+}
+
+const STYLE_NEXT_STEP_CONTENT: Record<QuizDimensionId, StyleNextStepContent> = {
   builder: {
-    celebrity: {
-      title: "Study practical creators",
-      detail: "Follow people who make complicated things feel buildable and real.",
-      highlights: ["Mark Rober", "Beau Miles", "real build videos"],
+    certify: [
+      { name: "AutoCAD Quick Start Guide", provider: "Autodesk Learning", cost: "Free", time: "~90 mins+", url: "https://www.autodesk.com/learn/ondemand/course/autocad-quick-start-guide" },
+      { name: "Certificate III in Engineering - Mechanical Trade", provider: "Victoria University Polytechnic", cost: "Paid", time: "Apprenticeship", url: "https://www.vu.edu.au/courses/MEM30219" },
+      { name: "First Aid Certificate", provider: "St John Ambulance", cost: "Paid", time: "1 day", url: "https://www.stjohnambulance.com.au/courses/first-aid/" },
+    ],
+    today: {
+      action: "Open apprenticeships.gov.au, search your nearest city, and find 3 trade roles that sound interesting. Screenshot the ones that match — that's your shortlist.",
+      url: "https://www.apprenticeships.gov.au/",
     },
-    article: {
-      title: "Read hands-on pathway stories",
-      detail: "Look for trade, technician, and infrastructure stories that show what a real workday feels like.",
-      highlights: ["apprenticeship day-in-the-life", "site work", "tools and systems"],
-    },
-    platform: {
-      title: "Search where practical roles live",
-      detail: "Use platforms that show apprenticeships, VET routes, and technical field jobs clearly.",
-      highlights: ["SEEK", "Apprenticeships.gov.au", "TAFE course finder"],
-    },
-    action: {
-      title: "Make one proof point",
-      detail: "Do one task where you build, repair, test, or set up something and keep a photo or note.",
-      highlights: ["mini build", "setup task", "photo evidence"],
-    },
+    connect: [
+      { name: "Engineers Australia — Students", platform: "Official network", members: "120k+ members", url: "https://www.engineersaustralia.org.au/students" },
+      { name: "r/AusEngineers", platform: "Reddit", members: "28k members", url: "https://www.reddit.com/r/AusEngineers/" },
+      { name: "BuildingTalent.com.au", platform: "Industry portal", members: "Industry hub", url: "https://www.buildingtalent.com.au/" },
+      { name: "TradesMutt", platform: "Trades community", members: "Active forum", url: "https://www.tradesmutt.com/" },
+    ],
   },
   decoder: {
-    celebrity: {
-      title: "Follow pattern-finders",
-      detail: "Choose people whose work is about analysis, systems, and figuring out what others miss.",
-      highlights: ["Dr Karl", "cyber analysts", "data storytellers"],
+    certify: [
+      { name: "CyberStart America practice challenges", provider: "CyberStart", cost: "Free", time: "~20 hrs", url: "https://go.cyberstart.com/" },
+      { name: "Google Cybersecurity Certificate", provider: "Coursera", cost: "Paid", time: "6 months", url: "https://www.coursera.org/professional-certificates/google-cybersecurity" },
+      { name: "Python for Everybody", provider: "Coursera (free audit)", cost: "Free", time: "4 months", url: "https://www.coursera.org/specializations/python" },
+    ],
+    today: {
+      action: "Go to cyberstart.com, create a free account, and complete the first two puzzles. Under 10 minutes — and it shows you what security analysis actually feels like.",
+      url: "https://www.cyberstart.com/",
     },
-    article: {
-      title: "Read system-thinking pieces",
-      detail: "Prioritise explainers about how data, risk, software, or digital systems really work.",
-      highlights: ["cyber explainers", "data case studies", "how systems fail"],
-    },
-    platform: {
-      title: "Browse analytical roles",
-      detail: "Search platforms that surface graduate and technical roles with clear skill keywords.",
-      highlights: ["LinkedIn Jobs", "GradConnection", "SEEK"],
-    },
-    action: {
-      title: "Solve one small problem",
-      detail: "Try one logic-heavy mini project, challenge, or analysis task and save your result.",
-      highlights: ["mini analysis", "logic challenge", "notes screenshot"],
-    },
+    connect: [
+      { name: "AustCyber Community", platform: "Industry body", members: "National network", url: "https://www.austcyber.com/" },
+      { name: "r/netsec", platform: "Reddit", members: "530k members", url: "https://www.reddit.com/r/netsec/" },
+      { name: "AISA — Australian Info Security", platform: "Professional association", members: "3k+ members", url: "https://www.aisa.org.au/" },
+      { name: "Kaggle Community", platform: "Data science forum", members: "15M+ users", url: "https://www.kaggle.com/discussions" },
+    ],
   },
   creator: {
-    celebrity: {
-      title: "Watch idea-shapers",
-      detail: "Follow people who turn concepts into things others can actually see, use, or feel.",
-      highlights: ["Melanie Perkins", "design creators", "product storytellers"],
+    certify: [
+      { name: "Google UX Design Certificate", provider: "Coursera", cost: "Paid", time: "6 months", url: "https://www.coursera.org/professional-certificates/google-ux-design" },
+      { name: "Canva Design School", provider: "Canva", cost: "Free", time: "Self-paced", url: "https://www.canva.com/learn/design/" },
+      { name: "Adobe Express Fundamentals", provider: "Adobe Education", cost: "Free", time: "~5 hrs", url: "https://www.adobe.com/express/learn/" },
+    ],
+    today: {
+      action: "Open Figma.com (free account), pick your favourite app, and spend 10 minutes recreating its home screen. Save it — that's your first portfolio piece.",
+      url: "https://www.figma.com/",
     },
-    article: {
-      title: "Read creative process stories",
-      detail: "Look for breakdowns of product design, campaigns, interfaces, and concept development.",
-      highlights: ["UX case study", "brand thinking", "creative process"],
-    },
-    platform: {
-      title: "Search portfolio-first spaces",
-      detail: "Use job platforms where creative roles and portfolio signals are easy to compare.",
-      highlights: ["The Loop", "Behance", "LinkedIn Jobs"],
-    },
-    action: {
-      title: "Ship one small concept",
-      detail: "Create one mockup, short visual, pitch deck, or interface idea and keep it as evidence.",
-      highlights: ["mockup", "one-page concept", "prototype screen"],
-    },
+    connect: [
+      { name: "The Loop — Australian Design", platform: "Industry platform", members: "Creative community", url: "https://www.theloop.com.au/" },
+      { name: "Behance", platform: "Adobe portfolio network", members: "50M+ creatives", url: "https://www.behance.net/" },
+      { name: "r/userexperience", platform: "Reddit", members: "530k members", url: "https://www.reddit.com/r/userexperience/" },
+      { name: "AGDA Australia", platform: "Design association", members: "Professional body", url: "https://www.agda.com.au/" },
+    ],
   },
   guide: {
-    celebrity: {
-      title: "Follow people-centred voices",
-      detail: "Choose role models who are known for trust, care, communication, and helping people move forward.",
-      highlights: ["Brené Brown", "health advocates", "education voices"],
+    certify: [
+      { name: "Mental Health First Aid", provider: "MHFA Australia", cost: "Paid", time: "2 days", url: "https://mhfa.com.au/courses" },
+      { name: "Introduction to Psychology", provider: "edX (free audit)", cost: "Free", time: "8 weeks", url: "https://www.edx.org/learn/psychology" },
+      { name: "Child Safe Standards training", provider: "Australian Childhood Foundation", cost: "Paid", time: "Short course", url: "https://learn.childhood.org.au/trainings/" },
+    ],
+    today: {
+      action: "Visit volunteer.com.au, enter your suburb, and find one local volunteering role in health, aged care, or youth support. Bookmark it to apply this week.",
+      url: "https://www.volunteer.com.au/",
     },
-    article: {
-      title: "Read human-impact stories",
-      detail: "Look for articles about care work, coaching, health, teaching, or student support in real settings.",
-      highlights: ["patient stories", "community support", "teaching impact"],
-    },
-    platform: {
-      title: "Browse roles with real human contact",
-      detail: "Search platforms that make service, care, education, and support work easy to scan.",
-      highlights: ["SEEK", "EthicalJobs", "Health Careers"],
-    },
-    action: {
-      title: "Test your support energy",
-      detail: "Volunteer, tutor, help coach, or take on one support task and reflect on how it felt.",
-      highlights: ["peer support", "volunteering", "reflection note"],
-    },
+    connect: [
+      { name: "AASW — Social Workers", platform: "Professional association", members: "14k+ members", url: "https://www.aasw.asn.au/" },
+      { name: "Youth Mental Health First Aid", platform: "MHFA network", members: "National network", url: "https://mhfa.com.au/youth" },
+      { name: "r/nursing", platform: "Reddit", members: "360k members", url: "https://www.reddit.com/r/nursing/" },
+      { name: "Health Careers Australia", platform: "Gov. portal", members: "Career resource", url: "https://www.healthcareers.hee.nhs.uk/" },
+    ],
   },
   catalyst: {
-    celebrity: {
-      title: "Follow momentum-builders",
-      detail: "Look at people known for influence, initiative, and getting projects moving fast.",
-      highlights: ["Steven Bartlett", "startup founders", "campaign leads"],
+    certify: [
+      { name: "Google Digital Marketing & E-commerce", provider: "Coursera", cost: "Paid", time: "6 months", url: "https://www.coursera.org/professional-certificates/google-digital-marketing-ecommerce" },
+      { name: "HubSpot Marketing Fundamentals", provider: "HubSpot Academy", cost: "Free", time: "~5 hrs", url: "https://academy.hubspot.com/" },
+      { name: "Innovation & Entrepreneurship", provider: "Wharton / Coursera", cost: "Free", time: "4 weeks", url: "https://www.coursera.org/learn/wharton-entrepreneurship" },
+    ],
+    today: {
+      action: "Write a 3-sentence pitch for a micro-business idea, then record a 60-second voice memo of yourself saying it out loud. That's your first pitch rep.",
+      url: "https://www.theentourage.com.au/",
     },
-    article: {
-      title: "Read launch and leadership stories",
-      detail: "Focus on stories about building traction, persuading people, and moving from idea to action.",
-      highlights: ["launch story", "team momentum", "decision-making"],
-    },
-    platform: {
-      title: "Search action-heavy roles",
-      detail: "Use broad platforms where leadership, project, and growth roles show up often.",
-      highlights: ["LinkedIn Jobs", "SEEK", "GradConnection"],
-    },
-    action: {
-      title: "Lead one visible thing",
-      detail: "Own one mini event, project, or campaign and keep the outcome as evidence you can drive action.",
-      highlights: ["lead a task", "run a mini project", "outcome screenshot"],
-    },
+    connect: [
+      { name: "StartupAus", platform: "Industry body", members: "National network", url: "https://startupaus.org/" },
+      { name: "The Entourage Community", platform: "Entrepreneur network", members: "500k+ members", url: "https://www.theentourage.com.au/" },
+      { name: "r/entrepreneur", platform: "Reddit", members: "2.3M members", url: "https://www.reddit.com/r/entrepreneur/" },
+      { name: "Young Entrepreneurs AU", platform: "Facebook Group", members: "Active community", url: "https://www.facebook.com/groups/youngentrepreneursaustralia/" },
+    ],
   },
   strategist: {
-    celebrity: {
-      title: "Study calm planners",
-      detail: "Follow people known for structure, sequencing, and turning messy work into stable systems.",
-      highlights: ["Indra Nooyi", "operations leaders", "project planners"],
+    certify: [
+      { name: "Excel for Business", provider: "Macquarie Uni / Coursera", cost: "Free", time: "4 months", url: "https://www.coursera.org/specializations/excel" },
+      { name: "Intro to Operations Management", provider: "Wharton / Coursera", cost: "Free", time: "4 weeks", url: "https://www.coursera.org/learn/wharton-operations" },
+      { name: "Project Management Essentials", provider: "TAFE NSW (online)", cost: "Paid", time: "6 weeks", url: "https://www.tafensw.edu.au/" },
+    ],
+    today: {
+      action: "Download the free Notion app, pick the 'Student Planner' template, and map your next 30 days with 3 priority goals. Takes 10 minutes and builds a real planning habit.",
+      url: "https://www.notion.so/templates/categories/student",
     },
-    article: {
-      title: "Read planning and operations pieces",
-      detail: "Look for articles on process design, coordination, project flow, and making systems hold up.",
-      highlights: ["project planning", "operations thinking", "workflow design"],
-    },
-    platform: {
-      title: "Browse structure-led roles",
-      detail: "Use platforms that surface coordinator, admin, policy, and project roles clearly.",
-      highlights: ["SEEK", "LinkedIn Jobs", "GradConnection"],
-    },
-    action: {
-      title: "Organise one system better",
-      detail: "Take one messy schedule, task flow, or study system and redesign it so it runs more smoothly.",
-      highlights: ["workflow tidy-up", "task board", "before/after proof"],
-    },
+    connect: [
+      { name: "PMI Australia Chapter", platform: "Professional association", members: "Project managers", url: "https://www.pmi.org.au/" },
+      { name: "r/projectmanagement", platform: "Reddit", members: "380k members", url: "https://www.reddit.com/r/projectmanagement/" },
+      { name: "Australian Institute of Management", platform: "Learning community", members: "Business network", url: "https://www.aim.com.au/" },
+      { name: "Atlassian Community", platform: "Work tools forum", members: "3M+ users", url: "https://community.atlassian.com/" },
+    ],
   },
 };
-
-function buildNextSteps(
-  roleContext: {
-    title: string;
-    industry: string;
-    pathway: string;
-    shortageStatus?: string;
-  },
-  styleId: QuizDimensionId,
-) {
-  const content = STYLE_NEXT_STEP_CONTENT[styleId];
-  const roleTitle = roleContext.title;
-  const pathway = roleContext.pathway || "the most relevant pathway";
-
-  return [
-    {
-      label: "Role model",
-      title: content.celebrity.title,
-      detail: `${content.celebrity.detail} Compare their habits with the kind of work a ${roleTitle} does day to day.`,
-      highlights: content.celebrity.highlights,
-      icon: Sparkles,
-      owner: "Inspiration",
-      tone: "from-[#dff7f5] to-white",
-    },
-    {
-      label: "Read next",
-      title: content.article.title,
-      detail: `${content.article.detail} Start with a search around ${roleTitle} so the reading stays close to this specific role.`,
-      highlights: content.article.highlights,
-      icon: ClipboardCheck,
-      owner: "Reading",
-      tone: "from-[#eef6ff] to-white",
-    },
-    {
-      label: "Search platforms",
-      title: content.platform.title,
-      detail: `${content.platform.detail} Filter for ${roleTitle}, ${roleContext.industry}, and ${pathway} options.`,
-      highlights: content.platform.highlights,
-      icon: BriefcaseBusiness,
-      owner: "Search",
-      tone: "from-[#fff5ea] to-white",
-    },
-    {
-      label: "Do one real test",
-      title: content.action.title,
-      detail: `${content.action.detail} Make the test relevant to ${roleTitle}, then save it as evidence for applications or course interviews.`,
-      highlights: content.action.highlights,
-      icon: Target,
-      owner: "Action",
-      tone: "from-[#f3efff] to-white",
-    },
-  ];
-}
 
 function adaptCareerToReport(career: (typeof CAREER_PROFILES)[CareerId]): BackendReadyCareerReport {
   const salaryRange = parseSalaryRange(career.salary);
@@ -464,6 +395,76 @@ function adaptDynamicCareerToReport(career: ReportCareerSnapshot, styleId: QuizD
     generatedAt,
     dataSources: [`JSA 2025 OSL · ANZSCO ${career.anzscoCode}`],
   };
+}
+
+function LinkedInLogo() {
+  return (
+    <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="#0A66C2" aria-hidden>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+function InstagramLogo() {
+  return (
+    <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" aria-hidden>
+      <defs>
+        <linearGradient id="ig-grad-report" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#f09433" />
+          <stop offset="40%" stopColor="#e6683c" />
+          <stop offset="70%" stopColor="#cc2366" />
+          <stop offset="100%" stopColor="#bc1888" />
+        </linearGradient>
+      </defs>
+      <path
+        fill="url(#ig-grad-report)"
+        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+      />
+    </svg>
+  );
+}
+
+function fillRoundRect(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number,
+) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y, x + w, y + r, r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x, y + h, x, y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x, y, x + r, y, r);
+  ctx.closePath();
+  ctx.fill();
+}
+
+function wrapCanvasText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  maxWidth: number,
+): string[] {
+  const words = text.split(" ");
+  const lines: string[] = [];
+  let line = "";
+  for (const word of words) {
+    const test = line ? `${line} ${word}` : word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = test;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
 }
 
 function ReportGeneratingState({
@@ -603,6 +604,7 @@ export default function ReportScene({
 }: ReportSceneProps) {
   const [shareOpen, setShareOpen] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [copied, setCopied] = useState(false);
   const career = CAREER_PROFILES[careerId];
 
   if (!hasReportInput) {
@@ -624,15 +626,7 @@ export default function ReportScene({
     : adaptCareerToReport(career);
   const reportStyle = QUIZ_DIMENSIONS[reportStyleId];
   const styleFigures = STYLE_FIGURES[reportStyleId];
-  const nextSteps = buildNextSteps(
-    {
-      title: report.career.title,
-      industry: report.career.industry,
-      pathway: report.career.pathways[0]?.name ?? "the most relevant pathway",
-      shortageStatus: report.career.sourceStatus,
-    },
-    reportStyleId,
-  );
+  const nextContent = STYLE_NEXT_STEP_CONTENT[reportStyleId];
   const reportIcon = dynamicCareer ? "🧭" : career.icon;
   const compareCareerId = dynamicCareer?.sourceCareerId ?? career.id;
   const shareUrl = encodeURIComponent("https://pathwayiq.pages.dev");
@@ -710,10 +704,12 @@ export default function ReportScene({
       });
 
       addText("Next steps", 16, "bold", 10);
-      nextSteps.forEach((step) => {
-        addText(`${step.label}: ${step.title}`, 12, "bold", 2);
-        addText(step.detail, 10, "normal", 8);
-      });
+      addText("01 Credentials", 12, "bold", 4);
+      nextContent.certify.forEach((c) => addText(`${c.name} · ${c.provider} · ${c.cost} · ${c.time}`, 10, "normal", 4));
+      addText("02 Try today — 10 minutes", 12, "bold", 8);
+      addText(nextContent.today.action, 10, "normal", 8);
+      addText("03 Communities", 12, "bold", 6);
+      nextContent.connect.forEach((g) => addText(`${g.name} (${g.platform} · ${g.members})`, 10, "normal", 4));
 
       addText("Sources", 16, "bold", 10);
       report.dataSources.forEach((source) => addText(source, 10, "normal", 4));
@@ -722,6 +718,214 @@ export default function ReportScene({
     } finally {
       setIsDownloading(false);
     }
+  }
+
+  async function handleCopyLink() {
+    const url = "https://pathwayiq.pages.dev";
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const el = document.createElement("textarea");
+      el.value = url;
+      el.style.cssText = "position:fixed;opacity:0";
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2200);
+  }
+
+  function buildShareCard(): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      const size = 1080;
+      const px = 84;
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) { reject(new Error("no canvas context")); return; }
+
+      const bg = ctx.createLinearGradient(0, 0, 0, size);
+      bg.addColorStop(0, "#0d1e2f");
+      bg.addColorStop(0.55, "#091522");
+      bg.addColorStop(1, "#060f1a");
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, size, size);
+
+      const glow = ctx.createRadialGradient(size * 0.88, size * 0.12, 0, size * 0.88, size * 0.12, size * 0.6);
+      glow.addColorStop(0, "rgba(15,139,141,0.26)");
+      glow.addColorStop(1, "rgba(15,139,141,0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, size, size);
+
+      ctx.fillStyle = "#0f8b8d";
+      ctx.fillRect(0, 0, size, 10);
+
+      let y = 108;
+
+      ctx.textBaseline = "top";
+      ctx.font = "bold 40px system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "#0f8b8d";
+      ctx.fillText("PathwayIQ", px, y);
+      y += 68;
+
+      const badgeText = reportStyle.label.toUpperCase();
+      ctx.font = "bold 26px system-ui, -apple-system, sans-serif";
+      const badgeW = ctx.measureText(badgeText).width + 52;
+      ctx.fillStyle = "rgba(15,139,141,0.28)";
+      fillRoundRect(ctx, px, y, badgeW, 52, 26);
+      ctx.fillStyle = "rgba(15,139,141,0.72)";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(px + 26, y);
+      ctx.lineTo(px + badgeW - 26, y);
+      ctx.arcTo(px + badgeW, y, px + badgeW, y + 26, 26);
+      ctx.lineTo(px + badgeW, y + 26);
+      ctx.arcTo(px + badgeW, y + 52, px + badgeW - 26, y + 52, 26);
+      ctx.lineTo(px + 26, y + 52);
+      ctx.arcTo(px, y + 52, px, y + 26, 26);
+      ctx.lineTo(px, y + 26);
+      ctx.arcTo(px, y, px + 26, y, 26);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fillStyle = "#5cf5f5";
+      ctx.textBaseline = "middle";
+      ctx.fillText(badgeText, px + 26, y + 26);
+      y += 84;
+
+      ctx.textBaseline = "top";
+      const titleMaxW = size - px * 2;
+      let titleFontSize = 94;
+      ctx.font = `bold ${titleFontSize}px system-ui, -apple-system, sans-serif`;
+      let titleLines = wrapCanvasText(ctx, report.career.title, titleMaxW);
+      while (titleLines.length > 3 && titleFontSize > 60) {
+        titleFontSize -= 6;
+        ctx.font = `bold ${titleFontSize}px system-ui, -apple-system, sans-serif`;
+        titleLines = wrapCanvasText(ctx, report.career.title, titleMaxW);
+      }
+      ctx.fillStyle = "#ffffff";
+      const titleLineH = titleFontSize * 1.14;
+      for (const line of titleLines) {
+        ctx.fillText(line, px, y);
+        y += titleLineH;
+      }
+      y += 28;
+
+      ctx.fillStyle = "rgba(255,255,255,0.12)";
+      ctx.fillRect(px, y, size - px * 2, 1.5);
+      y += 44;
+
+      ctx.font = "36px system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "rgba(255,255,255,0.58)";
+      const cardPathway = report.career.pathways[0]?.type ?? "TAFE";
+      ctx.fillText(`${report.career.industry}  ·  ${cardPathway} pathway`, px, y);
+      y += 60;
+
+      ctx.font = "bold 52px system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText(`${formatSalary(report.career.salary.mid)} median`, px, y);
+      y += 76;
+
+      if (report.career.shortage) {
+        ctx.font = "bold 34px system-ui, -apple-system, sans-serif";
+        ctx.fillStyle = "#4ade80";
+        ctx.fillText("✓  In Shortage — high demand", px, y);
+      }
+
+      const taglineY = size - 180;
+      ctx.font = "italic 32px system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "rgba(255,255,255,0.38)";
+      const taglineLines = wrapCanvasText(ctx, `"${reportStyle.tagline}"`, titleMaxW);
+      let ty = taglineY;
+      for (const line of taglineLines.slice(0, 2)) {
+        ctx.fillText(line, px, ty);
+        ty += 44;
+      }
+
+      ctx.font = "28px system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "rgba(255,255,255,0.25)";
+      ctx.fillText("pathwayiq.pages.dev", px, size - 80);
+
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error("canvas toBlob returned null"));
+      }, "image/png", 1.0);
+    });
+  }
+
+  async function handleShareInstagram() {
+    const blob = await buildShareCard().catch(() => null);
+    if (!blob) return;
+
+    const filename = `pathwayiq-${safeFilename(report.career.title)}.png`;
+    const file = new File([blob], filename, { type: "image/png" });
+
+    // Mobile: Web Share API with files → native share sheet → user picks Instagram
+    // iOS 15+, Android Chrome 86+ pass the file into the app's share flow
+    if (
+      typeof navigator.share === "function" &&
+      typeof navigator.canShare === "function" &&
+      navigator.canShare({ files: [file] })
+    ) {
+      try {
+        await navigator.share({
+          files: [file],
+          title: `My career path: ${report.career.title}`,
+          text: "Exploring my career path on PathwayIQ 🎯",
+        });
+        return;
+      } catch (err) {
+        // User dismissed the share sheet — don't fall through
+        if ((err as Error).name === "AbortError") return;
+      }
+    }
+
+    // Desktop: download the image, then open Instagram so they can post it
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.download = filename;
+    a.href = objectUrl;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    // Brief delay so the download starts before the new tab opens
+    setTimeout(() => {
+      window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
+    }, 700);
+  }
+
+  async function handleShareLinkedIn() {
+    // Download the share card first so the user can attach it to the post
+    const blob = await buildShareCard().catch(() => null);
+    if (blob) {
+      const objectUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.download = `pathwayiq-${safeFilename(report.career.title)}.png`;
+      a.href = objectUrl;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+    }
+
+    // Open LinkedIn post composer with pre-filled text
+    // linkedin.com/feed/?shareActive=true&text= opens the post box directly
+    const postText = [
+      `Just explored my career path: ${report.career.title}`,
+      "",
+      `${report.career.industry} · ${report.career.pathways[0]?.type ?? "TAFE"} pathway`,
+      `${formatSalary(report.career.salary.mid)} median salary${report.career.shortage ? " · In Shortage" : ""}`,
+      "",
+      "Found on PathwayIQ — career guidance for Victorian Year 10–12 students 🎯",
+      "https://pathwayiq.pages.dev",
+    ].join("\n");
+
+    setTimeout(() => {
+      window.open(
+        `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(postText)}`,
+        "_blank",
+        "noopener,noreferrer",
+      );
+    }, 700);
   }
 
   const insightCards = [
@@ -862,28 +1066,104 @@ export default function ReportScene({
             </section>
 
             <section className="mt-5 rounded-[26px] border border-slate-200 bg-white p-5 shadow-sm md:p-6">
-              <div className="mb-4 flex items-center gap-3">
+              <div className="mb-5 flex items-center gap-3">
                 <Target className="h-5 w-5 text-[#0f8b8d]" />
-                <h3 className="text-xl font-semibold text-slate-950">Next steps</h3>
+                <h3 className="text-xl font-semibold text-slate-950">Your next move</h3>
               </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                {nextSteps.map((step) => {
-                  const Icon = step.icon;
-                  return (
-                    <div key={step.title} className={`rounded-[22px] border border-slate-200 bg-gradient-to-br ${step.tone} p-4`}>
-                      <div className="flex items-start gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#0f8b8d] text-white">
-                          <Icon className="h-5 w-5" />
+
+              <div className="grid gap-4 lg:grid-cols-3">
+                {/* 01 Credentials */}
+                <div className="overflow-hidden rounded-[18px] border border-slate-200">
+                  <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-3">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-amber-100">01</div>
+                    <div className="mt-0.5 text-base font-bold text-white">Credentials</div>
+                    <div className="mt-0.5 text-[11px] text-amber-100/80">Verified courses and certificates</div>
+                  </div>
+                  <div className="divide-y divide-slate-100 bg-white">
+                    {nextContent.certify.map((cert) => (
+                      <a
+                        key={cert.name}
+                        href={cert.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-start gap-3 p-3.5 transition hover:bg-amber-50/60"
+                      >
+                        <div className="min-w-0 flex-1">
+                          <div className="text-sm font-semibold text-slate-900">{cert.name}</div>
+                          <div className="mt-0.5 text-xs text-slate-500">{cert.provider}</div>
+                          <div className="mt-1.5 flex flex-wrap gap-1.5">
+                            <span
+                              className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                                cert.cost === "Free"
+                                  ? "bg-emerald-100 text-emerald-700"
+                                  : "bg-amber-100 text-amber-700"
+                              }`}
+                            >
+                              {cert.cost}
+                            </span>
+                            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
+                              {cert.time}
+                            </span>
+                          </div>
                         </div>
-                        <div>
-                          <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0f8b8d]">{step.label}</div>
-                          <div className="mt-1 text-base font-semibold text-slate-950">{step.title}</div>
-                          <p className="mt-2 text-sm leading-6 text-slate-600">{step.detail}</p>
-                        </div>
-                      </div>
+                        <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-300" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 02 Today */}
+                <div className="overflow-hidden rounded-[18px] border border-slate-200">
+                  <div className="bg-gradient-to-r from-teal-600 to-cyan-500 px-4 py-3">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-teal-100">02</div>
+                    <div className="mt-0.5 text-base font-bold text-white">Try today</div>
+                    <div className="mt-0.5 text-[11px] text-teal-100/80">One action — right now</div>
+                  </div>
+                  <div className="bg-white p-4">
+                    <div className="rounded-[14px] bg-gradient-to-br from-teal-50 to-cyan-50 p-4">
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-teal-600">10 minutes</div>
+                      <p className="mt-2 text-sm font-medium leading-6 text-slate-800">{nextContent.today.action}</p>
+                      <a
+                        href={nextContent.today.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 transition hover:text-teal-700"
+                      >
+                        Start here <ExternalLink className="h-3 w-3" />
+                      </a>
                     </div>
-                  );
-                })}
+                  </div>
+                </div>
+
+                {/* 03 Connect */}
+                <div className="overflow-hidden rounded-[18px] border border-slate-200">
+                  <div className="bg-gradient-to-r from-violet-600 to-purple-500 px-4 py-3">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-violet-200">03</div>
+                    <div className="mt-0.5 text-base font-bold text-white">Communities</div>
+                    <div className="mt-0.5 text-[11px] text-violet-200/80">Reliable places to learn from others</div>
+                  </div>
+                  <div className="divide-y divide-slate-100 bg-white">
+                    {nextContent.connect.map((group) => (
+                      <a
+                        key={group.name}
+                        href={group.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-start gap-3 p-3.5 transition hover:bg-violet-50/60"
+                      >
+                        <div className="min-w-0 flex-1">
+                          <div className="text-sm font-semibold text-slate-900">{group.name}</div>
+                          <div className="mt-0.5 flex items-center gap-1.5">
+                            <span className="text-xs text-slate-400">{group.platform}</span>
+                            <span className="text-slate-200">·</span>
+                            <span className="text-xs font-medium text-slate-500">{group.members}</span>
+                          </div>
+                        </div>
+                        <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-300" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -908,7 +1188,7 @@ export default function ReportScene({
 
       <footer className="relative z-[240] mx-auto -mt-12 mb-24 max-w-5xl overflow-x-auto px-2 pt-3">
         <div className="flex min-w-max items-center justify-center gap-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Button
               type="button"
               size="lg"
@@ -928,52 +1208,39 @@ export default function ReportScene({
               <Share2 className="h-4 w-4" />
               Share
             </Button>
-          </div>
-          {shareOpen ? (
-            <div className="flex items-center gap-2">
-              <Button
-                type="button"
-                size="icon"
-                onClick={() => window.open(linkedInShareUrl, "_blank", "noopener,noreferrer")}
-                aria-label="Share to LinkedIn"
-                title="LinkedIn"
-                variant="outline"
-                className="h-12 w-12 rounded-full border-slate-950 bg-white hover:bg-white"
-              >
-                <img
-                  src="https://cdn.shadcnstudio.com/ss-assets/brand-logo/linkedin-icon.png?width=20&height=20&format=auto"
-                  alt="LinkedIn"
-                  className="size-5"
-                />
-              </Button>
-              <Button
-                type="button"
-                size="icon"
-                onClick={() => {
-                  if (navigator.share) {
-                    void navigator.share({
-                      title: `PathwayIQ report: ${report.career.title}`,
-                      text: `My PathwayIQ report: ${report.career.title}`,
-                      url: "https://pathwayiq.pages.dev",
-                    });
-                    return;
-                  }
 
-                  window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
-                }}
-                aria-label="Share to Instagram"
-                title="Instagram"
-                variant="outline"
-                className="h-12 w-12 rounded-full border-slate-950 bg-white hover:bg-white"
-              >
-                <img
-                  src="https://cdn.shadcnstudio.com/ss-assets/brand-logo/instagram-icon.png?width=20&height=20&format=auto"
-                  alt="Instagram"
-                  className="size-5"
-                />
-              </Button>
-            </div>
-          ) : null}
+            {shareOpen ? (
+              <>
+                <div className="h-8 w-px bg-slate-950/20" />
+                <button
+                  type="button"
+                  title="Share on LinkedIn — opens post composer with text pre-filled"
+                  onClick={() => void handleShareLinkedIn()}
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-950 bg-white shadow-[0_8px_20px_rgba(15,23,42,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_28px_rgba(10,102,194,0.22)]"
+                >
+                  <LinkedInLogo />
+                </button>
+                <button
+                  type="button"
+                  title={copied ? "Copied!" : "Copy link"}
+                  onClick={() => void handleCopyLink()}
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-950 bg-white shadow-[0_8px_20px_rgba(15,23,42,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_28px_rgba(15,23,42,0.22)]"
+                >
+                  {copied
+                    ? <Check className="h-5 w-5 text-emerald-600" />
+                    : <Link2 className="h-5 w-5 text-slate-700" />}
+                </button>
+                <button
+                  type="button"
+                  title="Share to Instagram"
+                  onClick={() => void handleShareInstagram()}
+                  className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-950 bg-white shadow-[0_8px_20px_rgba(15,23,42,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_28px_rgba(188,24,136,0.22)]"
+                >
+                  <InstagramLogo />
+                </button>
+              </>
+            ) : null}
+          </div>
 
           <div className="h-8 w-px bg-slate-950/18" />
 

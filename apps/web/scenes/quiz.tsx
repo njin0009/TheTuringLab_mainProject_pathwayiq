@@ -26,7 +26,7 @@ interface QuizSceneProps {
   currentQuestion: QuizQuestion | null;
   currentQuestionIndex: number;
   questionNumber: number;
-  selectedOptionId: string | null;
+  selectedOptionIds: string[];
   progressPercent: number;
   hasAnsweredCurrent: boolean;
   canGoBack: boolean;
@@ -163,18 +163,21 @@ function ResultCareerCard({
   career,
   topStyle,
   supportStyle,
+  supportStyle2,
   index,
   onOpen,
 }: {
   career: QuizCareerRecommendation;
   topStyle: QuizDimensionDefinition;
   supportStyle: QuizDimensionDefinition;
+  supportStyle2?: QuizDimensionDefinition;
   index: number;
   onOpen: (careerTitle: string) => void;
 }) {
-  const visualStyle = getCareerVisualStyle(
-    career.visualStyleId === supportStyle.id ? supportStyle : topStyle,
-  );
+  const isSupport2 = Boolean(supportStyle2 && career.visualStyleId === supportStyle2.id);
+  const isSupport = !isSupport2 && career.visualStyleId === supportStyle.id;
+  const activeStyle = isSupport2 ? supportStyle2! : isSupport ? supportStyle : topStyle;
+  const visualStyle = getCareerVisualStyle(activeStyle);
   const description = [
     `${career.industry} pathway through ${career.pathway}`,
     `Median salary $${career.median_salary.toLocaleString("en-AU")}`,
@@ -186,9 +189,11 @@ function ResultCareerCard({
       onClick={() => onOpen(career.title)}
       gradient={visualStyle.gradient}
       badgeText={
-        career.visualStyleId === supportStyle.id
-          ? `${supportStyle.label} support`
-          : `${topStyle.label} lead`
+        isSupport2
+          ? `${supportStyle2!.label} match`
+          : isSupport
+            ? `${supportStyle.label} support`
+            : `${topStyle.label} lead`
       }
       badgeColor={visualStyle.badgeColor}
       title={career.title}
@@ -237,7 +242,7 @@ export default function QuizScene({
   currentQuestion,
   currentQuestionIndex,
   questionNumber,
-  selectedOptionId,
+  selectedOptionIds,
   progressPercent,
   hasAnsweredCurrent,
   canGoBack,
@@ -433,6 +438,43 @@ export default function QuizScene({
                         </p>
                       </div>
                     </div>
+
+                    {result.supportStyle2 ? (
+                      <div className="w-full rounded-[24px] border border-white/10 bg-black/16 p-6">
+                        <div className="flex items-center gap-2">
+                          <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-300">
+                            Second support style
+                          </div>
+                          <div className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                            Deep bonus
+                          </div>
+                        </div>
+                        <div className="mt-6 flex justify-center">
+                          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-[20px] bg-white/10 p-3 shadow-[0_12px_32px_rgba(15,23,42,0.20)]">
+                            <Image
+                              src={result.supportStyle2.illustrationSrc}
+                              alt={result.supportStyle2.label}
+                              width={96}
+                              height={96}
+                              className="h-auto w-full max-w-[80px]"
+                            />
+                          </div>
+                        </div>
+                        <div className="mt-5 text-center">
+                          <div
+                            className={[
+                              "text-xl font-semibold",
+                              result.supportStyle2.colorClassName,
+                            ].join(" ")}
+                          >
+                            {result.supportStyle2.label}
+                          </div>
+                          <p className="mt-2 text-sm leading-7 text-slate-200/80">
+                            {result.supportStyle2.tagline}
+                          </p>
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -487,11 +529,23 @@ export default function QuizScene({
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400 md:text-[15px]">
                   {currentQuestion.helper}
                 </p>
+                {mode === "quick" ? (
+                  <div className="mt-4 flex items-center gap-3">
+                    <div className={["rounded-full border px-3 py-1.5 text-xs font-medium", activeTheme.chip].join(" ")}>
+                      Pick 1 or 2 that feel right
+                    </div>
+                    {selectedOptionIds.length > 0 ? (
+                      <span className="text-xs text-slate-400">
+                        {selectedOptionIds.length} / 2 picked
+                      </span>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
 
               <div className="mt-6 flex flex-col gap-3">
                 {currentQuestion.options.map((option, optionIndex) => {
-                  const selected = selectedOptionId === option.id;
+                  const selected = selectedOptionIds.includes(option.id);
                   const optionBadge = String.fromCharCode(65 + optionIndex);
 
                   return (
@@ -599,8 +653,15 @@ export default function QuizScene({
               </div>
 
               <div className="mt-8">
-                <div className="text-base font-semibold uppercase tracking-[0.26em] text-slate-300 md:text-[17px]">
-                  Recommended starting roles
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="text-base font-semibold uppercase tracking-[0.26em] text-slate-300 md:text-[17px]">
+                    Recommended starting roles
+                  </div>
+                  {result.mode === "deep" ? (
+                    <div className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      4 matches · deep reward
+                    </div>
+                  ) : null}
                 </div>
                 <div className="mt-4 grid gap-4">
                   {result.recommendedCareers.map((career, index) => (
@@ -609,6 +670,7 @@ export default function QuizScene({
                       career={career}
                       topStyle={result.topStyle}
                       supportStyle={result.supportStyle}
+                      supportStyle2={result.supportStyle2}
                       index={index}
                       onOpen={onOpenRecommendedCareer}
                     />

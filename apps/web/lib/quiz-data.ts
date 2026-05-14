@@ -74,13 +74,14 @@ export interface QuizResult {
   archetypeSummary: string;
   topStyle: QuizDimensionDefinition;
   supportStyle: QuizDimensionDefinition;
+  supportStyle2?: QuizDimensionDefinition; // deep mode only — second support style
   scoreBreakdown: QuizScoreBreakdown[];
   recommendedCareers: QuizCareerRecommendation[];
   exploreInterest: (typeof INTEREST_TAGS)[number] | null;
   exploreSearch: string;
 }
 
-export type QuizAnswerMap = Record<string, string>;
+export type QuizAnswerMap = Record<string, string[]>;
 
 interface QuizCareerDatasetRecord {
   title: string;
@@ -112,7 +113,7 @@ export const QUIZ_MODES: QuizModeDefinition[] = [
     title: "Quick Match",
     duration: "6 questions · about 1 minute",
     questionCount: 6,
-    blurb: "A fast vibe check for the kinds of jobs and pathways that might feel right first.",
+    blurb: "A fast vibe check — pick up to 2 answers per question. No pressure to commit to just one.",
     helper: "Best when you want a quick starting point before diving into career cards.",
   },
   {
@@ -120,7 +121,7 @@ export const QUIZ_MODES: QuizModeDefinition[] = [
     title: "Deep Match",
     duration: "12 questions · about 3 minutes",
     questionCount: 12,
-    blurb: "A more detailed read across multiple work-style dimensions before you explore careers.",
+    blurb: "One answer per question, but you earn two support styles and four matched career cards as your reward.",
     helper: "Best when you want a fuller result before checking uni, TAFE, or apprenticeship options.",
   },
 ] as const;
@@ -486,8 +487,13 @@ function getRecommendationVisualStyleId(
   career: QuizCareerScoredRecord,
   topStyle: QuizDimensionDefinition,
   supportStyle: QuizDimensionDefinition,
+  supportStyle2: QuizDimensionDefinition | undefined,
   index: number,
 ): QuizDimensionId {
+  if (index === 3 && supportStyle2) {
+    return supportStyle2.id;
+  }
+
   if (index < 2) {
     return topStyle.id;
   }
@@ -564,6 +570,8 @@ function getCompositeQuizCareerScore(
 function getRecommendedCareers(
   topStyle: QuizDimensionDefinition,
   supportStyle: QuizDimensionDefinition,
+  count: number = 3,
+  supportStyle2?: QuizDimensionDefinition,
 ): QuizCareerRecommendation[] {
   const scoredCareers: QuizCareerScoredRecord[] = QUIZ_CAREER_DATA.map((career) => {
     const { styleProfile, score } = getCompositeQuizCareerScore(career, topStyle, supportStyle);
@@ -595,7 +603,7 @@ function getRecommendedCareers(
   const usedTitles = new Set<string>();
 
   const pushIfAvailable = (career: QuizCareerScoredRecord | undefined) => {
-    if (!career || usedTitles.has(career.title) || chosen.length >= 3) {
+    if (!career || usedTitles.has(career.title) || chosen.length >= count) {
       return;
     }
     chosen.push(career);
@@ -619,8 +627,17 @@ function getRecommendedCareers(
   const fallbackCandidate = scoredCareers.find((career) => !usedTitles.has(career.title));
   pushIfAvailable(supportCandidate ?? fallbackCandidate);
 
-  while (chosen.length < 3) {
-    pushIfAvailable(scoredCareers.find((career) => !usedTitles.has(career.title)));
+  if (count >= 4 && supportStyle2) {
+    const support2Pool = scoredCareers.filter(
+      (career) => career.__styleTags.includes(supportStyle2.id) && !usedTitles.has(career.title),
+    );
+    pushIfAvailable(support2Pool[0] ?? scoredCareers.find((career) => !usedTitles.has(career.title)));
+  }
+
+  while (chosen.length < count) {
+    const next = scoredCareers.find((career) => !usedTitles.has(career.title));
+    if (!next) break;
+    pushIfAvailable(next);
   }
 
   return chosen.map((career, index) => ({
@@ -631,10 +648,12 @@ function getRecommendedCareers(
     median_salary: career.median_salary,
     shortage_status: career.shortage_status,
     fitLabel:
-      career.__primaryStyleId === supportStyle.id && !career.__styleTags.includes(topStyle.id)
-        ? `${supportStyle.label}-led fit`
-        : getFitLabel(topStyle, supportStyle),
-    visualStyleId: getRecommendationVisualStyleId(career, topStyle, supportStyle, index),
+      index === 3 && supportStyle2
+        ? `${supportStyle2.label} match`
+        : career.__primaryStyleId === supportStyle.id && !career.__styleTags.includes(topStyle.id)
+          ? `${supportStyle.label}-led fit`
+          : getFitLabel(topStyle, supportStyle),
+    visualStyleId: getRecommendationVisualStyleId(career, topStyle, supportStyle, supportStyle2, index),
   }));
 }
 
@@ -1208,18 +1227,20 @@ export function buildQuizResult(mode: QuizModeId, answers: QuizAnswerMap): QuizR
   };
 
   for (const question of questions) {
-    const answerId = answers[question.id];
-    const option = question.options.find((entry) => entry.id === answerId);
+    const selectedIds = answers[question.id] ?? [];
+    for (const answerId of selectedIds) {
+      const option = question.options.find((entry) => entry.id === answerId);
 
-    if (!option) {
-      continue;
-    }
+      if (!option) {
+        continue;
+      }
 
-    for (const [dimension, weight] of Object.entries(option.weights) as Array<[
-      QuizDimensionId,
-      number,
-    ]>) {
-      scoreMap[dimension] += weight;
+      for (const [dimension, weight] of Object.entries(option.weights) as Array<[
+        QuizDimensionId,
+        number,
+      ]>) {
+        scoreMap[dimension] += weight;
+      }
     }
   }
 
@@ -1238,6 +1259,7 @@ export function buildQuizResult(mode: QuizModeId, answers: QuizAnswerMap): QuizR
 
   const topStyle = sorted[0].definition;
   const supportStyle = (sorted[1] ?? sorted[0]).definition;
+  const supportStyle2 = mode === "deep" ? (sorted[2] ?? sorted[1]).definition : undefined;
   const maxScore = Math.max(sorted[0]?.score ?? 1, 1);
   const archetype =
     QUIZ_ARCHETYPES[`${topStyle.id}:${supportStyle.id}`] ??
@@ -1245,7 +1267,8 @@ export function buildQuizResult(mode: QuizModeId, answers: QuizAnswerMap): QuizR
       title: `${topStyle.label} + ${supportStyle.label}`,
       summary: `Your answers suggest a mix of ${topStyle.label.toLowerCase()} energy and ${supportStyle.label.toLowerCase()} support.`,
     };
-  const recommendedCareers = getRecommendedCareers(topStyle, supportStyle);
+  const careerCount = mode === "deep" ? 4 : 3;
+  const recommendedCareers = getRecommendedCareers(topStyle, supportStyle, careerCount, supportStyle2);
   const exploreSearch = recommendedCareers[0]?.title ?? topStyle.exploreSearch;
 
   return {
@@ -1255,6 +1278,7 @@ export function buildQuizResult(mode: QuizModeId, answers: QuizAnswerMap): QuizR
     archetypeSummary: archetype.summary,
     topStyle,
     supportStyle,
+    supportStyle2,
     recommendedCareers,
     exploreInterest: topStyle.exploreInterest ?? supportStyle.exploreInterest,
     exploreSearch,

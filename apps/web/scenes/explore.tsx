@@ -21,8 +21,14 @@ interface ExploreSceneProps {
   onClearFilters: () => void;
 }
 
-interface ExploreCareerRecord extends Omit<BackendCareerRecord, "median_salary"> {
+interface ExploreCareerRecord {
+  title: string;
+  pathway: string;
+  industry: string;
+  anzsco_code: string;
   median_salary: number;
+  shortage_status: string;
+  ai_risk?: string; // "Low" | "Medium" | "High" when sourced from backend
 }
 
 interface ExploreAutocompleteItem {
@@ -151,19 +157,11 @@ for (const career of DATA2_CAREERS) {
 
 const EXPLORE_AUTOCOMPLETE = Array.from(autocompleteMap.values());
 
-function toExploreCareerRecord(record: BackendCareerRecord): ExploreCareerRecord {
+function fromBackendRecord(record: BackendCareerRecord): ExploreCareerRecord {
   return {
     ...record,
     median_salary: Number.parseInt(record.median_salary, 10) || 0,
   };
-}
-
-function mergeWithLocalCareerData(record: ExploreCareerRecord): ExploreCareerRecord {
-  return (
-    DATA2_BY_CODE.get(record.anzsco_code) ??
-    DATA2_BY_TITLE.get(record.title.toLowerCase()) ??
-    record
-  );
 }
 
 function formatSalary(value: number) {
@@ -183,8 +181,34 @@ function getShortageLabel(status: string) {
 }
 
 function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
-  const title = career.title.toLowerCase();
+  // Use backend pre-computed value when available
+  if (career.ai_risk === "Low") {
+    return {
+      label: "Low change",
+      toneClassName: "text-emerald-300",
+      pillClassName: "border-emerald-300/18 bg-emerald-400/12 text-emerald-200",
+      edgeClassName: "before:bg-cyan-300",
+    };
+  }
+  if (career.ai_risk === "High") {
+    return {
+      label: "Big change",
+      toneClassName: "text-rose-300",
+      pillClassName: "border-rose-300/18 bg-rose-400/12 text-rose-200",
+      edgeClassName: "before:bg-rose-300",
+    };
+  }
+  if (career.ai_risk === "Medium") {
+    return {
+      label: "Some change",
+      toneClassName: "text-amber-300",
+      pillClassName: "border-amber-300/18 bg-amber-400/12 text-amber-100",
+      edgeClassName: "before:bg-amber-300",
+    };
+  }
 
+  // Fallback: keyword inference for local JSON records (no ai_risk field)
+  const title = career.title.toLowerCase();
   if (
     ["Healthcare", "Community Services", "Construction", "Engineering", "Agriculture & Environment"].includes(
       career.industry,
@@ -198,10 +222,7 @@ function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
       edgeClassName: "before:bg-cyan-300",
     };
   }
-
-  if (
-    /clerk|attendant|barista|bookkeeper|cashier|reception|entry|retail|waiter|worker|assistant/i.test(title)
-  ) {
+  if (/clerk|attendant|barista|bookkeeper|cashier|reception|entry|retail|waiter|worker|assistant/i.test(title)) {
     return {
       label: "Big change",
       toneClassName: "text-rose-300",
@@ -209,7 +230,6 @@ function getAutomationLevel(career: ExploreCareerRecord): AutomationLevelTone {
       edgeClassName: "before:bg-rose-300",
     };
   }
-
   return {
     label: "Some change",
     toneClassName: "text-amber-300",
@@ -379,31 +399,24 @@ export default function ExploreScene({
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isComposing, setIsComposing] = useState(false);
   const [page, setPage] = useState(1);
-  const [apiCareers, setApiCareers] = useState<ExploreCareerRecord[]>([]);
-  const [apiState, setApiState] = useState<"idle" | "loading" | "ready" | "error">("idle");
-  const [apiError, setApiError] = useState<string | null>(null);
   const [submittedQuery, setSubmittedQuery] = useState("");
-  const [searchRevision, setSearchRevision] = useState(0);
+  const [apiCareers, setApiCareers] = useState<ExploreCareerRecord[]>([]);
+  const [apiReady, setApiReady] = useState(false);
   const normalizedQuery = searchQuery.trim().toLowerCase();
   const normalizedSubmittedQuery = submittedQuery.trim().toLowerCase();
-  const liveMatchedCareers = useMemo(
-    () => apiCareers.map(mergeWithLocalCareerData),
-    [apiCareers],
-  );
-  const sourceCareers = useMemo(() => {
-    if (normalizedSubmittedQuery && apiState === "ready" && liveMatchedCareers.length > 0) {
-      return liveMatchedCareers;
-    }
 
-    return DATA2_CAREERS;
-  }, [apiState, liveMatchedCareers, normalizedSubmittedQuery]);
+  const sourceCareers = useMemo(
+    () => (apiReady && apiCareers.length > 0 ? apiCareers : DATA2_CAREERS),
+    [apiReady, apiCareers],
+  );
+
   const filteredCareers = useMemo(
     () =>
-      [...sourceCareers]
+      sourceCareers
         .filter((career) => matchesInterest(career, activeInterest))
         .filter((career) => matchesQuery(career, normalizedSubmittedQuery))
         .sort((left, right) => sortExploreCareers(left, right, normalizedSubmittedQuery)),
-    [activeInterest, normalizedSubmittedQuery, sourceCareers],
+    [sourceCareers, activeInterest, normalizedSubmittedQuery],
   );
   const totalPages = Math.max(1, Math.ceil(filteredCareers.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -439,38 +452,25 @@ export default function ExploreScene({
   }, []);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const nextQuery = submittedQuery.trim();
-    if (!nextQuery) {
+    if (!submittedQuery) {
       setApiCareers([]);
-      setApiState("idle");
-      setApiError(null);
-      return () => controller.abort();
+      setApiReady(false);
+      return;
     }
 
-    setApiState("loading");
-    setApiError(null);
-
-    searchCareers({ q: nextQuery }, { signal: controller.signal })
+    const controller = new AbortController();
+    searchCareers({ q: submittedQuery }, { signal: controller.signal })
       .then((records) => {
-        setApiCareers(records.map(toExploreCareerRecord));
-        setApiState("ready");
+        setApiCareers(records.map(fromBackendRecord));
+        setApiReady(true);
       })
-      .catch((error) => {
-        if (controller.signal.aborted) {
-          return;
-        }
-
-        console.error("Explore API search failed:", error);
+      .catch(() => {
         setApiCareers([]);
-        setApiState("error");
-        setApiError(
-          error instanceof Error ? error.message : "Live career search is unavailable right now.",
-        );
+        setApiReady(false);
       });
 
     return () => controller.abort();
-  }, [submittedQuery, searchRevision]);
+  }, [submittedQuery]);
 
   useEffect(() => {
     setPage(1);
@@ -486,7 +486,6 @@ export default function ExploreScene({
 
   function submitSearch(nextValue = searchQuery) {
     setSubmittedQuery(nextValue.trim());
-    setSearchRevision((current) => current + 1);
     setIsSearchFocused(false);
   }
 
@@ -576,10 +575,9 @@ export default function ExploreScene({
             <button
               type="button"
               onClick={() => submitSearch()}
-              disabled={apiState === "loading"}
               className="rounded-[22px] bg-gradient-to-r from-cyan-500 to-orange-500 px-8 py-4 text-base font-semibold text-white shadow-[0_14px_34px_rgba(6,182,212,0.24)] transition hover:translate-y-[-1px] hover:shadow-[0_18px_42px_rgba(249,115,22,0.26)]"
             >
-              {apiState === "loading" ? "Searching..." : "Discover"}
+              Discover
             </button>
           </div>
 
@@ -630,27 +628,6 @@ export default function ExploreScene({
             ))}
           </div>
 
-          {apiState !== "idle" ? (
-            <div className="mt-4 rounded-[18px] border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
-              {apiState === "loading" ? (
-                <span className="text-cyan-200">
-                  {`Searching the live AWS careers API for “${submittedQuery}”…`}
-                </span>
-              ) : null}
-              {apiState === "ready" ? (
-                <span className="text-emerald-200">
-                  {liveMatchedCareers.length > 0
-                    ? `Showing live backend matches for “${submittedQuery}”, enriched with PathwayIQ dataset card details.`
-                    : `No live backend matches were found for “${submittedQuery}”. Showing matching cards from the PathwayIQ dataset instead.`}
-                </span>
-              ) : null}
-              {apiState === "error" ? (
-                <span className="text-amber-200">
-                  Showing PathwayIQ dataset cards while live backend search is unavailable. {apiError ?? "Please try again."}
-                </span>
-              ) : null}
-            </div>
-          ) : null}
         </div>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-4">

@@ -7,6 +7,7 @@ export interface BackendCareerRecord {
   median_salary: string;
   pathway: string;
   shortage_status: string;
+  ai_risk?: string; // "Low" | "Medium" | "High" — pre-computed by Lambda
 }
 
 export interface SearchCareersParams {
@@ -48,6 +49,8 @@ function normalizeCareerRecord(value: unknown): BackendCareerRecord | null {
     return null;
   }
 
+  const ai_risk = typeof record.ai_risk === "string" ? record.ai_risk : undefined;
+
   return {
     anzsco_code,
     title,
@@ -55,6 +58,7 @@ function normalizeCareerRecord(value: unknown): BackendCareerRecord | null {
     median_salary: String(median_salary),
     pathway,
     shortage_status,
+    ...(ai_risk ? { ai_risk } : {}),
   };
 }
 

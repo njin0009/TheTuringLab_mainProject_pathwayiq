@@ -12,10 +12,37 @@ import { useCareerSearch } from "@/hooks/useCareerSearch";
 import { useQuizState } from "@/hooks/useQuizState";
 import {
   CAREER_CARDS,
-  DEFAULT_COMPARE,
   SCENE_LABELS,
   type CareerId,
 } from "@/lib/career-data";
+
+const DATA2_TITLE_BY_CAREER_ID: Record<CareerId, string> = {
+  "career-ds": "Software Engineer",
+  "career-nurse": "Registered Nurse (Medical Practice)",
+  "career-elec": "Electrician (General)",
+  "career-cyber": "Security Consultant",
+  "career-solar": "Electrical Engineering Technician",
+  "career-wind": "Telecommunications Technician",
+  "career-physio": "Therapy Aide",
+  "career-ux": "Graphic Designer",
+  "career-prompt": "Developer Programmer",
+  "career-freight": "Transport Company Manager",
+  "career-data-entry": "Data Entry Operator",
+};
+
+const CAREER_TITLE_TO_ID: Record<string, CareerId> = {
+  "Software Engineer": "career-ds",
+  "Registered Nurse (Medical Practice)": "career-nurse",
+  "Electrician (General)": "career-elec",
+  "Security Consultant": "career-cyber",
+  "Electrical Engineering Technician": "career-solar",
+  "Telecommunications Technician": "career-wind",
+  "Therapy Aide": "career-physio",
+  "Graphic Designer": "career-ux",
+  "Developer Programmer": "career-prompt",
+  "Transport Company Manager": "career-freight",
+  "Data Entry Operator": "career-data-entry",
+};
 import { QUIZ_DIMENSIONS, type QuizResult } from "@/lib/quiz-data";
 import { REPORT_STYLE_BY_CAREER_ID } from "@/lib/report-style";
 import type { ReportCareerSnapshot } from "@/lib/report-career";
@@ -166,7 +193,8 @@ export function PathwayExperience() {
   const [reportFocusId, setReportFocusId] = useState<CareerId | null>(null);
   const [dynamicReportCareer, setDynamicReportCareer] = useState<ReportCareerSnapshot | null>(null);
   const [hasReportInput, setHasReportInput] = useState(false);
-  const [compareSelection, setCompareSelection] = useState<CareerId[]>(DEFAULT_COMPARE);
+  const [compareSeedTitles, setCompareSeedTitles] = useState<[string | null, string | null]>([null, null]);
+  const [compareSeedKey, setCompareSeedKey] = useState(0);
   const {
     mode: quizMode,
     modes: quizModes,
@@ -176,7 +204,7 @@ export function PathwayExperience() {
     currentQuestion: quizCurrentQuestion,
     currentQuestionIndex: quizCurrentQuestionIndex,
     questionNumber: quizQuestionNumber,
-    selectedOptionId: quizSelectedOptionId,
+    selectedOptionIds: quizSelectedOptionIds,
     progressPercent: quizProgressPercent,
     hasAnsweredCurrent: quizHasAnsweredCurrent,
     canGoBack: quizCanGoBack,
@@ -550,42 +578,15 @@ export function PathwayExperience() {
     scrollToScene(2);
   }
 
-  function handleCompareToggle(careerId: CareerId) {
-    setCompareSelection((current) => {
-      if (current.includes(careerId)) {
-        return current.length === 1 ? current : current.filter((item) => item !== careerId);
-      }
-
-      if (current.length < 2) {
-        return [...current, careerId];
-      }
-
-      return [current[1], careerId];
-    });
-  }
-
   function clearFilters() {
     setSearchQuery("");
     setActiveInterest(null);
   }
 
   function goToCompareWithCareer(careerId: CareerId) {
-    setCompareSelection((current) => {
-      if (current.includes(careerId)) {
-        return current;
-      }
-
-      if (current.length === 0) {
-        return [careerId];
-      }
-
-      if (current.length === 1) {
-        return [careerId, current[0]];
-      }
-
-      return [careerId, current.find((item) => item !== careerId) ?? current[0]];
-    });
-
+    const title = DATA2_TITLE_BY_CAREER_ID[careerId] ?? null;
+    setCompareSeedTitles([title, null]);
+    setCompareSeedKey((k) => k + 1);
     scrollToScene(3);
   }
 
@@ -595,7 +596,8 @@ export function PathwayExperience() {
     setDynamicReportCareer(null);
     setHasReportInput(false);
     setHomePanelOpen(false);
-    setCompareSelection(DEFAULT_COMPARE);
+    setCompareSeedTitles([null, null]);
+    setCompareSeedKey((k) => k + 1);
     clearFilters();
     resetQuiz();
     scrollToScene(0);
@@ -613,10 +615,13 @@ export function PathwayExperience() {
     scrollToScene(4);
   }
 
-  function openReportFromCompare() {
+  function openReportFromCompare(careerTitle: string | null) {
     setDynamicReportCareer(null);
-    setReportFocusId(compareSelection[0] ?? null);
-    setHasReportInput(compareSelection.length > 0);
+    const careerId = careerTitle
+      ? ((CAREER_TITLE_TO_ID as Record<string, CareerId | undefined>)[careerTitle] ?? null)
+      : null;
+    setReportFocusId(careerId);
+    setHasReportInput(Boolean(careerTitle));
     scrollToScene(4);
   }
 
@@ -766,7 +771,7 @@ export function PathwayExperience() {
           currentQuestion={quizCurrentQuestion}
           currentQuestionIndex={quizCurrentQuestionIndex}
           questionNumber={quizQuestionNumber}
-          selectedOptionId={quizSelectedOptionId}
+          selectedOptionIds={quizSelectedOptionIds}
           progressPercent={quizProgressPercent}
           hasAnsweredCurrent={quizHasAnsweredCurrent}
           canGoBack={quizCanGoBack}
@@ -794,9 +799,8 @@ export function PathwayExperience() {
           onClearFilters={clearFilters}
         />
         <CompareScene
-          selectedCareerIds={compareSelection}
-          onToggleCareer={handleCompareToggle}
-          onOpenCareer={openCareer}
+          seedTitles={compareSeedTitles}
+          seedKey={compareSeedKey}
           onReport={openReportFromCompare}
         />
         <ReportScene
@@ -866,7 +870,9 @@ export function PathwayExperience() {
         onClose={() => setSelectedCareerId(null)}
         onGoToCompare={() => {
           if (selectedCareerId) {
-            handleCompareToggle(selectedCareerId);
+            const title = DATA2_TITLE_BY_CAREER_ID[selectedCareerId] ?? null;
+            setCompareSeedTitles([title, null]);
+            setCompareSeedKey((k) => k + 1);
           }
           setSelectedCareerId(null);
           scrollToScene(3);

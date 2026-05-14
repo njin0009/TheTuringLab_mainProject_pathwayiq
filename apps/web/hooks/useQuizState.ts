@@ -23,7 +23,8 @@ export function useQuizState() {
       ? "result"
       : "question";
   const currentQuestion = phase === "question" ? questions[questionIndex] : null;
-  const selectedOptionId = currentQuestion ? answers[currentQuestion.id] ?? null : null;
+  const selectedOptionIds = currentQuestion ? (answers[currentQuestion.id] ?? []) : [];
+  const hasAnsweredCurrent = selectedOptionIds.length > 0;
   const result = phase === "result" && mode ? buildQuizResult(mode, answers) : null;
   const questionNumber = currentQuestion ? questionIndex + 1 : 0;
   const progressPercent =
@@ -44,14 +45,29 @@ export function useQuizState() {
       return;
     }
 
-    setAnswers((current) => ({
-      ...current,
-      [currentQuestion.id]: optionId,
-    }));
+    if (mode === "quick") {
+      setAnswers((current) => {
+        const prev = current[currentQuestion.id] ?? [];
+        if (prev.includes(optionId)) {
+          // deselect
+          return { ...current, [currentQuestion.id]: prev.filter((id) => id !== optionId) };
+        }
+        if (prev.length >= 2) {
+          // replace oldest when 2 already selected
+          return { ...current, [currentQuestion.id]: [prev[1]!, optionId] };
+        }
+        return { ...current, [currentQuestion.id]: [...prev, optionId] };
+      });
+    } else {
+      setAnswers((current) => ({
+        ...current,
+        [currentQuestion.id]: [optionId],
+      }));
+    }
   }
 
   function nextQuestion() {
-    if (!currentQuestion || !selectedOptionId) {
+    if (!currentQuestion || !hasAnsweredCurrent) {
       return;
     }
 
@@ -90,9 +106,9 @@ export function useQuizState() {
     currentQuestion,
     currentQuestionIndex: questionIndex,
     questionNumber,
-    selectedOptionId,
+    selectedOptionIds,
     progressPercent,
-    hasAnsweredCurrent: Boolean(selectedOptionId),
+    hasAnsweredCurrent,
     canGoBack: questionIndex > 0,
     result,
     startMode,
