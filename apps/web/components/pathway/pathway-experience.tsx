@@ -46,7 +46,7 @@ const CAREER_TITLE_TO_ID: Record<string, CareerId> = {
 import { QUIZ_DIMENSIONS, type QuizResult } from "@/lib/quiz-data";
 import { REPORT_STYLE_BY_CAREER_ID } from "@/lib/report-style";
 import type { ReportCareerSnapshot } from "@/lib/report-career";
-import CompareScene from "@/scenes/compare";
+import CompareScene, { type EnrichedCareer } from "@/scenes/compare";
 import ExploreScene from "@/scenes/explore";
 import HomeScene from "@/scenes/home";
 import QuizScene from "@/scenes/quiz";
@@ -615,13 +615,28 @@ export function PathwayExperience() {
     scrollToScene(4);
   }
 
-  function openReportFromCompare(careerTitle: string | null) {
-    setDynamicReportCareer(null);
-    const careerId = careerTitle
-      ? ((CAREER_TITLE_TO_ID as Record<string, CareerId | undefined>)[careerTitle] ?? null)
-      : null;
-    setReportFocusId(careerId);
-    setHasReportInput(Boolean(careerTitle));
+  function openReportFromCompare(career: EnrichedCareer | null) {
+    if (!career) {
+      setDynamicReportCareer(null);
+      setReportFocusId(null);
+      setHasReportInput(false);
+      scrollToScene(4);
+      return;
+    }
+    const sourceCareerId =
+      (CAREER_TITLE_TO_ID as Record<string, CareerId | undefined>)[career.title] ?? undefined;
+    setDynamicReportCareer({
+      sourceCareerId,
+      title: career.title,
+      industry: career.industry,
+      anzscoCode: career.anzsco_code,
+      medianSalary: career.median_salary,
+      pathway: career.pathway,
+      shortageStatus: career.shortage_status,
+      styleId: career.styleId,
+    });
+    setReportFocusId(sourceCareerId ?? null);
+    setHasReportInput(true);
     scrollToScene(4);
   }
 

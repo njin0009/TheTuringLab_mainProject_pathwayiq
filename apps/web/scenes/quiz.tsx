@@ -529,18 +529,16 @@ export default function QuizScene({
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400 md:text-[15px]">
                   {currentQuestion.helper}
                 </p>
-                {mode === "quick" ? (
-                  <div className="mt-4 flex items-center gap-3">
-                    <div className={["rounded-full border px-3 py-1.5 text-xs font-medium", activeTheme.chip].join(" ")}>
-                      Pick 1 or 2 that feel right
-                    </div>
-                    {selectedOptionIds.length > 0 ? (
-                      <span className="text-xs text-slate-400">
-                        {selectedOptionIds.length} / 2 picked
-                      </span>
-                    ) : null}
+                <div className="mt-4 flex items-center gap-3">
+                  <div className={["rounded-full border px-3 py-1.5 text-xs font-medium", activeTheme.chip].join(" ")}>
+                    Pick 1 or 2 that feel right
                   </div>
-                ) : null}
+                  {selectedOptionIds.length > 0 ? (
+                    <span className="text-xs text-slate-400">
+                      {selectedOptionIds.length} / 2 picked
+                    </span>
+                  ) : null}
+                </div>
               </div>
 
               <div className="mt-6 flex flex-col gap-3">

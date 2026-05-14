@@ -21,6 +21,9 @@ build/
 .aws/
 .wrangler/
 
+# ── Claude Code (may contain API keys in settings.local.json) ──
+.claude/
+
 # ── IDE ──
 .vscode/
 .idea/

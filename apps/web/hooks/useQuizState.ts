@@ -45,25 +45,16 @@ export function useQuizState() {
       return;
     }
 
-    if (mode === "quick") {
-      setAnswers((current) => {
-        const prev = current[currentQuestion.id] ?? [];
-        if (prev.includes(optionId)) {
-          // deselect
-          return { ...current, [currentQuestion.id]: prev.filter((id) => id !== optionId) };
-        }
-        if (prev.length >= 2) {
-          // replace oldest when 2 already selected
-          return { ...current, [currentQuestion.id]: [prev[1]!, optionId] };
-        }
-        return { ...current, [currentQuestion.id]: [...prev, optionId] };
-      });
-    } else {
-      setAnswers((current) => ({
-        ...current,
-        [currentQuestion.id]: [optionId],
-      }));
-    }
+    setAnswers((current) => {
+      const prev = current[currentQuestion.id] ?? [];
+      if (prev.includes(optionId)) {
+        return { ...current, [currentQuestion.id]: prev.filter((id) => id !== optionId) };
+      }
+      if (prev.length >= 2) {
+        return { ...current, [currentQuestion.id]: [prev[1]!, optionId] };
+      }
+      return { ...current, [currentQuestion.id]: [...prev, optionId] };
+    });
   }
 
   function nextQuestion() {
