@@ -181,7 +181,7 @@ export const STYLE_FIGURES: Record<QuizDimensionId, StyleFigure[]> = {
       name: "Michelle Obama",
       field: "Advocate",
       lesson: "Guides public attention toward education, health, and confidence-building.",
-      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Michelle_Obama_2013_official_portrait.jpg/330px-Michelle_Obama_2013_official_portrait.jpg",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Michelle_Obama_2013_official_portrait.jpg/330px-Michelle_Obama_2013_official_portrait.jpg",
       wikiUrl: "https://en.wikipedia.org/wiki/Michelle_Obama",
     },
   ],
