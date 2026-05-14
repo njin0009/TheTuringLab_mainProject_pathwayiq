@@ -894,11 +894,13 @@ export default function CompareScene({
   }
 
   function handleSlotClick(slot: "A" | "B") {
+    setFocusedSlot(slot);
     setActiveSlot((current) => (current === slot ? null : slot));
   }
 
   const excludeTitle = activeSlot === "A" ? (slotB?.title ?? null) : (slotA?.title ?? null);
   const filledCount = [slotA, slotB].filter(Boolean).length;
+  const reportCareer = focusedSlot === "B" ? slotB : slotA;
 
   return (
     <section className="relative h-screen w-screen shrink-0 snap-start overflow-y-auto px-6 pb-36 pt-28">
@@ -976,14 +978,15 @@ export default function CompareScene({
                   className="rounded-[22px] border border-white/10 bg-white/[0.04] p-4"
                 >
                   <p className="text-xs leading-5 text-slate-400">
-                    Ready to dive deeper? Generate a full career report based on your selected role.
+                    Ready to dive deeper? Generate a full career report for Role {focusedSlot}:{" "}
+                    <span className="font-semibold text-slate-200">{reportCareer?.title}</span>.
                   </p>
                   <button
                     type="button"
-                    onClick={() => onReport(slotA.title)}
+                    onClick={() => onReport(reportCareer?.title ?? slotA.title)}
                     className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-[16px] bg-[#57b6ff] px-5 py-3 font-semibold text-[#02121f] transition hover:-translate-y-px hover:bg-[#7cc8ff]"
                   >
-                    Continue to Report
+                    Continue to Role {focusedSlot} Report
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </motion.div>

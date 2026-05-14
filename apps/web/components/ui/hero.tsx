@@ -97,6 +97,7 @@ export default function ShaderShowcase({
     targetCameraZ: 240,
   });
   const [isReady, setIsReady] = useState(false);
+  const [isWebGLFallback, setIsWebGLFallback] = useState(false);
 
   const footerLabel = useMemo(() => "HOME / 01", []);
 
@@ -110,6 +111,7 @@ export default function ShaderShowcase({
     const refs = threeRefs.current;
     let isDisposed = false;
     let readyFrame = 0;
+    setIsWebGLFallback(false);
 
     refs.scene = new THREE.Scene();
     refs.scene.fog = new THREE.FogExp2(0x02040a, 0.00023);
@@ -122,12 +124,26 @@ export default function ShaderShowcase({
     );
     refs.camera.position.set(0, 28, 240);
 
-    refs.renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
+    try {
+      refs.renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
+    } catch (error) {
+      console.warn("[pathwayiq] WebGL is unavailable, using the static hero fallback.", error);
+      refs.scene = null;
+      refs.camera = null;
+      setIsWebGLFallback(true);
+      setIsReady(true);
+
+      return () => {
+        isDisposed = true;
+        setIsReady(false);
+        setIsWebGLFallback(false);
+      };
+    }
     refs.renderer.setSize(window.innerWidth, window.innerHeight);
     refs.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
     refs.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -613,7 +629,20 @@ export default function ShaderShowcase({
       ref={containerRef}
       className={cn("relative min-h-screen overflow-hidden bg-[#02040a]", className)}
     >
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      <canvas
+        ref={canvasRef}
+        className={cn("absolute inset-0 h-full w-full", isWebGLFallback ? "hidden" : "")}
+      />
+      {isWebGLFallback ? (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden bg-[linear-gradient(180deg,#8fb0d8_0%,#b9d7ec_34%,#16294c_68%,#02040a_100%)]">
+          <div className="absolute left-[5%] top-[14%] h-40 w-32 rounded-full bg-cyan-300/80 blur-[1px]" />
+          <div className="absolute left-[36%] top-[-8%] h-56 w-44 rounded-full bg-emerald-400/75 blur-[1px]" />
+          <div className="absolute right-[18%] top-[18%] h-72 w-56 rounded-full bg-cyan-500/70 blur-md" />
+          <div className="absolute right-[8%] top-[-10%] h-72 w-52 rounded-full bg-red-400/70 blur-sm" />
+          <div className="absolute bottom-0 left-[-6%] h-[42%] w-[52%] skew-y-12 bg-[#071427]" />
+          <div className="absolute bottom-0 right-[-10%] h-[34%] w-[46%] -skew-y-12 bg-[#0b1d38]" />
+        </div>
+      ) : null}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_14%,rgba(255,243,186,0.12),transparent_18%),radial-gradient(circle_at_62%_28%,rgba(126,201,255,0.12),transparent_26%),linear-gradient(180deg,rgba(127,176,235,0.24),rgba(90,133,202,0.14)_34%,rgba(9,21,46,0.6)_72%,rgba(4,9,22,0.9))]" />
       {/* Fade-out overlay: matches the Three.js scene background exactly so there's no colour flash */}
       <div
