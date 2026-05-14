@@ -20,14 +20,14 @@ interface DataCareerRecord {
   shortage_status: string;
 }
 
-interface EnrichedCareer extends DataCareerRecord {
+export interface EnrichedCareer extends DataCareerRecord {
   styleId: QuizDimensionId;
 }
 
 export interface CompareSceneProps {
   seedTitles?: [string | null, string | null];
   seedKey?: number;
-  onReport: (careerTitle: string | null) => void;
+  onReport: (career: EnrichedCareer | null) => void;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -983,7 +983,7 @@ export default function CompareScene({
                   </p>
                   <button
                     type="button"
-                    onClick={() => onReport(reportCareer?.title ?? slotA.title)}
+                    onClick={() => onReport(reportCareer ?? null)}
                     className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-[16px] bg-[#57b6ff] px-5 py-3 font-semibold text-[#02121f] transition hover:-translate-y-px hover:bg-[#7cc8ff]"
                   >
                     Continue to Role {focusedSlot} Report
