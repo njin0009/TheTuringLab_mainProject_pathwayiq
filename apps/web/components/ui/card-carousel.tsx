@@ -119,6 +119,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
                           width={420}
                           height={525}
                           unoptimized
+                          loading="eager"
                           onError={(event) => {
                             event.currentTarget.src = fallbackPortrait(figure.name);
                           }}

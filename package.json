@@ -19,5 +19,12 @@
   "dependencies": {
     "eslint-config-next": "^16.2.6",
     "next": "^16.2.6"
+  },
+  "overrides": {
+    "axios": "^1.15.2",
+    "fast-uri": "latest",
+    "fast-xml-parser": "^5.7.0",
+    "fast-xml-builder": "latest",
+    "velocityjs": "latest"
   }
 }
