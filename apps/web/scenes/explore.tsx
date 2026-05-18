@@ -281,6 +281,52 @@ function inferExploreStyleId(career: ExploreCareerRecord): QuizDimensionId {
   return rankedStyles[0]?.styleId ?? "strategist";
 }
 
+const INDUSTRY_WHAT: Partial<Record<string, string>> = {
+  "Healthcare":                "Help patients recover and stay well",
+  "Community Services":        "Support people going through some of life's toughest moments",
+  "Technology":                "Build software, fix tech problems, and shape digital products",
+  "Engineering":               "Design and build the systems and structures the world depends on",
+  "Construction":              "Build the homes, roads, and buildings that surround us",
+  "Business":                  "Keep companies organised, profitable, and moving forward",
+  "Education":                 "Help others learn and grow — from classrooms to workplaces",
+  "Agriculture & Environment": "Work with land, animals, or the natural world",
+  "Creative Industries":       "Turn creative ideas into things people actually see and experience",
+  "Hospitality":               "Create great experiences for customers every shift",
+  "Science":                   "Research, test, and figure out how the world actually works",
+};
+
+function buildDescription(career: ExploreCareerRecord): string {
+  const inShortage = /shortage/i.test(career.shortage_status);
+  const isApprenticeship = career.pathway === "Apprenticeship";
+  const what = INDUSTRY_WHAT[career.industry] ?? `Work in ${career.industry.toLowerCase()}`;
+
+  if (isApprenticeship && inShortage) {
+    return `${what} — get paid from day one while you train, and employers are actively hiring.`;
+  }
+
+  if (isApprenticeship) {
+    return `${what} — no uni, no debt, just a paid apprenticeship and a trade for life.`;
+  }
+
+  if (inShortage && career.ai_risk === "Low") {
+    return `${what} — employers are desperate for people here and AI won't replace you.`;
+  }
+
+  if (inShortage) {
+    return `${what} — seriously in-demand right now across Australia.`;
+  }
+
+  if (career.ai_risk === "High") {
+    return `${what} — heads up though, AI is already reshaping how this role works.`;
+  }
+
+  if (career.ai_risk === "Low") {
+    return `${what} — steady demand and AI isn't going to replace this one any time soon.`;
+  }
+
+  return `${what} — get qualified via TAFE without needing a uni degree.`;
+}
+
 function getReportCareerId(career: ExploreCareerRecord, styleId: QuizDimensionId) {
   const localCareer = CAREER_CARDS.find((card) => card.title.toLowerCase() === career.title.toLowerCase());
   if (localCareer) {
@@ -696,7 +742,7 @@ export default function ExploreScene({
                 colorClass: getCardColorClass(aiLevel.label),
                 eyebrow: career.industry,
                 title: career.title,
-                description: `${career.shortage_status} · ANZSCO ${career.anzsco_code}`,
+                description: buildDescription(career),
                 highlightStatLabel: "Median salary",
                 highlightStatValue: formatSalary(career.median_salary),
                 progressLabel: "How much AI might change this role",
