@@ -6,12 +6,24 @@
 [![Team](https://img.shields.io/badge/team-TA28%20The%20Turing%20Lab-0A1628?style=flat-square)](.)
 [![Unit](https://img.shields.io/badge/FIT5120-Monash%20University%202026-blue?style=flat-square)](.)
 
----
 
+---
+## Project Links
+
+- 🌐 **Live Website**  
+  https://theturingteam.pathwayiq.me/
+
+- 📋 **LeanKit Board**  
+  https://monashie.leankit.com/board/2426755618
+
+- 📁 **E-Portfolio**  
+  https://eportfolio.monash.edu/view/view.php?id=203153
+
+- ☁️ **Google Drive**  
+  https://drive.google.com/drive/u/0/folders/1hbW4f0zs4Ya02kQzbh4JJrRE02Es-mnJ
+
+---
 ## What is PathwayIQ?
-[link]:https://theturingteam.pathwayiq.me/
-[![Unit](https://img.shields.io/badge/FIT5120-Monash%20University%202026-blue?style=flat-square)](.)
-[![Leankit]:https://monashie.leankit.com/board/2426755618](.)
 
 [E-portfolio]:https://eportfolio.monash.edu/view/view.php?id=203153
 
