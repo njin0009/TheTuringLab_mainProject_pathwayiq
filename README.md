@@ -9,7 +9,10 @@
 ---
 
 ## What is PathwayIQ?
-
+[link]:https://theturingteam.pathwayiq.me/
+[Leankit]:https://monashie.leankit.com/board/2426755618
+[E-portfolio]:
+[Google Drive]:https://drive.google.com/drive/u/0/folders/1hbW4f0zs4Ya02kQzbh4JJrRE02Es-mnJ
 PathwayIQ helps Year 10–12 students in Victoria explore careers, match their interests to real jobs, compare study pathways, and download a personalised career report — all powered by open Australian government data.
 
 No login. No user data stored. Free, forever.
